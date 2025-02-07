@@ -1,0 +1,265 @@
+{
+  "_id": {
+    "$oid": "65dc284910e484c73da1ea6c"
+  },
+  "heading": "Andaman Delights: 4 Nights, Coastal Wonders",
+  "subHeading": "Port Blair & Havelock Tour",
+  "mapSrc": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124900.0339248943!2d92.90706239441036!3d11.965773023239558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3088d3d85e0fe039%3A0x25c8aaaa513ef4bf!2sSwaraj%20Dweep!5e0!3m2!1sen!2sin!4v1708926718475!5m2!1sen!2sin",
+  "packageOptions": [
+    {
+      "package": "Standard",
+      "price": "₹13000",
+      "previousPrice": "₹17,000",
+      "hotelDestination": "Port Blair",
+      "hotelDetails": [
+        {
+          "destination": "Port Blair",
+          "hotels": [
+            "Sea Guli,",
+            "Hotel King Safire"
+          ]
+        },
+        {
+          "destination": "Havelock",
+          "hotels": [
+            "Radhakrishna Resort,",
+            "Orient Legend Beach Resort"
+          ]
+        }
+      ]
+    },
+    {
+      "package": "3 Star Deluxe",
+      "price": "₹15,200",
+      "previousPrice": "20,4000",
+      "hotelDetails": [
+          {
+              "destination": "Port Blair",
+              "hotels": [
+                "Bay Leaf Inn,",
+                "Hotel Blue Horizon,",
+                "Sea Port,",
+                "Baywalk"
+              ]
+            },
+            {
+              "destination": "Havelock",
+              "hotels": [
+                "White Coral Beach Resort,",
+                "Havelock Exotic Beach Resort,",
+                "TSG Blue"
+              ]
+            }
+      ],
+      "hotelDestination":  "Port Blair"
+      
+    },
+    {
+      "package": "4 Star Deluxe",
+      "price": "₹20,500",
+      "previousPrice": "₹23,500",
+      "hotelDetails": [
+          {
+              "destination": "Port Blair",
+              "hotels": [
+               "Mansha Regency"
+              ]
+            },
+            {
+              "destination": "Havelock",
+              "hotels": [
+                "Haywizz Havelock,",
+                "Symphany Palms,",
+                "Aquays Hotels & Resort"
+              ]
+            }
+      ],
+      "hotelDestination":  "Port Blair"
+    }
+  ],
+  
+  "carouselImageUrl": [
+    "/productKasauli1.jpg",
+    "/productKasauli2.jpg",
+    "/productKasauli3.jpg",
+    "/productKasauli4.jpg",
+    "/productKasauli2.jpg",
+    "/productKasauli1.jpg"
+  ],
+  "exclusions": [
+    "Airfare / Ship's fare",
+    "Travel insurance ",
+    "All kinds of personal expenses such as tips, laundry, telephone bills and beverages",
+    "It does not include any meals unless and otherwise specifically mentioned.    ",
+    "Guide, Jolly ride & snorkelling charges.    ",
+    "Optional, suggested or unspecified activities",
+    "Guide at Cellular jail will cost extra.    ",
+    "Camera fee (still or movie)",
+    "Additional usage of vehicles.    ",
+    "Any dispute regarding the child age to be settled directly with the hotels.  "
+  ],
+  "inclusions": [
+    "Accommodation on double/triple sharing basis at above-mentioned hotels / similar in base category rooms.",
+    "Daily breakfast & Dinner ",
+    "Airport pick up and drop by a/c vehicle.    ",
+    "Makruzz / Green Ocean Cruise / Sea Link / Nautika / ITT Majestic (base category) for Neil & Havelock as per the availability.",
+    "All Toll, Parking, Driver Bata & Fuel Cost",
+    "Assistance at all arrival and departure points. ",
+    "Entry permits | Entry tickets | Parking charges | Boat/ferry tickets wherever applicable "
+  ],
+  "itinerary": [
+    {
+      "day": "Day 1",
+      "day1Heading": "Arrival – Port Blair ",
+      "day1Overview": "Arrival to port Blair airport, hotel drop by a/c vehicle then check in hotel & freashnup. After  lunch, visit to local sightseeing visit cellular jail see light and sound show. After completion drop to the hotel. Dinner and overnight stay at port Blair. "
+    },
+    {
+      "day": "Day 2",
+      "day2Heading": "Port Blair - Swaraj Dweep (Havelock)",
+      "day2Overview": "Have a relaxed breakfast. then check out the hotel and transfer from Port Blair to swaraj   dweep (havelock). Arrival in Swaraj Dweep check-in hotel, after lunch going to Radhanagar  beach, Kalapather beach. After completion, hotel drop by a/c vehicle. Dinner and over night  stay at swaraj Dweep (Havelock)."
+    },
+    {
+      "day": "Day 3",
+      "day3Heading": "Swaraj Dweep (Havelock) – Port Blair ",
+      "day3Overview": "In the morning, check out from hotel and this entire day is free for optional activities.  Optional activities may include Elephant Beach Trip by boat, Trekking to Elephant Beach,  Kayaking, Scuba Diving and Rejuvenating Massage. The charges for the above-mentioned activities are not included this package in the afternoon we will start our return journey to  Port Blair enjoying the sea breeze."
+    },
+    {
+      "day": "Day 4",
+      "day4Heading": "Port Blair – ross island (Shopping) ",
+      "day4Overview": "Second day. have a Breakfast check out hotel Transfer from port Blair to ross island & north  bay . Arrival ross island have lunch . visit to north bay , check in hotel . dinner overnight stay  at port Blair."
+    },
+    {
+      "day": "Day 5",
+      "day5Heading": " Port Blair-Airport Departure      ",
+      "day5Overview": "Have a breakfast, morning check out hotel & Transfer to Port Blair Airport.      "
+    }
+  ],
+  "overView": [
+    {
+      "heading": "Andaman Delight: Discovering Havelock and Port Blair",
+      "text": "Embark on a captivating journey through the enchanting islands of Andaman, where Havelock and Port Blair showcase the region's pristine beaches, vibrant marine life, and rich cultural heritage."
+    },
+    {
+      "heading": "Beachfront Bliss in Havelock",
+      "text": "Immerse yourself in the turquoise waters and white sandy beaches of Havelock. Experience the serene beauty of Radhanagar Beach, indulge in water activities, and unwind in this tropical paradise surrounded by the Andaman Sea."
+    },
+    {
+      "heading": "Historical Charm of Port Blair",
+      "text": "Explore the historical landmarks of Port Blair, the capital city of Andaman. Visit the Cellular Jail, witness the Sound and Light Show narrating the region's history, and stroll through the vibrant markets offering local crafts and delicacies."
+    },
+    {
+      "heading": "Island Adventure: Beyond the Waves",
+      "text": "Delve into the underwater wonders surrounding Havelock and Port Blair. Snorkel or dive to discover vibrant coral reefs and diverse marine life. These islands offer a paradise for water enthusiasts, promising unforgettable aquatic experiences."
+    },
+    {
+      "heading": "Cultural Encounters",
+      "text": "Engage in the cultural tapestry of Andaman. Discover the traditions of the indigenous tribes, explore local markets, and savor the unique Andamanese cuisine. The islands blend natural beauty with a rich cultural heritage."
+    },
+    {
+      "heading": "Preserving Marine Heritage",
+      "text": "Andaman is committed to preserving its marine ecosystems. From responsible tourism practices to coral conservation initiatives, the islands strive to protect their underwater treasures for future generations to marvel at."
+    },
+    {
+      "heading": "Plan Your Andaman Escape",
+      "text": "Whether seeking beachfront bliss, historical insights, or underwater adventures, Andaman promises an unforgettable journey. Plan your escape to this tropical haven, where every wave tells a story, and every moment is a celebration of Andaman's allure."
+    }
+  ],
+  "duration": "4 Night / 5 Days",
+  "imageUrl": "https://images.unsplash.com/photo-1628438447005-834b85b95cb6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGhhdmVsb2NrfGVufDB8fDB8fHww"
+}
+
+
+  "packageOptions": [
+    {
+      "package": "Standard",
+      "price": "₹13000",
+      "previousPrice": "₹17,000",
+      "hotelDestination": "Port Blair",
+      "hotelDetails": [
+        {
+          "destination": "Port Blair",
+          "hotels": [
+            "Sea Guli,",
+            "Hotel King Safire"
+          ]
+        },
+        {
+          "destination": "Havelock",
+          "hotels": [
+            "Radhakrishna Resort,",
+            "Orient Legend Beach Resort"
+          ]
+        },
+        {
+          "destination": "Neil Island",
+          "hotels": [
+            "Coral Garden Resort,",
+            "Laxmi Continenal Resort"
+          ]
+        }
+      ]
+    },
+    {
+      "package": "3 Star Deluxe",
+      "price": "₹15,200",
+      "previousPrice": "20,4000",
+      "hotelDetails": [
+          {
+              "destination": "Port Blair",
+              "hotels": [
+                "Bay Leaf Inn,",
+                "Hotel Blue Horizon,",
+                "Sea Port,",
+                "Baywalk"
+              ]
+            },
+            {
+              "destination": "Havelock",
+              "hotels": [
+                "White Coral Beach Resort,",
+                "Havelock Exotic Beach Resort,",
+                "TSG Blue"
+              ]
+            },
+            {
+              "destination": "Neil Island",
+              "hotels": [
+                "Tango Beach Resort,",
+                "CS Empire"
+              ]
+            }
+      ],
+      "hotelDestination":  "Port Blair"
+      
+    },
+    {
+      "package": "4 Star Deluxe",
+      "price": "₹20,500",
+      "previousPrice": "₹23,500",
+      "hotelDetails": [
+          {
+              "destination": "Port Blair",
+              "hotels": [
+               "Mansha Regency"
+              ]
+            },
+            {
+              "destination": "Havelock",
+              "hotels": [
+                "Haywizz Havelock,",
+                "Symphany Palms,",
+                "Aquays Hotels & Resort"
+              ]
+            },
+            {
+              "destination": "Neil Island",
+              "hotels": [
+                "Aquays Hotels & Resort,",
+                "Pearl Park Beach Resort,",
+                "Symphany Summer Sand"
+              ]
+            }
+      ],
+      "hotelDestination":  "Port Blair"
+    }
+  ],

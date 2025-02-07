@@ -1,0 +1,96 @@
+/* for LatestUpatesSection component */
+
+.grid-layout-latestUpdate {
+  grid-template-areas:
+    "I1 I1 I2 I2"
+    "I1 I1 I3 I4";
+}
+@media (max-width: 1024px) {
+  .grid-layout-latestUpdate {
+    grid-template-areas:
+      "I1 I1 I2 I2"
+      "I3 I3 I4 I4";
+  }
+}
+@media (max-width: 786px) {
+  .grid-layout-latestUpdate {
+    grid-template-areas:
+      "I1 I1 I1 I1"
+      "I2 I2 I2 I2"
+      "I3 I3 I3 I3"
+      "I4 I4 I4 I4";
+  }
+}
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: white !important;
+  padding: 16px !important;
+  border-radius: 100% !important;
+  color: #00bb98 !important;
+  font-size: 10px !important;
+  width: 60px !important;
+  height: 60px !important;
+  top: 40% !important;
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 20px !important;
+}
+.blog-page-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-image {
+  width: 100%;
+}
+
+.card-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.card-metadata {
+  display: flex;
+  font-size: 0.8rem;
+  
+  align-items: center;
+}
+
+.metadata-item {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+
+
+.detail-text {
+  max-height: 70px; /* Adjust the initial height */
+  overflow: hidden;
+  transition: max-height 0.5s ease; /* Smooth transition for height change */
+}
+
+.detail-text.expanded {
+  max-height: 1000px; /* Expand to a large height when expanded */
+}
+
+.toggle-button {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: white;
+  background-color: #ef4444;
+  border: none;
+  cursor: pointer;
+}
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}

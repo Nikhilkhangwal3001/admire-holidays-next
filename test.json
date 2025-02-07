@@ -1,0 +1,243 @@
+{
+  "_id": {
+    "$oid": "6638cc2e61412ecff1b37981"
+  },
+  "heading": "Harmony: Srinagar, Houseboat, Gulmarg, Pahalgam, Katra.",
+  "subHeading": "Srinagar, Jammu & Kashmir Tour",
+  "mapSrc": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105713.535298228!2d74.80675514999999!3d34.1067185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38e1855686e3c5ef%3A0x66244b7cc1e305c6!2sSrinagar!5e0!3m2!1sen!2sin!4v1707369466024!5m2!1sen!2sin",
+  "itinerary": [
+    {
+      "day": "Day 1",
+      "day1Heading": "Arrival Srinagar/ Airport",
+      "day1Overview": "Welcome to Srinagar, the city of Lakes. You will meet our representative and get transferred to the hotel. Then local sightseeing of Srinagar, visiting Nishat, Shalimar, Chesham Shahi. Overnight stay in a hotel in Srinagar."
+    },
+    {
+      "day": "Day 2",
+      "day2Heading": "Srinagar/ Sonmarg",
+      "day2Overview": "After breakfast, drive to Sonmarg, the Valley of mountains. The distance is 90kms, and it's a 3-hour drive. Sonmarg lies at the head of Sindh valley. Today you can visit the zero point and Thajwas glacier (by your own expenses). Overnight stay in a hotel in Srinagar."
+    },
+    {
+      "day": "Day 3",
+      "day3Heading": "Srinagar to Doadhpathri",
+      "day3Overview": "After breakfast, take a day trip to Doadhpathri, the 'valley of milk' located in the Budgam district. It lies in a bowl-shaped valley in the Pir Panjal Range. It's an alpine valley covered with snow-clad mountains. You can explore Doadhpathri through a pony (by your own expenses) or by walk. After some quiet and peaceful time at Doodhpathri, return to Srinagar for an overnight stay."
+    },
+    {
+      "day": "Day 4",
+      "day4Heading": "Srinagar Sightseeing",
+      "day4Overview": "Today after breakfast, enjoy Srinagar sightseeing. Nishat Garden, located on the bank of Dal Lake, offers magnificent views. Shalimar Garden, the celebrated royal garden of Kashmir, and Cheshma Shahi, one of the Mughal gardens built around a spring by Ali Mardan. Night stay at the hotel."
+    },
+    {
+      "day": "Day 5",
+      "day5Heading": "Srinagar - Gulmarg",
+      "day5Overview": "After breakfast, proceed towards Gulmarg. Enroute, enjoy the beautiful Tangmarg town and drive ahead on a scenic 14 kilometers drive to Gulmarg. Arrive in Gulmarg, check-in at the hotel, and later, board the Gondola cable car system. Descend back to Gulmarg after an hour and indulge in some horse-riding. Overnight stay at the hotel."
+    },
+    {
+      "day": "Day 6",
+      "day6Overview": "After breakfast, drive to Pahalgam via Pampore, Avantipura, and the village of Bijbehara. Switch from the national highway 1A at Khanabal and drive through the second-largest city of Anantnag. In Pahalgam, check-in at the hotel and spend the rest of the day at leisure. Overnight stay at the hotel.",
+      "day6Heading": "Gulmarg – Pahalgam"
+    },
+    {
+      "day": "Day 7",
+      "day7Heading": "Pahalgam Exploration",
+      "day7Overview": "In the morning, after having breakfast, visit the scenic and rocky valleys of Chandanwadi and the astounding Snow Point, located around 14km from Pahalgam. Enjoy a pony ride and explore the dense pine forest alongside the Lidder River. Spend the rest of the day at leisure. Dinner and overnight stay at the hotel."
+    },
+    {
+      "day": "Day 8",
+      "day8Heading": "Pahalgam- Katra",
+      "day8Overview": "After breakfast, head towards Katra, a 240km journey taking approximately 6 hours. Night stay at Katra hotel."
+    },
+    {
+      "day": "Day 9",
+      "day9Heading": "Katra - Vaishno Devi darshans",
+      "day9Overview": "Early morning after breakfast, proceed for Mata Vaishno Devi Bhawan, one of the most popular pilgrimages in India. The yatra involves a trek of nearly 12 Kms from the base camp at Katra known as Ban Ganga. If time permits, visit Bhairo Temple and return back to Katra in the evening. Overnight stay at Katra."
+    },
+    {
+      "day": "Day 10",
+      "day10Heading": "Katra - Jammu – Departure",
+      "day10Overview": "After breakfast, check out from the hotel and proceed to Katra/Jammu to drop at Airport/Railway Station for your onward journey with sweet memories of the tour."
+    }
+  ],
+  "packageOptions": [
+    {
+      "package": "Deluxe",
+      "price": "₹14,999",
+      "previousPrice": "₹17,999",
+      "hotelDestination": "Srinagar",
+      "hotelDetails": [
+        {
+          "destination": "Srinagar",
+          "hotels": [
+            "K2 inn /",
+            "Hotel Curios /",
+            "Royal Milad"
+          ]
+        },
+        {
+          "destination": "Pahalgam",
+          "hotels": [
+            "Freedom Palace /",
+            "Shabnam Resort /",
+            "Santoor Hotel /"
+          ]
+        },
+        {
+          "destination": "Gulmarg",
+          "hotels": [
+            "Poshwan hotel /",
+            "Florence Hotel /"
+          ]
+        }
+      ]
+    },
+    {
+      "package": "Semi Duluxe",
+      "price": "₹17,499",
+      "previousPrice": "₹20,499",
+      "hotelDestination": "Srinagar",
+      "hotelDetails": [
+        {
+          "destination": "Srinagar",
+          "hotels": [
+            "Royal Heritage /",
+            "Royal Arabia /",
+            "Hotel Shefaf"
+          ]
+        },
+        {
+          "destination": "Pahalgam",
+          "hotels": [
+            "AS Resort /",
+            "Raj Palace /",
+            "Blue Whale /"
+          ]
+        },
+        {
+          "destination": "Gulmarg",
+          "hotels": [
+            "Gulmarg House /",
+            "Signature /"
+          ]
+        }
+      ]
+    },
+    {
+      "package": "Super Duluxe",
+      "price": "₹23,499",
+      "previousPrice": "₹26,499",
+      "hotelDestination": "Srinagar",
+      "hotelDetails": [
+        {
+          "destination": "Srinagar",
+          "hotels": [
+            "Grand Kaisar /",
+            "Pacific /",
+            "Batra Hotel"
+          ]
+        },
+        {
+          "destination": "Pahalgam",
+          "hotels": [
+            "Baisaran /",
+            "The Villagio /",
+            "Abshar"
+          ]
+        },
+        {
+          "destination": "Gulmarg",
+          "hotels": [
+            "Khaleel Palace /",
+            "Alipne /",
+            "Zahgeer"
+          ]
+        }
+      ]
+    },
+    {
+      "package": "Premium",
+      "price": "₹28,749",
+      "previousPrice": "₹30,749",
+      "hotelDestination": "Srinagar",
+      "hotelDetails": [
+        {
+          "destination": "Srinagar",
+          "hotels": [
+            "Apple Orchard /",
+            "The Montreal /"
+          ]
+        },
+        {
+          "destination": "Pahalgam",
+          "hotels": [
+            "Fifth Season /",
+            "The Hermitage /"
+          ]
+        },
+        {
+          "destination": "Gulmarg",
+          "hotels": [
+            "Shaw inn /",
+            "Hill Top /"
+          ]
+        }
+      ]
+    }
+  ],
+  "carouselImageUrl": [
+    "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8a2FzaG1pcnxlbnwwfDB8MHx8fDA%3D",
+    "https://images.unsplash.com/photo-1614591276564-7b3e69347a48?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGthc2htaXJ8ZW58MHwwfDB8fHww",
+    "https://images.unsplash.com/photo-1561287437-c69a30664793?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGthc2htaXJ8ZW58MHwwfDB8fHww",
+    "https://images.unsplash.com/photo-1564327287902-0ccf559d839e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGthc2htaXJ8ZW58MHwwfDB8fHww"
+  ],
+  "exclusions": [
+    "Any meals other than those specified in Inclusions",
+    "Chained vehicle from Tangmarg to Gulmarg",
+    "Expenses of personal nature such as tips",
+    "Any additional expenses incurred due to any train delay or cancellation",
+    "Guide & Entrance fees during sightseeing",
+    "Transfer from Banganga to Vaishno Devi Temple",
+    "Visit to Ganderbal and Thajiwas Glacier",
+    "Visit to Aru, Chandanwari, Baisaran, and Betab valleys",
+    "Expenses of watersports",
+    "Cable Car / Pony Ride in Gulmarg, Pahalgam, & Sonamarg\n"
+  ],
+  "inclusions": [
+    "Breakfast & Dinner",
+    "All accommodation as per Double Sharing ",
+    "Shikara Ride over Dal Lake",
+    "Pick up and drop from As per Itinerary",
+    "Toll Taxes & Service charges",
+    "All Transportation on private basis"
+  ],
+  "overView": [
+    {
+      "heading": "Exploring the Enchantment of Kashmir: A Land of Beauty and Diversity",
+      "text": "Nestled in the northernmost region of India, Kashmir is a breathtaking paradise renowned for its stunning landscapes, rich cultural heritage, and serene tranquility. Often referred to as Heaven on Earth,this picturesque valley attracts travelers from all corners of the globe, seeking solace in its majestic mountains, lush green valleys, and serene lakes."
+    },
+    {
+      "heading": "Natural Splendor",
+      "text": "Kashmir's natural beauty is unparalleled. The valley is embraced by the towering peaks of the Himalayas and Pir Panjal ranges, creating a spellbinding panorama of snow-capped mountains, verdant meadows, and crystal-clear streams. The Dal Lake, with its floating gardens and colorful Shikara boats, is a symbol of the region's ethereal charm. Visitors can also explore the enchanting Mughal Gardens, adorned with vibrant flowers and intricate water channels, offering a glimpse into the region's royal past."
+    },
+    {
+      "heading": "Cultural Richness",
+      "text": "Kashmir boasts a rich cultural tapestry woven from centuries of history and tradition. The valley has been a melting pot of diverse influences, including Hindu, Muslim, and Buddhist heritage. Visitors can immerse themselves in the vibrant bazaars of Srinagar, where artisans craft exquisite Pashmina shawls, intricate carpets, and ornate woodwork. The region's culinary delights, such as Wazwan—a traditional feast of aromatic Kashmiri cuisine—offer a tantalizing glimpse into its culinary heritage."
+    },
+    {
+      "heading": "Spiritual Sanctuaries",
+      "text": "Kashmir is home to a multitude of sacred sites and spiritual retreats, each imbued with a sense of serenity and devotion. The ancient Shankaracharya Temple, perched atop a hill overlooking Srinagar, offers panoramic views of the valley below and serves as a revered pilgrimage destination for Hindus. The revered Hazratbal Shrine, housing a relic believed to be a strand of Prophet Muhammad's hair, is a symbol of religious harmony and attracts devotees of all faiths."
+    },
+    {
+      "heading": "Adventure and Recreation",
+      "text": "For adventure enthusiasts, Kashmir offers a plethora of adrenaline-pumping activities amidst its breathtaking landscapes. From trekking in the picturesque Lidder Valley to skiing in the world-renowned slopes of Gulmarg, there's no shortage of outdoor adventures to embark upon. White-water rafting in the gushing rapids of the Lidder River and paragliding over the Sonamarg valley are also popular choices for those seeking an adrenaline rush."
+    },
+    {
+      "heading": "Preserving Paradise",
+      "text": "Despite its unparalleled beauty, Kashmir has faced its share of challenges, including political unrest and environmental degradation. However, concerted efforts are underway to preserve and protect this pristine paradise for future generations. Sustainable tourism initiatives, coupled with community-driven conservation efforts, aim to safeguard the region's natural and cultural heritage while empowering local communities."
+    },
+    {
+      "heading": "Plan Your Visit",
+      "text": "Whether you seek adventure in the great outdoors, tranquility amidst serene landscapes, or immersion in vibrant culture and tradition, Kashmir offers an unforgettable experience like no other. Plan your journey to this enchanting valley and discover the timeless allure of Kashmir—a land where beauty knows no bounds and every moment is a cherished memory"
+    }
+  ],
+  "duration": "9 Night / 10 Days",
+  "imageUrl": "https://images.unsplash.com/photo-1580100586938-02822d99c4a8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fHNyaW5hZ2FyfGVufDB8fDB8fHww"
+}
