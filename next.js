@@ -1,0 +1,1 @@
+console.log("next js project starting");
