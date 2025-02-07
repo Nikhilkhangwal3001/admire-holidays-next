@@ -11,7 +11,7 @@ const QuestioningCardsLayout = () => {
   useEffect(() => {
     console.log("AOS initialization");
     AOS.init({
-      duration: 1000,
+      duration: 5000,
       once: false,
     });
   }, []);
