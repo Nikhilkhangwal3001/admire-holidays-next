@@ -6,15 +6,18 @@ import { FaRegStar } from "react-icons/fa";
 import BookingForm from "./BookingForm";
 import EnquiryForm from "./EnquiryForm";
 import { TiTick } from "react-icons/ti";
+
 const ProductRightPricing = ({
   homePickupAdultPrice,
   homePickupBabyPrice,
   homePickupChildPrice,
   openModalFunc,
   visaPolicy,
+  overview
 }) => {
   const [isBookingFormOpen, setIsBookingFormOpen] = useState(true);
   const [isEnquiryFormOpen, setIsEnquiryFormOpen] = useState(false);
+
   const openBookingForm = () => {
     setIsBookingFormOpen(true);
     setIsEnquiryFormOpen(false);
@@ -56,9 +59,41 @@ const ProductRightPricing = ({
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
   };
-
+ 
+  const expandAll = () => {
+      setAllOpen(!allOpen);
+      setDayOneOpen(!allOpen);
+      setDayTwoOpen(!allOpen);
+      setDayThreeOpen(!allOpen);
+      setDayFourOpen(!allOpen);
+      setDayFiveOpen(!allOpen);
+      setDaySixOpen(!allOpen);
+      setDaySevenOpen(!allOpen);
+      setDayEightOpen(!allOpen);
+      setDayNineOpen(!allOpen);
+      setDayTenOpen(!allOpen);
+      setDayElevenOpen(!allOpen);
+    };
+  
+    const [activeLink, setActiveLink] = useState("#itinerary");
+  
+    const handleLinkClick = (link) => {
+      setActiveLink(link);
+      const targetElement = document.getElementById(link.substring(1));
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    };
+    useEffect(() => {
+      console.log(overview);
+    }, []);
+    
+  
   return (
-    <div className="flex lg:min-w-[35%] w-full flex-col gap-10">
+    <div className="flex lg:min-w-[100%] w-full flex-col gap-10">
       <div className="p-10  flex flex-col gap-4 h-fit rounded-lg  my-5 bg-white">
         <div className="flex justify-center gap-1 items-center relative">
           <div className="bg-[#FD4A4C] h-[1px] z-10 w-[50%]"></div>

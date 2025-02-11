@@ -12,7 +12,7 @@ import { BsFillEmojiSunglassesFill } from "react-icons/bs";
 import { ImCross } from "react-icons/im";
 import PackageOptions from "./PackageOptions";
 import reviewData from "@/data/reviewData";
-
+import { motion } from "framer-motion";
 const ProductDetailLeft = ({
   overview,
   itinerary,
@@ -105,95 +105,161 @@ const ProductDetailLeft = ({
   }, []);
 
   return (
-    <div className="flex my-10 lg:w-[65%] rounded-lg w-full flex-col gap-6">
-      <h5 className="md:text-3xl text-xl font-bold">Overview</h5>
-      {/* <p className="text-base text-gray-700">{overview}</p> */}
-      {overView && (
-        <div className="flex flex-col gap-10 relative py-10">
-          <div className="flex gap-4 flex-col">
-            <p className="text-lg font-medium text-gray-700">
-              {overView[0].heading}
-            </p>
-            <p className="text-sm font-light text-gray-700">
-              {overView[0].text}
-            </p>
-          </div>
-          <div className="flex gap-4 flex-col relative">
-            <p className="text-lg font-medium text-gray-700">
-              {" "}
-              {overView[1].heading}
-            </p>
-            <p
-              className={`text-sm font-light text-gray-700  ${
-                openOverview === false ? "pb-10" : ""
-              }`}
-            >
-              {overView[1].text}
-            </p>
-            {openOverview === false && (
-              <p
-                className="text-[#FD4A4C] cursor-pointer absolute  bottom-0 right-0 text-sm font-medium"
-                onClick={handleOverview}
+    <div className="flex my-10 lg:w-[100%] rounded-lg w-full flex-col gap-6">
+      <div className="py-16 px-4 ">
+        <motion.h5
+          className="text-center text-3xl md:text-4xl font-bold text-[#C72025] mb-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          Overview
+        </motion.h5>
+
+        {overView && (
+          <div className="flex flex-col gap-12 max-w-7xl mx-auto">
+            {/* Overview Section 1 */}
+            <div className="flex gap-4 flex-col">
+              <motion.p
+                className="text-lg font-medium text-gray-800"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1 }}
               >
-                Read More
-              </p>
+                {overView[0].heading}
+              </motion.p>
+              <motion.p
+                className="text-sm font-light text-gray-600"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.2 }}
+              >
+                {overView[0].text}
+              </motion.p>
+            </div>
+
+            {/* Overview Section 2 */}
+            <div className="flex gap-4 flex-col relative">
+              <motion.p
+                className="text-lg font-medium text-gray-800"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.4 }}
+              >
+                {overView[1].heading}
+              </motion.p>
+              <motion.p
+                className={`text-sm font-light text-gray-600 ${
+                  openOverview === false ? "pb-10" : ""
+                }`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.4 }}
+              >
+                {overView[1].text}
+              </motion.p>
+
+              {/* "Read More" Button */}
+              {openOverview === false && (
+                <motion.p
+                  className="text-[#FD4A4C] cursor-pointer absolute bottom-0 right-0 text-sm font-medium hover:text-[#E59934]"
+                  onClick={handleOverview}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 1 }}
+                >
+                  Read More
+                </motion.p>
+              )}
+            </div>
+
+            {/* Show Full Overview */}
+            {openOverview === true && (
+              <>
+                <motion.div
+                  className="flex gap-4 flex-col"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 1.2 }}
+                >
+                  <p className="text-lg font-medium text-gray-800">
+                    {overView[2].heading}
+                  </p>
+                  <p className="text-sm font-light text-gray-600">
+                    {overView[2].text}
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  className="flex gap-4 flex-col"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 1.4 }}
+                >
+                  <p className="text-lg font-medium text-gray-800">
+                    {overView[3].heading}
+                  </p>
+                  <p className="text-sm font-light text-gray-600">
+                    {overView[3].text}
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  className="flex gap-4 flex-col"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 1.6 }}
+                >
+                  <p className="text-lg font-medium text-gray-800">
+                    {overView[4].heading}
+                  </p>
+                  <p className="text-sm font-light text-gray-600">
+                    {overView[4].text}
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  className="flex gap-4 flex-col"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 1.8 }}
+                >
+                  <p className="text-lg font-medium text-gray-800">
+                    {overView[5].heading}
+                  </p>
+                  <p className="text-sm font-light text-gray-600">
+                    {overView[5].text}
+                  </p>
+                </motion.div>
+
+                {/* Last Section with "Read Less" */}
+                <motion.div
+                  className="flex gap-4 relative pb-10 flex-col"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 2 }}
+                >
+                  <p className="text-lg font-medium text-gray-800">
+                    {overView[6].heading}
+                  </p>
+                  <p className="text-sm font-light text-gray-600">
+                    {overView[6].text}
+                  </p>
+
+                  {openOverview === true && (
+                    <p
+                      className="text-[#FD4A4C] cursor-pointer absolute bottom-0 right-0 text-sm font-medium hover:text-[#E59934]"
+                      onClick={handleOverview}
+                    >
+                      Read Less
+                    </p>
+                  )}
+                </motion.div>
+              </>
             )}
           </div>
-          {openOverview === true && (
-            <>
-              <div className="flex gap-4 flex-col">
-                <p className="text-lg font-medium text-gray-700">
-                  {overView[2].heading}
-                </p>
-                <p className="text-sm font-light text-gray-700">
-                  {overView[2].text}
-                </p>
-              </div>
-              <div className="flex gap-4 flex-col">
-                <p className="text-lg font-medium text-gray-700">
-                  {overView[3].heading}
-                </p>
-                <p className="text-sm font-light text-gray-700">
-                  {overView[3].text}
-                </p>
-              </div>
-
-              <div className="flex gap-4 flex-col">
-                <p className="text-lg font-medium text-gray-700">
-                  {overView[4].heading}
-                </p>
-                <p className="text-sm font-light text-gray-700">
-                  {overView[4].text}
-                </p>
-              </div>
-              <div className="flex gap-4 flex-col">
-                <p className="text-lg font-medium text-gray-700">
-                  {overView[5].heading}
-                </p>
-                <p className="text-sm font-light text-gray-700">
-                  {overView[5].text}
-                </p>
-              </div>
-              <div className="flex gap-4 relative pb-10 flex-col">
-                <p className="text-lg font-medium text-gray-700">
-                  {overView[6].heading}
-                </p>
-                <p className="text-sm font-light text-gray-700">
-                  {overView[6].text}
-                </p>
-                {openOverview === true && (
-                  <p
-                    className="text-[#FD4A4C] cursor-pointer absolute  bottom-0 right-0 text-sm font-medium"
-                    onClick={handleOverview}
-                  >
-                    Read Less
-                  </p>
-                )}
-              </div>
-            </>
-          )}
-        </div>
-      )}
+        )}
+      </div>
       {overview && <p>{overview}</p>}
 
       <div className="grid sm:gap-5 gap-10  my-10 sm:grid-cols-5 grid-cols-2 items-center justify-center">
@@ -218,7 +284,6 @@ const ProductDetailLeft = ({
           Sightseeing
         </div>
       </div>
-
       <div className="flex flex-col gap-10 bg-white rounded-lg px-4 py-4">
         <div className="grid sm:grid-cols-6 grid-cols-2 sm:gap-0 gap-3  py-2 w-full   text-xs text-gray-700 sm:text-sm  items-center justify-center">
           <div

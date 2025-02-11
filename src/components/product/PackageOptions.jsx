@@ -43,17 +43,7 @@ const PackageOptions = ({ packageOptions }) => {
                   {openPackage === index ? "Hide Details" : "Show Details"}
                 </p>
               </div>
-              {/* <div className="flex items-center flex-col">
-                <p
-                  className="text-[#00BB98] sm:text-2xl text-xl font-bold"
-                  id="packageOption"
-                >
-                  {item.price}
-                </p>
-                <p className="text-gray-500 line-through">
-                  {item.previousPrice}
-                </p>
-              </div> */}
+              
               <div>
                 <button
                   className="sm:px-4 px-1 py-3 cursor-pointer sm:text-base text-xs border-[#FD4A4C] border-[1px] text-[#FD4A4C] rounded-lg"

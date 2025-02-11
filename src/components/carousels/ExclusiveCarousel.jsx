@@ -7,6 +7,7 @@ import exclusivePackage from "@/data/exclusivePackage";
 import Link from "next/link";
 import { MdOutlineDiscount } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
+import Trending from '@/components/Trending/Trending'
 const ExclusiveCarousel = () => {
   const sliderContainer = useRef(null);
   const keenSlider = useRef(null);
@@ -190,6 +191,7 @@ const ExclusiveCarousel = () => {
           </div>
         </div>
       </section>
+      <Trending/>
     </>
   );
 };

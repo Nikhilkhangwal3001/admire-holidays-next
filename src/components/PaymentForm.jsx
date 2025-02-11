@@ -79,7 +79,7 @@ const PaymentForm = () => {
                 <img
                   src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
                   className="h-8 ml-3"
-                  alt="Type 1"
+                  alt="Type-1"
                 />
               </label>
             </div>
