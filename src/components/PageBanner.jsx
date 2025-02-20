@@ -2,7 +2,7 @@ import React from "react";
 
 const PageBanner = ({ heading, text }) => {
   return (
-    <section className="h-[611px] relative">
+    <section className="h-[411px] relative">
       {/* Background Video */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover"

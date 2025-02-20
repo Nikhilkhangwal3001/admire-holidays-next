@@ -4,20 +4,20 @@ import HeroSection from "@/components/homePageComponents/HeroSection";
 import Query from "@/components/homePageComponents/QueryButton";
 import Navbar from "@/components/Navbar";
 import InViewComponent from "@/components/LazyLoading/InViewComponent";
-
+import DomesticDestinationCarousel from "@/components/carousels/DomesticDestinationCarousel";
 // Lazy Loaded Components
-const QuestioningCardsLayout = lazy(() =>
-  import("@/components/homePageComponents/QuestioningCardsLayout")
-);
+// const QuestioningCardsLayout = lazy(() =>
+//   import("@/components/homePageComponents/QuestioningCardsLayout")
+// );
 const SubscribeLetter = lazy(() =>
   import("@/components/homePageComponents/SubscribeLetter")
 );
 const YoutubeBanner = lazy(() =>
   import("@/components/homePageComponents/YoutubeBanner")
 );
-const DomesticDestinationCarousel = lazy(() =>
-  import("@/components/carousels/DomesticDestinationCarousel")
-);
+// const DomesticDestinationCarousel = lazy(() =>
+//   import("@/components/carousels/DomesticDestinationCarousel")
+// );
 const InternationalDestinationCarousel = lazy(() =>
   import("@/components/carousels/InternationalDestinationCarousel")
 );
@@ -33,9 +33,9 @@ const WeekendTrip = lazy(() =>
 const CompanyStatsSection = lazy(() =>
   import("@/components/homePageComponents/CompanyStatsSection")
 );
-const LatestUpdatesSection = lazy(() =>
-  import("@/components/homePageComponents/LatestUpdatesSection")
-);
+// const LatestUpdatesSection = lazy(() =>
+//   import("@/components/homePageComponents/LatestUpdatesSection")
+// );
 const TravelGuideline = lazy(() =>
   import("@/components/homePageComponents/TravelGuideline")
 );
@@ -48,6 +48,9 @@ const FeaturesSection = lazy(() =>
 const TourismAlliance = lazy(() =>
   import("@/components/homePageComponents/TourismAlliance")
 );
+const Trending = lazy(() =>
+  import("@/components/Trending/Trending")
+);
 const Footer = lazy(() => import("@/components/Footer"));
 
 const Home = () => {
@@ -57,32 +60,26 @@ const Home = () => {
       <Navbar />
       <HeroSection />
       <InViewComponent>
-        <PopularDestinationCarousel />
+        <Trending/>
       </InViewComponent>
       <InViewComponent>
-        <DomesticDestinationCarousel />
+        <PopularDestinationCarousel />
       </InViewComponent>
       <InViewComponent>
         <InternationalDestinationCarousel />
       </InViewComponent>
       <InViewComponent>
-        <QuestioningCardsLayout />
+        <DomesticDestinationCarousel/>
       </InViewComponent>
       <InViewComponent>
         <WeekendTrip />
       </InViewComponent>
       <InViewComponent>
-        <YoutubeBanner />
-      </InViewComponent>
-      <InViewComponent>
-        <TourismAlliance />
-      </InViewComponent>
-      <InViewComponent>
         <TravelGuideline />
       </InViewComponent>
-      <InViewComponent>
+      {/* <InViewComponent>
         <LatestUpdatesSection />
-      </InViewComponent>
+      </InViewComponent> */}
       <InViewComponent>
         <FeaturesSection />
       </InViewComponent>
@@ -97,6 +94,12 @@ const Home = () => {
       </InViewComponent>
       <InViewComponent>
         <SubscribeLetter />
+      </InViewComponent>
+      <InViewComponent>
+        <YoutubeBanner />
+      </InViewComponent>
+      <InViewComponent>
+        <TourismAlliance />
       </InViewComponent>
       <InViewComponent>
         <Footer />

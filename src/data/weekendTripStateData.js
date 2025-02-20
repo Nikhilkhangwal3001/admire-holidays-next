@@ -1,57 +1,58 @@
 // Destinations Data
 const weekendTripStateData = [
   {
-    imageUrl: `https://images.unsplash.com/photo-1587474260584-136574528ed5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8RGVsaGl8ZW58MHx8MHx8fDA%3D`,
+    imageUrl:["/Delhi1.jpg","/Delhi2.jpg", "/Delhi3.jpg"],
     title: "Delhi",
     link: "/packages/delhiWeekend",
   },
   {
-    imageUrl: `https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bXVtYmFpfGVufDB8fDB8fHww`,
+    imageUrl: ["/Mumbai1.jpg","/Mumbai2.jpg", "/Mumbai3.jpg"],
     title: "Mumbai",
     link: "/packages/mumbaiWeekend",
   },
   {
-    imageUrl: `https://images.unsplash.com/photo-1563715493579-e0b3e0493b60?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y2hlbm5haXxlbnwwfHwwfHx8MA%3D%3D`,
+    imageUrl: ["/chennai1.jpg","/Chennai2.jpg", "/Chennai3.jpg"],
+    // imageUrl: ["/Mumbai1.jpg","/Mumbai2.jpg", "/Mumbai3.jpg"],
     title: "Chennai",
     link: "/packages/chennaiWeekend",
   },
   {
-    imageUrl: `https://images.unsplash.com/photo-1624461752922-38195fcfa740?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGJhbmdhbG9yZXxlbnwwfHwwfHx8MA%3D%3D`,
+    imageUrl: ["/Banglore2.jpg", "/Banglore1.jpg","/Banglore3.jpg"],
     title: "Bengalore",
     link: "/packages/bangaloreWeekend",
   },
   {
-    imageUrl: `https://images.unsplash.com/photo-1587967200108-116951217775?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bmFncHVyfGVufDB8fDB8fHww`,
+    imageUrl: ["/Nagpur1.jpg", "/Nagpur2.jpg","/Nagpur3.jpg"],
     title: "Nagpur",
     link: "/packages/nagpurWeekend",
   },
   {
-    imageUrl: `https://images.unsplash.com/photo-1551161242-b5af797b7233?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHlkZXJhYmFkfGVufDB8fDB8fHww`,
+    imageUrl: ["/Hydrabad1.jpg", "/Hydrabad2.jpg","/Hydrabad3.jpg"],
     title: "Hyderabad",
     link: "/packages/hyderabadWeekend",
   },
   {
-    imageUrl: `https://images.unsplash.com/photo-1558026411-563830332bd8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y29jaGlufGVufDB8fDB8fHww`,
+    imageUrl: ["/Cochin1.jpg", "/Cochin2.jpg","/Cochin3.jpg"],
     title: "Cochin",
     link: "/packages/cochinWeekend",
   },
   {
-    imageUrl: `https://images.unsplash.com/photo-1588669494151-f4c6df6f715b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2hhbmRpZ2FyaHxlbnwwfHwwfHx8MA%3D%3D`,
+    imageUrl: ["/Chandigarh1.jpg", "/Chandigarh2.jpg","/Chandigarh3.jpg"],
     title: "Chandigarh",
     link: "/packages/chandigarhWeekend",
   },
   {
-    imageUrl: `https://images.unsplash.com/photo-1573457046516-b4e3b5dd50dd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YWhtZWRhYmFkfGVufDB8fDB8fHww`,
+    imageUrl: ["/Allahabad1.jpg", "/Allahbad2.jpg","/Allahabad3.jpg"],
     title: "Ahmedabad",
     link: "/packages/ahmedabadweekend",
   },
   {
-    imageUrl: `https://images.unsplash.com/photo-1618805714320-f8825019c1be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHVuZXxlbnwwfHwwfHx8MA%3D%3D`,
+    imageUrl: ["/Pune2.jpg", "/Pune1.jpg","/Pune3.jpg"],
     title: "Pune",
     link: "/packages/puneweekend",
   },
   {
-    imageUrl: `https://images.unsplash.com/photo-1599661046289-e31897846e41?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8amFpcHVyfGVufDB8fDB8fHww`,
+    imageUrl: ["/Jaipur1.jpg", "/Jaipur2.jpg","/Jaipur3.jpg"],
     title: "Jaipur",
     link: "/packages/jaipurWeekend",
   },

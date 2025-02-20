@@ -111,7 +111,7 @@ const TourismAlliance = () => {
 
   return (
     <section>
-      <div className="mx-auto max-w-7xl px-8  sm:px-6 md:mt-32 sm:mt-10 mt-56 lg:ps-8 pt-24">
+      <div className="mx-auto max-w-7xl px-8  sm:px-6 mt-12 lg:ps-8 pt-24">
         <div className="max-w-7xl items-end justify-between sm:flex sm:pe-6 lg:pe-8">
           <h2 className="max-w-xl text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             Hotel Alliances
