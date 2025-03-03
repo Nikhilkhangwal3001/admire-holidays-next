@@ -1,4 +1,6 @@
 // Weekend Trip Data
+import himachalPradesh31 from "../../public/Himachalpradesh31.jpg";
+
 const weekendTripData = [
   // {
   //   imageUrl: `mussoorie.png`,
@@ -10,7 +12,7 @@ const weekendTripData = [
   // },
 
   {
-    imageUrl: ["/Himachalpradesh31.jpg","/Himachapradesh2.jpg","/Himachalradesh1.jpg"],
+    imageUrl: [himachalPradesh31,"/Himachapradesh2.jpg","/Himachalradesh1.jpg"],
     location: "Kasauli",
     about: "Kasauli, Himachal Pradesh",
     url: "/packages/himachal/0",

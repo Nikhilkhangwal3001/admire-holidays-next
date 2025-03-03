@@ -1,6 +1,6 @@
 import React from "react";
 // import Swiper core and required modules
-
+import Image from 'next/image'
 import {
   Navigation,
   Pagination,
@@ -38,7 +38,7 @@ const SwiperProductCarousel = ({ carouselImageUrl }) => {
           {carouselImageUrl.map((img, i) => (
             <SwiperSlide key={i}>
               <div className="flex  flex-shrink-0  relative w-full sm:w-auto">
-                <img
+                <Image
                   src={img}
                   alt="img"
                   className="object-cover rounded-xl object-center "
@@ -70,7 +70,7 @@ const SwiperProductCarousel = ({ carouselImageUrl }) => {
           {carouselImageUrl.map((img, i) => (
             <SwiperSlide key={i}>
               <div className="flex  flex-shrink-0  relative w-full sm:w-auto">
-                <img
+                <Image
                   src={img}
                   alt="img"
                   className="object-cover rounded-xl object-center "
@@ -102,7 +102,7 @@ const SwiperProductCarousel = ({ carouselImageUrl }) => {
           {carouselImageUrl.map((img, i) => (
             <SwiperSlide key={i}>
               <div className="flex  flex-shrink-0  relative w-full sm:w-auto">
-                <img
+                <Image
                   src={img}
                   alt="img"
                   className="object-cover w-full rounded-xl object-center "

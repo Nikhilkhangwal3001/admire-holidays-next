@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 const testimonials = [
   {
@@ -67,14 +68,12 @@ export default function Testimonials() {
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {galleryImages.map((image, index) => (
-            <div
-              key={index}
-              className="relative group cursor-pointer overflow-hidden rounded-lg"
-            >
-              <img
+            <div key={index} className="relative w-full h-32 md:h-40 overflow-hidden rounded-lg">
+              <Image
                 src={image}
                 alt={`Gallery Image ${index + 1}`}
-                className="w-full h-32 md:h-40 object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-110"
+                fill
+                className="object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-110"
               />
             </div>
           ))}
@@ -82,30 +81,24 @@ export default function Testimonials() {
       </section>
 
       {/* Testimonials Section */}
-      <div className=" justify-center gap-8 px-4 md:px-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-16 mt-12">
         {testimonials.map((testimonial) => (
-          <div
-            key={testimonial.id}
-            className="bg-white rounded-lg shadow-lg p-6  "
-          >
-            <h4 className="text-xl font-semibold text-gray-800 mb-2">
-              {testimonial.name}
-            </h4>
-            <img
-              src={testimonial.imageUrl}
-              alt={`Testimonial from ${testimonial.name}`}
-              className="w-full h-48 object-cover rounded-lg mb-4"
-            />
+          <div key={testimonial.id} className="bg-white rounded-lg shadow-lg p-6">
+            <h4 className="text-xl font-semibold text-gray-800 mb-2">{testimonial.name}</h4>
+            <div className="relative w-full h-48 mb-4">
+              <Image
+                src={testimonial.imageUrl}
+                alt={`Testimonial from ${testimonial.name}`}
+                fill
+                className="object-cover rounded-lg"
+              />
+            </div>
             <div className="flex items-center mb-2">
               {[...Array(5)].map((_, index) => (
                 <svg
                   key={index}
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`w-5 h-5 ${
-                    index < testimonial.rating
-                      ? "text-yellow-400"
-                      : "text-gray-300"
-                  }`}
+                  className={`w-5 h-5 ${index < testimonial.rating ? "text-yellow-400" : "text-gray-300"}`}
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -116,9 +109,7 @@ export default function Testimonials() {
                 </svg>
               ))}
             </div>
-            <p className="text-gray-700 text-sm md:text-base">
-              {testimonial.feedback}
-            </p>
+            <p className="text-gray-700 text-sm md:text-base">{testimonial.feedback}</p>
           </div>
         ))}
       </div>

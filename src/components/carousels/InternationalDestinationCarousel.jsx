@@ -5,6 +5,7 @@ import internationalDestinations from "@/data/internationalDestination";
 import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Image from "next/image";
 
 const InternationalDestinationGrid = () => {
   useEffect(() => {
@@ -38,9 +39,11 @@ const DestinationCard = ({ item }) => {
 
   useEffect(() => {
     if (!item.imageUrl || item.imageUrl.length === 0) return;
-    
+
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % item.imageUrl.length);
+      setCurrentImageIndex(
+        (prevIndex) => (prevIndex + 1) % item.imageUrl.length
+      );
     }, 3000);
 
     return () => clearInterval(interval);
@@ -50,10 +53,20 @@ const DestinationCard = ({ item }) => {
     <Link href={item.link} className="group relative" data-aos="fade-up">
       <div className="overflow-hidden rounded-xl shadow-lg transition-transform transform group-hover:scale-105 duration-300 bg-white w-full lg:w-[400px]">
         <div className="relative">
-          <img
-            src={item.imageUrl && item.imageUrl.length > 0 ? item.imageUrl[currentImageIndex] : "/placeholder.jpg"}
-            alt={item.title}
+          <Image
             className="object-cover w-full h-72 sm:h-80 md:h-96 rounded-t-xl transition-opacity duration-1000"
+            src={
+              item.imageUrl && item.imageUrl.length > 0
+                ? item.imageUrl[currentImageIndex].startsWith("http")
+                  ? item.imageUrl[currentImageIndex] 
+                  : `/${item.imageUrl[currentImageIndex]}`.replace(/^\/+/, "/") 
+                : "/placeholder.jpg"
+            }
+            alt={item.title}
+            width={500}
+            height={300}
+            priority
+            // loading="lazy"
           />
           <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <h3 className="text-white text-2xl font-bold tracking-wide">

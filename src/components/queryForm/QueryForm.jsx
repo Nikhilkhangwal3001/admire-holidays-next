@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-
+import Image from 'next/image'
 const QueryForm = () => {
   const [isQuery, setIsQuery] = useState(true);
   const [result, setResult] = useState("Submit");
@@ -57,7 +57,7 @@ const QueryForm = () => {
   return (
     <div className="flex md:flex-row flex-col mt-32 max-w-7xl px-3 mx-auto overflow-hidden">
       <div className="md:w-1/2 h-fit w-full ">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1560264418-c4445382edbc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGN1c3RvbWVyJTIwc3VwcG9ydHxlbnwwfHwwfHx8MA%3D%3D"
           alt=""
           className="w-full h-full "

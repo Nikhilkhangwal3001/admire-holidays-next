@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-
+import  Image from 'next/image'
 const AdditionLinkCard = ({ state1, state2, imageUrl1, imageUrl2 }) => {
   return (
     <div className="flex items-center sm:mt-20 mt-10 flex-col gap-10 w-full justify-center">
@@ -10,7 +10,7 @@ const AdditionLinkCard = ({ state1, state2, imageUrl1, imageUrl2 }) => {
       <div className="flex sm:flex-row flex-col mx-auto gap-8 my-6">
         <Link href={`/products/${state1}`}>
           <div className="flex flex-col bg-red-500 items-center gap-4 rounded-lg  overflow-hidden ">
-            <img
+            <Image
               src={imageUrl1}
               alt={state1}
               className="w-full h-64 object-cover"
@@ -20,7 +20,7 @@ const AdditionLinkCard = ({ state1, state2, imageUrl1, imageUrl2 }) => {
         </Link>
         <Link href={`/products/${state2}`}>
           <div className="flex flex-col bg-indigo-500 items-center gap-4 rounded-lg  overflow-hidden ">
-            <img
+            <Image
               src={imageUrl2}
               alt={state2}
               className="w-full h-64 object-cover"

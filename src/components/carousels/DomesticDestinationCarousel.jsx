@@ -2,19 +2,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import KeenSlider from "keen-slider";
 import "keen-slider/keen-slider.min.css";
-// import { Mobile } from "lucide-react";
 import domesticDestination from "@/data/domesticDestination";
-// import { useState } from "react";
 import { motion } from "framer-motion";
-import Link from 'next/link';
+import Link from "next/link";
+import Image from "next/image";
+
 const TrendingDestination = () => {
-  // const dispatch = useDispatch();
   const sliderContainer = useRef(null);
   const keenSlider = useRef(null);
   const autoSlideInterval = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Initialize KeenSlider
+  // Manage image index for each item
+  const [imageIndexes, setImageIndexes] = useState(
+    domesticDestination.map(() => 0)
+  );
+
   useEffect(() => {
     if (sliderContainer.current && !keenSlider.current) {
       keenSlider.current = new KeenSlider(sliderContainer.current, {
@@ -37,27 +40,30 @@ const TrendingDestination = () => {
         },
       });
 
-      // Set up auto slide every 3 seconds
       autoSlideInterval.current = setInterval(() => {
-        if (keenSlider.current) {
-          keenSlider.current.next();
-        }
+        keenSlider.current?.next();
       }, 10000);
     }
 
     return () => {
-      if (keenSlider.current) {
-        keenSlider.current.destroy();
-        keenSlider.current = null;
-      }
-      if (autoSlideInterval.current) {
-        clearInterval(autoSlideInterval.current);
-      }
+      keenSlider.current?.destroy();
+      keenSlider.current = null;
+      clearInterval(autoSlideInterval.current);
     };
   }, []);
 
-  const handlePrevSlide = () => keenSlider.current?.prev();
-  const handleNextSlide = () => keenSlider.current?.next();
+  // Image slideshow effect for each card
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setImageIndexes((prevIndexes) =>
+        prevIndexes.map((index, i) =>
+          index === domesticDestination[i].imageUrl.length - 1 ? 0 : index + 1
+        )
+      );
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="mt-28">
@@ -66,147 +72,76 @@ const TrendingDestination = () => {
           <h2 className="text-center text-[#261F43] md:text-5xl text-3xl font-bold sm:mb-0 flex-grow">
             Domestic Package
           </h2>
-          {/* Mobile Slide Controls */}
-          <div className="flex  justify-center gap-4 mt-8">
-            <button
-              aria-label="Previous slide"
-              onClick={handlePrevSlide}
-              className="rounded-full bg-[#E69233] p-4 text-white"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                className="w-6 h-6"
-              >
-                <path
-                  fill="currentColor"
-                  d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
-                />
-              </svg>
-            </button>
-            <button
-              aria-label="Next slide"
-              onClick={handleNextSlide}
-              className="rounded-full bg-[#E69233] p-4 text-white"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                className="w-6 h-6"
-              >
-                <path
-                  fill="currentColor"
-                  d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-                />
-              </svg>
-            </button>
-          </div>
         </div>
 
         {/* Slider Section */}
         <div className="relative lg:col-span-2 lg:mx-0">
           <div ref={sliderContainer} className="keen-slider">
-            {domesticDestination.length > 0 &&
-              domesticDestination.map((item, i) => {
-                const [currentImageIndex1, setCurrentImageIndex1] = useState(0);
-
-                useEffect(() => {
-                  const interval = setInterval(() => {
-                    setCurrentImageIndex1((prevIndex) =>
-                      prevIndex === item.imageUrl.length - 1
-                        ? 0
-                        : prevIndex + 1
-                    );
-                  }, 3000);
-                  return () => clearInterval(interval);
-                }, []);
-
-                return (
-                  <div className="keen-slider__slide" key={i}>
-                    <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2  items-center min-h-[220px]">
-                      {/* Right Side */}
-                      <div className="w-full h-full md:w-full md:h-full overflow-hidden rounded-lg">
-                        <img
-                          src={item.imageUrl[currentImageIndex1]}
-                          alt={item.title}
-                          className="w-full h-full object-cover"
-                        />
-
-                        {/* <p>{itinerary?.imageUrl[currentImageIndex]}</p> */}
-                      </div>
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="p-4 relative flex-1 pr-4 bg-white rounded-lg shadow-lg overflow-hidden border-2 "
-                      >
-                        {/* Animated Border */}
-                        <motion.div
-                          animate={{
-                            borderRadius: [
-                              "20%",
-                              "40%",
-                              "60%",
-                              "80%",
-                              "50%",
-                              "30%",
-                              "20%",
-                            ],
-                          }}
-                          transition={{
-                            repeat: Infinity,
-                            duration: 4,
-                            ease: "linear",
-                          }}
-                          className="absolute inset-0 w-full h-full "
-                        ></motion.div>
-
-                        {/* Content */}
-                        <div className="relative z-10 ">
-                        <div className="flex justify-between items-center mt-2">
-                            <p className="text-[13px] font-semibold text-[#CF1E27]">
-                              {item.feedback}
-                            </p>
-                            <p className="">{item.days}</p>
-                          </div>
-                          <motion.h2
-                            initial={{ x: -20, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{ delay: 0.2, duration: 0.5 }}
-                            className="text-lg font-bold text-[#4D456B]"
-                          >
-                            {item.title}
-                          </motion.h2>
-                            <p className="text-[13px] font-semibold ">
-                              Discount {item.discount}
-                            </p>
-                            
-
-                          <a href="tel:1800-121-4252"><div className="flex gap-4 items-center mt-4">
-                            <button className="text-xl">📞</button>
-
-                            <Link className="w-full" href={item.link}><motion.button
-                              onMouseEnter={() => setIsHovered(true)}
-                              onMouseLeave={() => setIsHovered(false)}
-                              className="w-full md:px-8 py-2 text-white rounded-lg transition-all"
-                              initial={{ scale: 1 }}
-                              animate={{
-                                backgroundColor: isHovered
-                                  ? "#CF1E27"
-                                  : "#E69233",
-                                scale: isHovered ? 1.05 : 1,
-                              }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              Know More
-                            </motion.button></Link>
-                          </div></a>
-                        </div>
-                      </motion.div>
-                    </div>
+            {domesticDestination.map((item, i) => (
+              <div className="keen-slider__slide" key={i}>
+                <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px]">
+                  {/* Right Side */}
+                  <div className="w-full h-full md:w-full md:h-full overflow-hidden rounded-lg relative">
+                    <Image
+                      src={item.imageUrl[imageIndexes[i]]}
+                      alt={item.title}
+                      layout="intrinsic"
+                      width={500}
+                      height={300}
+                      className="rounded-lg"
+                    />
                   </div>
-                );
-              })}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="p-4 relative flex-1 pr-4 bg-white rounded-lg shadow-lg overflow-hidden border-2"
+                  >
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <div className="flex justify-between items-center mt-2">
+                        <p className="text-[13px] font-semibold text-[#CF1E27]">
+                          {item.feedback}
+                        </p>
+                        <p>{item.days}</p>
+                      </div>
+                      <motion.h2
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: 0.2, duration: 0.5 }}
+                        className="text-lg font-bold text-[#4D456B]"
+                      >
+                        {item.title}
+                      </motion.h2>
+                      <p className="text-[13px] font-semibold">
+                        Discount {item.discount}
+                      </p>
+
+                      <div className="flex gap-4 items-center mt-4">
+                        <a href="tel:1800-121-4252" className="text-xl">
+                          📞
+                        </a>
+                        <Link className="w-full" href={item.link}>
+                          <motion.button
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                            className="w-full md:px-8 py-2 text-white rounded-lg transition-all"
+                            initial={{ scale: 1 }}
+                            animate={{
+                              backgroundColor: isHovered ? "#CF1E27" : "#E69233",
+                              scale: isHovered ? 1.05 : 1,
+                            }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            Know More
+                          </motion.button>
+                        </Link>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

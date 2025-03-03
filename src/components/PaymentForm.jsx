@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-
+import Image from 'next/image'
 const PaymentForm = () => {
   const [formData, setFormData] = useState({
     nameOnCard: "",
@@ -76,7 +76,7 @@ const PaymentForm = () => {
                   id="type1"
                   defaultChecked
                 />
-                <img
+                <Image
                   src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
                   className="h-8 ml-3"
                   alt="Type-1"
@@ -94,7 +94,7 @@ const PaymentForm = () => {
                   name="type"
                   id="type2"
                 />
-                <img
+                <Image
                   src="https://www.sketchappsources.com/resources/source-image/PayPalCard.png"
                   className="h-8 ml-3"
                   alt="Type 2"

@@ -27,9 +27,9 @@ const PopularDestinationCarousel = lazy(() =>
 const HomePageBlogSection = lazy(() =>
   import("@/components/homePageComponents/HomePageBlogSection")
 );
-const WeekendTrip = lazy(() =>
-  import("@/components/homePageComponents/WeekendTrip")
-);
+// const WeekendTrip = lazy(() =>
+//   import("@/components/homePageComponents/WeekendTrip")
+// );
 const CompanyStatsSection = lazy(() =>
   import("@/components/homePageComponents/CompanyStatsSection")
 );
@@ -72,7 +72,7 @@ const Home = () => {
         <DomesticDestinationCarousel/>
       </InViewComponent>
       <InViewComponent>
-        <WeekendTrip />
+        {/* <WeekendTrip /> */}
       </InViewComponent>
       <InViewComponent>
         <TravelGuideline />

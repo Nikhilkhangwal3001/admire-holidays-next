@@ -1,18 +1,14 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image"; // Use next/image for optimization
 import React, { useState } from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
 const HomePageBlogCard = ({ imageUrl, title, link }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
 
   return (
     <div
@@ -20,11 +16,13 @@ const HomePageBlogCard = ({ imageUrl, title, link }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="relative">
-        <img
+      <div className="relative w-full h-56 sm:h-72">
+        <Image
           src={imageUrl}
           alt={title}
-          className={`w-full sm:h-72 rounded-xl h-56 transition-transform duration-1000 ${
+          layout="fill" // Ensures responsiveness
+          objectFit="cover" // Maintains aspect ratio
+          className={`rounded-xl transition-transform duration-1000 ${
             isHovered ? "scale-110" : "scale-100"
           }`}
         />
@@ -35,9 +33,11 @@ const HomePageBlogCard = ({ imageUrl, title, link }) => {
         >
           <div className="flex flex-col gap-4">
             <p className="sm:text-xl text-lg font-medium text-white">{title}</p>
-            <Link className="flex items-center gap-5 text-white" href={link}>
-              Read More <FaLongArrowAltRight size={30} color="white" />
-            </Link>
+            {link && ( // Ensure link exists before rendering
+              <Link className="flex items-center gap-5 text-white" href={link}>
+                Read More <FaLongArrowAltRight size={30} color="white" />
+              </Link>
+            )}
           </div>
         </div>
       </div>

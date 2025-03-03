@@ -1,11 +1,11 @@
 import Link from "next/link";
 import React from "react";
-
+import Image from 'next/image'
 const ProductCategoryCard = ({ url, days, destination, productLink }) => {
   return (
     <Link href={productLink} className="cursor-pointer">
       <div className="flex flex-col ">
-        <img
+        <Image
           src={url}
           alt=""
           className="w-[400px] bg-cover rounded-lg h-[320px]"

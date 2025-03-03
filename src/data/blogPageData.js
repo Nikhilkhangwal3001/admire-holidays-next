@@ -11,21 +11,21 @@ const blogPagedata = [
         subheading: "Discovering Tiger Falls: A Hidden Paradise in Uttarakhand",
         text: "Tiger Falls is a hidden gem tucked away in the serene landscapes of Chakrata, beckoning travelers to immerse themselves in its tranquil ambiance. The trek to Tiger Falls takes you through picturesque trails adorned with vibrant flora and fauna. As you near the falls, the sound of rushing water becomes more audible, building excitement. Upon reaching the waterfall, you're rewarded with a spectacular view of water cascading down the rocks into a natural pool below. The surroundings are lush and pristine, offering a peaceful retreat amidst nature's embrace. Sit by the water's edge, feel the cool mist on your skin, and let the serenity of Tiger Falls rejuvenate your senses. This hidden paradise is perfect for those seeking a quiet escape and a chance to reconnect with the natural world.",
         imageUrl:
-          "https://images.unsplash.com/photo-1707046702201-578f6a8411cd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y2hha3JhdGF8ZW58MHx8MHx8fDA%3D",
+          "/darjeeling.jpg",
       },
       {
         subheading:
           "Exploring the Majesty of Tiger Falls: Nature's Spectacle Unveiled",
         text: "Exploring Tiger Falls is a journey into the heart of Chakrata's wilderness, where nature's beauty unfolds at every step. The trek to Tiger Falls winds through verdant forests alive with the chirping of birds and the rustle of leaves. As you approach the falls, the anticipation builds, and soon you're standing before a majestic cascade of water surrounded by towering trees. The atmosphere is serene, offering a peaceful respite from urban life. Tiger Falls is not just a sight to behold but an experience to cherish—a place where you can immerse yourself in the sights and sounds of nature. Whether you're seeking adventure, relaxation, or a chance to reconnect with the Earth, Tiger Falls in Chakrata promises a memorable escapade in Uttarakhand's pristine wilderness.",
         imageUrl:
-          "https://images.unsplash.com/photo-1696355916652-d9b1fa45dc90?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2hha3JhdGF8ZW58MHx8MHx8fDA%3D",
+          "/darjeeling.jpg",
       },
       {
         subheading:
           "Trekking to Tiger Falls: A Journey into Uttarakhand's Natural Beauty",
         text: "Tiger Falls is a paradise for nature enthusiasts and adventure seekers alike, offering a perfect blend of scenic beauty and outdoor exploration. The trek to Tiger Falls takes you through lush green forests, where you can encounter diverse flora and fauna native to the region. As you navigate the trail, accompanied by the soothing sounds of nature, you'll feel a sense of tranquility and connection with the surroundings. Upon reaching Tiger Falls, the sight of the majestic waterfall cascading down the rocky terrain is truly awe-inspiring. The area around the falls is ideal for picnics and photography, allowing visitors to capture the essence of this natural wonder. Whether you prefer a leisurely stroll or a more adventurous hike, Tiger Falls promises an enriching experience amidst Uttarakhand's unspoiled wilderness. Plan your visit to Tiger Falls for a rejuvenating escape into nature and create lasting memories in this hidden gem of Chakrata.",
         imageUrl:
-          "https://images.unsplash.com/photo-1623046108430-c2b00006fc77?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGNoYWtyYXRhfGVufDB8fDB8fHww",
+          "/darjeeling.jpg",
       },
     ],
 
@@ -44,19 +44,19 @@ const blogPagedata = [
         subheading: "Exploring Pachmarhi: The Queen of Satpura",
         text: "Nestled amidst the Satpura Range in Madhya Pradesh, Pachmarhi is a picturesque hill station renowned for its natural beauty and serene ambiance. The journey to Pachmarhi is a delightful experience, offering scenic views of lush green forests, cascading waterfalls, and panoramic valleys. As you arrive, you'll be captivated by the charm of this hill retreat, which boasts a pleasant climate throughout the year. Pachmarhi is dotted with attractions such as Bee Falls, Jatashankar Caves, and Dhupgarh—the highest point in Madhya Pradesh—offering plenty of opportunities for exploration and adventure. Whether you're trekking through the woods, enjoying a leisurely stroll along the trails, or simply relaxing amidst nature's tranquility, Pachmarhi promises an unforgettable getaway.",
         imageUrl:
-          "https://images.unsplash.com/photo-1674500547677-6a779a7faefe?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGFjaG1hcmhpfGVufDB8fDB8fHww",
+          "/darjeeling.jpg",
       },
       {
         subheading: "Unveiling the Hidden Charms of Pachmarhi",
         text: "Discover the hidden charms of Pachmarhi, a haven for nature lovers and outdoor enthusiasts. This idyllic hill station is adorned with verdant forests, glistening waterfalls, and ancient caves waiting to be explored. One of the highlights of Pachmarhi is Pandav Caves, believed to have sheltered the Pandavas during their exile. The Apsara Vihar (Fairy Pool) is another enchanting spot, where a waterfall cascades into a natural pool surrounded by lush vegetation. Adventure seekers can embark on treks to places like Dhoopgarh, from where panoramic views of the surrounding landscapes unfold. Pachmarhi's rich biodiversity makes it an ideal destination for birdwatching and wildlife enthusiasts. Immerse yourself in the tranquility of this hill town and let its serene beauty rejuvenate your spirit.,",
         imageUrl:
-          "https://images.unsplash.com/photo-1690441850698-b9aae3786d35?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGFjaG1hcmhpfGVufDB8fDB8fHww",
+          "/darjeeling.jpg",
       },
       {
         subheading: " Pachmarhi: Nature's Sanctuary in Madhya Pradesh",
         text: "Experience the untouched beauty of Pachmarhi, often referred to as Satpura ki Rani (Queen of Satpura). This hill station is a paradise for nature enthusiasts, offering a respite from the bustling city life. Explore the lush greenery of Pachmarhi's forests, which are home to a variety of flora and fauna. The region's waterfalls, including the majestic Bee Falls and Rajat Prapat (Big Fall), provide scenic backdrops for relaxation and photography. Pachmarhi also holds cultural significance with its ancient caves and rock paintings, offering insights into the area's rich heritage. Whether you're seeking adventure or seeking solace in nature's embrace, Pachmarhi promises an immersive experience in the heart of Madhya Pradesh. Plan your visit to this hidden gem and uncover the wonders of Pachmarhi, where every moment is a celebration of nature's bounty.",
         imageUrl:
-          "https://images.unsplash.com/photo-1690441730645-8d635746e1a2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGFjaG1hcmhpfGVufDB8fDB8fHww",
+          "/darjeeling.jpg",
       },
     ],
     detail:
@@ -77,21 +77,21 @@ const blogPagedata = [
           "Exploring the Wilderness of Kaziranga: A Paradise for Wildlife Enthusiasts",
         text: "Situated in the heart of Assam, Kaziranga National Park is a sprawling wilderness teeming with diverse wildlife and breathtaking landscapes. This UNESCO World Heritage Site is renowned for its population of the majestic one-horned rhinoceros, along with a plethora of other species including elephants, tigers, and wild water buffalo. The park's wetlands and tall grasslands provide a natural habitat for numerous bird species, making it a paradise for birdwatchers. Embark on a thrilling jeep safari or an adventurous elephant ride to encounter the wildlife up close and witness the park's untamed beauty. Kaziranga offers a unique opportunity to immerse yourself in nature and witness the circle of life unfold in its most raw and unfiltered form.",
         imageUrl:
-          "https://images.unsplash.com/photo-1465471765877-2e7a264830d5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8a2F6aXJhbmdhJTIwbmF0aW9uYWwlMjBwYXJrfGVufDB8fDB8fHww",
+          "/darjeeling.jpg",
       },
       {
         subheading:
           " Kaziranga National Park: Where Nature Thrives Uninterrupted",
         text: "Kaziranga National Park is a testament to conservation success, preserving critical habitats and safeguarding endangered species. Spanning across the floodplains of the Brahmaputra River, the park's varied landscapes include swamps, grasslands, and dense forests, creating a haven for a wide array of flora and fauna. The iconic one-horned rhinoceros, often spotted grazing in the grasslands, symbolizes the park's conservation efforts. Kaziranga is also home to the highest density of tigers among protected areas in the world, highlighting its importance as a stronghold for big cats. As you explore Kaziranga, you'll be mesmerized by the harmonious coexistence of wildlife amidst pristine surroundings, offering a glimpse into nature's resilience and beauty.",
         imageUrl:
-          "https://images.unsplash.com/photo-1588391150619-4816f1ee0adb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGthemlyYW5nYSUyMG5hdGlvbmFsJTIwcGFya3xlbnwwfHwwfHx8MA%3D%3D",
+          "/darjeeling.jpg",
       },
       {
         subheading:
           " Unveiling the Rich Biodiversity of Kaziranga: A Journey into Assam's Natural Heritage",
         text: "Delve into the rich biodiversity of Kaziranga National Park, which encompasses a mosaic of ecosystems supporting an astonishing variety of life. The park's wetlands are vital for numerous waterfowl and migratory bird species, attracting birdwatchers from around the globe. Kaziranga's grasslands are dotted with herds of wild elephants, swamp deer, and the elusive Bengal tiger, offering wildlife enthusiasts unparalleled opportunities for sightings. Beyond the charismatic megafauna, Kaziranga shelters lesser-known species like the Hoolock Gibbon and the endangered Gangetic dolphin, underscoring its significance as a biodiversity hotspot. Explore the park's network of trails, traverse the riverine landscapes, and witness nature unfold in all its glory. Kaziranga invites you to embark on a memorable journey into Assam's natural heritage, where every encounter is a testament to the marvels of the wild.",
         imageUrl:
-          "https://images.unsplash.com/photo-1609237756273-6d1e6a100120?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGthemlyYW5nYSUyMG5hdGlvbmFsJTIwcGFya3xlbnwwfHwwfHx8MA%3D%3D",
+          "/darjeeling.jpg",
       },
     ],
     detail:
@@ -109,21 +109,21 @@ const blogPagedata = [
         subheading: "Discovering Pithoragarh: Gateway to the Himalayas",
         text: "Nestled in the eastern part of Uttarakhand, Pithoragarh is a scenic town that serves as the gateway to the majestic Himalayas. Surrounded by snow-capped peaks and lush valleys, Pithoragarh offers a captivating blend of natural beauty and cultural heritage. The town is known for its ancient temples, including the historically significant Pithoragarh Fort, which offers panoramic views of the surrounding mountains. Adventure enthusiasts flock to Pithoragarh for trekking expeditions to nearby peaks like Nanda Devi and Kailash. The town's serene ambiance and pleasant climate make it an ideal destination for those seeking tranquility amidst the Himalayan landscape.,",
         imageUrl:
-          "https://images.unsplash.com/photo-1620021216304-4f8bc1ab9c8d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cGl0aG9yYWdhcmh8ZW58MHx8MHx8fDA%3D",
+          "/darjeeling.jpg",
       },
       {
         subheading:
           "Pithoragarh: Where Nature's Grandeur Meets Cultural Heritage",
         text: "Pithoragarh is a treasure trove of natural wonders and cultural landmarks. From emerald green meadows to dense forests teeming with wildlife, Pithoragarh encapsulates the essence of the Himalayan region. Explore the unique architectural marvels of the region, such as the 13th-century Chandak Fort and the intricately carved stone temples of Jauljibi and Thal. Pithoragarh's rich cultural heritage is reflected in its vibrant festivals, including the Nanda Devi Raj Jat Yatra—a religious procession that takes place once every 12 years. The town's proximity to the Indo-Tibetan border adds a fascinating dimension to its cultural tapestry.",
         imageUrl:
-          "https://images.unsplash.com/photo-1586618761884-a062d527523f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHBpdGhvcmFnYXJofGVufDB8fDB8fHww",
+          "/darjeeling.jpg",
       },
       {
         subheading:
           "Exploring the Hidden Treasures of Pithoragarh: A Himalayan Escape",
         text: "Embark on a journey of discovery in Pithoragarh, where every corner reveals a new facet of the Himalayan charm. Visit Munsiyari, a quaint hill station located nearby, known for its unparalleled views of the Panchachuli peaks. Trekking enthusiasts can explore the Milam Glacier and the Ralam Valley, immersing themselves in the raw beauty of the Himalayas. Pithoragarh is also a paradise for birdwatchers, with its diverse avian species inhabiting the forests and riverbanks. The town's markets offer a glimpse into the local way of life, showcasing traditional handicrafts and artisanal products. Whether you seek adventure in the mountains or seek solace in nature's embrace, Pithoragarh promises an enriching experience amidst the towering Himalayan vistas.",
         imageUrl:
-          "https://images.unsplash.com/photo-1633624034632-1ed99fa1ef9a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHBpdGhvcmFnYXJofGVufDB8fDB8fHww",
+          "/darjeeling.jpg",
       },
     ],
     detail:
@@ -141,20 +141,20 @@ const blogPagedata = [
         subheading: "Konark Sun Temple: A Marvel of Ancient Architecture",
         text: "Located on the eastern coast of India in Odisha, the Konark Sun Temple is a UNESCO World Heritage Site renowned for its architectural grandeur and religious significance. Built in the 13th century by King Narasimhadeva I of the Eastern Ganga Dynasty, the temple is dedicated to the Sun God, Surya. The temple complex is designed in the shape of a colossal chariot with intricately carved stone wheels, walls, and sculptures depicting celestial beings, deities, and mythical creatures. The exquisite craftsmanship and detailed ornamentation of the Konark Sun Temple showcase the ingenuity of ancient Indian architecture and artistic prowess.",
         imageUrl:
-          "https://images.unsplash.com/photo-1594097206202-d9e64f8f62d3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8a29uYXJrJTIwc3VuJTIwdGVtcGxlfGVufDB8fDB8fHww",
+          "/darjeeling.jpg",
       },
       {
         subheading:
           " Exploring the Mystique of Konark Sun Temple: Symbol of Divine Splendor",
         text: "Step into the world of divine splendor at the Konark Sun Temple, where every stone tells a story of celestial glory. The temple's architecture is a fusion of Odishan, Dravidian, and Kalinga styles, reflecting a harmonious blend of regional influences. As you wander through the temple complex, marvel at the intricate carvings depicting scenes from Hindu mythology, including the epic narratives of the Mahabharata and Ramayana. The highlight of the temple is the colossal Konark Wheel, a stone chariot wheel with exquisite detailing that serves as a sundial, accurately measuring time based on the position of the sun.",
         imageUrl:
-          "https://images.unsplash.com/photo-1639980290886-6bdd61c7582b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8a29uYXJrJTIwc3VuJTIwdGVtcGxlfGVufDB8fDB8fHww",
+          "/darjeeling.jpg",
       },
       {
         subheading: "Konark Sun Temple: Where History Meets Mythology",
         text: "Immerse yourself in the rich tapestry of history and mythology at the Konark Sun Temple, an architectural masterpiece that stands as a testament to ancient India's cultural heritage. The temple's location near the Bay of Bengal adds to its mystique, with the rhythmic sound of waves serving as a backdrop to its serene ambiance. Explore the temple's intricacies, from the Natya Mandap (Dance Hall) to the Jagamohana (Assembly Hall), each adorned with ornate sculptures and carvings that narrate tales of devotion and cosmic order. The Konark Sun Temple invites visitors to delve into the depths of Indian spirituality and artistic expression, offering a glimpse into a bygone era of architectural brilliance and divine reverence.",
         imageUrl:
-          "https://images.unsplash.com/photo-1585245573365-0fd403d5d070?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fGtvbmFyayUyMHN1biUyMHRlbXBsZXxlbnwwfHwwfHx8MA%3D%3D",
+          "/darjeeling.jpg",
       },
     ],
     detail:
@@ -172,20 +172,20 @@ const blogPagedata = [
         subheading: "Mount Abu: Rajasthan's Serene Hill Statio",
         text: "Nestled in the Aravalli Range of Rajasthan, Mount Abu is a charming hill station known for its cool climate and scenic landscapes. This oasis in the desert state offers a refreshing retreat with lush greenery, serene lakes, and panoramic viewpoints. One of the highlights of Mount Abu is Nakki Lake, a picturesque water body surrounded by hills and legends. Visitors can enjoy boating or simply relax by the lakeside. The Dilwara Temples, famous for their intricate marble carvings and architectural brilliance, are another must-visit attraction in Mount Abu. The town's vibrant markets offer a range of handicrafts and local delicacies, making it a delightful destination for shopping and exploration.",
         imageUrl:
-          "https://images.unsplash.com/photo-1630825828081-e80577f6e2df?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bW91bnQlMjBhYnV8ZW58MHx8MHx8fDA%3D",
+          "/darjeeling.jpg",
       },
       {
         subheading:
           "Exploring the Charms of Mount Abu: Jewel of the Aravalli Range",
         text: "Embark on a journey to discover the hidden gems of Mount Abu, Rajasthan's only hill station. The town is adorned with scenic viewpoints such as Sunset Point and Honeymoon Point, offering breathtaking vistas of the surrounding valleys and hills. Guru Shikhar, the highest peak in the Aravalli Range, provides panoramic views of the lush landscapes below. Mount Abu is also known for its spiritual significance, with the ancient Gaumukh Temple and the serene Brahma Kumaris Spiritual University and Museum attracting pilgrims and seekers alike. The town's pleasant climate makes it a popular destination year-round, offering respite from the desert heat of Rajasthan.",
         imageUrl:
-          "https://images.unsplash.com/photo-1611076763501-55d80ccc93cb?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bW91bnQlMjBhYnV8ZW58MHx8MHx8fDA%3D",
+          "/darjeeling.jpg",
       },
       {
         subheading: "Mount Abu: Where Nature and Spirituality Converge",
         text: "Experience a harmonious blend of nature and spirituality in Mount Abu, where verdant forests and sacred sites create an atmosphere of tranquility. The Arbuda Devi Temple, perched atop a hill, offers panoramic views of the surrounding countryside and is a place of reverence for locals. Mount Abu Wildlife Sanctuary is home to diverse flora and fauna, including rare orchids and sloth bears, making it a paradise for nature enthusiasts. The town's cultural heritage is reflected in its vibrant festivals, including the Summer Festival and the Mount Abu Winter Festival, which showcase the region's traditional music, dance, and cuisine. Whether you seek adventure in nature or seek spiritual solace, Mount Abu promises an enriching experience amidst Rajasthan's rugged terrain.",
         imageUrl:
-          "https://images.unsplash.com/photo-1504803184203-dd2dba6aa00e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bW91bnQlMjBhYnV8ZW58MHx8MHx8fDA%3D",
+          "/darjeeling.jpg",
       },
     ],
     detail:
@@ -203,19 +203,19 @@ const blogPagedata = [
         subheading: "Discovering the Legend of Khatushyam",
         text: "Khatushyam, a revered deity in Hinduism, holds a unique place in the hearts of devotees across India. This deity is believed to be the divine manifestation of Barbarika, a character from the epic Mahabharata. Legend has it that Barbarika possessed immense power and was granted a boon by Lord Krishna himself. Renamed as Khatushyam, he is worshipped for his valor, protection, and blessings of wish fulfillment. The town of Khatushyamji in Rajasthan is home to the famous temple dedicated to this deity, drawing millions of pilgrims annually seeking solace and fulfillment.",
         imageUrl:
-          "https://images.unsplash.com/photo-1657020411310-40e10e211c9d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8a2hhdHV8ZW58MHx8MHx8fDA%3D",
+          "/darjeeling.jpg",
       },
       {
         subheading: "The Magnificent Khatushyam Temple",
         text: "At the heart of devotion to Khatushyam lies the majestic Khatushyam Temple. This architectural marvel boasts intricate Rajasthani craftsmanship, adorned with vibrant colors and stunning marble carvings. The temple's sanctum enshrines an idol of Khatushyam, attracting devotees who come seeking blessings, particularly for fulfillment of desires and wishes. The atmosphere around the temple is charged with fervor and spirituality, especially during festivals like Phool Bangla and Holi, when the temple becomes a hub of celebration and devotion.",
         imageUrl:
-          "https://images.unsplash.com/photo-1657020440989-35fdb0aabac5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGtoYXR1fGVufDB8fDB8fHww",
+          "/darjeeling.jpg",
       },
       {
         subheading: "Khatushyamji: A Spiritual Pilgrimage",
         text: "A pilgrimage to Khatushyamji is a profound spiritual experience. The town exudes an aura of tranquility and faith, inviting visitors to immerse themselves in devotion. The journey to the temple often includes rituals like offering prayers and tying sacred red threads (Kalava) as a symbol of seeking divine blessings. The temple complex also houses several other shrines dedicated to deities like Lord Krishna and Lord Hanuman, adding to its spiritual significance. Khatushyamji beckons seekers of solace and fulfillment, promising an unforgettable journey into the depths of devotion and spirituality.",
         imageUrl:
-          "https://images.unsplash.com/photo-1657020681754-6813dde5c34d?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "/darjeeling.jpg",
       },
     ],
     detail:
@@ -434,7 +434,7 @@ const blogPagedata = [
     slug: "rajasthan",
     author: "Somveer Dutt",
     imageUrl:
-      "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHJhamFzdGhhbnxlbnwwfHwwfHx8MA%3D%3D",
+      "/darjeeling.jpg",
 
     title: "Exploring  Rajasthan",
     date: "March 22, 2024",
@@ -467,7 +467,7 @@ const blogPagedata = [
     slug: "andaman",
     author: "Naman Rajput",
     imageUrl:
-      "https://images.unsplash.com/photo-1676744843212-09b7e64c3a05?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cG9ydCUyMGJsYWlyfGVufDB8fDB8fHww",
+      "/darjeeling.jpg",
     title: "Exploring the Enchanting Isles of Andaman and Nicobar",
     date: "March 21, 2024",
     content: [
@@ -498,7 +498,7 @@ const blogPagedata = [
     slug: "sikkim",
     author: "Ayaan Jain",
     imageUrl:
-      "https://images.unsplash.com/photo-1613339027986-b94d85708995?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2lra2ltfGVufDB8fDB8fHww",
+      "/darjeeling.jpg",
     title:
       "Embracing the Serenity of Sikkim: A Journey to the Himalayan Wonderland",
     date: "March 20, 2024",
@@ -530,7 +530,7 @@ const blogPagedata = [
     slug: "dubai",
     author: "Aakash",
     imageUrl:
-      "https://images.unsplash.com/flagged/photo-1559717201-fbb671ff56b7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGR1YmFpfGVufDB8fDB8fHww",
+      "/darjeeling.jpg",
     title: "Discovering the Rich Heritage of Dubai: Beyond the Skyscrapers",
     date: "March 22, 2024",
     content: [

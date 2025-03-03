@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image"; // Import next/image
 import { motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 import { FiArrowRight } from "react-icons/fi";
@@ -8,7 +9,7 @@ import Link from "next/link";
 
 const BlogHeader = () => {
   return (
-    <div className="h-fit  px-4 pt-40 text-zinc-50">
+    <div className="h-fit px-4 pt-40 text-zinc-50">
       <motion.div
         initial="initial"
         animate="animate"
@@ -80,11 +81,13 @@ const SocialsBlock = () => (
       }}
       className="col-span-6 md:col-span-3"
     >
-      <a href="#" className="grid h-full ">
-        <img
-          src="https://images.unsplash.com/photo-1623996243194-fd281057d568?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGthc2htaXJ8ZW58MHx8MHx8fDA%3D"
-          alt=""
-          className="w-full h-full object-cover"
+      <a href="#" className="grid h-full">
+        <Image
+          src="https://images.unsplash.com/photo-1623996243194-fd281057d568?w=600&auto=format&fit=crop&q=60"
+          alt="Travel Destination"
+          width={600}
+          height={400}
+          layout="responsive"
         />
       </a>
     </Block>
@@ -95,13 +98,13 @@ const SocialsBlock = () => (
       }}
       className="col-span-6 bg-white md:col-span-3"
     >
-      <a
-        href="#"
-        className="grid h-full place-content-center text-3xl text-white"
-      >
-        <img
-          src="https://images.unsplash.com/photo-1625505826977-66d796089d73?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fGdvYXxlbnwwfHwwfHx8MA%3D%3D"
-          alt=""
+      <a href="#" className="grid h-full">
+        <Image
+          src="https://images.unsplash.com/photo-1625505826977-66d796089d73?w=600&auto=format&fit=crop&q=60"
+          alt="Travel Adventure"
+          width={600}
+          height={400}
+          layout="responsive"
         />
       </a>
     </Block>
@@ -112,13 +115,13 @@ const SocialsBlock = () => (
       }}
       className="col-span-6 bg-zinc-50 md:col-span-3"
     >
-      <a
-        href="#"
-        className="grid h-full place-content-center text-3xl text-black"
-      >
-        <img
-          src="https://images.unsplash.com/photo-1600242466690-c1c04f081762?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGxhZGFraHxlbnwwfHwwfHx8MA%3D%3D"
-          alt=""
+      <a href="#" className="grid h-full">
+        <Image
+          src="https://images.unsplash.com/photo-1600242466690-c1c04f081762?w=600&auto=format&fit=crop&q=60"
+          alt="Luxury Destination"
+          width={600}
+          height={400}
+          layout="responsive"
         />
       </a>
     </Block>
@@ -129,13 +132,13 @@ const SocialsBlock = () => (
       }}
       className="col-span-6 bg-white md:col-span-3"
     >
-      <a
-        href="#"
-        className="grid h-full place-content-center text-3xl text-white"
-      >
-        <img
-          src="https://images.unsplash.com/photo-1528127269322-539801943592?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dmlldG5hbXxlbnwwfHwwfHx8MA%3D%3D"
-          alt=""
+      <a href="#" className="grid h-full">
+        <Image
+          src="https://images.unsplash.com/photo-1528127269322-539801943592?w=600&auto=format&fit=crop&q=60"
+          alt="Explore the World"
+          width={600}
+          height={400}
+          layout="responsive"
         />
       </a>
     </Block>
@@ -148,7 +151,7 @@ const AboutBlock = () => (
       Discover your next adventure with Admire Holidays.{" "}
       <span className="text-black text-base">
         At Admire Holidays, we understand that travel is more than just a
-        vacation,it is an opportunity to create lifelong memories. Our team of
+        vacation, it is an opportunity to create lifelong memories. Our team of
         travel experts is dedicated to crafting personalized experiences that
         exceed your expectations. Whether you dream of exploring ancient
         civilizations, indulging in culinary delights, or basking in the beauty

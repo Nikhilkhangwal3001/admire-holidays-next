@@ -54,7 +54,7 @@ const Navbar = () => {
                 className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black"
                 onClick={toggleNavbar}
               >
-                <AnimatedHamburgerButton isClick={isClick} />
+                {/* <AnimatedHamburgerButton isClick={isClick} /> */}
               </button>
             </div>
             <Button display={"lg:flex hidden"} />

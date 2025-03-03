@@ -41,7 +41,7 @@ const internationalDestinations = [
     link: "/packages/thailand",
   },
   {
-    imageUrl: ["/Bali1.jpg","Bali2.jpg","Bali3.jpg"],
+    imageUrl: ["/Bali1.jpg","/Bali2.jpg","/Bali3.jpg"],
     title: "Bali",
     link: "/packages/thailand",
   },
