@@ -16,8 +16,8 @@ const TrendingDestination = () => {
     domesticDestination.map(() => 0)
   );
 
-  // Initialize KeenSlider
   useEffect(() => {
+    console.log("Initializing KeenSlider...");
     if (sliderContainer.current && !keenSlider.current) {
       keenSlider.current = new KeenSlider(sliderContainer.current, {
         loop: true,
@@ -40,76 +40,83 @@ const TrendingDestination = () => {
       });
 
       autoSlideInterval.current = setInterval(() => {
-        if (keenSlider.current) {
-          keenSlider.current.next();
-        }
+        console.log("Auto sliding to next slide");
+        keenSlider.current?.next();
       }, 10000);
     }
 
     return () => {
-      if (keenSlider.current) {
-        keenSlider.current.destroy();
-        keenSlider.current = null;
-      }
-      if (autoSlideInterval.current) {
-        clearInterval(autoSlideInterval.current);
-      }
+      console.log("Destroying KeenSlider and clearing intervals...");
+      keenSlider.current?.destroy();
+      keenSlider.current = null;
+      clearInterval(autoSlideInterval.current);
     };
   }, []);
 
-  // Image auto-slide effect
   useEffect(() => {
+    console.log("Starting image slideshow...");
     const interval = setInterval(() => {
-      setCurrentImageIndexes((prevIndexes) =>
-        prevIndexes.map((index, i) =>
+      setCurrentImageIndexes((prevIndexes) => {
+        console.log("Updating image indexes...", prevIndexes);
+        return prevIndexes.map((index, i) =>
           index === domesticDestination[i].imageUrl.length - 1 ? 0 : index + 1
-        )
-      );
+        );
+      });
     }, 3000);
-    return () => clearInterval(interval);
+
+    return () => {
+      console.log("Clearing image slideshow interval...");
+      clearInterval(interval);
+    };
   }, []);
 
-  const handlePrevSlide = () => keenSlider.current?.prev();
-  const handleNextSlide = () => keenSlider.current?.next();
-
   return (
-    <section className="">
+    <section className="mt-28">
       <div className="mx-auto relative max-w-[1340px] mt-36 mb-36 px-4 sm:px-6 lg:ps-8">
         <div className="flex flex-col sm:flex-row items-center justify-between mx-auto mb-4">
           <h2 className="text-center text-[#261F43] md:text-5xl text-3xl font-bold sm:mb-0 flex-grow">
-            Weekend Getaway Packages
+            Weekend Trip Trending Packages
           </h2>
           <div className="flex justify-center gap-4 mt-8">
             <button
               aria-label="Previous slide"
-              onClick={handlePrevSlide}
+              onClick={() => {
+                console.log("Previous slide clicked");
+                keenSlider.current?.prev();
+              }}
               className="rounded-full bg-[#E69233] p-4 text-white"
             >
-              ◀️
+              ◀
             </button>
             <button
               aria-label="Next slide"
-              onClick={handleNextSlide}
+              onClick={() => {
+                console.log("Next slide clicked");
+                keenSlider.current?.next();
+              }}
               className="rounded-full bg-[#E69233] p-4 text-white"
             >
-              ▶️
+              ▶
             </button>
           </div>
         </div>
 
-        {/* Slider Section */}
         <div className="relative lg:col-span-2 lg:mx-0">
           <div ref={sliderContainer} className="keen-slider">
             {domesticDestination.map((item, i) => (
               <div className="keen-slider__slide" key={i}>
-                <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px]">
-                  <div className="w-full h-full md:w-full md:h-full overflow-hidden rounded-lg">
+                <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px] relative">
+                  <div className="relative w-full h-64 rounded-lg overflow-hidden">
+                    <div className="absolute top-12 left-1 bg-yellow-400 text-black font-bold px-3 py-1 rounded-md text-sm z-10">
+                      Discount:{item.Discount}
+                    </div>
                     <Image
                       src={item.imageUrl[currentImageIndexes[i]]}
                       alt={item.title}
                       className="w-full h-full object-cover"
                       width={500}
                       height={300}
+                      onError={(e) => console.error("Image failed to load:", e)}
                     />
                   </div>
                   <motion.div
@@ -119,12 +126,6 @@ const TrendingDestination = () => {
                     className="p-4 relative flex-1 pr-4 bg-white rounded-lg shadow-lg overflow-hidden border-2"
                   >
                     <div className="relative z-10">
-                      <div className="flex justify-between items-center mt-2">
-                        <p className="text-[13px] font-semibold text-[#CF1E27]">
-                          {item.feedback}
-                        </p>
-                        <p>{item.days}</p>
-                      </div>
                       <motion.h2
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
@@ -133,32 +134,10 @@ const TrendingDestination = () => {
                       >
                         {item.title}
                       </motion.h2>
-                      <p className="text-[13px] font-semibold">
-                        Discount {item.discount}
+                      <p className="text-[13px] font-semibold text-[#CF1E27]">
+                        {item.feedback}
                       </p>
-
-                      <a href="tel:1800-121-4252">
-                        <div className="flex gap-4 items-center mt-4">
-                          <button className="text-xl">📞</button>
-                          <Link className="w-full" href={item.link}>
-                            <motion.button
-                              onMouseEnter={() => setIsHovered(true)}
-                              onMouseLeave={() => setIsHovered(false)}
-                              className="w-full md:px-8 py-2 text-white rounded-lg transition-all"
-                              initial={{ scale: 1 }}
-                              animate={{
-                                backgroundColor: isHovered
-                                  ? "#CF1E27"
-                                  : "#E69233",
-                                scale: isHovered ? 1.05 : 1,
-                              }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              Know More
-                            </motion.button>
-                          </Link>
-                        </div>
-                      </a>
+                      <p>{item.days}</p>
                     </div>
                   </motion.div>
                 </div>

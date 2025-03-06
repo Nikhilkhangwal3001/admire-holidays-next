@@ -17,7 +17,8 @@ const weekendTripData = [
     about: "Kasauli, Himachal Pradesh",
     url: "/packages/himachal/0",
      days: "5 Night / 6 Days",
-    feedback: "⭐4.5/5"
+    feedback: "⭐4.5/5",
+    Discount:"20%"
   },
 
   {
@@ -26,7 +27,8 @@ const weekendTripData = [
     about: "KanatalKaudia, Uttarakhand",
     url: "/packages/uttarakhand/2",
      days: "5 Night / 6 Days",
-    feedback: "⭐4.9/5"
+    feedback: "⭐4.9/5",
+    Discount:"26%"
   },
 
   {
@@ -35,7 +37,8 @@ const weekendTripData = [
     about: "Haridwar, Uttarakhand",
     url: "/packages/uttarakhand/1",
      days: "5 Night / 6 Days",
-    feedback: "⭐4.8/5"
+    feedback: "⭐4.8/5",
+    Discount:"30%"
   },
 
   {
@@ -44,7 +47,8 @@ const weekendTripData = [
     about: "Pushkar City in Rajasthan",
     url: "/packages/rajasthan/2",
      days: "5 Night / 6 Days",
-    feedback: "⭐4.5/5"
+    feedback: "⭐4.5/5",
+    Discount:"33%"
   },
 
   {
@@ -53,17 +57,10 @@ const weekendTripData = [
     about: "Nainital,Uttarakhand,India",
     url: "/packages/uttarakhand/4",
      days: "5 Night / 6 Days",
-    feedback: "⭐4.6/5"
+    feedback: "⭐4.6/5",
+    Discount:"27%"
   },
 
-  // {
-  //   imageUrl: ["Mussoorie1.jpg","Mussoorie2.jpg","Mussoorie3.jpg"],
-  //   location: "Mussoorie",
-  //   about: "Mussoorie,Uttarakhand",
-  //   url: "/packages/uttarakhand/0",
-  //    days: "5 Night / 6 Days",
-  //   feedback: "⭐4.2/5"
-  // },
 
   {
     imageUrl: ["Neemrana1.jpg","Rajasthan21.jpg","Rajasthan31.jpg"],
@@ -71,7 +68,8 @@ const weekendTripData = [
     about: "Neemrana Rajasthan,India",
     url: "/packages/uttarakhand",
      days: "5 Night / 6 Days",
-    feedback: "⭐4.7/5"
+    feedback: "⭐4.7/5",
+    Discount:"27%"
   },
 ];
 

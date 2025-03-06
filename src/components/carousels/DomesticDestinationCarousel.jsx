@@ -13,7 +13,6 @@ const TrendingDestination = () => {
   const autoSlideInterval = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Manage image index for each item
   const [imageIndexes, setImageIndexes] = useState(
     domesticDestination.map(() => 0)
   );
@@ -28,15 +27,9 @@ const TrendingDestination = () => {
           spacing: 8,
         },
         breakpoints: {
-          "(min-width: 288px)": {
-            slides: { origin: "auto", perView: 1, spacing: 8 },
-          },
-          "(min-width: 768px)": {
-            slides: { origin: "auto", perView: 2, spacing: 8 },
-          },
-          "(min-width: 1024px)": {
-            slides: { origin: "auto", perView: 3, spacing: 12 },
-          },
+          "(min-width: 288px)": { slides: { origin: "auto", perView: 1, spacing: 8 } },
+          "(min-width: 768px)": { slides: { origin: "auto", perView: 2, spacing: 8 } },
+          "(min-width: 1024px)": { slides: { origin: "auto", perView: 3, spacing: 12 } },
         },
       });
 
@@ -52,7 +45,6 @@ const TrendingDestination = () => {
     };
   }, []);
 
-  // Image slideshow effect for each card
   useEffect(() => {
     const interval = setInterval(() => {
       setImageIndexes((prevIndexes) =>
@@ -74,14 +66,15 @@ const TrendingDestination = () => {
           </h2>
         </div>
 
-        {/* Slider Section */}
         <div className="relative lg:col-span-2 lg:mx-0">
           <div ref={sliderContainer} className="keen-slider">
             {domesticDestination.map((item, i) => (
               <div className="keen-slider__slide" key={i}>
-                <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px]">
-                  {/* Right Side */}
-                  <div className="w-full h-full md:w-full md:h-full overflow-hidden rounded-lg relative">
+                <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px] relative">
+                  <div className="relative w-full h-64 rounded-lg overflow-hidden">
+                    <div className="absolute top-2 left-2 bg-yellow-400 text-black font-bold px-3 py-1 rounded-md text-sm z-10">
+                      Discount:{item.Discount}
+                    </div>
                     <Image
                       src={item.imageUrl[imageIndexes[i]]}
                       alt={item.title}
@@ -95,16 +88,9 @@ const TrendingDestination = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="p-4 relative flex-1 pr-4 bg-white rounded-lg shadow-lg overflow-hidden border-2"
+                    className="p-4 bg-white rounded-lg shadow-lg border-2"
                   >
-                    {/* Content */}
                     <div className="relative z-10">
-                      <div className="flex justify-between items-center mt-2">
-                        <p className="text-[13px] font-semibold text-[#CF1E27]">
-                          {item.feedback}
-                        </p>
-                        <p>{item.days}</p>
-                      </div>
                       <motion.h2
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
@@ -113,14 +99,12 @@ const TrendingDestination = () => {
                       >
                         {item.title}
                       </motion.h2>
-                      <p className="text-[13px] font-semibold">
-                        Discount {item.discount}
+                      <p className="text-[13px] font-semibold text-[#CF1E27]">
+                        {item.feedback}
                       </p>
-
+                      <p>{item.days}</p>
                       <div className="flex gap-4 items-center mt-4">
-                        <a href="tel:1800-121-4252" className="text-xl">
-                          📞
-                        </a>
+                        <a href="tel:1800-121-4252" className="text-xl">📞</a>
                         <Link className="w-full" href={item.link}>
                           <motion.button
                             onMouseEnter={() => setIsHovered(true)}

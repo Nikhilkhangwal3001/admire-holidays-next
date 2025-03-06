@@ -71,7 +71,7 @@ export default function TrendingDestinations() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-4xl font-extrabold mb-8 text-red-600"
+        className="text-4xl lg:text-6xl font-extrabold text-red-600 drop-shadow-lg mb-14"
       >
         Trending Destinations
       </motion.h2>
@@ -88,7 +88,7 @@ export default function TrendingDestinations() {
             <div className="w-full h-64 md:h-48 lg:h-56 relative rounded-lg overflow-hidden">
               <Swiper
                 modules={[Autoplay]}
-                autoplay={{ delay: 2000, disableOnInteraction: false }}
+                autoplay={{ delay: 4000, disableOnInteraction: false }}
                 loop={true}
                 className="w-full h-full"
               >
@@ -109,7 +109,7 @@ export default function TrendingDestinations() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              className="absolute inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center text-white text-xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500"
             >
               {destination.name}
             </motion.div>

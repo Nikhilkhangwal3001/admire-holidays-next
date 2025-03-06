@@ -5,6 +5,9 @@ import Query from "@/components/homePageComponents/QueryButton";
 import Navbar from "@/components/Navbar";
 import InViewComponent from "@/components/LazyLoading/InViewComponent";
 import DomesticDestinationCarousel from "@/components/carousels/DomesticDestinationCarousel";
+import WeekendTripStateCarousel from '@/components/carousels/WeekendTripStateCarousel'
+import WeekendTripTrendingcarousel from '@/components/carousels/WeekendTripTrendingCarousel'
+import Resort from '@/components/carousels/ResortTripDestination'
 // Lazy Loaded Components
 // const QuestioningCardsLayout = lazy(() =>
 //   import("@/components/homePageComponents/QuestioningCardsLayout")
@@ -28,7 +31,7 @@ const HomePageBlogSection = lazy(() =>
   import("@/components/homePageComponents/HomePageBlogSection")
 );
 // const WeekendTrip = lazy(() =>
-//   import("@/components/homePageComponents/WeekendTrip")
+//   import("@/components/carousels/WeekendTripStateCarousel")
 // );
 const CompanyStatsSection = lazy(() =>
   import("@/components/homePageComponents/CompanyStatsSection")
@@ -72,7 +75,13 @@ const Home = () => {
         <DomesticDestinationCarousel/>
       </InViewComponent>
       <InViewComponent>
-        {/* <WeekendTrip /> */}
+        <WeekendTripStateCarousel/>
+      </InViewComponent>
+      <InViewComponent>
+        <WeekendTripTrendingcarousel/>
+      </InViewComponent>
+      <InViewComponent>
+        <Resort/>
       </InViewComponent>
       <InViewComponent>
         <TravelGuideline />
