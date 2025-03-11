@@ -2,20 +2,36 @@
 import React, { useEffect, useRef, useState } from "react";
 import KeenSlider from "keen-slider";
 import "keen-slider/keen-slider.min.css";
-import exclusivePackage from "@/data/exclusivePackage";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-
+import axios from "axios";
+import conf from "../../../conf/conf";
 const TrendingDestination = () => {
   const sliderContainer = useRef(null);
   const keenSlider = useRef(null);
   const autoSlideInterval = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [exclusivePackages, setExclusivePackages] = useState([]);
 
-  const [imageIndexes, setImageIndexes] = useState(
-    Array(exclusivePackage.length).fill(0)
-  );
+  useEffect(() => {
+    async function getExclusiveItineraries() {
+      try {
+        const { data } = await axios.get(
+          `${conf.laravelBaseUrl}/public-itineraries-exclusive`
+        );
+
+
+        console.log("Exclusivecarousel", data);
+
+        setExclusivePackages(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    getExclusiveItineraries();
+  }, []);
 
   useEffect(() => {
     if (sliderContainer.current && !keenSlider.current) {
@@ -49,7 +65,7 @@ const TrendingDestination = () => {
         clearInterval(autoSlideInterval.current);
       }
     };
-  }, []);
+  }, [exclusivePackages]);
 
   return (
     <section className="mb-6 py-10">
@@ -62,17 +78,15 @@ const TrendingDestination = () => {
 
         <div className="relative lg:col-span-2 lg:mx-0">
           <div ref={sliderContainer} className="keen-slider">
-            {exclusivePackage.map((itinerary, i) => (
+            {exclusivePackages.map((itinerary, i) => (
               <div className="keen-slider__slide" key={i}>
                 <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px] relative">
-                  {/* Image Container */}
                   <div className="relative w-full h-64 rounded-lg overflow-hidden">
-                    {/* Discount Badge Fixed Position */}
                     <div className="absolute top-12 left-1 bg-yellow-300 text-black font-bold px-3 py-1 rounded-md text-sm z-10">
-                      Discunt:{itinerary.discount}
+                      Discount: {itinerary.discount}
                     </div>
                     <Image
-                      src={itinerary.imageUrl[imageIndexes[i]]}
+                      src={conf.laravelBaseUrl+"/"+itinerary?.destination_thumbnail}
                       alt={itinerary.title}
                       fill
                       className="object-cover"
@@ -101,21 +115,30 @@ const TrendingDestination = () => {
 
                       <div className="flex gap-4 items-center mt-4">
                         <button className="text-xl">📞</button>
-                        <Link className="w-full" href={itinerary.link}>
-                          <motion.button
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
-                            className="w-full md:px-8 py-2 text-white rounded-lg transition-all"
-                            initial={{ scale: 1 }}
-                            animate={{
-                              backgroundColor: isHovered ? "#CF1E27" : "#E69233",
-                              scale: isHovered ? 1.05 : 1,
-                            }}
-                            transition={{ duration: 0.3 }}
+                        {itinerary.link ? (
+                          <Link className="w-full" href={itinerary.link}>
+                            <motion.button
+                              onMouseEnter={() => setIsHovered(true)}
+                              onMouseLeave={() => setIsHovered(false)}
+                              className="w-full md:px-8 py-2 text-white rounded-lg transition-all"
+                              initial={{ scale: 1 }}
+                              animate={{
+                                backgroundColor: isHovered ? "#CF1E27" : "#E69233",
+                                scale: isHovered ? 1.05 : 1,
+                              }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              Know More
+                            </motion.button>
+                          </Link>
+                        ) : (
+                          <button
+                            disabled
+                            className="w-full md:px-8 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed"
                           >
-                            Know More
-                          </motion.button>
-                        </Link>
+                            No Link Available
+                          </button>
+                        )}
                       </div>
                     </div>
                   </motion.div>

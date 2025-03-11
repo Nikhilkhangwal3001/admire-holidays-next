@@ -102,13 +102,13 @@ const Home = () => {
         <HomePageBlogSection />
       </InViewComponent>
       <InViewComponent>
-        <SubscribeLetter />
-      </InViewComponent>
-      <InViewComponent>
         <YoutubeBanner />
       </InViewComponent>
       <InViewComponent>
         <TourismAlliance />
+      </InViewComponent>
+      <InViewComponent>
+        <SubscribeLetter />
       </InViewComponent>
       <InViewComponent>
         <Footer />

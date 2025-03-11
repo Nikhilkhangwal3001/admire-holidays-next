@@ -1,19 +1,19 @@
 const homePageBlogData = [
   {
     imageUrl:
-      "/darjeeling.jpg",
+      "/Magical.png",
     title: "The Majestic Tiger Falls: Nature’s Hidden Gem",
     link: "/blog/tiger-fall",
   },
   {
     imageUrl:
-      "/darjeeling.jpg",
+      "/Panchmarikha.jpeg",
     title: "Pachmarhi: The Queen Of Satpura, A Hidden Gem In Central India",
     link: "/blog/panchmiri",
   },
   {
     imageUrl:
-     "/darjeeling.jpg",
+     "/panchmiri.jpg",
     title: "Exploring The Wilderness: Riches Of Kaziranga National Park",
     link: "/blog/kaziranga",
   },

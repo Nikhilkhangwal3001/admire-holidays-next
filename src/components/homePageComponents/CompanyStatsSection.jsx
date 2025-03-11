@@ -18,10 +18,10 @@ const CompanyStatsSection = () => {
 
   return (
     <section
-      className="bg-[#155146] bg-cover bg-center h-fit py-20"
-      style={{
-        backgroundImage: "url('cmpnstats.jpg')",
-      }}
+      className="bg-[#155146] bg-cover bg-center h-fit py-12"
+      // style={{
+      //   backgroundImage: "url('cmpnstats.jpg')",
+      // }}
       ref={ref} // Attach the ref to the section
     >
       <div className="max-w-7xl mx-auto grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 items-center gap-10 px-5 ">

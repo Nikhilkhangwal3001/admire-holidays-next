@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["admireholidays.com", "unsplash.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "admiredashboard.theholistay.in",
+      },
+    ],
   },
 };
 
