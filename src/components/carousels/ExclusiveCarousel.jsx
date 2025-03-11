@@ -45,7 +45,7 @@ const TrendingDestination = () => {
         breakpoints: {
           "(min-width: 288px)": { slides: { origin: "auto", perView: 1, spacing: 8 } },
           "(min-width: 768px)": { slides: { origin: "auto", perView: 2, spacing: 8 } },
-          "(min-width: 1024px)": { slides: { origin: "auto", perView: 3, spacing: 12 } },
+          "(min-width: 1024px)": { slides: { origin: "auto", perView: 4, spacing: 8 } },
         },
       });
 
@@ -79,71 +79,73 @@ const TrendingDestination = () => {
         <div className="relative lg:col-span-2 lg:mx-0">
           <div ref={sliderContainer} className="keen-slider">
             {exclusivePackages.map((itinerary, i) => (
-              <div className="keen-slider__slide" key={i}>
-                <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px] relative">
-                  <div className="relative w-full h-64 rounded-lg overflow-hidden">
-                    <div className="absolute top-12 left-1 bg-yellow-300 text-black font-bold px-3 py-1 rounded-md text-sm z-10">
-                      Discount: {itinerary.discount}
-                    </div>
-                    <Image
-                      src={conf.laravelBaseUrl+"/"+itinerary?.destination_thumbnail}
-                      alt={itinerary.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="p-4 bg-white rounded-lg shadow-lg border-2"
-                  >
-                    <div className="relative z-10">
-                      <motion.h2
-                        initial={{ x: -20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                        className="text-lg font-bold text-[#4D456B]"
-                      >
-                        {itinerary.title}
-                      </motion.h2>
-                      <p className="text-[13px] font-semibold text-[#CF1E27]">
-                        {itinerary.feedback}
-                      </p>
-                      <p>{itinerary.days}</p>
-
-                      <div className="flex gap-4 items-center mt-4">
-                        <button className="text-xl">📞</button>
-                        {itinerary.link ? (
-                          <Link className="w-full" href={itinerary.link}>
-                            <motion.button
-                              onMouseEnter={() => setIsHovered(true)}
-                              onMouseLeave={() => setIsHovered(false)}
-                              className="w-full md:px-8 py-2 text-white rounded-lg transition-all"
-                              initial={{ scale: 1 }}
-                              animate={{
-                                backgroundColor: isHovered ? "#CF1E27" : "#E69233",
-                                scale: isHovered ? 1.05 : 1,
-                              }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              Know More
-                            </motion.button>
-                          </Link>
-                        ) : (
-                          <button
-                            disabled
-                            className="w-full md:px-8 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed"
-                          >
-                            No Link Available
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
+             <div className="keen-slider__slide h-full" key={i}>
+             <div className="w-[250px] h-[300px] flex flex-col rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center relative">
+               <div className="relative w-full h-40 rounded-lg overflow-hidden">
+                 <div className="absolute top-8 left-1 bg-yellow-300 text-black font-bold px-2 py-1 rounded-md text-xs z-10">
+                   Discount: {itinerary.discount}
+                 </div>
+                 <Image
+                   src={conf.laravelBaseUrl + "/" + itinerary?.destination_thumbnail}
+                   alt={itinerary.title}
+                   fill
+                   className="object-cover"
+                 />
+               </div>
+           
+               <motion.div
+                 initial={{ opacity: 0, y: 20 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 transition={{ duration: 0.5 }}
+                 className="p-2 bg-white rounded-lg shadow-md border flex-grow flex flex-col justify-between w-full"
+               >
+                 <div className="relative z-10">
+                   <motion.h2
+                     initial={{ x: -20, opacity: 0 }}
+                     animate={{ x: 0, opacity: 1 }}
+                     transition={{ delay: 0.2, duration: 0.5 }}
+                     className="text-sm font-bold text-[#4D456B] line-clamp-2"
+                   >
+                     {itinerary.title}
+                   </motion.h2>
+                   <p className="text-xs line-clamp-1 font-semibold text-[#CF1E27]">
+                     {itinerary.feedback}
+                   </p>
+                   <p className="text-xs text-gray-700">{itinerary.duration}</p>
+                 </div>
+           
+                 <div className="flex gap-2 items-center mt-2">
+                   <button className="text-lg">📞</button>
+                   {itinerary.link ? (
+                     <Link className="w-full" href={itinerary.link}>
+                       <motion.button
+                         onMouseEnter={() => setIsHovered(true)}
+                         onMouseLeave={() => setIsHovered(false)}
+                         className="w-full px-4 py-1 text-white rounded-md text-xs transition-all"
+                         initial={{ scale: 1 }}
+                         animate={{
+                           backgroundColor: isHovered ? "#CF1E27" : "#E69233",
+                           scale: isHovered ? 1.05 : 1,
+                         }}
+                         transition={{ duration: 0.3 }}
+                       >
+                         Know More
+                       </motion.button>
+                     </Link>
+                   ) : (
+                     <button
+                       disabled
+                       className="w-full px-4 py-1 bg-gray-400 text-white rounded-md text-xs cursor-pointer"
+                     >
+                       See More
+                     </button>
+                   )}
+                 </div>
+               </motion.div>
+             </div>
+           </div>
+           
+            
             ))}
           </div>
         </div>
