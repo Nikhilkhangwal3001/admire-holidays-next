@@ -19,13 +19,13 @@ const homePageBlogData = [
   },
   {
     imageUrl:
-      "/darjeeling.jpg",
+      "/Dubai.png",
     title: "Discovering the Rich Heritage of Dubai: Beyond the Skyscrapers",
     link: "/blog/dubai",
   },
   {
     imageUrl:
-      "/darjeeling.jpg",
+      "/sikkimimg.png",
     title:
       "Embracing the Serenity of Sikkim: A Journey to the Himalayan Wonderland",
     link: "/blog/sikkim",

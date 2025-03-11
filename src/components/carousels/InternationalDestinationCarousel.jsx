@@ -1,15 +1,36 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import internationalDestinations from "@/data/internationalDestination";
+import axios from "axios";
 import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Image from "next/image";
+import conf from "../../../conf/conf";
+
+const API_URL = `${conf.laravelBaseUrl}/public-itineraries-exclusive`;
 
 const InternationalDestinationGrid = () => {
+  const [destinations, setDestinations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
+
+    const fetchDestinations = async () => {
+      try {
+        const { data } = await axios.get(API_URL);
+        console.log("Fetched Destinations:", data);
+        setDestinations(data); // ✅ Store the fetched data
+      } catch (err) {
+        setError("Failed to load destinations");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDestinations();
   }, []);
 
   return (
@@ -24,11 +45,17 @@ const InternationalDestinationGrid = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {internationalDestinations.map((item, i) => (
-            <DestinationCard key={i} item={item} />
-          ))}
-        </div>
+        {loading ? (
+          <p className="text-center text-gray-600">Loading destinations...</p>
+        ) : error ? (
+          <p className="text-center text-red-600">{error}</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {destinations.map((item, i) => (
+              <DestinationCard key={i} item={item} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
@@ -38,35 +65,30 @@ const DestinationCard = ({ item }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    if (!item.imageUrl || item.imageUrl.length === 0) return;
+    if (!item.destination_thumbnail) return;
 
     const interval = setInterval(() => {
       setCurrentImageIndex(
-        (prevIndex) => (prevIndex + 1) % item.imageUrl.length
+        (prevIndex) => (prevIndex + 1) % item.destination_thumbnail.length
       );
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [item.imageUrl]);
+  }, [item.destination_thumbnail]);
 
   return (
-    <Link href={item.link} className="group relative" data-aos="fade-up">
+    <Link href={item.link || "#"} className="group relative" data-aos="fade-up">
       <div className="overflow-hidden rounded-lg shadow-md transition-transform transform group-hover:scale-105 duration-300 bg-white w-full lg:w-[320px]">
         <div className="relative">
           <Image
             className="object-cover w-full h-56 sm:h-64 md:h-72 rounded-t-lg transition-opacity duration-1000"
-            src={
-              item.imageUrl && item.imageUrl.length > 0
-                ? item.imageUrl[currentImageIndex].startsWith("http")
-                  ? item.imageUrl[currentImageIndex]
-                  : `/${item.imageUrl[currentImageIndex]}`.replace(/^\/+/, "/")
-                : "/placeholder.jpg"
-            }
-            alt={item.title}
+            src={`${conf.laravelBaseUrl}/${item.destination_thumbnail}`} // ✅ Fixed Image Path
+            alt={item.title || "Destination"}
             width={400}
             height={250}
             priority
           />
+
           <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <h3 className="text-white text-lg font-bold tracking-wide">
               {item.title}
@@ -74,7 +96,9 @@ const DestinationCard = ({ item }) => {
           </div>
         </div>
         <div className="p-3 text-center">
-          <h3 className="text-md font-semibold text-gray-800">{item.title}</h3>
+          <h3 className="text-md font-semibold text-gray-800">
+            {item.title || "Unknown Destination"}
+          </h3>
           <p className="text-sm text-gray-600 mt-1">
             Click to explore this amazing destination.
           </p>
