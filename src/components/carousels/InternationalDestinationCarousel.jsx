@@ -8,7 +8,7 @@ import "aos/dist/aos.css";
 import Image from "next/image";
 import conf from "../../../conf/conf";
 
-const API_URL = `${conf.laravelBaseUrl}/public-itineraries-exclusive`;
+const API_URL = `${conf.laravelBaseUrl}/public-itineraries-international`;
 
 const InternationalDestinationGrid = () => {
   const [destinations, setDestinations] = useState([]);
@@ -22,7 +22,7 @@ const InternationalDestinationGrid = () => {
       try {
         const { data } = await axios.get(API_URL);
         console.log("Fetched Destinations:", data);
-        setDestinations(data); // ✅ Store the fetched data
+        setDestinations(data.data); // ✅ Store the fetched data
       } catch (err) {
         setError("Failed to load destinations");
       } finally {

@@ -26,8 +26,8 @@ const TrendingDestination = () => {
         const { data } = await axios.get(API_URL);
         console.log("Fetched Destinations:", data);
         
-        if (data && Array.isArray(data) && data.length > 0) {
-          setDestinations(data);
+        if (data && Array.isArray(data.data) && data.data.length > 0) {
+          setDestinations(data.data);
         } else {
           setError("No destinations found.");
         }
@@ -88,7 +88,7 @@ const TrendingDestination = () => {
                   <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px] relative">
                     <div className="relative w-full h-64 rounded-lg overflow-hidden">
                       <div className="absolute top-2 left-2 bg-yellow-400 text-black font-bold px-3 py-1 rounded-md text-sm z-10">
-                        Discount: {item.discount}
+                        {/* Discount: {item.discount} */}
                       </div>
                       <Image
                         src={imageUrl}
