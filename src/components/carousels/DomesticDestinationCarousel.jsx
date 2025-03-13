@@ -24,10 +24,10 @@ const TrendingDestination = () => {
     async function fetchDestinations() {
       try {
         const { data } = await axios.get(API_URL);
-        console.log("Fetched Destinations:", data);
+        console.log("Fetched Destinations: domestic", data);
         
         if (data && Array.isArray(data) && data.length > 0) {
-          setDestinations(data);
+          setDestinations(data.data);
         } else {
           setError("No destinations found.");
         }
@@ -65,8 +65,8 @@ const TrendingDestination = () => {
     };
   }, [destinations]);
 
-  if (loading) return <p>Loading destinations...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+  // if (loading) return <p>Loading destinations...</p>;
+  // if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <section className="mt-28">
@@ -79,7 +79,7 @@ const TrendingDestination = () => {
 
         <div className="relative lg:col-span-2 lg:mx-0">
           <div ref={sliderContainer} className="keen-slider">
-            {destinations.map((item, i) => {
+            {destinations.length > 0 && destinations?.map((item, i) => {
               const imageUrl = `${conf.laravelBaseUrl}/${item.destination_thumbnail}`;
               console.log("Image URL:", imageUrl); // Debugging
 
