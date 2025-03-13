@@ -10,7 +10,7 @@ const testimonials = [
     feedback:
       "Admire Holidays made my trip unforgettable! The planning was top-notch, and every detail was carefully considered. The hotels they arranged were luxurious with excellent service, ensuring a comfortable stay. Highly recommend Admire Holidays for a hassle-free and memorable travel experience!",
     rating: 5,
-    imageUrl: "/testimonial1.jpg",
+    imageUrl: "/Goacllient1.jpeg",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const testimonials = [
     feedback:
       "Booking my vacation with Admire Holidays was one of the best decisions I’ve made! The trip itself was extraordinary. The hotels were very comfortable and had amazing facilities that made the stay even more enjoyable. I can’t wait to travel with them again!",
     rating: 4,
-    imageUrl: "/testimonial2.jpg",
+    imageUrl: "/Goacllient3.jpeg",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const testimonials = [
     feedback:
       "I had the best holiday experience thanks to Admire Holidays. The hotel stays were exceptional, offering great amenities and comfort, which really helped me relax. Every leg of the journey was seamless, and I didn’t have to worry about any logistics.",
     rating: 5,
-    imageUrl: "/testimonial3.jpg",
+    imageUrl: "/Goacllient2.jpeg",
   },
   {
     id: 4,
@@ -34,7 +34,7 @@ const testimonials = [
     feedback:
       "Admire Holidays took care of everything from start to finish, making our family vacation absolutely perfect. The trip was well-organized with a great mix of sightseeing and leisure. The whole experience was smooth, and I’ll definitely be booking with them again!",
     rating: 4,
-    imageUrl: "/testimonial4.jpg",
+    imageUrl: "/Sikkimclient3.jpeg",
   },
 ];
 

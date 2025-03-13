@@ -7,45 +7,44 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 import conf from "../../../conf/conf";
+
 const TrendingDestination = () => {
   const sliderContainer = useRef(null);
   const keenSlider = useRef(null);
   const autoSlideInterval = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [exclusivePackages, setExclusivePackages] = useState([]);
+  const [destinations, setDestinations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // Fetch API Data
   useEffect(() => {
-    async function getExclusiveItineraries() {
+    async function fetchDestinations() {
       try {
-        const { data } = await axios.get(
-          `${conf.laravelBaseUrl}/public-itineraries-exclusive`
-        );
-
-
-        console.log("Exclusivecarousel", data);
-
-        setExclusivePackages(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+        const { data } = await axios.get(`${conf.laravelBaseUrl}/public-itineraries-trending`);
+        console.log("TrendingDestination.jsx", data);
+        setDestinations(data);
+      } catch (err) {
+        setError("Failed to fetch data.");
+        console.error("API Error:", err);
+      } finally {
+        setLoading(false);
       }
     }
 
-    getExclusiveItineraries();
+    fetchDestinations();
   }, []);
 
+  // KeenSlider Initialization
   useEffect(() => {
-    if (sliderContainer.current && !keenSlider.current) {
+    if (sliderContainer.current && !keenSlider.current && destinations.length > 0) {
       keenSlider.current = new KeenSlider(sliderContainer.current, {
         loop: true,
-        slides: {
-          origin: "center",
-          perView: 1,
-          spacing: 8,
-        },
+        slides: { origin: "center", perView: 1, spacing: 8 },
         breakpoints: {
-          "(min-width: 288px)": { slides: { origin: "auto", perView: 1, spacing: 8 } },
-          "(min-width: 768px)": { slides: { origin: "auto", perView: 2, spacing: 8 } },
-          "(min-width: 1024px)": { slides: { origin: "auto", perView: 3, spacing: 12 } },
+          "(min-width: 288px)": { slides: { perView: 1, spacing: 8 } },
+          "(min-width: 768px)": { slides: { perView: 2, spacing: 8 } },
+          "(min-width: 1024px)": { slides: { perView: 3, spacing: 12 } },
         },
       });
 
@@ -65,58 +64,56 @@ const TrendingDestination = () => {
         clearInterval(autoSlideInterval.current);
       }
     };
-  }, [exclusivePackages]);
+  }, [destinations]);
 
   return (
     <section className="mb-6 py-10">
       <div className="mx-auto relative max-w-[1340px] px-4 sm:px-6 lg:ps-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between mx-auto mb-4">
-          <h2 className="text-center text-[#261F43] md:text-5xl text-3xl font-bold sm:mb-0 flex-grow">
-            Exclusive Package
-          </h2>
-        </div>
+        <h2 className="text-center text-[#261F43] md:text-5xl text-3xl font-bold mb-4">
+        Exclusive Packages
+        </h2>
 
-        <div className="relative lg:col-span-2 lg:mx-0">
-          <div ref={sliderContainer} className="keen-slider">
-            {exclusivePackages.map((itinerary, i) => (
-              <div className="keen-slider__slide" key={i}>
-                <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px] relative">
-                  <div className="relative w-full h-64 rounded-lg overflow-hidden">
-                    <div className="absolute top-12 left-1 bg-yellow-300 text-black font-bold px-3 py-1 rounded-md text-sm z-10">
-                      Discount: {itinerary.discount}
+        {loading ? (
+          <p className="text-lg text-gray-600 text-center">Loading destinations...</p>
+        ) : error ? (
+          <p className="text-lg text-red-600 text-center">{error}</p>
+        ) : (
+          <div className="relative lg:col-span-2 lg:mx-0">
+            <div ref={sliderContainer} className="keen-slider">
+              {destinations.map((destination, i) => (
+                <div className="keen-slider__slide" key={destination.id || i}>
+                  <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 min-h-[220px] relative">
+                    <div className="relative w-full h-64 rounded-lg overflow-hidden">
+                      <Image
+                        src={`${conf.laravelBaseUrl.replace(/\/$/, "")}/${destination.destination_thumbnail.replace(/^\//, "")}`}
+                        alt={destination.title || "Destination"}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
-                    <Image
-                      src={conf.laravelBaseUrl+"/"+itinerary?.destination_thumbnail}
-                      alt={itinerary.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="p-4 bg-white rounded-lg shadow-lg border-2"
-                  >
-                    <div className="relative z-10">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="p-4 bg-white rounded-lg shadow-lg border-2"
+                    >
                       <motion.h2
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
                         className="text-lg font-bold text-[#4D456B]"
                       >
-                        {itinerary.title}
+                        {destination.title}
                       </motion.h2>
                       <p className="text-[13px] font-semibold text-[#CF1E27]">
-                        {itinerary.feedback}
+                        {destination.feedback}
                       </p>
-                      <p>{itinerary.days}</p>
+                      <p>{destination.days}</p>
 
                       <div className="flex gap-4 items-center mt-4">
-                        <button className="text-xl">📞</button>
-                        {itinerary.link ? (
-                          <Link className="w-full" href={itinerary.link}>
+                        {destination.link ? (
+                          <Link className="w-full" href={destination.link}>
                             <motion.button
                               onMouseEnter={() => setIsHovered(true)}
                               onMouseLeave={() => setIsHovered(false)}
@@ -140,13 +137,13 @@ const TrendingDestination = () => {
                           </button>
                         )}
                       </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
