@@ -77,7 +77,7 @@ const DestinationCard = ({ item }) => {
   }, [item.destination_thumbnail]);
 
   return (
-    <Link href={item.link || "#"} className="group relative" data-aos="fade-up">
+    <Link href={`itinerary-detail/${item.slug}` || "#"} className="group relative" data-aos="fade-up">
       <div className="overflow-hidden rounded-lg shadow-md transition-transform transform group-hover:scale-105 duration-300 bg-white w-full lg:w-[320px]">
         <div className="relative">
           <Image
