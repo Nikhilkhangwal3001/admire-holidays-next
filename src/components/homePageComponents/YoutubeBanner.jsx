@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 const testimonials = [
@@ -38,20 +38,45 @@ const testimonials = [
   },
 ];
 
-const galleryImages = [
-  "/Goacllient1.jpeg",
-  "/Goacllient2.jpeg",
-  "/Goacllient3.jpeg",
-  "/Sikkimclient1.jpeg",
-  "/Sikkimclient2.jpeg",
-  "/Sikkimclient3.jpeg",
-  "/client1.jpeg",
-  "/client2.jpeg",
-  "/client3.jpeg",
-  "/client4.jpeg",
-];
-
 export default function Testimonials() {
+  const initialGalleryImages = [
+    "/Goacllient1.jpeg",
+    "/Goacllient2.jpeg",
+    "/Goacllient3.jpeg",
+    "/Sikkimclient1.jpeg",
+    "/Sikkimclient2.jpeg",
+    "/Sikkimclient3.jpeg",
+    "/client1.jpeg",
+    "/client2.jpeg",
+    "/client3.jpeg",
+    "/client4.jpeg",
+    "/client5.jpeg",
+    "/client6.jpeg",
+    "/client7.jpeg",
+    "/client8.jpeg",
+    "/client9.jpeg",
+    "/client10.jpeg",
+  ];
+  const [galleryImages, setGalleryImages] = useState(initialGalleryImages);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); // ✅ Added this line
+
+  // Function to open modal and set selected image
+  const openModal = (index) => {
+    setSelectedIndex(index);
+    setIsModalOpen(true);
+  };
+
+  // Function to navigate images
+  const handleNext = () => {
+    setSelectedIndex((prev) => (prev + 1) % galleryImages.length);
+  };
+  const handlePrev = () => {
+    setSelectedIndex(
+      (prev) => (prev - 1 + galleryImages.length) % galleryImages.length
+    );
+  };
+
   return (
     <section className="px-6 min-h-screen mt-32">
       <h2 className="text-4xl font-semibold text-[#CF1E27] text-center">
@@ -61,30 +86,91 @@ export default function Testimonials() {
         </p>
       </h2>
 
-      {/* Gallery Section */}
       <section className="py-12 px-4 md:px-16 lg:px-32 bg-gray-100">
-        <h3 className="text-2xl md:text-3xl font-semibold text-center text-[#CF1E27] mb-8">
-          Explore Our Gallery
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {galleryImages.map((image, index) => (
-            <div key={index} className="relative w-full h-32 md:h-40 overflow-hidden rounded-lg">
-              <Image
-                src={image}
-                alt={`Gallery Image ${index + 1}`}
-                fill
-                className="object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-110"
-              />
-            </div>
-          ))}
+      <h3 className="text-2xl md:text-3xl font-semibold text-center text-[#CF1E27] mb-8">
+        Explore Our Gallery
+      </h3>
+
+      {/* Image Grid (Show Only 7 + More Images Box) */}
+      <div className="grid grid-cols-4 gap-4">
+        {galleryImages.slice(0, 7).map((image, index) => (
+          <div
+            key={index}
+            className="relative w-full h-32 md:h-40 overflow-hidden rounded-lg cursor-pointer"
+            onClick={() => openModal(index)}
+          >
+            <Image
+              src={image}
+              alt={`Gallery Image ${index + 1}`}
+              fill
+              className="object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
+            />
+          </div>
+        ))}
+
+        {/* More Images Box (8th Image) */}
+        <div
+          className="relative w-full h-32 md:h-40 flex items-center justify-center bg-black bg-opacity-50 text-white font-bold text-lg rounded-lg cursor-pointer"
+          onClick={() => openModal(7)}
+        >
+          +{galleryImages.length - 7} More
         </div>
-      </section>
+      </div>
+
+      {/* Fullscreen Modal */}
+      {isModalOpen && selectedIndex !== null && (
+        <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
+          <div className="relative max-w-4xl w-full flex flex-col items-center">
+            {/* Close Button */}
+            <button
+              className="absolute top-4 right-4 text-white text-3xl"
+              onClick={() => setIsModalOpen(false)}
+            >
+              ✖
+            </button>
+
+            {/* Image Display */}
+            <Image
+              src={galleryImages[selectedIndex]}
+              alt="Selected Image"
+              width={800}
+              height={500}
+              className="w-full h-auto rounded-lg"
+            />
+
+            {/* Navigation Buttons */}
+            <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
+              <button
+                className="bg-white text-black px-3 py-2 rounded-full text-lg"
+                onClick={handlePrev}
+              >
+                ◀
+              </button>
+            </div>
+            <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
+              <button
+                className="bg-white text-black px-3 py-2 rounded-full text-lg"
+                onClick={handleNext}
+              >
+                ▶
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+
 
       {/* Testimonials Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 md:px-16 mt-12">
         {testimonials.map((testimonial) => (
-          <div key={testimonial.id} className="bg-white rounded-lg shadow-lg p-6">
-            <h4 className="text-xl font-semibold text-gray-800 mb-2">{testimonial.name}</h4>
+          <div
+            key={testimonial.id}
+            className="bg-white rounded-lg shadow-lg p-6"
+          >
+            <h4 className="text-xl font-semibold text-gray-800 mb-2">
+              {testimonial.name}
+            </h4>
             <div className="relative w-full h-48 mb-4">
               <Image
                 src={testimonial.imageUrl}
@@ -98,7 +184,11 @@ export default function Testimonials() {
                 <svg
                   key={index}
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`w-5 h-5 ${index < testimonial.rating ? "text-yellow-400" : "text-gray-300"}`}
+                  className={`w-5 h-5 ${
+                    index < testimonial.rating
+                      ? "text-yellow-400"
+                      : "text-gray-300"
+                  }`}
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -109,7 +199,9 @@ export default function Testimonials() {
                 </svg>
               ))}
             </div>
-            <p className="text-gray-700 text-sm md:text-base">{testimonial.feedback}</p>
+            <p className="text-gray-700 text-sm md:text-base">
+              {testimonial.feedback}
+            </p>
           </div>
         ))}
       </div>
