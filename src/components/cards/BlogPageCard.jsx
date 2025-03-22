@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Image from "next/image"; // Import next/image
+import Image from "next/image";
 import { CiCalendarDate } from "react-icons/ci";
 import { FaRegCommentDots, FaRegFolderOpen } from "react-icons/fa";
 import "../../styles/custom.css";

@@ -66,7 +66,7 @@ const TrendingDestination = () => {
       <div className="mx-auto relative max-w-[1340px] px-4 sm:px-6 lg:ps-8">
         <div className="flex flex-col sm:flex-row items-center justify-between mx-auto mb-4">
           <h2 className="text-center text-[#261F43] md:text-5xl text-3xl font-bold sm:mb-0 flex-grow">
-            Weekend Getaway Packages
+            Weekend Getaway Packages<br /><p className="text-[15px] mt-2 text-red-600 text-center">Cultural tours  in  India</p>
           </h2>
         </div>
 

@@ -22,7 +22,7 @@ const InternationalDestinationGrid = () => {
       try {
         const { data } = await axios.get(API_URL);
         console.log("Fetched Destinations:", data);
-        setDestinations(data.data); // ✅ Store the fetched data
+        setDestinations(data.data); 
       } catch (err) {
         setError("Failed to load destinations");
       } finally {
@@ -41,7 +41,7 @@ const InternationalDestinationGrid = () => {
             Explore International Destinations
           </h1>
           <p className="text-md text-red-600 mt-3 max-w-2xl mx-auto">
-            Discover breathtaking locations and plan your next adventure.
+            Affordable  internatioanl  tours
           </p>
         </div>
 
@@ -82,7 +82,7 @@ const DestinationCard = ({ item }) => {
         <div className="relative">
           <Image
             className="object-cover w-full h-56 sm:h-64 md:h-72 rounded-t-lg transition-opacity duration-1000"
-            src={`${conf.laravelBaseUrl}/${item.destination_thumbnail}`} // ✅ Fixed Image Path
+            src={`${conf.laravelBaseUrl}/${item.destination_thumbnail}`} 
             alt={item.title || "Destination"}
             width={400}
             height={250}

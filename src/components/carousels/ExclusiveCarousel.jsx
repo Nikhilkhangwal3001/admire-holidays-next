@@ -6,63 +6,51 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
+import { FaPhone } from "react-icons/fa";
 import conf from "../../../conf/conf";
 
 const TrendingDestination = () => {
   const sliderContainer = useRef(null);
-  const keenSlider = useRef(null);
+  const keenSliderInstance = useRef(null);
   const autoSlideInterval = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const [destinations, setDestinations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch API Data
   useEffect(() => {
     async function fetchDestinations() {
       try {
         const { data } = await axios.get(`${conf.laravelBaseUrl}/public-itineraries-trending`);
-        console.log("TrendingDestination.jsx", data);
-        setDestinations(data);
+        setDestinations(data.slice(0, 5)); // Only take 5 destinations
       } catch (err) {
         setError("Failed to fetch data.");
-        console.error("API Error:", err);
       } finally {
         setLoading(false);
       }
     }
-
     fetchDestinations();
   }, []);
 
-  // KeenSlider Initialization
   useEffect(() => {
-    if (sliderContainer.current && !keenSlider.current && destinations.length > 0) {
-      keenSlider.current = new KeenSlider(sliderContainer.current, {
+    if (sliderContainer.current && destinations.length > 0) {
+      keenSliderInstance.current = new KeenSlider(sliderContainer.current, {
         loop: true,
-        slides: { origin: "center", perView: 1, spacing: 8 },
+        slides: { perView: 1, spacing: 10 },
         breakpoints: {
-          "(min-width: 288px)": { slides: { perView: 1, spacing: 8 } },
-          "(min-width: 768px)": { slides: { perView: 2, spacing: 8 } },
-          "(min-width: 1024px)": { slides: { perView: 3, spacing: 12 } },
+          "(min-width: 768px)": { slides: { perView: 2, spacing: 10 } },
+          "(min-width: 1024px)": { slides: { perView: 3, spacing: 15 } },
         },
       });
 
       autoSlideInterval.current = setInterval(() => {
-        if (keenSlider.current) {
-          keenSlider.current.next();
-        }
-      }, 10000);
+        keenSliderInstance.current?.next();
+      }, 5000);
     }
 
     return () => {
-      if (keenSlider.current) {
-        keenSlider.current.destroy();
-        keenSlider.current = null;
-      }
-      if (autoSlideInterval.current) {
-        clearInterval(autoSlideInterval.current);
-      }
+      keenSliderInstance.current?.destroy();
+      clearInterval(autoSlideInterval.current);
     };
   }, [destinations]);
 
@@ -70,7 +58,7 @@ const TrendingDestination = () => {
     <section className="mb-6 py-10">
       <div className="mx-auto relative max-w-[1340px] px-4 sm:px-6 lg:ps-8">
         <h2 className="text-center text-[#261F43] md:text-5xl text-3xl font-bold mb-4">
-        Exclusive Packages
+          Exclusive Packages
         </h2>
 
         {loading ? (
@@ -111,31 +99,23 @@ const TrendingDestination = () => {
                       </p>
                       <p>{destination.days}</p>
 
-                      <div className="flex gap-4 items-center mt-4">
-                        {destination.link ? (
-                          <Link className="w-full" href={destination.link}>
-                            <motion.button
-                              onMouseEnter={() => setIsHovered(true)}
-                              onMouseLeave={() => setIsHovered(false)}
-                              className="w-full md:px-8 py-2 text-white rounded-lg transition-all"
-                              initial={{ scale: 1 }}
-                              animate={{
-                                backgroundColor: isHovered ? "#CF1E27" : "#E69233",
-                                scale: isHovered ? 1.05 : 1,
-                              }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              Know More
-                            </motion.button>
-                          </Link>
-                        ) : (
-                          <button
-                            disabled
-                            className="w-full md:px-8 py-2 bg-gray-400 text-white rounded-lg cursor-not-allowed"
+                      <div className="flex items-center gap-3 mt-4">
+                        <FaPhone className="text-[#E69233] text-lg" />
+                        <Link className="w-full" href={`/destination/${destination.slug}`}>
+                          <motion.button
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                            className="w-full md:px-8 py-2 text-white rounded-lg transition-all"
+                            initial={{ scale: 1 }}
+                            animate={{
+                              backgroundColor: isHovered ? "#CF1E27" : "#E69233",
+                              scale: isHovered ? 1.05 : 1,
+                            }}
+                            transition={{ duration: 0.3 }}
                           >
-                            No Link Available
-                          </button>
-                        )}
+                            Know More
+                          </motion.button>
+                        </Link>
                       </div>
                     </motion.div>
                   </div>

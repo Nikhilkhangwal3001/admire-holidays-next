@@ -18,15 +18,14 @@ const PackageOptionQuote = ({ openRequestQuotePopup, closeQuotepopup }) => {
     const googleFormUrl =
       "https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse";
 
-    // Replace these with the actual field names from your Google Form
     const formData = new FormData();
-    formData.append("entry.123456789", event.target.name.value); // Replace 123456789 with actual entry ID for name
-    formData.append("entry.987654321", event.target.phone.value); // Replace 987654321 with actual entry ID for phone
-    formData.append("entry.456789123", event.target.email.value); // Replace 456789123 with actual entry ID for email
+    formData.append("entry.123456789", event.target.name.value); 
+    formData.append("entry.987654321", event.target.phone.value);
+    formData.append("entry.456789123", event.target.email.value); 
 
     fetch(googleFormUrl, {
       method: "POST",
-      mode: "no-cors", // This is important to prevent CORS issues
+      mode: "no-cors",
       body: formData,
     })
       .then(() => {
