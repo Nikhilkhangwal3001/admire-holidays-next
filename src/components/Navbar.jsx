@@ -37,12 +37,15 @@ const Navbar = () => {
               <Link href="/" className="font-medium md:text-lg rounded-lg p-2">
                 Home
               </Link>
-              <Link href="/bestpackage" className="md:text-lg font-medium block rounded-lg p-2">
+              <Link href="/allstate" className="md:text-lg font-medium block rounded-lg p-2">
                 Domestic
               </Link>
               <Link href="/internationalpackages" className="md:text-lg font-medium block rounded-lg p-2">
                 International
               </Link>
+              {/* <Link href="/bestpackage" className="md:text-lg font-medium block rounded-lg p-2">
+                Domestic
+              </Link> */}
               {/* <DropDown /> */}
               <Link href="/about" className="font-medium md:text-lg rounded-lg p-2">
                 About

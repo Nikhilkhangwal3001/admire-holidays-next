@@ -21,7 +21,7 @@ const TrendingDestination = () => {
   useEffect(() => {
     async function fetchDestinations() {
       try {
-        const { data } = await axios.get(`${conf.laravelBaseUrl}/public-itineraries-trending`);
+        const { data } = await axios.get(`${conf.laravelBaseUrl}/public-itineraries-exclusive`);
         setDestinations(data.slice(0, 5)); // Only take 5 destinations
       } catch (err) {
         setError("Failed to fetch data.");
