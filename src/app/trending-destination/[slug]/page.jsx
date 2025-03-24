@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import conf from "../../../../conf/conf";  // Ensure correct path
+import conf from "../../../../conf/conf"; // Ensure correct path
 
 async function fetchDestinationData(slug) {
   try {
@@ -35,7 +35,7 @@ export default function DestinationDetail() {
     }
 
     fetchData();
-  }, [slug]);
+  }, [slug, router]); // ✅ Include 'router' in dependency array
 
   if (loading) return <p className="text-center">Loading...</p>;
   if (!destination) return <p className="text-center text-red-500">Destination not found.</p>;

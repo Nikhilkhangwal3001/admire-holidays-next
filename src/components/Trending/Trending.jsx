@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,6 +13,7 @@ import axios from "axios";
 import conf from "../../../conf/conf";
 
 export default function TrendingDestinations() {
+  const router = useRouter(); // Define router
   const [destinations, setDestinations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,7 +32,7 @@ export default function TrendingDestinations() {
     }
 
     fetchDestinations();
-  }, []);
+  }, [router]); // Add 'router' to dependency array
 
   return (
     <section className="py-16 text-center">

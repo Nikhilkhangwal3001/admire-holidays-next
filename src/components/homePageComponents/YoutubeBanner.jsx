@@ -40,22 +40,22 @@ const testimonials = [
 
 export default function Testimonials() {
   const initialGalleryImages = [
-    "/Goacllient1.jpeg",
-    "/Goacllient2.jpeg",
-    "/Goacllient3.jpeg",
-    "/Sikkimclient1.jpeg",
-    "/Sikkimclient2.jpeg",
-    "/Sikkimclient3.jpeg",
-    "/client1.jpeg",
-    "/client2.jpeg",
-    "/client3.jpeg",
-    "/client4.jpeg",
-    "/client5.jpeg",
-    "/client6.jpeg",
-    "/client7.jpeg",
-    "/client8.jpeg",
-    "/client9.jpeg",
-    "/client10.jpeg",
+    "/1.png",
+    "/2.png",
+    "/3.png",
+    "/4.png",
+    "/5.png",
+    "/6.png",
+    "/7.png",
+    "/8.png",
+    "/9.png",
+    "/10.png",
+    "/3.png",
+    "/7.png",
+    "/5.png",
+    "/6.png",
+    "/4.png",
+    "/1.png",
   ];
   const [galleryImages, setGalleryImages] = useState(initialGalleryImages);
   const [selectedIndex, setSelectedIndex] = useState(null);

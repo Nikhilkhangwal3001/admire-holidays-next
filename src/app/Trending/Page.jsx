@@ -28,14 +28,14 @@ export default function DestinationDetail() {
       return;
     }
 
-    async function fetchData() {
+    const fetchData = async () => {
       const data = await fetchDestinationData(slug);
       setDestination(data);
       setLoading(false);
-    }
+    };
 
     fetchData();
-  }, [slug]);
+  }, [slug, router]); // ✅ Added `router` to dependency array
 
   if (loading) return <p className="text-center">Loading...</p>;
   if (!destination) return <p className="text-center text-red-500">Destination not found.</p>;

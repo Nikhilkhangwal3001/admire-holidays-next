@@ -11,7 +11,7 @@ const states = [
   "andhra-pradesh", "arunachal-pradesh", "assam", "bihar", "chhattisgarh",
   "goa", "gujarat", "himachal-pradesh", "jharkhand", "karnataka",
   "kerala", "madhya-pradesh", "maharashtra", "meghalaya",
-  "andaman", "odisha", "punjab", "rajasthan", "sikkim",
+  "nagaland", "odisha", "punjab", "rajasthan", "sikkim",
   "tamil-nadu", "tripura", "uttar-pradesh", "uttarakhand", "west-bengal"
 ];
 

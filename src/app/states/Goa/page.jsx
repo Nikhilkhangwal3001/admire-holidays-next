@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import Image from "next/image"; // Import Next.js Image component
 
 export default function DomesticDestinations() {
   return (
@@ -15,7 +16,7 @@ export default function DomesticDestinations() {
       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <h1 className="text-white text-4xl sm:text-5xl font-bold z-10">
-          Discover India's States
+          Discover India States
         </h1>
       </div>
 
@@ -24,12 +25,15 @@ export default function DomesticDestinations() {
           Select a State
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          
           {/* Andhra Pradesh */}
           <div className="relative group flex flex-col items-center p-4 bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all cursor-pointer">
-            <img
+            <Image
               src="/icons/andhra.png"
               alt="Andhra Pradesh"
-              className="w-24 h-24 mb-3 transition-transform transform group-hover:scale-110"
+              width={96}
+              height={96}
+              className="mb-3 transition-transform transform group-hover:scale-110"
             />
             <Link href="/state/andhrapradesh">
               <p className="text-lg font-semibold text-gray-800 hover:underline">
@@ -43,10 +47,12 @@ export default function DomesticDestinations() {
             className="relative group flex flex-col items-center p-4 bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all cursor-pointer"
             onClick={() => handleStateClick("arunachal-pradesh")}
           >
-            <img
+            <Image
               src="/icons/arunachal.png"
               alt="Arunachal Pradesh"
-              className="w-24 h-24 mb-3 transition-transform transform group-hover:scale-110"
+              width={96}
+              height={96}
+              className="mb-3 transition-transform transform group-hover:scale-110"
             />
             <Link href="/states/arunachal-pradesh">
               <p className="text-lg font-semibold text-gray-800 hover:underline">
@@ -60,10 +66,12 @@ export default function DomesticDestinations() {
             className="relative group flex flex-col items-center p-4 bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all cursor-pointer"
             onClick={() => handleStateClick("assam")}
           >
-            <img
+            <Image
               src="/icons/assam.png"
               alt="Assam"
-              className="w-24 h-24 mb-3 transition-transform transform group-hover:scale-110"
+              width={96}
+              height={96}
+              className="mb-3 transition-transform transform group-hover:scale-110"
             />
             <Link href="/states/assam">
               <p className="text-lg font-semibold text-gray-800 hover:underline">
@@ -77,10 +85,12 @@ export default function DomesticDestinations() {
             className="relative group flex flex-col items-center p-4 bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all cursor-pointer"
             onClick={() => handleStateClick("bihar")}
           >
-            <img
+            <Image
               src="/icons/bihar.png"
               alt="Bihar"
-              className="w-24 h-24 mb-3 transition-transform transform group-hover:scale-110"
+              width={96}
+              height={96}
+              className="mb-3 transition-transform transform group-hover:scale-110"
             />
             <Link href="/states/bihar">
               <p className="text-lg font-semibold text-gray-800 hover:underline">
@@ -88,8 +98,6 @@ export default function DomesticDestinations() {
               </p>
             </Link>
           </div>
-
-          
 
           {/* Continue this pattern for all other states */}
         </div>

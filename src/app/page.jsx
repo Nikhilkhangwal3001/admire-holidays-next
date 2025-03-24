@@ -128,7 +128,7 @@ export function generateMetadata() {
       "Discover the best tour and travel agency in Delhi for unforgettable adventures. Explore premium India tour packages at unbeatable prices. Book now!",
     keywords:
       // "best tour and travel agency in delhi,tour and travel agency in delhi,travel agency in delhi,best travel agency in delhi,best tour operators in delhi,international travel agencies in delhi,best travel agency in delhi ncr",
-      "Best Places to visit to india, cultural tours india,holidays packages,tourist places  in india,affordable internatioanl tours,cheap package holidays",
+      "Best Places to visit to india,best travel agency in india/delhi/bangalore/pune/mumbai/ahmedabad/vadodara/nagpur/nashik/hyderabad/, cultural tours india,holidays packages,tourist places  in india,affordable internatioanl tours,cheap package holidays",
     openGraph: {
       title:
         "Best Tour and Travel Agency in Delhi |Travel Agents in Delhi - Admire Holidays",

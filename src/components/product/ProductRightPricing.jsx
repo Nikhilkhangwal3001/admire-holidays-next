@@ -89,7 +89,7 @@ const ProductRightPricing = ({
     };
     useEffect(() => {
       console.log(overview);
-    }, []);
+    }, );
     
   
   return (
