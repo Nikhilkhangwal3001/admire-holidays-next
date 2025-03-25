@@ -76,8 +76,8 @@ export default function DomesticDestinations() {
                 <Image 
                   src={stateImages[state]} 
                   alt={state} 
-                  width={100}  // Set explicit width
-                  height={100} // Set explicit height
+                  width={100}
+                  height={100}
                   className="w-24 h-24 mb-3 transition-transform transform group-hover:scale-110 rounded-lg object-cover"
                 />
               ) : (

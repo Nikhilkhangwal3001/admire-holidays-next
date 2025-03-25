@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import axios from "axios";
 import conf from "../../../conf/conf";
 
@@ -26,35 +27,24 @@ export default function InternationalDestinations() {
 
   useEffect(() => {
     const fetchImages = async () => {
-     
-          try {
-            const response = await axios.get(
-              `https://admiredashboard.theholistay.in/public-international-destinations-images`
-            );
-  
-            console.log(`Response for page.jsx internationalpackage`, response.data); 
-
-            setCountryImages(response.data);
-
-          } 
-       
-      catch (error) {
+      try {
+        const response = await axios.get(
+          `https://admiredashboard.theholistay.in/public-international-destinations-images`
+        );
+        console.log(`Response for page.jsx internationalpackage`, response.data);
+        setCountryImages(response.data);
+      } catch (error) {
         console.error("Error fetching images:", error);
-      } 
-
+      }
     };
-  
     fetchImages();
   }, []);
-  
 
   const handleCloseModal = (e) => {
     if (videoRef.current && !videoRef.current.contains(e.target)) {
       setSelectedVideo(null);
     }
   };
-
-
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -83,13 +73,12 @@ export default function InternationalDestinations() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
           {countryImages.map((country) => (
             <div
-              key={country?.id}
+              key={country?.destination}
               className="relative group cursor-pointer flex flex-col items-center p-4 bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all"
-              onClick={() => router.push(`/internationalpackages/${country?.id}`)}
+              onClick={() => router.push(`/international/${country?.destination.toLowerCase().replace(/ /g, "-")}`)}
             >
               <Image
-                src={conf.laravelBaseUrl+"/"+country?.images[0]}
-                
+                src={conf.laravelBaseUrl + "/" + country?.images[0]}
                 width={96}
                 height={96}
                 className="mb-3 transition-transform transform group-hover:scale-110 rounded-lg object-cover"

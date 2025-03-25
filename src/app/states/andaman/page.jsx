@@ -6,13 +6,13 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 import axios from "axios";
 
-export default function JharkhandItinerary() {
+export default function AndamanItinerary() {
   const [loading, setLoading] = useState(false);
   const [stateData, setStateData] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchStateData("jharkhand"); // Fetch Jharkhand data on page load
+    fetchStateData("andaman");
   }, []);
 
   const fetchStateData = async (state) => {
@@ -45,13 +45,13 @@ export default function JharkhandItinerary() {
       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <h1 className="text-white text-4xl sm:text-5xl font-bold z-10">
-          Discover Jharkhand
+          Discover Andaman
         </h1>
       </div>
 
       <div className="max-w-7xl mx-auto py-12 px-6">
         <h2 className="text-center text-3xl font-semibold text-gray-800 mb-8">
-          Jharkhand Itinerary
+          Andaman Itinerary
         </h2>
 
         {loading && <p className="text-center text-lg font-semibold">Loading...</p>}
