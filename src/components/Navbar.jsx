@@ -62,7 +62,7 @@ const Navbar = () => {
             <div className="lg:hidden flex items-center">
               {isMounted && (
                 <button
-                  className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black"
+                  className="inline-flex  justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black"
                   onClick={toggleNavbar}
                 >
                   <AnimatedHamburgerButton isClick={isClick} />
@@ -84,7 +84,7 @@ const Navbar = () => {
               <Link href="/" className="md:text-lg font-medium block rounded-lg p-2">
                 Home
               </Link>
-              <Link href="/bestpackage" className="md:text-lg font-medium block rounded-lg p-2">
+              <Link href="/allstate" className="md:text-lg font-medium block rounded-lg p-2">
                 Domestic
               </Link>
               <Link href="/internationalpackages" className="md:text-lg font-medium block rounded-lg p-2">
