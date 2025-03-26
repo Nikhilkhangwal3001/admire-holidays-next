@@ -87,7 +87,7 @@ export default function DomesticDestinations() {
                 <p className="text-gray-600">
                   <strong>Pricing:</strong> {item.pricing}
                 </p>
-
+                
                 {/* Destination */}
                 <p className="text-gray-600">
                   <strong>Destination:</strong> {item.selected_destination}

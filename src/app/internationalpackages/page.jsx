@@ -4,26 +4,16 @@ import { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { X } from "lucide-react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import conf from "../../../conf/conf";
-
-const countries = [
-  "indonesia", "spain", "uae", "thailand", "maldives",
-  "saudi-arabia", "malaysia", "usa", "israel", "france",
-  "china", "vietnam", "uk", "tunisia", "sri-lanka",
-  "russia", "japan", "britain", "italy", "estonia",
-  "australia", "turkey"
-];
 
 export default function InternationalDestinations() {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [countryImages, setCountryImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const videoRef = useRef(null);
-  const router = useRouter();
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -72,21 +62,22 @@ export default function InternationalDestinations() {
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
           {countryImages.map((country) => (
-            <div
+            <Link
               key={country?.destination}
+              href={`/international/${country?.destination.toLowerCase().replace(/ /g, "-")}`}
               className="relative group cursor-pointer flex flex-col items-center p-4 bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all"
-              onClick={() => router.push(`/international/${country?.destination.toLowerCase().replace(/ /g, "-")}`)}
             >
               <Image
                 src={conf.laravelBaseUrl + "/" + country?.images[0]}
                 width={96}
                 height={96}
                 className="mb-3 transition-transform transform group-hover:scale-110 rounded-lg object-cover"
+                alt={country?.destination}
               />
               <p className="text-lg font-semibold text-gray-800 cursor-pointer">
                 {country?.destination}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
