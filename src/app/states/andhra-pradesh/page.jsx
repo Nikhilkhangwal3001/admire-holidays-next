@@ -6,15 +6,20 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 import axios from "axios";
 
-export default function DomesticDestinations() {
+export default function AndhraPradeshItinerary() {
   const [loading, setLoading] = useState(false);
   const [stateData, setStateData] = useState([]);
+  const [videoUrl, setVideoUrl] = useState(null);
   const [error, setError] = useState(null);
 
+  const destination = "andhra-pradesh"; // Default state
+
   useEffect(() => {
-    fetchStateData("andhra-pradesh"); // Fetch Andhra Pradesh data
+    fetchStateData(destination);
+    fetchVideo(destination);
   }, []);
 
+  // Fetch Itinerary Data
   const fetchStateData = async (state) => {
     setLoading(true);
     setError(null);
@@ -22,33 +27,59 @@ export default function DomesticDestinations() {
       const response = await axios.get(
         `https://admiredashboard.theholistay.in/public-itineraries/${state}`
       );
-      if (response.data.length > 0) {
-        setStateData(response.data);
-      } else {
-        setStateData([]);
-        setError("No data available for this state.");
-      }
+      setStateData(response.data.length > 0 ? response.data : []);
+      if (response.data.length === 0) setError("No data available for this state.");
     } catch (error) {
       console.error("Error fetching data:", error);
       setError("Failed to load data. Please try again.");
-      setStateData([]);
     }
     setLoading(false);
+  };
+
+  // Fetch Video Data
+  const fetchVideo = async (state) => {
+    try {
+      const response = await axios.get(
+        `https://admiredashboard.theholistay.in/public-destination-video/${state}`
+      );
+      if (response.data && response.data.video_url) {
+        setVideoUrl(`https://admiredashboard.theholistay.in/${response.data.video_url}`);
+      } else {
+        setVideoUrl(null);
+      }
+    } catch (error) {
+      console.error("Error fetching video:", error);
+      setVideoUrl(null);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <div
-        className="relative w-full h-[300px] sm:h-[400px] flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/india-bg.jpg')" }}
-      >
+
+      {/* Video Banner */}
+      <div className="relative w-full h-[300px] sm:h-[400px] flex items-center justify-center">
+        {videoUrl ? (
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            src={videoUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        ) : (
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <p className="text-white text-lg">Video not available</p>
+          </div>
+        )}
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <h1 className="text-white text-4xl sm:text-5xl font-bold z-10">
-          Discover India States
+          Discover Andhra Pradesh
         </h1>
       </div>
 
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto py-12 px-6">
         <h2 className="text-center text-3xl font-semibold text-gray-800 mb-8">
           Andhra Pradesh Itinerary
@@ -56,7 +87,7 @@ export default function DomesticDestinations() {
 
         {loading && <p className="text-center text-lg font-semibold">Loading...</p>}
         {error && <p className="text-center text-red-600">{error}</p>}
-        
+
         {stateData.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {stateData.map((item, index) => (
@@ -75,7 +106,8 @@ export default function DomesticDestinations() {
 
                 {/* Destination Type */}
                 <p className="text-gray-600 mt-1">
-                  <strong>Type:</strong> {item.domestic_or_international === "domestic" ? "Domestic" : "International"}
+                  <strong>Type:</strong>{" "}
+                  {item.domestic_or_international === "domestic" ? "Domestic" : "International"}
                 </p>
 
                 {/* Duration */}

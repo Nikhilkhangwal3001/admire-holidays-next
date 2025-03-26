@@ -1,20 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";  // ✅ Fix: Use useParams instead of useRouter
+import { useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import axios from "axios";
 
 export default function CountryPage() {
-  const { country } = useParams();  // ✅ Get country from the URL
+  const { country } = useParams();
   const [loading, setLoading] = useState(true);
   const [countryData, setCountryData] = useState(null);
   const [error, setError] = useState(null);
+  const [bannerVideo, setBannerVideo] = useState(null);
+  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
-    if (!country) return;  // ✅ Ensure country is available
+    if (!country) return;
 
     const fetchCountryData = async () => {
       setLoading(true);
@@ -35,8 +37,29 @@ export default function CountryPage() {
       setLoading(false);
     };
 
+    // ✅ Fetch banner video dynamically
+    const fetchBannerVideo = async () => {
+      try {
+        const response = await axios.get(
+          `https://admiredashboard.theholistay.in/public-destination-video/${country}`
+        );
+
+        if (response.data && response.data.video_url) {
+          const fullVideoUrl = `https://admiredashboard.theholistay.in/${response.data.video_url}`;
+          setBannerVideo(fullVideoUrl);
+          setVideoError(false); // Reset video error on successful fetch
+        } else {
+          setBannerVideo(null);
+        }
+      } catch (error) {
+        console.error("Error loading video:", error);
+        setBannerVideo(null);
+      }
+    };
+
     fetchCountryData();
-  }, [country]);  // ✅ Runs only when country changes
+    fetchBannerVideo();
+  }, [country]);
 
   if (loading) return <p className="text-center py-10">Loading...</p>;
   if (error) return <p className="text-center py-10 text-red-500">{error}</p>;
@@ -45,10 +68,25 @@ export default function CountryPage() {
     <div className="min-h-screen bg-gray-100">
       <Navbar />
 
-      <div
-        className="relative w-full h-[300px] sm:h-[400px] flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: `url('/images/india-bg.jpg')` }}
-      >
+      {/* ✅ Video Banner Section */}
+      <div className="relative w-full h-[300px] sm:h-[400px] flex items-center justify-center">
+        {bannerVideo && !videoError ? (
+          <video
+            key={bannerVideo} // ✅ Ensures video updates when country changes
+            className="absolute inset-0 w-full h-full object-cover"
+            src={bannerVideo}
+            autoPlay
+            loop
+            muted
+            playsInline
+            onError={() => setVideoError(true)} // ✅ Handle video loading errors
+          />
+        ) : (
+          <div
+            className="absolute inset-0 w-full h-full bg-cover bg-center"
+            style={{ backgroundImage: `url('/images/default-banner.jpg')` }}
+          ></div>
+        )}
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <h1 className="text-white text-4xl sm:text-5xl font-bold z-10 capitalize">
           Discover {country?.replace(/-/g, " ")}

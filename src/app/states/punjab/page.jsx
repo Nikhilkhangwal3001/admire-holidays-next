@@ -6,13 +6,13 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 import axios from "axios";
 
-export default function HimachalItinerary() {
+export default function PunjabItinerary() {
   const [loading, setLoading] = useState(false);
   const [stateData, setStateData] = useState([]);
   const [videoUrl, setVideoUrl] = useState(null);
   const [error, setError] = useState(null);
 
-  const destination = "himachal-pradesh"; // Default state for Himachal Pradesh
+  const destination = "punjab"; // Default state for Punjab
 
   useEffect(() => {
     fetchStateData(destination);
