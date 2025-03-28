@@ -2,18 +2,18 @@
 
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer"; 
 import Image from "next/image";
-import Link from "next/link";
 import axios from "axios";
+import Link from "next/link";
 
-export default function AndamanItinerary() {
+export default function LadakhItinerary() {
   const [loading, setLoading] = useState(false);
   const [stateData, setStateData] = useState([]);
   const [videoUrl, setVideoUrl] = useState(null);
   const [error, setError] = useState(null);
 
-  const destination = "andaman"; // Default state
+  const destination = "ladakh"; // Updated to Ladakh
 
   useEffect(() => {
     fetchStateData(destination);
@@ -93,7 +93,6 @@ export default function AndamanItinerary() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {stateData.map((item, index) => (
               <div key={index} className="p-6 bg-white shadow-lg rounded-lg">
-                {/* Thumbnail Image */}
                 <Image
                   src={`https://admiredashboard.theholistay.in/${item.destination_thumbnail}`}
                   alt={item.title}
@@ -102,31 +101,25 @@ export default function AndamanItinerary() {
                   className="rounded-lg"
                 />
 
-                {/* Title */}
                 <h3 className="text-2xl font-semibold mt-4">{item.title}</h3>
 
-                {/* Destination Type */}
                 <p className="text-gray-600 mt-1">
                   <strong>Type:</strong>{" "}
                   {item.domestic_or_international === "domestic" ? "Domestic" : "International"}
                 </p>
 
-                {/* Duration */}
                 <p className="text-gray-600">
                   <strong>Duration:</strong> {item.duration}
                 </p>
 
-                {/* Pricing */}
                 <p className="text-gray-600">
                   <strong>Pricing:</strong> {item.pricing}
                 </p>
 
-                {/* Destination */}
                 <p className="text-gray-600">
                   <strong>Destination:</strong> {item.selected_destination}
                 </p>
 
-                {/* Additional Images */}
                 <div className="mt-4 grid grid-cols-3 gap-2">
                   {item.destination_images.map((img, imgIndex) => (
                     <Image
@@ -139,6 +132,7 @@ export default function AndamanItinerary() {
                     />
                   ))}
                 </div>
+
                 <div className="mt-4 text-center">
                   <Link href={`/destination/${item.slug}`}>
                     <button className="px-4 py-2 bg-blue-600 w-full text-white rounded-lg hover:bg-blue-700">

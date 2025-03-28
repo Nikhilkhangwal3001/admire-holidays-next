@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import Link from "next/link";
 import axios from "axios";
 
 export default function TripuraItinerary() {
@@ -137,6 +138,13 @@ export default function TripuraItinerary() {
                       className="rounded-md"
                     />
                   ))}
+                </div>
+                <div className="mt-4 text-center">
+                  <Link href={`/destination/${item.slug}`}>
+                    <button className="px-4 py-2 bg-blue-600 w-full text-white rounded-lg hover:bg-blue-700">
+                      Explore Destination
+                    </button>
+                  </Link>
                 </div>
               </div>
             ))}

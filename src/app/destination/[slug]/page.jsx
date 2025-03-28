@@ -1,101 +1,63 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation"; // ✅ Get dynamic slug
+import { useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer"; 
+import Footer from "@/components/Footer";
 import Image from "next/image";
 import axios from "axios";
 import Link from "next/link";
-import conf from "../../../../conf/conf";
 
 export default function ItineraryPage() {
-  const { slug } = useParams(); // ✅ Get slug from URL
+  const { slug } = useParams();
   const [loading, setLoading] = useState(false);
-  const [stateData, setStateData] = useState([]);
+  const [stateData, setStateData] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!slug) {
-      console.error("Slug is missing!"); // ✅ Log if slug is undefined
+      console.error("Slug is missing!");
       return;
     }
-    console.log("Fetching data for slug:", slug); // ✅ Debugging Log
     fetchStateData(slug);
     fetchVideo(slug);
   }, [slug]);
-  console.log("irritation", slug);
-  
 
-  // ✅ Fetch Itinerary Data
   const fetchStateData = async (slug) => {
     setLoading(true);
     setError(null);
     try {
       const response = await axios.get(
-        `https://admiredashboard.theholistay.in/public-itinerary/${slug}?timestamp=${new Date().getTime()}`
+        `https://admiredashboard.theholistay.in/public-itinerary/${slug}`
       );
-
-      console.log("API Response:", response.data); // ✅ Log full API response
-
-      if (response.data && response.data.length > 0) {
-        setStateData(response.data);
-      } else {
-        setError("No data available for this destination.");
-      }
+      console.log("API Response:", response.data);
+      setStateData(response.data);
     } catch (error) {
-      console.error("Error fetching data:", error); // ✅ Log full error
-      if (error.response) {
-        console.error("Error Response Data:", error.response.data); // ✅ Log detailed API error
-      }
-      setError("Failed to load data. Please try again.");
+      console.error("Error fetching data:", error);
+      setError("Failed to load data.");
     }
     setLoading(false);
   };
 
-  // ✅ Fetch Video Data
   const fetchVideo = async (slug) => {
     try {
       const response = await axios.get(
         `https://admiredashboard.theholistay.in/public-destination-video/${slug}`
       );
-      if (response.data && response.data.video_url) {
-        setVideoUrl(`https://admiredashboard.theholistay.in/${response.data.video_url}`);
-      } else {
-        setVideoUrl(null);
+      if (response.data?.video_url) {
+        setVideoUrl(
+          `https://admiredashboard.theholistay.in/${response.data.video_url}`
+        );
       }
     } catch (error) {
       console.error("Error fetching video:", error);
-      setVideoUrl(null);
     }
   };
-
-
-
-  // useEffect(()=>{
-  //  (
-  //   async function(){
-  //     try {
-  //       console.log("page.jsx raam raam bhai saarya ne", slug);
-
-  //       const response = await axios.get(`${conf.laravelBaseUrl}/public-itinerary/-sri-lankan-honeymoon-tour`);
-
-  //       console.log("response.data gaadi rokega", response.data);
-  //     } catch (error) {
-  //      console.log("ke dikkat hai", error); 
-  //     }
-   
-
-  //   }
-  //  )()
-  // }, [slug]);
 
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
-
-      {/* ✅ Video Banner */}
       <div className="relative w-full h-[300px] sm:h-[400px] flex items-center justify-center">
         {videoUrl ? (
           <video
@@ -113,83 +75,64 @@ export default function ItineraryPage() {
         )}
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <h1 className="text-white text-4xl sm:text-5xl font-bold z-10 capitalize">
-          Discover {slug ? slug.replace("-", " ") : "Destination"}
+          Discover {slug?.replace("-", " ") || "Destination"}
         </h1>
       </div>
-
-      {/* ✅ Main Content */}
-      <div className="max-w-7xl mx-auto py-12 px-6">
-        <h2 className="text-center text-3xl font-semibold text-gray-800 mb-8 capitalize">
-          {slug ? slug.replace("-", " ") : "Destination"} Itinerary
-        </h2>
-
+      <div className="max-w-5xl mx-auto py-12 px-6">
         {loading && <p className="text-center text-lg font-semibold">Loading...</p>}
         {error && <p className="text-center text-red-600">{error}</p>}
 
-        {stateData.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {stateData.map((item, index) => (
-              <div key={index} className="p-6 bg-white shadow-lg rounded-lg">
-                {/* ✅ Thumbnail Image */}
-                <Image
-                  src={`https://admiredashboard.theholistay.in/${item.destination_thumbnail}`}
-                  alt={item.title}
-                  width={400}
-                  height={250}
-                  className="rounded-lg"
-                />
+        {stateData ? (
+          <div className="bg-white p-6 shadow-lg rounded-lg">
+            <h2 className="text-3xl font-semibold text-gray-800 capitalize mb-6">
+              {stateData.title || "No Title Available"}
+            </h2>
 
-                {/* ✅ Title */}
-                <h3 className="text-2xl font-semibold mt-4">{item.title}</h3>
+            {stateData.destination_thumbnail && (
+              <Image
+                src={`https://admiredashboard.theholistay.in/${stateData.destination_thumbnail}`}
+                alt="Thumbnail"
+                width={600}
+                height={400}
+                className="rounded-lg mb-6"
+              />
+            )}
 
-                {/* ✅ Destination Type */}
-                <p className="text-gray-600 mt-1">
-                  <strong>Type:</strong>{" "}
-                  {item.domestic_or_international === "domestic" ? "Domestic" : "International"}
-                </p>
-
-                {/* ✅ Duration */}
-                <p className="text-gray-600">
-                  <strong>Duration:</strong> {item.duration}
-                </p>
-
-                {/* ✅ Pricing */}
-                <p className="text-gray-600">
-                  <strong>Pricing:</strong> {item.pricing}
-                </p>
-
-                {/* ✅ Destination */}
-                <p className="text-gray-600">
-                  <strong>Destination:</strong> {item.selected_destination}
-                </p>
-
-                {/* ✅ Additional Images */}
-                <div className="mt-4 grid grid-cols-3 gap-2">
-                  {item.destination_images.map((img, imgIndex) => (
-                    <Image
-                      key={imgIndex}
-                      src={`https://admiredashboard.theholistay.in/${img}`}
-                      alt={`Additional Image ${imgIndex + 1}`}
-                      width={120}
-                      height={80}
-                      className="rounded-md"
-                    />
-                  ))}
-                </div>
-
-                <div className="mt-4 text-center">
-                  <Link href={`/destination/${item.selected_destination}`}>
-                    <button className="px-4 py-2 bg-blue-600 w-full text-white rounded-lg hover:bg-blue-700">
-                      Explore Destination
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ))}
+            <p className="text-gray-600"><strong>Destination:</strong> {stateData.selected_destination || "N/A"}</p>
+            <p className="text-gray-600"><strong>Duration:</strong> {stateData.duration || "N/A"}</p>
+            <p className="text-gray-600"><strong>Pricing:</strong> {stateData.pricing || "N/A"}</p>
+            <p className="text-gray-600"><strong>Type:</strong> {stateData.domestic_or_international || "N/A"}</p>
+            <p className="text-gray-600"><strong>Description:</strong> {stateData.description || "No description available"}</p>
+            
+            <div className="mt-6 grid grid-cols-3 gap-4">
+              {Array.isArray(stateData.destination_images) && stateData.destination_images.length > 0 ? (
+                stateData.destination_images.map((img, index) => (
+                  <Image
+                    key={index}
+                    src={`https://admiredashboard.theholistay.in/${img}`}
+                    alt={`Image ${index + 1}`}
+                    width={200}
+                    height={150}
+                    className="rounded-md"
+                  />
+                ))
+              ) : (
+                <p className="text-gray-500 col-span-3">No Additional Images</p>
+              )}
+            </div>
+            
+            <div className="mt-6">
+              <Link href={`/destination/${stateData.selected_destination || ""}`}>
+                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                  Explore More
+                </button>
+              </Link>
+            </div>
           </div>
+        ) : (
+          <p className="text-center text-gray-500">No itinerary data available.</p>
         )}
       </div>
-
       <Footer />
     </div>
   );

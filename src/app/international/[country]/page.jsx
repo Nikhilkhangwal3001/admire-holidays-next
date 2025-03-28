@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import Link from "next/link";
 import axios from "axios";
 
 export default function CountryPage() {
@@ -37,17 +38,16 @@ export default function CountryPage() {
       setLoading(false);
     };
 
-    // ✅ Fetch banner video dynamically
     const fetchBannerVideo = async () => {
       try {
         const response = await axios.get(
           `https://admiredashboard.theholistay.in/public-destination-video/${country}`
         );
 
-        if (response.data && response.data.video_url) {
+        if (response.data?.video_url) {
           const fullVideoUrl = `https://admiredashboard.theholistay.in/${response.data.video_url}`;
           setBannerVideo(fullVideoUrl);
-          setVideoError(false); // Reset video error on successful fetch
+          setVideoError(false);
         } else {
           setBannerVideo(null);
         }
@@ -68,18 +68,18 @@ export default function CountryPage() {
     <div className="min-h-screen bg-gray-100">
       <Navbar />
 
-      {/* ✅ Video Banner Section */}
+      {/* Video Banner Section */}
       <div className="relative w-full h-[300px] sm:h-[400px] flex items-center justify-center">
         {bannerVideo && !videoError ? (
           <video
-            key={bannerVideo} // ✅ Ensures video updates when country changes
+            key={bannerVideo}
             className="absolute inset-0 w-full h-full object-cover"
             src={bannerVideo}
             autoPlay
             loop
             muted
             playsInline
-            onError={() => setVideoError(true)} // ✅ Handle video loading errors
+            onError={() => setVideoError(true)}
           />
         ) : (
           <div
@@ -98,7 +98,7 @@ export default function CountryPage() {
           Explore {country?.replace(/-/g, " ")}
         </h2>
 
-        {countryData && countryData.length > 0 && (
+        {countryData?.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {countryData.map((item, index) => (
               <div key={index} className="p-6 bg-white shadow-lg rounded-lg">
@@ -117,14 +117,23 @@ export default function CountryPage() {
                   <strong>Duration:</strong> {item.duration}
                 </p>
                 <p className="text-gray-600">
-                  <strong>Pricing:</strong> {item.pricing}
+                  <strong>Pricing:</strong> {item.pricing || "N/A"}
                 </p>
                 <p className="text-gray-600">
                   <strong>Destination:</strong> {item.selected_destination}
                 </p>
+                <div className="mt-6">
+                  <Link href={`/destination/${item.slug || ""}`}>
+                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                      Explore More
+                    </button>
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
+        ) : (
+          <p className="text-center text-gray-500">No itineraries available.</p>
         )}
       </div>
 

@@ -8,7 +8,7 @@ import axios from "axios";
 import Image from "next/image";
 
 const states = [
-  "andhra-pradesh","delhi", "arunachal-pradesh", "assam", "bihar", "chhattisgarh",
+  "andhra-pradesh","delhi","kashmir","ladakh", "arunachal-pradesh", "assam", "bihar", "chhattisgarh",
   "goa", "gujarat", "himachal-pradesh", "jharkhand", "karnataka",
   "kerala", "madhya-pradesh", "maharashtra", "meghalaya",
   "andaman", "odisha", "punjab", "rajasthan", "sikkim",
