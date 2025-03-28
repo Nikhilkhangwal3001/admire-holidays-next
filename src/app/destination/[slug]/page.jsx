@@ -79,7 +79,9 @@ export default function ItineraryPage() {
         </h1>
       </div>
       <div className="max-w-5xl mx-auto py-12 px-6">
-        {loading && <p className="text-center text-lg font-semibold">Loading...</p>}
+        {loading && (
+          <p className="text-center text-lg font-semibold">Loading...</p>
+        )}
         {error && <p className="text-center text-red-600">{error}</p>}
 
         {stateData ? (
@@ -98,14 +100,140 @@ export default function ItineraryPage() {
               />
             )}
 
-            <p className="text-gray-600"><strong>Destination:</strong> {stateData.selected_destination || "N/A"}</p>
-            <p className="text-gray-600"><strong>Duration:</strong> {stateData.duration || "N/A"}</p>
-            <p className="text-gray-600"><strong>Pricing:</strong> {stateData.pricing || "N/A"}</p>
-            <p className="text-gray-600"><strong>Type:</strong> {stateData.domestic_or_international || "N/A"}</p>
-            <p className="text-gray-600"><strong>Description:</strong> {stateData.description || "No description available"}</p>
-            
+            <p className="text-gray-600">
+              <strong>Destination</strong>{" "}
+              {stateData.destination_detail ? (
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: stateData.destination_detail,
+                  }}
+                />
+              ) : (
+                "No description available"
+              )}
+            </p>
+            <p className="text-gray-600">
+              <strong>Duration:</strong> {stateData.duration || "N/A"}
+            </p>
+            <p className="text-gray-600">
+              <strong>Pricing:</strong> {stateData.pricing || "N/A"}
+            </p>
+            <p className="text-gray-600">
+              <strong>Type:</strong>{" "}
+              {stateData.domestic_or_international || "N/A"}
+            </p>
+            <p className="text-gray-600">
+              <strong>Description:</strong>{" "}
+              {stateData.destination_detail ? (
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: stateData.destination_detail,
+                  }}
+                />
+              ) : (
+                "No description available"
+              )}
+            </p>
+            <p className="text-gray-600">
+              <strong>Inclusion:</strong>{" "}
+              {stateData.inclusion ? (
+                <span
+                  dangerouslySetInnerHTML={{ __html: stateData.inclusion }}
+                />
+              ) : (
+                "No description available"
+              )}
+            </p>
+            <p className="text-gray-600">
+              <strong>Additional Inclusion:</strong>{" "}
+              {stateData.additional_inclusion ? (
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: stateData.additional_inclusion,
+                  }}
+                />
+              ) : (
+                "No description available"
+              )}
+            </p>
+            <p className="text-gray-600">
+              <strong>Exclusion</strong>{" "}
+              {stateData.exclusion ? (
+                <span
+                  dangerouslySetInnerHTML={{ __html: stateData.exclusion }}
+                />
+              ) : (
+                "No description available"
+              )}
+            </p>
+            <p className="text-gray-600">
+              <strong>Terms and Conditions</strong>{" "}
+              {stateData.terms_and_conditions ? (
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: stateData.terms_and_conditions,
+                  }}
+                />
+              ) : (
+                "No description available"
+              )}
+            </p>
+            <p className="text-gray-600">
+              <strong>Special Note</strong>{" "}
+              {stateData.special_note ? (
+                <span
+                  dangerouslySetInnerHTML={{ __html: stateData.special_note }}
+                />
+              ) : (
+                "No description available"
+              )}
+            </p>
+            <p className="text-gray-600">
+              <strong>Cancellation Policy</strong>{" "}
+              {stateData.cancellation_policy ? (
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: stateData.cancellation_policy,
+                  }}
+                />
+              ) : (
+                "No description available"
+              )}
+            </p>
+            <p className="text-gray-600">
+              <strong>Payment Mode</strong>{" "}
+              {stateData.payment_mode ? (
+                <span
+                  dangerouslySetInnerHTML={{ __html: stateData.payment_mode }}
+                />
+              ) : (
+                "No description available"
+              )}
+            </p>
+            <p className="text-gray-600">
+              <strong>Hotel Details</strong>{" "}
+              {stateData.hotel_details ? (
+                <span
+                  dangerouslySetInnerHTML={{ __html: stateData.hotel_details }}
+                />
+              ) : (
+                "No description available"
+              )}
+            </p>
+            <p className="text-gray-600">
+              <strong>Status Flag</strong>{" "}
+              {stateData.status_flags ? (
+                <span
+                  dangerouslySetInnerHTML={{ __html: stateData.status_flags }}
+                />
+              ) : (
+                "No description available"
+              )}
+            </p>
+
             <div className="mt-6 grid grid-cols-3 gap-4">
-              {Array.isArray(stateData.destination_images) && stateData.destination_images.length > 0 ? (
+              {Array.isArray(stateData.destination_images) &&
+              stateData.destination_images.length > 0 ? (
                 stateData.destination_images.map((img, index) => (
                   <Image
                     key={index}
@@ -120,9 +248,11 @@ export default function ItineraryPage() {
                 <p className="text-gray-500 col-span-3">No Additional Images</p>
               )}
             </div>
-            
+
             <div className="mt-6">
-              <Link href={`/destination/${stateData.selected_destination || ""}`}>
+              <Link
+                href={`/destination/${stateData.selected_destination || ""}`}
+              >
                 <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                   Explore More
                 </button>
@@ -130,7 +260,9 @@ export default function ItineraryPage() {
             </div>
           </div>
         ) : (
-          <p className="text-center text-gray-500">No itinerary data available.</p>
+          <p className="text-center text-gray-500">
+            No itinerary data available.
+          </p>
         )}
       </div>
       <Footer />

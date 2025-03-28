@@ -37,32 +37,47 @@ const Navbar = () => {
               <Link href="/" className="font-medium md:text-lg rounded-lg p-2">
                 Home
               </Link>
-              <Link href="/allstate" className="md:text-lg font-medium block rounded-lg p-2">
+              <Link
+                href="/allstate"
+                className="md:text-lg font-medium block rounded-lg p-2"
+              >
                 Domestic
               </Link>
-              <Link href="/internationalpackages" className="md:text-lg font-medium block rounded-lg p-2">
+              <Link
+                href="/internationalpackages"
+                className="md:text-lg font-medium block rounded-lg p-2"
+              >
                 International
               </Link>
               {/* <Link href="/bestpackage" className="md:text-lg font-medium block rounded-lg p-2">
                 Domestic
               </Link> */}
               {/* <DropDown /> */}
-              <Link href="/about" className="font-medium md:text-lg rounded-lg p-2">
+              <Link
+                href="/about"
+                className="font-medium md:text-lg rounded-lg p-2"
+              >
                 About
               </Link>
-              <Link href="/blog" className="font-medium md:text-lg rounded-lg p-2">
+              <Link
+                href="/blog"
+                className="font-medium md:text-lg rounded-lg p-2"
+              >
                 Blog
               </Link>
-              <Link href="/contact" className="font-medium md:text-lg rounded-lg p-2">
+              <Link
+                href="/contact"
+                className="font-medium md:text-lg rounded-lg p-2"
+              >
                 Contact
               </Link>
             </div>
 
             {/* Hamburger Button - Mobile (Fixes Hydration Issue) */}
-            <div className="lg:hidden flex items-center">
+            <div className="lg:hidden flex items-center ml-auto">
               {isMounted && (
                 <button
-                  className="inline-flex  justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black"
+                  className="inline-flex justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black"
                   onClick={toggleNavbar}
                 >
                   <AnimatedHamburgerButton isClick={isClick} />
@@ -81,23 +96,41 @@ const Navbar = () => {
             }`}
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <Link href="/" className="md:text-lg font-medium block rounded-lg p-2">
+              <Link
+                href="/"
+                className="md:text-lg font-medium block rounded-lg p-2"
+              >
                 Home
               </Link>
-              <Link href="/allstate" className="md:text-lg font-medium block rounded-lg p-2">
+              <Link
+                href="/allstate"
+                className="md:text-lg font-medium block rounded-lg p-2"
+              >
                 Domestic
               </Link>
-              <Link href="/internationalpackages" className="md:text-lg font-medium block rounded-lg p-2">
+              <Link
+                href="/internationalpackages"
+                className="md:text-lg font-medium block rounded-lg p-2"
+              >
                 International
               </Link>
               {/* <DropDown /> */}
-              <Link href="/about" className="font-medium md:text-lg block rounded-lg p-2">
+              <Link
+                href="/about"
+                className="font-medium md:text-lg block rounded-lg p-2"
+              >
                 About
               </Link>
-              <Link href="/blog" className="font-medium md:text-lg block rounded-lg p-2">
+              <Link
+                href="/blog"
+                className="font-medium md:text-lg block rounded-lg p-2"
+              >
                 Blog
               </Link>
-              <Link href="/contact" className="font-medium md:text-lg block rounded-lg p-2">
+              <Link
+                href="/contact"
+                className="font-medium md:text-lg block rounded-lg p-2"
+              >
                 Contact
               </Link>
               {/* <Button display={"flex"} /> */}

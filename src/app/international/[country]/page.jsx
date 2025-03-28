@@ -110,18 +110,137 @@ export default function CountryPage() {
                   className="rounded-lg"
                 />
                 <h3 className="text-2xl font-semibold mt-4">{item.title}</h3>
-                <p className="text-gray-600 mt-1">
-                  <strong>Type:</strong> {item.domestic_or_international === "domestic" ? "Domestic" : "International"}
+                <p className="text-gray-600">
+                  <strong>Destination</strong>{" "}
+                  {item.destination_detail ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: item.destination_detail,
+                      }}
+                    />
+                  ) : (
+                    "No description available"
+                  )}
                 </p>
                 <p className="text-gray-600">
-                  <strong>Duration:</strong> {item.duration}
+                  <strong>Duration:</strong> {item.duration || "N/A"}
                 </p>
                 <p className="text-gray-600">
                   <strong>Pricing:</strong> {item.pricing || "N/A"}
                 </p>
                 <p className="text-gray-600">
-                  <strong>Destination:</strong> {item.selected_destination}
+                  <strong>Type:</strong>{" "}
+                  {item.domestic_or_international || "N/A"}
                 </p>
+                <p className="text-gray-600">
+                  <strong>Description:</strong>{" "}
+                  {item.destination_detail ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: item.destination_detail,
+                      }}
+                    />
+                  ) : (
+                    "No description available"
+                  )}
+                </p>
+                <p className="text-gray-600">
+                  <strong>Inclusion:</strong>{" "}
+                  {item.inclusion ? (
+                    <span
+                      dangerouslySetInnerHTML={{ __html: item.inclusion }}
+                    />
+                  ) : (
+                    "No description available"
+                  )}
+                </p>
+                <p className="text-gray-600">
+                  <strong>Additional Inclusion:</strong>{" "}
+                  {item.additional_inclusion ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: item.additional_inclusion,
+                      }}
+                    />
+                  ) : (
+                    "No description available"
+                  )}
+                </p>
+                <p className="text-gray-600">
+                  <strong>Exclusion</strong>{" "}
+                  {item.exclusion ? (
+                    <span
+                      dangerouslySetInnerHTML={{ __html: item.exclusion }}
+                    />
+                  ) : (
+                    "No description available"
+                  )}
+                </p>
+                <p className="text-gray-600">
+                  <strong>Terms and Conditions</strong>{" "}
+                  {item.terms_and_conditions ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: item.terms_and_conditions,
+                      }}
+                    />
+                  ) : (
+                    "No description available"
+                  )}
+                </p>
+                <p className="text-gray-600">
+                  <strong>Special Note</strong>{" "}
+                  {item.special_note ? (
+                    <span
+                      dangerouslySetInnerHTML={{ __html: item.special_note }}
+                    />
+                  ) : (
+                    "No description available"
+                  )}
+                </p>
+                <p className="text-gray-600">
+                  <strong>Cancellation Policy</strong>{" "}
+                  {item.cancellation_policy ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: item.cancellation_policy,
+                      }}
+                    />
+                  ) : (
+                    "No description available"
+                  )}
+                </p>
+                <p className="text-gray-600">
+                  <strong>Payment Mode</strong>{" "}
+                  {item.payment_mode ? (
+                    <span
+                      dangerouslySetInnerHTML={{ __html: item.payment_mode }}
+                    />
+                  ) : (
+                    "No description available"
+                  )}
+                </p>
+                <p className="text-gray-600">
+                  <strong>Hotel Details</strong>{" "}
+                  {item.hotel_details ? (
+                    <span
+                      dangerouslySetInnerHTML={{ __html: item.hotel_details }}
+                    />
+                  ) : (
+                    "No description available"
+                  )}
+                </p>
+                <p className="text-gray-600">
+                  <strong>Status Flag</strong>{" "}
+                  {item.status_flags ? (
+                    <span
+                      dangerouslySetInnerHTML={{ __html: item.status_flags }}
+                    />
+                  ) : (
+                    "No description available"
+                  )}
+                </p>
+
                 <div className="mt-6">
                   <Link href={`/destination/${item.slug || ""}`}>
                     <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
