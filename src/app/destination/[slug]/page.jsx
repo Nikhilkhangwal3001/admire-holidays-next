@@ -7,6 +7,11 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 import axios from "axios";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 export default function ItineraryPage() {
   const { slug } = useParams();
@@ -78,7 +83,7 @@ export default function ItineraryPage() {
           Discover {slug?.replace("-", " ") || "Destination"}
         </h1>
       </div>
-      <div className="max-w-5xl mx-auto py-12 px-6">
+      <div className="max-w-8xl mx-auto py-12 px-6">
         {loading && (
           <p className="text-center text-lg font-semibold">Loading...</p>
         )}
@@ -99,6 +104,44 @@ export default function ItineraryPage() {
                 className="rounded-lg mb-6"
               />
             )}
+            <div className="mt-6">
+              {Array.isArray(stateData.destination_images) &&
+              stateData.destination_images.length > 0 ? (
+                <Swiper
+                  modules={[Navigation, Pagination, Autoplay]}
+                  spaceBetween={20}
+                  slidesPerView={3} // Display 3 images at a time
+                  navigation
+                  pagination={{ clickable: true }}
+                  autoplay={{ delay: 3000 }}
+                  loop={true}
+                  breakpoints={{
+                    1024: { slidesPerView: 3 }, // Large screens
+                    768: { slidesPerView: 2 }, // Medium screens (Tablets)
+                    480: { slidesPerView: 1 }, // Small screens (Mobile)
+                  }}
+                  className="w-full max-w-5xl mx-auto"
+                >
+                  {stateData.destination_images.map((img, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="flex justify-center">
+                        <Image
+                          src={`https://admiredashboard.theholistay.in/${img}`}
+                          alt={`Image ${index + 1}`}
+                          width={400}
+                          height={300}
+                          className="rounded-lg shadow-md"
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              ) : (
+                <p className="text-gray-500 text-center mt-4">
+                  No Additional Images
+                </p>
+              )}
+            </div>
 
             <p className="text-gray-600">
               <strong>Destination</strong>{" "}
@@ -112,6 +155,40 @@ export default function ItineraryPage() {
                 "No description available"
               )}
             </p>
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h2 className="text-3xl font-semibold text-gray-800 capitalize mb-6">
+                Trip Itinerary
+              </h2>
+
+              {stateData.days_information &&
+              stateData.days_information.length > 0 ? (
+                stateData.days_information.map((day, index) => (
+                  <div
+                    key={index}
+                    className="mb-6 p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow-md"
+                  >
+                    <h3 className="text-xl font-bold text-gray-900">
+                      Day {day.day}: {day.title}
+                    </h3>
+                    <p className="text-gray-700 mt-2">
+                      <strong>Destination:</strong>{" "}
+                      {day.detail ? (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: day.detail,
+                          }}
+                        />
+                      ) : (
+                        "No description available"
+                      )}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-gray-600">No itinerary available</p>
+              )}
+            </div>
+
             <p className="text-gray-600">
               <strong>Duration:</strong> {stateData.duration || "N/A"}
             </p>
