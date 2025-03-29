@@ -115,59 +115,59 @@ export default function ItineraryPage() {
             <h2 className="md:text-2xl  text-xl font-bold text-gray-900 capitalize mb-6 tracking-wide relative before:absolute before:-left-4 before:top-1/2 before:w-2 before:h-10 before:bg-red-600 before:-translate-y-1/2">
               {stateData.title || "No Title Available"}
             </h2>
-            <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center capitalize mb-8 tracking-wide relative">
-              <span className="text-red-600">Explore the Beauty of</span>
+            <h2 className="md:text-4xl text-2xl  font-extrabold text-gray-900 text-center capitalize mb-8 tracking-wide relative">
+              <span className="text-red-600">Explore the Beauty of Destination</span>
               <br />
               <span className="block mt-2 w-24 h-1 bg-yellow-600 mx-auto"></span>
             </h2>
 
-            <div className="mt-10">
-              {Array.isArray(stateData.destination_images) &&
-              stateData.destination_images.length > 0 ? (
-                <Swiper
-                  modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
-                  spaceBetween={30}
-                  slidesPerView={3}
-                  navigation
-                  pagination={{ clickable: true }}
-                  autoplay={{ delay: 2500, disableOnInteraction: false }}
-                  loop={true}
-                  effect="coverflow"
-                  centeredSlides={true}
-                  coverflowEffect={{
-                    rotate: 30,
-                    stretch: 0,
-                    depth: 100,
-                    modifier: 1,
-                    slideShadows: true,
-                  }}
-                  breakpoints={{
-                    1024: { slidesPerView: 3 },
-                    768: { slidesPerView: 2 },
-                    480: { slidesPerView: 1 },
-                  }}
-                  className="w-full max-w-5xl mx-auto"
-                >
-                  {stateData.destination_images.map((img, index) => (
-                    <SwiperSlide key={index}>
-                      <div className="flex justify-center">
-                        <Image
-                          src={`https://admiredashboard.theholistay.in/${img}`}
-                          alt={`Image ${index + 1}`}
-                          width={500}
-                          height={350}
-                          className="rounded-xl shadow-lg transform transition duration-300 hover:scale-105"
-                        />
-                      </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              ) : (
-                <p className="text-gray-500 text-center mt-6 text-lg">
-                  No Additional Images Available
-                </p>
-              )}
-            </div>
+            <div className="mt-10 px-4">
+      {Array.isArray(stateData.destination_images) &&
+      stateData.destination_images.length > 0 ? (
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
+          spaceBetween={20}
+          slidesPerView={1} // Default to 1 for mobile
+          navigation
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          loop={true}
+          effect="coverflow"
+          centeredSlides={true}
+          coverflowEffect={{
+            rotate: 20,
+            stretch: 0,
+            depth: 150,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          breakpoints={{
+            480: { slidesPerView: 1 }, // Mobile
+            768: { slidesPerView: 2 }, // Tablets
+            1024: { slidesPerView: 3 }, // Desktops
+          }}
+          className="w-full max-w-6xl mx-auto"
+        >
+          {stateData.destination_images.map((img, index) => (
+            <SwiperSlide key={index}>
+              <div className="flex justify-center">
+                <Image
+                  src={`https://admiredashboard.theholistay.in/${img}`}
+                  alt={`Image ${index + 1}`}
+                  width={500}
+                  height={350}
+                  className="rounded-xl shadow-lg transform transition duration-300 hover:scale-105"
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        <p className="text-gray-500 text-center mt-6 text-lg">
+          No Additional Images Available
+        </p>
+      )}
+    </div>
 
             <div className="bg-white border-l-4 mt-10 border-blue-500 shadow-lg p-5 rounded-lg">
               <h3 className="text-xl font-bold text-gray-900 mb-2">
