@@ -11,7 +11,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Autoplay,
+  EffectCoverflow,
+} from "swiper/modules";
 
 export default function ItineraryPage() {
   const { slug } = useParams();
@@ -19,6 +24,8 @@ export default function ItineraryPage() {
   const [stateData, setStateData] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
   const [error, setError] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImages, setSelectedImages] = useState(null);
 
   useEffect(() => {
     if (!slug) {
@@ -59,6 +66,15 @@ export default function ItineraryPage() {
       console.error("Error fetching video:", error);
     }
   };
+  // Ensure stateData is defined and destination_images is an array
+  const images = stateData?.destination_images ?? [];
+  const defaultImage = "/placeholder.jpg"; // Replace with your actual default image
+
+  // Ensure at least 6 images are displayed
+  const filledImages =
+    images.length >= 6
+      ? images
+      : [...images, ...Array(6 - images.length).fill(defaultImage)];
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -79,10 +95,11 @@ export default function ItineraryPage() {
           </div>
         )}
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        <h1 className="text-white text-4xl sm:text-5xl font-bold z-10 capitalize">
+        <h1 className="text-white .md:text-3xl text-xl  font-bold z-10 capitalize">
           Discover {slug?.replace("-", " ") || "Destination"}
         </h1>
       </div>
+
       <div className="max-w-8xl mx-auto py-12 px-6">
         {loading && (
           <p className="text-center text-lg font-semibold">Loading...</p>
@@ -91,34 +108,39 @@ export default function ItineraryPage() {
 
         {stateData ? (
           <div className="bg-white p-6 shadow-lg rounded-lg">
-            <h2 className="text-3xl font-semibold text-gray-800 capitalize mb-6">
+            <h2 className="md:text-2xl  text-xl font-bold text-gray-900 capitalize mb-6 tracking-wide relative before:absolute before:-left-4 before:top-1/2 before:w-2 before:h-10 before:bg-red-600 before:-translate-y-1/2">
               {stateData.title || "No Title Available"}
             </h2>
+            <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 text-center capitalize mb-8 tracking-wide relative">
+              <span className="text-red-600">Explore the Beauty of</span>
+              <br />
+              <span className="block mt-2 w-24 h-1 bg-yellow-600 mx-auto"></span>
+            </h2>
 
-            {stateData.destination_thumbnail && (
-              <Image
-                src={`https://admiredashboard.theholistay.in/${stateData.destination_thumbnail}`}
-                alt="Thumbnail"
-                width={600}
-                height={400}
-                className="rounded-lg mb-6"
-              />
-            )}
-            <div className="mt-6">
+            <div className="mt-10">
               {Array.isArray(stateData.destination_images) &&
               stateData.destination_images.length > 0 ? (
                 <Swiper
-                  modules={[Navigation, Pagination, Autoplay]}
-                  spaceBetween={20}
-                  slidesPerView={3} // Display 3 images at a time
+                  modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
+                  spaceBetween={30}
+                  slidesPerView={3}
                   navigation
                   pagination={{ clickable: true }}
-                  autoplay={{ delay: 3000 }}
+                  autoplay={{ delay: 2500, disableOnInteraction: false }}
                   loop={true}
+                  effect="coverflow"
+                  centeredSlides={true}
+                  coverflowEffect={{
+                    rotate: 30,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 1,
+                    slideShadows: true,
+                  }}
                   breakpoints={{
-                    1024: { slidesPerView: 3 }, // Large screens
-                    768: { slidesPerView: 2 }, // Medium screens (Tablets)
-                    480: { slidesPerView: 1 }, // Small screens (Mobile)
+                    1024: { slidesPerView: 3 },
+                    768: { slidesPerView: 2 },
+                    480: { slidesPerView: 1 },
                   }}
                   className="w-full max-w-5xl mx-auto"
                 >
@@ -128,33 +150,40 @@ export default function ItineraryPage() {
                         <Image
                           src={`https://admiredashboard.theholistay.in/${img}`}
                           alt={`Image ${index + 1}`}
-                          width={400}
-                          height={300}
-                          className="rounded-lg shadow-md"
+                          width={500}
+                          height={350}
+                          className="rounded-xl shadow-lg transform transition duration-300 hover:scale-105"
                         />
                       </div>
                     </SwiperSlide>
                   ))}
                 </Swiper>
               ) : (
-                <p className="text-gray-500 text-center mt-4">
-                  No Additional Images
+                <p className="text-gray-500 text-center mt-6 text-lg">
+                  No Additional Images Available
                 </p>
               )}
             </div>
 
-            <p className="text-gray-600">
-              <strong>Destination</strong>{" "}
-              {stateData.destination_detail ? (
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: stateData.destination_detail,
-                  }}
-                />
-              ) : (
-                "No description available"
-              )}
-            </p>
+            <div className="bg-white border-l-4 mt-10 border-blue-500 shadow-lg p-5 rounded-lg">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                🌍 Destination Overview
+              </h3>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                {stateData.destination_detail ? (
+                  <span
+                    className="text-gray-800"
+                    dangerouslySetInnerHTML={{
+                      __html: stateData.destination_detail,
+                    }}
+                  />
+                ) : (
+                  <span className="text-gray-500 italic">
+                    No description available
+                  </span>
+                )}
+              </p>
+            </div>
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <h2 className="text-3xl font-semibold text-gray-800 capitalize mb-6">
                 Trip Itinerary
@@ -188,143 +217,371 @@ export default function ItineraryPage() {
                 <p className="text-gray-600">No itinerary available</p>
               )}
             </div>
+            <div className="bg-white p-8 rounded-xl shadow-xl">
+              <h2 className="text-4xl font-bold text-gray-900 text-center mb-8">
+                📸 Destination Gallery
+              </h2>
 
-            <p className="text-gray-600">
-              <strong>Duration:</strong> {stateData.duration || "N/A"}
-            </p>
-            <p className="text-gray-600">
-              <strong>Pricing:</strong> {stateData.pricing || "N/A"}
-            </p>
-            <p className="text-gray-600">
-              <strong>Type:</strong>{" "}
-              {stateData.domestic_or_international || "N/A"}
-            </p>
-            <p className="text-gray-600">
-              <strong>Description:</strong>{" "}
-              {stateData.destination_detail ? (
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: stateData.destination_detail,
-                  }}
-                />
+              {filledImages.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                  {filledImages.map((img, index) => (
+                    <div key={index} className="relative group cursor-pointer">
+                      <Image
+                        src={
+                          img.startsWith("http")
+                            ? img
+                            : `https://admiredashboard.theholistay.in/${img}`
+                        }
+                        alt={`Destination ${index + 1}`}
+                        width={400}
+                        height={300}
+                        className="rounded-lg shadow-md transition-transform duration-300 transform group-hover:scale-105"
+                        onClick={() => setSelectedImage(img)}
+                      />
+                    </div>
+                  ))}
+                </div>
               ) : (
-                "No description available"
+                <p className="text-gray-500 text-center mt-4">
+                  No images available
+                </p>
               )}
-            </p>
-            <p className="text-gray-600">
-              <strong>Inclusion:</strong>{" "}
-              {stateData.inclusion ? (
-                <span
-                  dangerouslySetInnerHTML={{ __html: stateData.inclusion }}
-                />
-              ) : (
-                "No description available"
-              )}
-            </p>
-            <p className="text-gray-600">
-              <strong>Additional Inclusion:</strong>{" "}
-              {stateData.additional_inclusion ? (
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: stateData.additional_inclusion,
-                  }}
-                />
-              ) : (
-                "No description available"
-              )}
-            </p>
-            <p className="text-gray-600">
-              <strong>Exclusion</strong>{" "}
-              {stateData.exclusion ? (
-                <span
-                  dangerouslySetInnerHTML={{ __html: stateData.exclusion }}
-                />
-              ) : (
-                "No description available"
-              )}
-            </p>
-            <p className="text-gray-600">
-              <strong>Terms and Conditions</strong>{" "}
-              {stateData.terms_and_conditions ? (
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: stateData.terms_and_conditions,
-                  }}
-                />
-              ) : (
-                "No description available"
-              )}
-            </p>
-            <p className="text-gray-600">
-              <strong>Special Note</strong>{" "}
-              {stateData.special_note ? (
-                <span
-                  dangerouslySetInnerHTML={{ __html: stateData.special_note }}
-                />
-              ) : (
-                "No description available"
-              )}
-            </p>
-            <p className="text-gray-600">
-              <strong>Cancellation Policy</strong>{" "}
-              {stateData.cancellation_policy ? (
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: stateData.cancellation_policy,
-                  }}
-                />
-              ) : (
-                "No description available"
-              )}
-            </p>
-            <p className="text-gray-600">
-              <strong>Payment Mode</strong>{" "}
-              {stateData.payment_mode ? (
-                <span
-                  dangerouslySetInnerHTML={{ __html: stateData.payment_mode }}
-                />
-              ) : (
-                "No description available"
-              )}
-            </p>
-            <p className="text-gray-600">
-              <strong>Hotel Details</strong>{" "}
-              {stateData.hotel_details ? (
-                <span
-                  dangerouslySetInnerHTML={{ __html: stateData.hotel_details }}
-                />
-              ) : (
-                "No description available"
-              )}
-            </p>
-            <p className="text-gray-600">
-              <strong>Status Flag</strong>{" "}
-              {stateData.status_flags ? (
-                <span
-                  dangerouslySetInnerHTML={{ __html: stateData.status_flags }}
-                />
-              ) : (
-                "No description available"
-              )}
-            </p>
 
-            <div className="mt-6 grid grid-cols-3 gap-4">
-              {Array.isArray(stateData.destination_images) &&
-              stateData.destination_images.length > 0 ? (
-                stateData.destination_images.map((img, index) => (
-                  <Image
-                    key={index}
-                    src={`https://admiredashboard.theholistay.in/${img}`}
-                    alt={`Image ${index + 1}`}
-                    width={200}
-                    height={150}
-                    className="rounded-md"
-                  />
-                ))
-              ) : (
-                <p className="text-gray-500 col-span-3">No Additional Images</p>
+              {/* Fullscreen Image Popup */}
+              {selectedImage && (
+                <div
+                  className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center p-4 z-50"
+                  onClick={() => setSelectedImage(null)}
+                >
+                  <div className="relative">
+                    <button
+                      className="absolute top-4 right-4 text-white text-3xl font-bold"
+                      onClick={() => setSelectedImage(null)}
+                    >
+                      ✖
+                    </button>
+                    <Image
+                      src={
+                        selectedImage.startsWith("http")
+                          ? selectedImage
+                          : `https://admiredashboard.theholistay.in/${selectedImage}`
+                      }
+                      alt="Selected Image"
+                      width={800}
+                      height={600}
+                      className="rounded-lg shadow-lg"
+                    />
+                  </div>
+                </div>
               )}
             </div>
+
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                📌 Tour Details
+              </h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Duration */}
+                <div className="flex items-center space-x-2">
+                  <span className="text-blue-600 text-lg font-semibold">
+                    ⏳ Duration:
+                  </span>
+                  <span className="text-gray-700">
+                    {stateData.duration || "N/A"}
+                  </span>
+                </div>
+
+                {/* Pricing */}
+                <div className="flex items-center space-x-2">
+                  <span className="text-green-600 text-lg font-semibold">
+                    💰 Pricing:
+                  </span>
+                  <span className="text-gray-700">
+                    {stateData.pricing || "N/A"}
+                  </span>
+                </div>
+
+                {/* Type (Domestic/International) */}
+                <div className="flex items-center space-x-2">
+                  <span className="text-purple-600 text-lg font-semibold">
+                    🌍 Type:
+                  </span>
+                  <span className="text-gray-700">
+                    {stateData.domestic_or_international || "N/A"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="mt-4 p-4 bg-white rounded-md shadow">
+                <h4 className="text-xl font-semibold text-gray-800 mb-2">
+                  📝 Description
+                </h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {stateData.destination_detail ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: stateData.destination_detail,
+                      }}
+                    />
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                📌 Tour Inclusions & Exclusions
+              </h3>
+
+              {/* Inclusion Section */}
+              <div className="p-4 bg-white rounded-md shadow mb-4">
+                <h4 className="text-xl font-semibold text-green-600 mb-2">
+                  ✅ Inclusion
+                </h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {stateData.inclusion ? (
+                    <span
+                      dangerouslySetInnerHTML={{ __html: stateData.inclusion }}
+                    />
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
+              </div>
+
+              {/* Additional Inclusion Section */}
+              <div className="p-4 bg-white rounded-md shadow mb-4">
+                <h4 className="text-xl font-semibold text-blue-600 mb-2">
+                  ➕ Additional Inclusion
+                </h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {stateData.additional_inclusion ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: stateData.additional_inclusion,
+                      }}
+                    />
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
+              </div>
+
+              {/* Exclusion Section */}
+              <div className="p-4 bg-white rounded-md shadow">
+                <h4 className="text-xl font-semibold text-red-600 mb-2">
+                  ❌ Exclusion
+                </h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {stateData.exclusion ? (
+                    <span
+                      dangerouslySetInnerHTML={{ __html: stateData.exclusion }}
+                    />
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                📜 Important Information
+              </h3>
+
+              {/* Terms & Conditions */}
+              <div className="p-4 bg-white rounded-md shadow mb-4">
+                <h4 className="text-xl font-semibold text-blue-600 mb-2">
+                  📑 Terms & Conditions
+                </h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {stateData.terms_and_conditions ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: stateData.terms_and_conditions,
+                      }}
+                    />
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
+              </div>
+
+              {/* Special Note */}
+              <div className="p-4 bg-white rounded-md shadow mb-4">
+                <h4 className="text-xl font-semibold text-yellow-600 mb-2">
+                  📝 Special Note
+                </h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {stateData.special_note ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: stateData.special_note,
+                      }}
+                    />
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
+              </div>
+
+              {/* Cancellation Policy */}
+              <div className="p-4 bg-white rounded-md shadow mb-4">
+                <h4 className="text-xl font-semibold text-red-600 mb-2">
+                  ❌ Cancellation Policy
+                </h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {stateData.cancellation_policy ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: stateData.cancellation_policy,
+                      }}
+                    />
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
+              </div>
+
+              {/* Payment Mode */}
+              <div className="p-4 bg-white rounded-md shadow">
+                <h4 className="text-xl font-semibold text-green-600 mb-2">
+                  💳 Payment Mode
+                </h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {stateData.payment_mode ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: stateData.payment_mode,
+                      }}
+                    />
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-indigo-500">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                🏨 Accommodation Information
+              </h3>
+
+              {/* Hotel Details */}
+              <div className="p-4 bg-gray-100 rounded-md shadow mb-4">
+                <h4 className="text-xl font-semibold text-indigo-600 mb-2">
+                  🏢 Hotel Details
+                </h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {stateData.hotel_details ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: stateData.hotel_details,
+                      }}
+                    />
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
+              </div>
+
+              {/* Status Flag */}
+              <div className="p-4 bg-gray-100 rounded-md shadow">
+                <h4 className="text-xl font-semibold text-green-600 mb-2">
+                  🚩 Status Flag
+                </h4>
+                <p className="text-gray-700 leading-relaxed">
+                  {stateData.status_flags ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: stateData.status_flags,
+                      }}
+                    />
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-gray-50 p-8 rounded-lg shadow-lg">
+      <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center uppercase tracking-wide">
+        🌍 Explore the Destination
+      </h3>
+
+      {images.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {images.slice(0, 6).map((img, index) => (
+            <div
+              key={index}
+              className="relative cursor-pointer group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
+              onClick={() => setSelectedImage(`https://admiredashboard.theholistay.in/${img}`)}
+            >
+              <Image
+                src={`https://admiredashboard.theholistay.in/${img}`}
+                alt={`Image ${index + 1}`}
+                width={300}
+                height={200}
+                className="w-full h-48 object-cover transition-transform duration-300 transform group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                <p className="text-white text-lg font-semibold">🔍 View Image</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-gray-500 text-center mt-6 italic">No Additional Images Available</p>
+      )}
+
+      {/* Fullscreen Image Popup */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center p-4 z-50"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-3xl">
+            <button
+              className="absolute top-4 right-4 text-white text-3xl font-bold"
+              onClick={() => setSelectedImage(null)}
+            >
+              ✖
+            </button>
+            <Image
+              src={selectedImage}
+              alt="Selected Image"
+              width={900}
+              height={600}
+              className="rounded-lg shadow-lg w-full"
+            />
+          </div>
+        </div>
+      )}
+    </div>
 
             <div className="mt-6">
               <Link
