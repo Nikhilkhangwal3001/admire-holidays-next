@@ -26,6 +26,10 @@ export default function ItineraryPage() {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImages, setSelectedImages] = useState(null);
+    const [cardNumber, setCardNumber] = useState("");
+    const [expiry, setExpiry] = useState("");
+    const [cvv, setCvv] = useState("");
+    const [cardHolder, setCardHolder] = useState("");
 
   useEffect(() => {
     if (!slug) {
@@ -441,44 +445,94 @@ export default function ItineraryPage() {
                 </p>
               </div>
 
-              {/* Cancellation Policy */}
-              <div className="p-4 bg-white rounded-md shadow mb-4">
-                <h4 className="text-xl font-semibold text-red-600 mb-2">
-                  ❌ Cancellation Policy
-                </h4>
-                <p className="text-gray-700 leading-relaxed">
-                  {stateData.cancellation_policy ? (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: stateData.cancellation_policy,
-                      }}
-                    />
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
-              </div>
-
               {/* Payment Mode */}
-              <div className="p-4 bg-white rounded-md shadow">
-                <h4 className="text-xl font-semibold text-green-600 mb-2">
-                  💳 Payment Mode
-                </h4>
-                <p className="text-gray-700 leading-relaxed">
-                  {stateData.payment_mode ? (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: stateData.payment_mode,
-                      }}
-                    />
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-6 rounded-lg shadow-lg border border-gray-200">
+                {/* Payment Mode Info */}
+                <div className="p-6 bg-white rounded-lg shadow-md">
+                  <h4 className="text-2xl font-bold text-red-600 mb-4 flex items-center">
+                    💳 Payment Mode
+                  </h4>
+                  <p className="text-gray-700 leading-relaxed">
+                    {stateData.payment_mode ? (
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: stateData.payment_mode,
+                        }}
+                      />
+                    ) : (
+                      <span className="text-gray-500 italic">
+                        No payment information available.
+                      </span>
+                    )}
+                  </p>
+                </div>
+
+                {/* Payment Form */}
+                <div className="p-6 bg-white rounded-lg shadow-md">
+                  <h4 className="text-2xl font-bold text-yellow-600 mb-4 flex items-center">
+                    🛒 Complete Your Payment
+                  </h4>
+                  <form className="space-y-4">
+                    {/* Card Number */}
+                    <div>
+                      <label className="text-gray-600 font-medium">
+                        Card Number
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="**** **** **** ****"
+                        className="w-full p-3 mt-2 border rounded-lg focus:ring focus:ring-green-300"
+                        value={cardNumber}
+                        onChange={(e) => setCardNumber(e.target.value)}
+                      />
+                    </div>
+
+                    {/* Expiry & CVV */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-gray-600 font-medium">
+                          Expiry Date
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="MM/YY"
+                          className="w-full p-3 mt-2 border rounded-lg focus:ring focus:ring-green-300"
+                          value={expiry}
+                          onChange={(e) => setExpiry(e.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <label className="text-gray-600 font-medium">CVV</label>
+                        <input
+                          type="password"
+                          placeholder="***"
+                          className="w-full p-3 mt-2 border rounded-lg focus:ring focus:ring-green-300"
+                          value={cvv}
+                          onChange={(e) => setCvv(e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Cardholder Name */}
+                    <div>
+                      <label className="text-gray-600 font-medium">
+                        Cardholder Name
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Full Name"
+                        className="w-full p-3 mt-2 border rounded-lg focus:ring focus:ring-red-300"
+                        value={cardHolder}
+                        onChange={(e) => setCardHolder(e.target.value)}
+                      />
+                    </div>
+
+                    {/* Submit Button */}
+                    <button className="w-full bg-red-600 text-white py-3 mt-4 rounded-lg font-semibold hover:bg-green-700 transition">
+                      💸 Pay Now
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
 
@@ -529,59 +583,68 @@ export default function ItineraryPage() {
             </div>
 
             <div className="bg-gray-50 p-8 rounded-lg shadow-lg">
-      <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center uppercase tracking-wide">
-        🌍 Explore the Destination
-      </h3>
+              <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center uppercase tracking-wide">
+                🌍 Explore the Destination
+              </h3>
 
-      {images.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {images.slice(0, 6).map((img, index) => (
-            <div
-              key={index}
-              className="relative cursor-pointer group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
-              onClick={() => setSelectedImage(`https://admiredashboard.theholistay.in/${img}`)}
-            >
-              <Image
-                src={`https://admiredashboard.theholistay.in/${img}`}
-                alt={`Image ${index + 1}`}
-                width={300}
-                height={200}
-                className="w-full h-48 object-cover transition-transform duration-300 transform group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-                <p className="text-white text-lg font-semibold">🔍 View Image</p>
-              </div>
+              {images.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {images.slice(0, 6).map((img, index) => (
+                    <div
+                      key={index}
+                      className="relative cursor-pointer group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
+                      onClick={() =>
+                        setSelectedImage(
+                          `https://admiredashboard.theholistay.in/${img}`
+                        )
+                      }
+                    >
+                      <Image
+                        src={`https://admiredashboard.theholistay.in/${img}`}
+                        alt={`Image ${index + 1}`}
+                        width={300}
+                        height={200}
+                        className="w-full h-48 object-cover transition-transform duration-300 transform group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                        <p className="text-white text-lg font-semibold">
+                          🔍 View Image
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 text-center mt-6 italic">
+                  No Additional Images Available
+                </p>
+              )}
             </div>
-          ))}
-        </div>
-      ) : (
-        <p className="text-gray-500 text-center mt-6 italic">No Additional Images Available</p>
-      )}
+            {/* Cancellation Policy */}
+            <div className="p-6 bg-gradient-to-r from-red-100 to-red-50 rounded-lg shadow-lg border border-red-300">
+              {/* Cancellation Policy Heading */}
+              <div className="flex items-center mb-3">
+                <span className="text-red-600 text-2xl">❌</span>
+                <h4 className="text-2xl font-bold text-red-700 ml-2">
+                  Cancellation Policy
+                </h4>
+              </div>
 
-      {/* Fullscreen Image Popup */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center p-4 z-50"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div className="relative max-w-3xl">
-            <button
-              className="absolute top-4 right-4 text-white text-3xl font-bold"
-              onClick={() => setSelectedImage(null)}
-            >
-              ✖
-            </button>
-            <Image
-              src={selectedImage}
-              alt="Selected Image"
-              width={900}
-              height={600}
-              className="rounded-lg shadow-lg w-full"
-            />
-          </div>
-        </div>
-      )}
-    </div>
+              {/* Policy Description */}
+              <p className="text-gray-700 leading-relaxed">
+                {stateData.cancellation_policy ? (
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: stateData.cancellation_policy,
+                    }}
+                  />
+                ) : (
+                  <span className="text-gray-500 italic">
+                    No cancellation policy available.
+                  </span>
+                )}
+              </p>
+            </div>
 
             <div className="mt-6">
               <Link
