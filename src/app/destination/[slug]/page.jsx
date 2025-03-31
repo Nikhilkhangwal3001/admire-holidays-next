@@ -26,11 +26,37 @@ export default function ItineraryPage() {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImages, setSelectedImages] = useState(null);
-    const [cardNumber, setCardNumber] = useState("");
-    const [expiry, setExpiry] = useState("");
-    const [cvv, setCvv] = useState("");
-    const [cardHolder, setCardHolder] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiry, setExpiry] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [cardHolder, setCardHolder] = useState("");
+  const [openIndex, setOpenIndex] = useState(null);
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [activeImage, setActiveImage] = useState(null);
+  const baseUrl = "https://admiredashboard.theholistay.in/";
 
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch(
+          "https://admiredashboard.theholistay.in/public-gallery-image"
+        );
+        const data = await response.json();
+        console.log("API Response:", data); // Debugging log
+
+        if (data && data.images && Array.isArray(data.images)) {
+          const fullImagePaths = data.images.map((img) => baseUrl + img);
+          setGalleryImages(fullImagePaths);
+        } else {
+          console.error("Invalid image data format", data);
+        }
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+
+    fetchImages();
+  }, []);
   useEffect(() => {
     if (!slug) {
       console.error("Slug is missing!");
@@ -79,29 +105,79 @@ export default function ItineraryPage() {
     images.length >= 6
       ? images
       : [...images, ...Array(6 - images.length).fill(defaultImage)];
+  const VideoBanner = ({ slug }) => {
+    const [videoUrl, setVideoUrl] = useState("");
 
+    useEffect(() => {
+      const fetchVideoUrl = async () => {
+        try {
+          const response = await fetch(
+            "https://admiredashboard.theholistay.in/public-gallery-image"
+          );
+          const data = await response.json();
+
+          // Assuming the response contains a field like "videoUrl"
+          if (data && data.videoUrl) {
+            setVideoUrl(data.videoUrl);
+          } else {
+            console.error("Video URL not found in response:", data);
+          }
+        } catch (error) {
+          console.error("Error fetching video URL:", error);
+        }
+      };
+
+      fetchVideoUrl();
+    }, []);
+  };
+  const toggleFAQ = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <div className="relative w-full h-[300px] sm:h-[400px] flex items-center justify-center">
-        {videoUrl ? (
-          <video
-            className="absolute inset-0 w-full h-full object-cover"
-            src={videoUrl}
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-        ) : (
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <p className="text-white text-lg">Video not available</p>
+      <div className="p-4">
+        {/* Collage Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {galleryImages.length === 0 && (
+            <p className="text-center text-gray-500">No images available</p>
+          )}
+          {galleryImages.slice(0, 5).map((img, index) => (
+            <Image
+              key={index}
+              src={img}
+              alt={`Image ${index + 1}`}
+              className="w-full h-32 object-cover rounded-lg cursor-pointer"
+              onClick={() => setActiveImage(img)}
+            />
+          ))}
+
+          {/* Last Image - View More */}
+          {galleryImages.length > 5 && (
+            <div
+              className="w-full h-32 bg-gray-200 flex items-center justify-center rounded-lg cursor-pointer"
+              onClick={() => setActiveImage(galleryImages[5])}
+            >
+              <span className="text-lg font-semibold text-gray-700">
+                + More
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Fullscreen Image Preview */}
+        {activeImage && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+            onClick={() => setActiveImage(null)}
+          >
+            <Image
+              src={activeImage}
+              alt="Selected"
+              className="max-w-full max-h-full rounded-lg"
+            />
           </div>
         )}
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        <h1 className="text-white .md:text-3xl text-xl  font-bold z-10 capitalize">
-          Discover {slug?.replace("-", " ") || "Destination"}
-        </h1>
       </div>
 
       <div className="max-w-8xl mx-auto py-12 px-6">
@@ -116,111 +192,130 @@ export default function ItineraryPage() {
               {stateData.title || "No Title Available"}
             </h2>
             <h2 className="md:text-4xl text-2xl  font-extrabold text-gray-900 text-center capitalize mb-8 tracking-wide relative">
-              <span className="text-red-600">Explore the Beauty of Destination</span>
+              <span className="text-red-600">
+                Explore the Beauty of Destination
+              </span>
               <br />
               <span className="block mt-2 w-24 h-1 bg-yellow-600 mx-auto"></span>
             </h2>
 
             <div className="mt-10 px-4">
-      {Array.isArray(stateData.destination_images) &&
-      stateData.destination_images.length > 0 ? (
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
-          spaceBetween={20}
-          slidesPerView={1} // Default to 1 for mobile
-          navigation
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          loop={true}
-          effect="coverflow"
-          centeredSlides={true}
-          coverflowEffect={{
-            rotate: 20,
-            stretch: 0,
-            depth: 150,
-            modifier: 1,
-            slideShadows: true,
-          }}
-          breakpoints={{
-            480: { slidesPerView: 1 }, // Mobile
-            768: { slidesPerView: 2 }, // Tablets
-            1024: { slidesPerView: 3 }, // Desktops
-          }}
-          className="w-full max-w-6xl mx-auto"
-        >
-          {stateData.destination_images.map((img, index) => (
-            <SwiperSlide key={index}>
-              <div className="flex justify-center">
-                <Image
-                  src={`https://admiredashboard.theholistay.in/${img}`}
-                  alt={`Image ${index + 1}`}
-                  width={500}
-                  height={350}
-                  className="rounded-xl shadow-lg transform transition duration-300 hover:scale-105"
-                />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      ) : (
-        <p className="text-gray-500 text-center mt-6 text-lg">
-          No Additional Images Available
-        </p>
-      )}
-    </div>
-
-            <div className="bg-white border-l-4 mt-10 border-blue-500 shadow-lg p-5 rounded-lg">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                🌍 Destination Overview
-              </h3>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                {stateData.destination_detail ? (
-                  <span
-                    className="text-gray-800"
-                    dangerouslySetInnerHTML={{
-                      __html: stateData.destination_detail,
-                    }}
-                  />
-                ) : (
-                  <span className="text-gray-500 italic">
-                    No description available
-                  </span>
-                )}
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h2 className="text-3xl font-semibold text-gray-800 capitalize mb-6">
-                Trip Itinerary
-              </h2>
-
-              {stateData.days_information &&
-              stateData.days_information.length > 0 ? (
-                stateData.days_information.map((day, index) => (
-                  <div
-                    key={index}
-                    className="mb-6 p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow-md"
-                  >
-                    <h3 className="text-xl font-bold text-gray-900">
-                      Day {day.day}: {day.title}
-                    </h3>
-                    <p className="text-gray-700 mt-2">
-                      <strong>Destination:</strong>{" "}
-                      {day.detail ? (
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: day.detail,
-                          }}
+              {Array.isArray(stateData.destination_images) &&
+              stateData.destination_images.length > 0 ? (
+                <Swiper
+                  modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
+                  spaceBetween={20}
+                  slidesPerView={1} // Default to 1 for mobile
+                  navigation
+                  pagination={{ clickable: true }}
+                  autoplay={{ delay: 3000, disableOnInteraction: false }}
+                  loop={true}
+                  effect="coverflow"
+                  centeredSlides={true}
+                  coverflowEffect={{
+                    rotate: 20,
+                    stretch: 0,
+                    depth: 150,
+                    modifier: 1,
+                    slideShadows: true,
+                  }}
+                  breakpoints={{
+                    480: { slidesPerView: 1 }, // Mobile
+                    768: { slidesPerView: 2 }, // Tablets
+                    1024: { slidesPerView: 3 }, // Desktops
+                  }}
+                  className="w-full max-w-6xl mx-auto"
+                >
+                  {stateData.destination_images.map((img, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="flex justify-center">
+                        <Image
+                          src={`https://admiredashboard.theholistay.in/${img}`}
+                          alt={`Image ${index + 1}`}
+                          width={500}
+                          height={350}
+                          className="rounded-xl shadow-lg transform transition duration-300 hover:scale-105"
                         />
-                      ) : (
-                        "No description available"
-                      )}
-                    </p>
-                  </div>
-                ))
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               ) : (
-                <p className="text-gray-600">No itinerary available</p>
+                <p className="text-gray-500 text-center mt-6 text-lg">
+                  No Additional Images Available
+                </p>
               )}
             </div>
+            <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Left Side - Trip Details */}
+      <div>
+        <div className="bg-white border-l-4 mt-10 border-blue-500 shadow-lg p-5 rounded-lg">
+          <h3 className="text-xl font-bold text-gray-900 mb-2">🌍 Destination Overview</h3>
+          <p className="text-lg text-gray-700 leading-relaxed">
+            {stateData.destination_detail ? (
+              <span
+                className="text-gray-800"
+                dangerouslySetInnerHTML={{ __html: stateData.destination_detail }}
+              />
+            ) : (
+              <span className="text-gray-500 italic">No description available</span>
+            )}
+          </p>
+        </div>
+        <br /><br />
+        <h2 className="text-3xl font-semibold text-gray-800 capitalize mb-6">Trip Itinerary</h2>
+        {stateData.days_information && stateData.days_information.length > 0 ? (
+          stateData.days_information.map((day, index) => (
+            <div key={index} className="mb-4 border-b border-gray-300">
+              <button
+                onClick={() => toggleFAQ(index)}
+                className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow-sm hover:bg-gray-200 focus:outline-none"
+              >
+                <h3 className="text-xl font-bold text-gray-900">Day {day.day}: {day.title}</h3>
+                <span className="text-gray-600">{openIndex === index ? "▲" : "▼"}</span>
+              </button>
+              {openIndex === index && (
+                <div className="p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow-md mt-2">
+                  <p className="text-gray-700">
+                    <strong>Destination:</strong> {day.detail ? (
+                      <span dangerouslySetInnerHTML={{ __html: day.detail }} />
+                    ) : (
+                      "No description available"
+                    )}
+                  </p>
+                </div>
+              )}
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-600">No itinerary available</p>
+        )}
+      </div>
+      
+      {/* Right Side - Inquiry Form */}
+      <div className="bg-white shadow-lg p-6 rounded-lg border border-gray-300">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">Inquiry Form</h2>
+        <form className="space-y-4">
+          <div>
+            <label className="block text-gray-700 font-medium">Name</label>
+            <input type="text" className="w-full p-2 border rounded-lg" placeholder="Enter your name" />
+          </div>
+          <div>
+            <label className="block text-gray-700 font-medium">Email</label>
+            <input type="email" className="w-full p-2 border rounded-lg" placeholder="Enter your email" />
+          </div>
+          <div>
+            <label className="block text-gray-700 font-medium">Phone</label>
+            <input type="tel" className="w-full p-2 border rounded-lg" placeholder="Enter your phone number" />
+          </div>
+          <div>
+            <label className="block text-gray-700 font-medium">Message</label>
+            <textarea className="w-full p-2 border rounded-lg" rows="4" placeholder="Your message"></textarea>
+          </div>
+          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">Submit</button>
+        </form>
+      </div>
+    </div>
             <div className="bg-white p-8 rounded-xl shadow-xl">
               <h2 className="text-4xl font-bold text-gray-900 text-center mb-8">
                 📸 Destination Gallery

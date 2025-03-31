@@ -52,7 +52,7 @@ export default function TrendingDestinations() {
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
           {destinations.map((destination, index) => (
-            <Link key={destination.id} href={`trending-destination/${destination.slug}`}>
+            <Link key={destination.id} href={`trending-destination/${destination.selected_destination}`}>
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
