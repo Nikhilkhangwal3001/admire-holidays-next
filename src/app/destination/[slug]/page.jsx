@@ -134,48 +134,76 @@ export default function ItineraryPage() {
     setOpenIndex(openIndex === index ? null : index);
   };
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen ">
       <Navbar />
-      <div className="p-4">
-        {/* Collage Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-          {galleryImages.length === 0 && (
-            <p className="text-center text-gray-500">No images available</p>
-          )}
-          {galleryImages.slice(0, 5).map((img, index) => (
-            <Image
-              key={index}
-              src={img}
-              alt={`Image ${index + 1}`}
-              className="w-full h-32 object-cover rounded-lg cursor-pointer"
-              onClick={() => setActiveImage(img)}
-            />
-          ))}
+      <div className="bg-white p-8 rounded-xl shadow-xl">
+        <h2 className="text-4xl font-bold text-gray-900 text-center mb-8">
+          📸 Destination Gallery
+        </h2>
 
-          {/* Last Image - View More */}
-          {galleryImages.length > 5 && (
-            <div
-              className="w-full h-32 bg-gray-200 flex items-center justify-center rounded-lg cursor-pointer"
-              onClick={() => setActiveImage(galleryImages[5])}
-            >
-              <span className="text-lg font-semibold text-gray-700">
-                + More
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* Fullscreen Image Preview */}
-        {activeImage && (
+        {filledImages.length > 0 ? (
           <div
-            className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
-            onClick={() => setActiveImage(null)}
+            className="grid gap-0 w-full h-[511px] mx-auto"
+            style={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", // Auto-responsive columns
+              gridTemplateRows: "repeat(2, 1fr)", // 2 rows
+            }}
           >
-            <Image
-              src={activeImage}
-              alt="Selected"
-              className="max-w-full max-h-full rounded-lg"
-            />
+            {filledImages.map((img, index) => (
+              <div key={index} className="relative">
+                <Image
+                  src={
+                    img.startsWith("http")
+                      ? img
+                      : `https://admiredashboard.theholistay.in/${img}`
+                  }
+                  alt={`Destination ${index + 1}`}
+                  width={400} // Adjust width for responsiveness
+                  height={255} // Adjust height for consistency across the banner
+                  className="w-full h-full object-cover rounded-lg shadow-md transition-transform duration-300 transform"
+                  onClick={() => setSelectedImage(img)}
+                />
+              </div>
+            ))}
+
+            {/* "+more" Image at the end */}
+            {filledImages.length > 0 && (
+              <div className="relative group cursor-pointer">
+                <div className="w-full h-full bg-gray-200 flex justify-center items-center text-white text-xl font-bold rounded-lg shadow-md">
+                  +more
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <p className="text-gray-500 text-center mt-4">No images available</p>
+        )}
+
+        {/* Fullscreen Image Popup */}
+        {selectedImage && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center p-4 z-50"
+            onClick={() => setSelectedImage(null)}
+          >
+            <div className="relative">
+              <button
+                className="absolute top-4 right-4 text-white text-3xl font-bold"
+                onClick={() => setSelectedImage(null)}
+              >
+                ✖
+              </button>
+              <Image
+                src={
+                  selectedImage.startsWith("http")
+                    ? selectedImage
+                    : `https://admiredashboard.theholistay.in/${selectedImage}`
+                }
+                alt="Selected Image"
+                width={800}
+                height={600}
+                className="rounded-lg shadow-lg"
+              />
+            </div>
           </div>
         )}
       </div>
@@ -246,135 +274,156 @@ export default function ItineraryPage() {
                 </p>
               )}
             </div>
-            <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* Left Side - Trip Details */}
-      <div>
-        <div className="bg-white border-l-4 mt-10 border-blue-500 shadow-lg p-5 rounded-lg">
-          <h3 className="text-xl font-bold text-gray-900 mb-2">🌍 Destination Overview</h3>
-          <p className="text-lg text-gray-700 leading-relaxed">
-            {stateData.destination_detail ? (
-              <span
-                className="text-gray-800"
-                dangerouslySetInnerHTML={{ __html: stateData.destination_detail }}
-              />
-            ) : (
-              <span className="text-gray-500 italic">No description available</span>
-            )}
-          </p>
-        </div>
-        <br /><br />
-        <h2 className="text-3xl font-semibold text-gray-800 capitalize mb-6">Trip Itinerary</h2>
-        {stateData.days_information && stateData.days_information.length > 0 ? (
-          stateData.days_information.map((day, index) => (
-            <div key={index} className="mb-4 border-b border-gray-300">
-              <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow-sm hover:bg-gray-200 focus:outline-none"
-              >
-                <h3 className="text-xl font-bold text-gray-900">Day {day.day}: {day.title}</h3>
-                <span className="text-gray-600">{openIndex === index ? "▲" : "▼"}</span>
-              </button>
-              {openIndex === index && (
-                <div className="p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow-md mt-2">
-                  <p className="text-gray-700">
-                    <strong>Destination:</strong> {day.detail ? (
-                      <span dangerouslySetInnerHTML={{ __html: day.detail }} />
+            <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-9xl">
+              {/* Left Side - Trip Details */}
+              <div className="w-full">
+                <div className="bg-white border-l-4 mt-10 border-blue-500 shadow-lg p-5 rounded-lg">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    🌍 Destination Overview
+                  </h3>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    {stateData.destination_detail ? (
+                      <span
+                        className="text-gray-800"
+                        dangerouslySetInnerHTML={{
+                          __html: stateData.destination_detail,
+                        }}
+                      />
                     ) : (
-                      "No description available"
+                      <span className="text-gray-500 italic">
+                        No description available
+                      </span>
                     )}
                   </p>
                 </div>
-              )}
-            </div>
-          ))
-        ) : (
-          <p className="text-gray-600">No itinerary available</p>
-        )}
-      </div>
-      
-      {/* Right Side - Inquiry Form */}
-      <div className="bg-white shadow-lg p-6 rounded-lg border border-gray-300">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-4">Inquiry Form</h2>
-        <form className="space-y-4">
-          <div>
-            <label className="block text-gray-700 font-medium">Name</label>
-            <input type="text" className="w-full p-2 border rounded-lg" placeholder="Enter your name" />
-          </div>
-          <div>
-            <label className="block text-gray-700 font-medium">Email</label>
-            <input type="email" className="w-full p-2 border rounded-lg" placeholder="Enter your email" />
-          </div>
-          <div>
-            <label className="block text-gray-700 font-medium">Phone</label>
-            <input type="tel" className="w-full p-2 border rounded-lg" placeholder="Enter your phone number" />
-          </div>
-          <div>
-            <label className="block text-gray-700 font-medium">Message</label>
-            <textarea className="w-full p-2 border rounded-lg" rows="4" placeholder="Your message"></textarea>
-          </div>
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">Submit</button>
-        </form>
-      </div>
-    </div>
-            <div className="bg-white p-8 rounded-xl shadow-xl">
-              <h2 className="text-4xl font-bold text-gray-900 text-center mb-8">
-                📸 Destination Gallery
-              </h2>
-
-              {filledImages.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                  {filledImages.map((img, index) => (
-                    <div key={index} className="relative group cursor-pointer">
-                      <Image
-                        src={
-                          img.startsWith("http")
-                            ? img
-                            : `https://admiredashboard.theholistay.in/${img}`
-                        }
-                        alt={`Destination ${index + 1}`}
-                        width={400}
-                        height={300}
-                        className="rounded-lg shadow-md transition-transform duration-300 transform group-hover:scale-105"
-                        onClick={() => setSelectedImage(img)}
-                      />
+                <br />
+                <br />
+                <h2 className="text-3xl font-semibold text-gray-800 capitalize mb-6">
+                  Trip Itinerary
+                </h2>
+                {stateData.days_information &&
+                stateData.days_information.length > 0 ? (
+                  stateData.days_information.map((day, index) => (
+                    <div key={index} className="mb-4 border-b border-gray-300">
+                      <button
+                        onClick={() => toggleFAQ(index)}
+                        className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow-sm hover:bg-gray-200 focus:outline-none"
+                      >
+                        <h6 className="text-[12px] md:text-xl font-bold text-gray-900">
+                          Day {day.day}: {day.title}
+                        </h6>
+                        <span className="text-gray-600">
+                          {openIndex === index ? "▲" : "▼"}
+                        </span>
+                      </button>
+                      {openIndex === index && (
+                        <div className="p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow-md mt-2">
+                          <p className="text-gray-700">
+                            <strong>Destination:</strong>{" "}
+                            {day.detail ? (
+                              <span
+                                dangerouslySetInnerHTML={{ __html: day.detail }}
+                              />
+                            ) : (
+                              "No description available"
+                            )}
+                          </p>
+                        </div>
+                      )}
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-gray-500 text-center mt-4">
-                  No images available
-                </p>
-              )}
+                  ))
+                ) : (
+                  <p className="text-gray-600">No itinerary available</p>
+                )}
+              </div>
 
-              {/* Fullscreen Image Popup */}
-              {selectedImage && (
-                <div
-                  className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center p-4 z-50"
-                  onClick={() => setSelectedImage(null)}
-                >
-                  <div className="relative">
-                    <button
-                      className="absolute top-4 right-4 text-white text-3xl font-bold"
-                      onClick={() => setSelectedImage(null)}
-                    >
-                      ✖
-                    </button>
-                    <Image
-                      src={
-                        selectedImage.startsWith("http")
-                          ? selectedImage
-                          : `https://admiredashboard.theholistay.in/${selectedImage}`
-                      }
-                      alt="Selected Image"
-                      width={800}
-                      height={600}
-                      className="rounded-lg shadow-lg"
+              {/* Right Side - Inquiry Form */}
+              <div className="bg-white shadow-lg p-6 w-full md:w-96 mx-auto rounded-lg border border-gray-300">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                  Inquiry Form
+                </h2>
+                <form className="space-y-4">
+                  <div>
+                    <label className="block text-gray-700 font-medium">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full p-2 border rounded-lg"
+                      placeholder="Enter your name"
                     />
                   </div>
-                </div>
-              )}
+                  <div>
+                    <label className="block text-gray-700 font-medium">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      className="w-full p-2 border rounded-lg"
+                      placeholder="Enter your email"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 font-medium">
+                      Phone
+                    </label>
+                    <input
+                      type="tel"
+                      className="w-full p-2 border rounded-lg"
+                      placeholder="Enter your phone number"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-gray-700 font-medium">
+                      Message
+                    </label>
+                    <textarea
+                      className="w-full p-2 border rounded-lg"
+                      rows="4"
+                      placeholder="Your message"
+                    ></textarea>
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+                  >
+                    Submit
+                  </button>
+                </form>
+              </div>
             </div>
+            <div className=" flex flex-col">
+              {/* Horizontal Filter */}
+              <div className="flex justify-between items-center p-4 bg-gray-100">
+                <div className="flex space-x-4">
+                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                    itinerary  Detail
+                  </button>
+                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                    Meals
+                  </button>
+                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                    Inclusion
+                  </button>
+                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                    Exclussion
+                  </button>
+                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                  Accommodation Information
+                  </button>
+                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                   Payment Mode
+                  </button>
+                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                  Cancellation Policy
+                  </button>
+                </div>
+                <button className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
+                  Why Choose Us
+                </button>
+              </div>
 
+            </div>
             <div className="bg-gray-100 p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
                 📌 Tour Details

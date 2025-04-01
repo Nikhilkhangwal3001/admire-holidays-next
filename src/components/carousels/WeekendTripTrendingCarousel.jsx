@@ -117,7 +117,7 @@ const TrendingDestination = () => {
                         <p>{item.days || "Duration not specified"}</p>
                         <div className="flex gap-4 items-center mt-4">
                           <a href="tel:1800-121-4252" className="text-xl">📞</a>
-                          <Link className="w-full" href={`/destination/${item.slug}`}>
+                          <Link className="w-full" key={item.id} href={`trending-destination/${item.selected_destination}` || "#"}>
                             <motion.button
                               onMouseEnter={() => setIsHovered(true)}
                               onMouseLeave={() => setIsHovered(false)}

@@ -101,7 +101,7 @@ const TrendingDestination = () => {
 
                       <div className="flex items-center gap-3 mt-4">
                         <FaPhone className="text-[#E69233] text-lg" />
-                        <Link className="w-full" href={`/destination/${destination.slug}`}>
+                        <Link className="w-full" key={destination.id} href={`trending-destination/${destination.selected_destination}`}>
                           <motion.button
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}

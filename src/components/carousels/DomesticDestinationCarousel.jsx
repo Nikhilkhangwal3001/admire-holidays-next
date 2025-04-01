@@ -121,7 +121,7 @@ const TrendingDestination = () => {
                           {/* Phone Icon and Know More Button */}
                           <div className="flex gap-4 items-center mt-4">
                             <span className="text-2xl">📞</span>
-                            <Link className="w-full" href={`/destination/${item.slug || "#"}`}>
+                            <Link className="w-full" key={item.id} href={`trending-destination/${item.selected_destination}` || "#"}>
                               <motion.button
                                 onMouseEnter={() => setIsHovered(true)}
                                 onMouseLeave={() => setIsHovered(false)}
