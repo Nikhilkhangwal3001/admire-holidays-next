@@ -5,9 +5,11 @@ import { useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import Gallery from "@/app/detailpage.jsx/gallery";
 import axios from "axios";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
+// import { CheckCircleIcon } from "@heroicons/react/solid";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -133,80 +135,24 @@ export default function ItineraryPage() {
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+  const scrollToSection = (id) => {
+    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+  };
+
+  const whyChoosePoints = [
+    "Expert Team with Years of Experience",
+    "Customer Satisfaction is Our Priority",
+    "Affordable Pricing with Quality Service",
+    "24/7 Customer Support Available",
+    "Trusted by Thousands of Happy Clients",
+    "Fast and Secure Processing",
+    "100% Transparency in Work",
+  ];
+
   return (
     <div className="min-h-screen ">
       <Navbar />
-      <div className="bg-white p-8 rounded-xl shadow-xl">
-        <h2 className="text-4xl font-bold text-gray-900 text-center mb-8">
-          📸 Destination Gallery
-        </h2>
-
-        {filledImages.length > 0 ? (
-          <div
-            className="grid gap-0 w-full h-[511px] mx-auto"
-            style={{
-              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", // Auto-responsive columns
-              gridTemplateRows: "repeat(2, 1fr)", // 2 rows
-            }}
-          >
-            {filledImages.map((img, index) => (
-              <div key={index} className="relative">
-                <Image
-                  src={
-                    img.startsWith("http")
-                      ? img
-                      : `https://admiredashboard.theholistay.in/${img}`
-                  }
-                  alt={`Destination ${index + 1}`}
-                  width={400} // Adjust width for responsiveness
-                  height={255} // Adjust height for consistency across the banner
-                  className="w-full h-full object-cover rounded-lg shadow-md transition-transform duration-300 transform"
-                  onClick={() => setSelectedImage(img)}
-                />
-              </div>
-            ))}
-
-            {/* "+more" Image at the end */}
-            {filledImages.length > 0 && (
-              <div className="relative group cursor-pointer">
-                <div className="w-full h-full bg-gray-200 flex justify-center items-center text-white text-xl font-bold rounded-lg shadow-md">
-                  +more
-                </div>
-              </div>
-            )}
-          </div>
-        ) : (
-          <p className="text-gray-500 text-center mt-4">No images available</p>
-        )}
-
-        {/* Fullscreen Image Popup */}
-        {selectedImage && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center p-4 z-50"
-            onClick={() => setSelectedImage(null)}
-          >
-            <div className="relative">
-              <button
-                className="absolute top-4 right-4 text-white text-3xl font-bold"
-                onClick={() => setSelectedImage(null)}
-              >
-                ✖
-              </button>
-              <Image
-                src={
-                  selectedImage.startsWith("http")
-                    ? selectedImage
-                    : `https://admiredashboard.theholistay.in/${selectedImage}`
-                }
-                alt="Selected Image"
-                width={800}
-                height={600}
-                className="rounded-lg shadow-lg"
-              />
-            </div>
-          </div>
-        )}
-      </div>
+      <Gallery />
 
       <div className="max-w-8xl mx-auto py-12 px-6">
         {loading && (
@@ -215,7 +161,7 @@ export default function ItineraryPage() {
         {error && <p className="text-center text-red-600">{error}</p>}
 
         {stateData ? (
-          <div className="bg-white p-6 shadow-lg rounded-lg">
+          <div className="">
             <h2 className="md:text-2xl  text-xl font-bold text-gray-900 capitalize mb-6 tracking-wide relative before:absolute before:-left-4 before:top-1/2 before:w-2 before:h-10 before:bg-red-600 before:-translate-y-1/2">
               {stateData.title || "No Title Available"}
             </h2>
@@ -274,14 +220,14 @@ export default function ItineraryPage() {
                 </p>
               )}
             </div>
-            <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-9xl">
+            <div className="container mx-auto p-4 grid grid-cols-1 md:grid-cols-2  max-w-9xl">
               {/* Left Side - Trip Details */}
               <div className="w-full">
-                <div className="bg-white border-l-4 mt-10 border-blue-500 shadow-lg p-5 rounded-lg">
+                <div className="bg-white w-full border-l-4 mt-10 border-blue-500 shadow-lg p-5 rounded-lg">
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
                     🌍 Destination Overview
                   </h3>
-                  <p className="text-lg text-gray-700 leading-relaxed">
+                  <p className="md:text-lg text-sm text-gray-700 leading-relaxed">
                     {stateData.destination_detail ? (
                       <span
                         className="text-gray-800"
@@ -390,406 +336,416 @@ export default function ItineraryPage() {
                     Submit
                   </button>
                 </form>
+                {/* Why Choose Us Section */}
+                <section
+                  id="why-choose-us"
+                  className="mt-10 flex flex-col items-center justify-center  p-6"
+                >
+                  <h2 className="text-4xl font-bold mb-6 text-center">
+                    Why Choose Us
+                  </h2>
+                  <ul className="max-w-2xl w-full bg-white shadow-lg p-6 rounded-lg">
+                    {whyChoosePoints.map((point, index) => (
+                      <li
+                        key={index}
+                        className="flex items-center space-x-3 text-lg text-gray-700 py-2 border-b last:border-b-0"
+                      >
+                        {/* <CheckCircleIcon className="w-6 h-6 text-green-500" /> */}
+                        {/* <span>{point}</span> */}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
               </div>
             </div>
-            <div className=" flex flex-col">
+            <div className="flex flex-col">
               {/* Horizontal Filter */}
-              <div className="flex justify-between items-center p-4 bg-gray-100">
-                <div className="flex space-x-4">
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-                    itinerary  Detail
+              <div className="flex flex-wrap justify-between items-center p-4 ">
+                <div className="flex space-x-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
+                  <button
+                    onClick={() => scrollToSection("itinerary")}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                  >
+                    Itinerary Detail
                   </button>
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                  <button
+                    onClick={() => scrollToSection("meals")}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                  >
                     Meals
                   </button>
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                  <button
+                    onClick={() => scrollToSection("inclusion")}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                  >
                     Inclusion
                   </button>
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-                    Exclussion
+                  <button
+                    onClick={() => scrollToSection("exclusion")}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                  >
+                    Exclusion
                   </button>
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-                  Accommodation Information
+                  <button
+                    onClick={() => scrollToSection("accommodation")}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                  >
+                    Accommodation Info
                   </button>
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-                   Payment Mode
+                  <button
+                    onClick={() => scrollToSection("payment")}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                  >
+                    Payment Mode
                   </button>
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-                  Cancellation Policy
+                  <button
+                    onClick={() => scrollToSection("cancellation")}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                  >
+                    Cancellation Policy
                   </button>
                 </div>
-                <button className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
-                  Why Choose Us
-                </button>
               </div>
-
-            </div>
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                📌 Tour Details
-              </h3>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Duration */}
-                <div className="flex items-center space-x-2">
-                  <span className="text-blue-600 text-lg font-semibold">
-                    ⏳ Duration:
-                  </span>
-                  <span className="text-gray-700">
-                    {stateData.duration || "N/A"}
-                  </span>
-                </div>
-
-                {/* Pricing */}
-                <div className="flex items-center space-x-2">
-                  <span className="text-green-600 text-lg font-semibold">
-                    💰 Pricing:
-                  </span>
-                  <span className="text-gray-700">
-                    {stateData.pricing || "N/A"}
-                  </span>
-                </div>
-
-                {/* Type (Domestic/International) */}
-                <div className="flex items-center space-x-2">
-                  <span className="text-purple-600 text-lg font-semibold">
-                    🌍 Type:
-                  </span>
-                  <span className="text-gray-700">
-                    {stateData.domestic_or_international || "N/A"}
-                  </span>
-                </div>
-              </div>
-
-              {/* Description */}
-              <div className="mt-4 p-4 bg-white rounded-md shadow">
-                <h4 className="text-xl font-semibold text-gray-800 mb-2">
-                  📝 Description
-                </h4>
-                <p className="text-gray-700 leading-relaxed">
-                  {stateData.destination_detail ? (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: stateData.destination_detail,
-                      }}
-                    />
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                📌 Tour Inclusions & Exclusions
-              </h3>
-
-              {/* Inclusion Section */}
-              <div className="p-4 bg-white rounded-md shadow mb-4">
-                <h4 className="text-xl font-semibold text-green-600 mb-2">
-                  ✅ Inclusion
-                </h4>
-                <p className="text-gray-700 leading-relaxed">
-                  {stateData.inclusion ? (
-                    <span
-                      dangerouslySetInnerHTML={{ __html: stateData.inclusion }}
-                    />
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
-              </div>
-
-              {/* Additional Inclusion Section */}
-              <div className="p-4 bg-white rounded-md shadow mb-4">
-                <h4 className="text-xl font-semibold text-blue-600 mb-2">
-                  ➕ Additional Inclusion
-                </h4>
-                <p className="text-gray-700 leading-relaxed">
-                  {stateData.additional_inclusion ? (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: stateData.additional_inclusion,
-                      }}
-                    />
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
-              </div>
-
-              {/* Exclusion Section */}
-              <div className="p-4 bg-white rounded-md shadow">
-                <h4 className="text-xl font-semibold text-red-600 mb-2">
-                  ❌ Exclusion
-                </h4>
-                <p className="text-gray-700 leading-relaxed">
-                  {stateData.exclusion ? (
-                    <span
-                      dangerouslySetInnerHTML={{ __html: stateData.exclusion }}
-                    />
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                📜 Important Information
-              </h3>
-
-              {/* Terms & Conditions */}
-              <div className="p-4 bg-white rounded-md shadow mb-4">
-                <h4 className="text-xl font-semibold text-blue-600 mb-2">
-                  📑 Terms & Conditions
-                </h4>
-                <p className="text-gray-700 leading-relaxed">
-                  {stateData.terms_and_conditions ? (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: stateData.terms_and_conditions,
-                      }}
-                    />
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
-              </div>
-
-              {/* Special Note */}
-              <div className="p-4 bg-white rounded-md shadow mb-4">
-                <h4 className="text-xl font-semibold text-yellow-600 mb-2">
-                  📝 Special Note
-                </h4>
-                <p className="text-gray-700 leading-relaxed">
-                  {stateData.special_note ? (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: stateData.special_note,
-                      }}
-                    />
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
-              </div>
-
-              {/* Payment Mode */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-6 rounded-lg shadow-lg border border-gray-200">
-                {/* Payment Mode Info */}
-                <div className="p-6 bg-white rounded-lg shadow-md">
-                  <h4 className="text-2xl font-bold text-red-600 mb-4 flex items-center">
-                    💳 Payment Mode
-                  </h4>
-                  <p className="text-gray-700 leading-relaxed">
-                    {stateData.payment_mode ? (
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: stateData.payment_mode,
-                        }}
-                      />
-                    ) : (
-                      <span className="text-gray-500 italic">
-                        No payment information available.
-                      </span>
-                    )}
-                  </p>
-                </div>
-
-                {/* Payment Form */}
-                <div className="p-6 bg-white rounded-lg shadow-md">
-                  <h4 className="text-2xl font-bold text-yellow-600 mb-4 flex items-center">
-                    🛒 Complete Your Payment
-                  </h4>
-                  <form className="space-y-4">
-                    {/* Card Number */}
-                    <div>
-                      <label className="text-gray-600 font-medium">
-                        Card Number
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="**** **** **** ****"
-                        className="w-full p-3 mt-2 border rounded-lg focus:ring focus:ring-green-300"
-                        value={cardNumber}
-                        onChange={(e) => setCardNumber(e.target.value)}
-                      />
-                    </div>
-
-                    {/* Expiry & CVV */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-gray-600 font-medium">
-                          Expiry Date
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="MM/YY"
-                          className="w-full p-3 mt-2 border rounded-lg focus:ring focus:ring-green-300"
-                          value={expiry}
-                          onChange={(e) => setExpiry(e.target.value)}
-                        />
-                      </div>
-                      <div>
-                        <label className="text-gray-600 font-medium">CVV</label>
-                        <input
-                          type="password"
-                          placeholder="***"
-                          className="w-full p-3 mt-2 border rounded-lg focus:ring focus:ring-green-300"
-                          value={cvv}
-                          onChange={(e) => setCvv(e.target.value)}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Cardholder Name */}
-                    <div>
-                      <label className="text-gray-600 font-medium">
-                        Cardholder Name
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="Full Name"
-                        className="w-full p-3 mt-2 border rounded-lg focus:ring focus:ring-red-300"
-                        value={cardHolder}
-                        onChange={(e) => setCardHolder(e.target.value)}
-                      />
-                    </div>
-
-                    {/* Submit Button */}
-                    <button className="w-full bg-red-600 text-white py-3 mt-4 rounded-lg font-semibold hover:bg-green-700 transition">
-                      💸 Pay Now
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-indigo-500">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                🏨 Accommodation Information
-              </h3>
-
-              {/* Hotel Details */}
-              <div className="p-4 bg-gray-100 rounded-md shadow mb-4">
-                <h4 className="text-xl font-semibold text-indigo-600 mb-2">
-                  🏢 Hotel Details
-                </h4>
-                <p className="text-gray-700 leading-relaxed">
-                  {stateData.hotel_details ? (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: stateData.hotel_details,
-                      }}
-                    />
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
-              </div>
-
-              {/* Status Flag */}
-              <div className="p-4 bg-gray-100 rounded-md shadow">
-                <h4 className="text-xl font-semibold text-green-600 mb-2">
-                  🚩 Status Flag
-                </h4>
-                <p className="text-gray-700 leading-relaxed">
-                  {stateData.status_flags ? (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: stateData.status_flags,
-                      }}
-                    />
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-gray-50 p-8 rounded-lg shadow-lg">
+              <div className="bg-gray-50 p-8 rounded-lg shadow-lg">
               <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center uppercase tracking-wide">
                 🌍 Explore the Destination
               </h3>
-
               {images.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {images.slice(0, 6).map((img, index) => (
-                    <div
-                      key={index}
-                      className="relative cursor-pointer group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
-                      onClick={() =>
-                        setSelectedImage(
-                          `https://admiredashboard.theholistay.in/${img}`
-                        )
-                      }
-                    >
-                      <Image
-                        src={`https://admiredashboard.theholistay.in/${img}`}
-                        alt={`Image ${index + 1}`}
-                        width={300}
-                        height={200}
-                        className="w-full h-48 object-cover transition-transform duration-300 transform group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-                        <p className="text-white text-lg font-semibold">
-                          🔍 View Image
-                        </p>
+                <Swiper
+                  modules={[Navigation, Autoplay]}
+                  navigation
+                  autoplay={{ delay: 3000, disableOnInteraction: false }}
+                  spaceBetween={20}
+                  slidesPerView={1}
+                  breakpoints={{
+                    640: { slidesPerView: 2 },
+                    1024: { slidesPerView: 3 },
+                  }}
+                  className="w-full"
+                >
+                  {images.map((img, index) => (
+                    <SwiperSlide key={index}>
+                      <div
+                        className="relative cursor-pointer group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
+                        onClick={() =>
+                          setSelectedImage(
+                            `https://admiredashboard.theholistay.in/${img}`
+                          )
+                        }
+                      >
+                        <Image
+                          src={`https://admiredashboard.theholistay.in/${img}`}
+                          alt={`Image ${index + 1}`}
+                          width={300}
+                          height={200}
+                          className="w-full h-48 object-cover transition-transform duration-300 transform group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                          <p className="text-white text-lg font-semibold">
+                            🔍 View Image
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    </SwiperSlide>
                   ))}
-                </div>
+                </Swiper>
               ) : (
                 <p className="text-gray-500 text-center mt-6 italic">
                   No Additional Images Available
                 </p>
               )}
             </div>
-            {/* Cancellation Policy */}
-            <div className="p-6 bg-gradient-to-r from-red-100 to-red-50 rounded-lg shadow-lg border border-red-300">
-              {/* Cancellation Policy Heading */}
-              <div className="flex items-center mb-3">
-                <span className="text-red-600 text-2xl">❌</span>
-                <h4 className="text-2xl font-bold text-red-700 ml-2">
-                  Cancellation Policy
-                </h4>
-              </div>
 
-              {/* Policy Description */}
-              <p className="text-gray-700 leading-relaxed">
-                {stateData.cancellation_policy ? (
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: stateData.cancellation_policy,
-                    }}
-                  />
-                ) : (
-                  <span className="text-gray-500 italic">
-                    No cancellation policy available.
-                  </span>
-                )}
-              </p>
+              {/* Sections */}
+              <section
+                id="itinerary"
+                className="flex justify-center items-center p-10 "
+              >
+                <div className="bg-white p-10 rounded-3xl shadow-2xl border-t-8 border-yellow-500 ">
+                  <h3 className="md:text-3xl text-xl font-extrabold text-gray-900 mb-8 flex items-center gap-4 border-b-4 pb-4 border-yellow-300">
+                    📌 <span>Tour Details</span>
+                  </h3>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-900">
+                    {/* Duration */}
+                    <div className="flex flex-col items-center p-6 bg-blue-50 rounded-2xl shadow-lg transition transform hover:scale-105">
+                      <span className="text-red-600 md:text-2xl text-xl font-bold">
+                        ⏳ Duration
+                      </span>
+                      <span className="text-xl mt-3">
+                        {stateData.duration || "N/A"}
+                      </span>
+                    </div>
+
+                    {/* Pricing */}
+                    <div className="flex flex-col items-center p-6 bg-green-50 rounded-2xl shadow-lg transition transform hover:scale-105">
+                      <span className="text-yellow-600 text-xl md:text-2xl font-bold">
+                        💰 Pricing
+                      </span>
+                      <span className="text-xl text-center mt-3">
+                        {stateData.pricing || "N/A"}
+                      </span>
+                    </div>
+
+                    {/* Type (Domestic/International) */}
+                    <div className="flex flex-col items-center p-6 bg-purple-50 rounded-2xl shadow-lg transition transform hover:scale-105">
+                      <span className="text-red-600 text-xl md:text-2xl font-bold">
+                        🌍 Type
+                      </span>
+                      <span className="text-xl mt-3">
+                        {stateData.domestic_or_international || "N/A"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <div className="mt-8 p-8 bg-gray-50 rounded-2xl shadow-lg border-l-8 border-gray-400 transition transform hover:scale-105">
+                    <h4 className="text-xl md:text-3xl font-semibold text-gray-900 mb-5 flex items-center gap-3 border-b-2 pb-3 border-gray-300">
+                      📝 <span>Description</span>
+                    </h4>
+                    <p className="text-gray-800 leading-relaxed text-sm md:text-lg">
+                      {stateData.destination_detail ? (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: stateData.destination_detail,
+                          }}
+                        />
+                      ) : (
+                        <span className="text-gray-500 italic">
+                          No description available
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section className=" flex flex-col   p-6 sm:p-10">
+                <div className="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl border-t-8 border-yellow-500 ">
+                  <h3 className="md:text-3xl text-xl font-extrabold text-gray-900 mb-6 sm:mb-8 flex items-center gap-4 border-b-4 pb-4 border-red-300">
+                    📜 <span>Important Information</span>
+                  </h3>
+
+                  {/* Terms & Conditions */}
+                  <div className="p-6 sm:p-8  rounded-2xl shadow-lg border-l-8 border-red-400 transition transform hover:scale-105 mb-6">
+                    <h4 className="md:text-3xl text-xl font-semibold text-red-700 mb-4 flex items-center gap-3 border-b-2 pb-3 border-red-300">
+                      📑 <span>Terms & Conditions</span>
+                    </h4>
+                    <p className="text-gray-800 leading-relaxed text-sm md:text-lg">
+                      {stateData.terms_and_conditions ? (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: stateData.terms_and_conditions,
+                          }}
+                        />
+                      ) : (
+                        <span className="text-gray-500 italic">
+                          No description available
+                        </span>
+                      )}
+                    </p>
+                  </div>
+
+                  {/* Special Note */}
+                  <div className="p-6 sm:p-8 bg-yellow-50 rounded-2xl shadow-lg border-l-8 border-yellow-400 transition transform hover:scale-105">
+                    <h4 className="text-2xl sm:text-3xl font-semibold text-yellow-700 mb-4 flex items-center gap-3 border-b-2 pb-3 border-yellow-300">
+                      📝 <span>Special Note</span>
+                    </h4>
+                    <p className="text-gray-800 leading-relaxed text-base sm:text-lg">
+                      {stateData.special_note ? (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: stateData.special_note,
+                          }}
+                        />
+                      ) : (
+                        <span className="text-gray-500 italic">
+                          No description available
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </section>
+              <section
+                id="inclusion"
+                className=" flex flex-col items-center px-4 py-10 bg-gray-50"
+              >
+                <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+                  📌 Tour Inclusions & Exclusions
+                </h3>
+
+                <div className="w-full  space-y-6">
+                  {/* Inclusion Section */}
+                  <div className="p-6 bg-white rounded-lg shadow-lg">
+                    <h4 className="text-2xl font-semibold text-red-600 mb-3">
+                      ✅ Inclusion
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">
+                      {stateData.inclusion ? (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: stateData.inclusion,
+                          }}
+                        />
+                      ) : (
+                        <span className="text-gray-500 italic">
+                          No description available
+                        </span>
+                      )}
+                    </p>
+                  </div>
+
+                  {/* Additional Inclusion Section */}
+                  <div className="p-6 bg-white rounded-lg shadow-lg">
+                    <h4 className="text-2xl font-semibold text-yellow-600 mb-3">
+                      ➕ Additional Inclusion
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">
+                      {stateData.additional_inclusion ? (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: stateData.additional_inclusion,
+                          }}
+                        />
+                      ) : (
+                        <span className="text-gray-500 italic">
+                          No description available
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Exclusion Section */}
+              <section id="exclusion" className=" flex flex-col  px-4 py-10 ">
+                <div className=" p-6 bg-white rounded-lg shadow-lg">
+                  <h4 className="text-2xl font-semibold text-red-600 mb-3">
+                    ❌ Exclusion
+                  </h4>
+                  <p className="text-gray-700 leading-relaxed">
+                    {stateData.exclusion ? (
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: stateData.exclusion,
+                        }}
+                      />
+                    ) : (
+                      <span className="text-gray-500 italic">
+                        No description available
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </section>
+              {/* Accommodation Section */}
+              <section
+                id="accommodation"
+                className=" flex flex-col px-4 py-10 "
+              >
+                <div className=" p-6 bg-white rounded-lg shadow-lg border-l-4 border-indigo-500">
+                  <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+                    🏨 Accommodation Information
+                  </h3>
+
+                  <div className="p-6 bg-gray-100 rounded-lg shadow-md mb-6">
+                    <h4 className="text-2xl font-semibold text-yellow-600 mb-3">
+                      🏢 Hotel Details
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">
+                      {stateData.hotel_details ? (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: stateData.hotel_details,
+                          }}
+                        />
+                      ) : (
+                        <span className="text-gray-500 italic">
+                          No description available
+                        </span>
+                      )}
+                    </p>
+                  </div>
+
+                  <div className="p-6 bg-gray-100 rounded-lg shadow-md">
+                    <h4 className="text-2xl font-semibold text-red-600 mb-3">
+                      🚩 Status Flag
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">
+                      {stateData.status_flags ? (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: stateData.status_flags,
+                          }}
+                        />
+                      ) : (
+                        <span className="text-gray-500 italic">
+                          No description available
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Payment Section */}
+              <section id="payment" className=" flex flex-col  px-4 py-10 ">
+                <div className=" p-6 bg-white rounded-lg shadow-lg border-l-4 border-red-500">
+                  <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+                    💳 Payment Information
+                  </h3>
+
+                  <div className="p-6 bg-gray-100 rounded-lg shadow-md">
+                    <h4 className="text-2xl font-semibold text-red-600 mb-3">
+                      💰 Payment Mode
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">
+                      {stateData.payment_mode ? (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: stateData.payment_mode,
+                          }}
+                        />
+                      ) : (
+                        <span className="text-gray-500 italic">
+                          No payment information available.
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section id="cancellation" className=" flex">
+                {/* Cancellation Policy */}
+                <div className="p-6 bg-gradient-to-r from-red-100 to-red-50 rounded-lg shadow-lg border border-red-300">
+                  {/* Cancellation Policy Heading */}
+                  <div className="flex items-center mb-3">
+                    <span className="text-red-600 text-2xl">❌</span>
+                    <h4 className="text-2xl font-bold text-red-700 ml-2">
+                      Cancellation Policy
+                    </h4>
+                  </div>
+
+                  {/* Policy Description */}
+                  <p className="text-gray-700 leading-relaxed">
+                    {stateData.cancellation_policy ? (
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: stateData.cancellation_policy,
+                        }}
+                      />
+                    ) : (
+                      <span className="text-gray-500 italic">
+                        No cancellation policy available.
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </section>
             </div>
-
+            
             <div className="mt-6">
               <Link
                 href={`/destination/${stateData.selected_destination || ""}`}
