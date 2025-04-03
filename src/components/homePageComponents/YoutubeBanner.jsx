@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Videotest from '@/app/Videotestimonial/Videotest';
 
 export default function Testimonials() {
   const [galleryImages, setGalleryImages] = useState([]);
@@ -32,16 +33,15 @@ export default function Testimonials() {
       .catch((error) => console.error("Error fetching images:", error));
   }, []);
 
-  // Function to open modal and set selected image
   const openModal = (index) => {
     setSelectedIndex(index);
     setIsModalOpen(true);
   };
 
-  // Function to navigate images
   const handleNext = () => {
     setSelectedIndex((prev) => (prev + 1) % galleryImages.length);
   };
+  
   const handlePrev = () => {
     setSelectedIndex(
       (prev) => (prev - 1 + galleryImages.length) % galleryImages.length
@@ -51,8 +51,7 @@ export default function Testimonials() {
   return (
     <section className="px-6 min-h-screen mt-32">
       <h2 className="text-4xl font-semibold text-[#CF1E27] text-center">
-      Your trusted partner in travel and tour experiences.
-
+        Your trusted partner in travel and tour experiences.
       </h2>
 
       <section className="py-12 px-4 md:px-16 lg:px-32 bg-gray-100">
@@ -60,7 +59,6 @@ export default function Testimonials() {
           Explore Our Gallery
         </h3>
 
-        {/* Image Grid (Show Only 7 + More Images Box) */}
         <div className="grid grid-cols-4 gap-4">
           {galleryImages.slice(0, 7).map((image, index) => (
             <div
@@ -77,7 +75,6 @@ export default function Testimonials() {
             </div>
           ))}
 
-          {/* More Images Box (8th Image) */}
           {galleryImages.length > 7 && (
             <div
               className="relative w-full h-32 md:h-40 flex items-center justify-center bg-black bg-opacity-50 text-white font-bold text-lg rounded-lg cursor-pointer"
@@ -88,28 +85,22 @@ export default function Testimonials() {
           )}
         </div>
 
-        {/* Fullscreen Modal */}
         {isModalOpen && selectedIndex !== null && (
-          <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
-            <div className="relative max-w-4xl w-full flex flex-col items-center">
-              {/* Close Button */}
+          <div className="fixed inset-0 bg-black  flex justify-center items-center z-50">
+            <div className="relative    flex flex-col items-center">
               <button
                 className="absolute top-4 right-4 text-white text-3xl"
                 onClick={() => setIsModalOpen(false)}
               >
                 ✖
               </button>
-
-              {/* Image Display */}
               <Image
                 src={galleryImages[selectedIndex]}
                 alt="Selected Image"
-                width={800}
-                height={500}
-                className="w-full h-auto rounded-lg"
+                width={400}
+                height={400}
+                className="  rounded-lg"
               />
-
-              {/* Navigation Buttons */}
               <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
                 <button
                   className="bg-white text-black px-3 py-2 rounded-full text-lg"
@@ -130,6 +121,7 @@ export default function Testimonials() {
           </div>
         )}
       </section>
+      <Videotest />
     </section>
   );
 }

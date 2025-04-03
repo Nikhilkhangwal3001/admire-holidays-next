@@ -35,12 +35,12 @@ export default function TrendingDestinations() {
   }, [router]); // Add 'router' to dependency array
 
   return (
-    <section className="py-16 text-center">
+    <section className="py-10 text-center">
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-4xl lg:text-6xl font-extrabold text-red-600 drop-shadow-lg mb-14"
+        className="text-3xl lg:text-5xl font-extrabold text-red-600 drop-shadow-lg mb-10"
       >
         Trending Destinations
       </motion.h2>
@@ -50,7 +50,7 @@ export default function TrendingDestinations() {
       ) : error ? (
         <p className="text-lg text-red-600">{error}</p>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 max-w-7xl m-auto gap-3 px-2">
           {destinations.map((destination, index) => (
             <Link key={destination.id} href={`trending-destination/${destination.selected_destination}`}>
               <motion.div
@@ -58,9 +58,9 @@ export default function TrendingDestinations() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 whileHover={{ scale: 1.05 }}
-                className="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer"
+                className="relative group overflow-hidden rounded-md shadow-md cursor-pointer"
               >
-                <div className="w-full h-64 md:h-48 lg:h-56 relative rounded-lg overflow-hidden">
+                <div className="w-full h-40 md:h-36 lg:h-40 relative rounded-md overflow-hidden">
                   <Swiper modules={[Autoplay]} autoplay={{ delay: 4000 }} loop={true} className="w-full h-full">
                     <SwiperSlide>
                       <Image
@@ -73,7 +73,7 @@ export default function TrendingDestinations() {
                     </SwiperSlide>
                   </Swiper>
 
-                  <p className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-white z-50 font-semibold text-2xl">
+                  <p className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-white z-50 font-semibold text-lg">
                     {destination.selected_destination}
                   </p>
                 </div>

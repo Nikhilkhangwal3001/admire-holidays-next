@@ -165,7 +165,38 @@ export default function ItineraryPage() {
             <h2 className="md:text-2xl  text-xl font-bold text-gray-900 capitalize mb-6 tracking-wide relative before:absolute before:-left-4 before:top-1/2 before:w-2 before:h-10 before:bg-red-600 before:-translate-y-1/2">
               {stateData.title || "No Title Available"}
             </h2>
-            <h2 className="md:text-4xl text-2xl  font-extrabold text-gray-900 text-center capitalize mb-8 tracking-wide relative">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-4 text-gray-900">
+              {/* Duration */}
+              <div className="flex flex-col items-center p-6  rounded-2xl shadow-lg transition transform hover:scale-105">
+                <span className="text-red-600 md:text-xl text-md font-bold">
+                  ⏳ Duration
+                </span>
+                <span className="text-xl mt-3">
+                  {stateData.duration || "N/A"}
+                </span>
+              </div>
+
+              {/* Pricing */}
+              <div className="flex flex-col items-center p-6  rounded-2xl shadow-lg transition transform hover:scale-105">
+                <span className="text-yellow-600 text-md md:text-xl font-bold">
+                  💰 Pricing
+                </span>
+                <span className="text-xl text-center mt-3">
+                  {stateData.pricing || "N/A"}
+                </span>
+              </div>
+
+              {/* Type (Domestic/International) */}
+              <div className="flex flex-col items-center p-6  rounded-2xl shadow-lg transition transform hover:scale-105">
+                <span className="text-red-600 text-md md:text-xl font-bold">
+                🌍Type
+                </span>
+                <span className="text-xl mt-3">
+                  {stateData.domestic_or_international || "N/A"}
+                </span>
+              </div>
+            </div><br /><br />
+            <h2 className="md:text-2xl text-xl   font-extrabold text-gray-900 text-center capitalize mb-8 tracking-wide relative">
               <span className="text-red-600">
                 Explore the Beauty of Destination
               </span>
@@ -244,7 +275,7 @@ export default function ItineraryPage() {
                 </div>
                 <br />
                 <br />
-                <h2 className="text-3xl font-semibold text-gray-800 capitalize mb-6">
+                <h2 className="md:text-2xl text-xl font-semibold text-gray-800 capitalize mb-6">
                   Trip Itinerary
                 </h2>
                 {stateData.days_information &&
@@ -255,8 +286,11 @@ export default function ItineraryPage() {
                         onClick={() => toggleFAQ(index)}
                         className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow-sm hover:bg-gray-200 focus:outline-none"
                       >
-                        <h6 className="text-[12px] md:text-xl font-bold text-gray-900">
-                          Day {day.day}: {day.title}
+                        <h6 className="text-[12px] md:text-xl  font-bold text-gray-900">
+                          <span className="bg-red-600 p-2 rounded-lg text-white">
+                            Day{day.day}
+                          </span>{" "}
+                          : {day.title}
                         </h6>
                         <span className="text-gray-600">
                           {openIndex === index ? "▲" : "▼"}
@@ -284,8 +318,8 @@ export default function ItineraryPage() {
               </div>
 
               {/* Right Side - Inquiry Form */}
-              <div className="bg-white shadow-lg p-6 w-full md:w-96 mx-auto rounded-lg border border-gray-300">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+              <div className="bg-white shadow-lg mt-10 p-6 w-full md:w-96 mx-auto rounded-lg border border-gray-300">
+                <h2 className="md:text-2xl text-xl font-semibold text-gray-900 mb-4">
                   Inquiry Form
                 </h2>
                 <form className="space-y-4">
@@ -331,7 +365,7 @@ export default function ItineraryPage() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+                    className="w-full bg-yellow-600 text-white py-2 rounded-lg hover:bg-red-600"
                   >
                     Submit
                   </button>
@@ -341,7 +375,7 @@ export default function ItineraryPage() {
                   id="why-choose-us"
                   className="mt-10 flex flex-col items-center justify-center  p-6"
                 >
-                  <h2 className="text-4xl font-bold mb-6 text-center">
+                  <h2 className="md:text-2xl text-xl font-bold mb-6 text-center">
                     Why Choose Us
                   </h2>
                   <ul className="max-w-2xl w-full bg-white shadow-lg p-6 rounded-lg">
@@ -364,97 +398,97 @@ export default function ItineraryPage() {
                 <div className="flex space-x-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
                   <button
                     onClick={() => scrollToSection("itinerary")}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
                   >
                     Itinerary Detail
                   </button>
                   <button
                     onClick={() => scrollToSection("meals")}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
                   >
                     Meals
                   </button>
                   <button
                     onClick={() => scrollToSection("inclusion")}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
                   >
                     Inclusion
                   </button>
                   <button
                     onClick={() => scrollToSection("exclusion")}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
                   >
                     Exclusion
                   </button>
                   <button
                     onClick={() => scrollToSection("accommodation")}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
                   >
                     Accommodation Info
                   </button>
                   <button
                     onClick={() => scrollToSection("payment")}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
                   >
                     Payment Mode
                   </button>
                   <button
                     onClick={() => scrollToSection("cancellation")}
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
                   >
                     Cancellation Policy
                   </button>
                 </div>
               </div>
               <div className="bg-gray-50 p-8 rounded-lg shadow-lg">
-              <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center uppercase tracking-wide">
-                🌍 Explore the Destination
-              </h3>
-              {images.length > 0 ? (
-                <Swiper
-                  modules={[Navigation, Autoplay]}
-                  navigation
-                  autoplay={{ delay: 3000, disableOnInteraction: false }}
-                  spaceBetween={20}
-                  slidesPerView={1}
-                  breakpoints={{
-                    640: { slidesPerView: 2 },
-                    1024: { slidesPerView: 3 },
-                  }}
-                  className="w-full"
-                >
-                  {images.map((img, index) => (
-                    <SwiperSlide key={index}>
-                      <div
-                        className="relative cursor-pointer group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
-                        onClick={() =>
-                          setSelectedImage(
-                            `https://admiredashboard.theholistay.in/${img}`
-                          )
-                        }
-                      >
-                        <Image
-                          src={`https://admiredashboard.theholistay.in/${img}`}
-                          alt={`Image ${index + 1}`}
-                          width={300}
-                          height={200}
-                          className="w-full h-48 object-cover transition-transform duration-300 transform group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-                          <p className="text-white text-lg font-semibold">
-                            🔍 View Image
-                          </p>
+                <h3 className="md:text-2xl text-xl font-bold text-gray-900 mb-6 text-center uppercase tracking-wide">
+                  🌍 Explore the Destination
+                </h3>
+                {images.length > 0 ? (
+                  <Swiper
+                    modules={[Navigation, Autoplay]}
+                    navigation
+                    autoplay={{ delay: 3000, disableOnInteraction: false }}
+                    spaceBetween={20}
+                    slidesPerView={1}
+                    breakpoints={{
+                      640: { slidesPerView: 2 },
+                      1024: { slidesPerView: 3 },
+                    }}
+                    className="w-full"
+                  >
+                    {images.map((img, index) => (
+                      <SwiperSlide key={index}>
+                        <div
+                          className="relative cursor-pointer group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
+                          onClick={() =>
+                            setSelectedImage(
+                              `https://admiredashboard.theholistay.in/${img}`
+                            )
+                          }
+                        >
+                          <Image
+                            src={`https://admiredashboard.theholistay.in/${img}`}
+                            alt={`Image ${index + 1}`}
+                            width={300}
+                            height={200}
+                            className="w-full h-48 object-cover transition-transform duration-300 transform group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                            <p className="text-white text-lg font-semibold">
+                              🔍 View Image
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              ) : (
-                <p className="text-gray-500 text-center mt-6 italic">
-                  No Additional Images Available
-                </p>
-              )}
-            </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                ) : (
+                  <p className="text-gray-500 text-center mt-6 italic">
+                    No Additional Images Available
+                  </p>
+                )}
+              </div>
 
               {/* Sections */}
               <section
@@ -462,14 +496,14 @@ export default function ItineraryPage() {
                 className="flex justify-center items-center p-10 "
               >
                 <div className="bg-white p-10 rounded-3xl shadow-2xl border-t-8 border-yellow-500 ">
-                  <h3 className="md:text-3xl text-xl font-extrabold text-gray-900 mb-8 flex items-center gap-4 border-b-4 pb-4 border-yellow-300">
+                  <h3 className="md:text-2xl text-xl font-extrabold text-gray-900 mb-8 flex items-center gap-4 border-b-4 pb-4 border-yellow-300">
                     📌 <span>Tour Details</span>
                   </h3>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-900">
                     {/* Duration */}
                     <div className="flex flex-col items-center p-6 bg-blue-50 rounded-2xl shadow-lg transition transform hover:scale-105">
-                      <span className="text-red-600 md:text-2xl text-xl font-bold">
+                      <span className="text-red-600 md:text-xl text-md font-bold">
                         ⏳ Duration
                       </span>
                       <span className="text-xl mt-3">
@@ -479,7 +513,7 @@ export default function ItineraryPage() {
 
                     {/* Pricing */}
                     <div className="flex flex-col items-center p-6 bg-green-50 rounded-2xl shadow-lg transition transform hover:scale-105">
-                      <span className="text-yellow-600 text-xl md:text-2xl font-bold">
+                      <span className="text-yellow-600 text-md md:text-xl font-bold">
                         💰 Pricing
                       </span>
                       <span className="text-xl text-center mt-3">
@@ -489,7 +523,7 @@ export default function ItineraryPage() {
 
                     {/* Type (Domestic/International) */}
                     <div className="flex flex-col items-center p-6 bg-purple-50 rounded-2xl shadow-lg transition transform hover:scale-105">
-                      <span className="text-red-600 text-xl md:text-2xl font-bold">
+                      <span className="text-red-600 text-md md:text-xl font-bold">
                         🌍 Type
                       </span>
                       <span className="text-xl mt-3">
@@ -500,7 +534,7 @@ export default function ItineraryPage() {
 
                   {/* Description */}
                   <div className="mt-8 p-8 bg-gray-50 rounded-2xl shadow-lg border-l-8 border-gray-400 transition transform hover:scale-105">
-                    <h4 className="text-xl md:text-3xl font-semibold text-gray-900 mb-5 flex items-center gap-3 border-b-2 pb-3 border-gray-300">
+                    <h4 className="text-xl md:text-2xl font-semibold text-gray-900 mb-5 flex items-center gap-3 border-b-2 pb-3 border-gray-300">
                       📝 <span>Description</span>
                     </h4>
                     <p className="text-gray-800 leading-relaxed text-sm md:text-lg">
@@ -522,13 +556,13 @@ export default function ItineraryPage() {
 
               <section className=" flex flex-col   p-6 sm:p-10">
                 <div className="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl border-t-8 border-yellow-500 ">
-                  <h3 className="md:text-3xl text-xl font-extrabold text-gray-900 mb-6 sm:mb-8 flex items-center gap-4 border-b-4 pb-4 border-red-300">
+                  <h3 className="md:text-2xl text-xl font-extrabold text-gray-900 mb-6 sm:mb-8 flex items-center gap-4 border-b-4 pb-4 border-red-300">
                     📜 <span>Important Information</span>
                   </h3>
 
                   {/* Terms & Conditions */}
                   <div className="p-6 sm:p-8  rounded-2xl shadow-lg border-l-8 border-red-400 transition transform hover:scale-105 mb-6">
-                    <h4 className="md:text-3xl text-xl font-semibold text-red-700 mb-4 flex items-center gap-3 border-b-2 pb-3 border-red-300">
+                    <h4 className="md:text-2xl text-xl font-semibold text-red-700 mb-4 flex items-center gap-3 border-b-2 pb-3 border-red-300">
                       📑 <span>Terms & Conditions</span>
                     </h4>
                     <p className="text-gray-800 leading-relaxed text-sm md:text-lg">
@@ -548,7 +582,7 @@ export default function ItineraryPage() {
 
                   {/* Special Note */}
                   <div className="p-6 sm:p-8 bg-yellow-50 rounded-2xl shadow-lg border-l-8 border-yellow-400 transition transform hover:scale-105">
-                    <h4 className="text-2xl sm:text-3xl font-semibold text-yellow-700 mb-4 flex items-center gap-3 border-b-2 pb-3 border-yellow-300">
+                    <h4 className="md:text-2xl text-xl font-semibold text-yellow-700 mb-4 flex items-center gap-3 border-b-2 pb-3 border-yellow-300">
                       📝 <span>Special Note</span>
                     </h4>
                     <p className="text-gray-800 leading-relaxed text-base sm:text-lg">
@@ -571,7 +605,7 @@ export default function ItineraryPage() {
                 id="inclusion"
                 className=" flex flex-col items-center px-4 py-10 bg-gray-50"
               >
-                <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+                <h3 className="md:text-2xl text-xl font-bold text-gray-900 mb-6 text-center">
                   📌 Tour Inclusions & Exclusions
                 </h3>
 
@@ -598,7 +632,7 @@ export default function ItineraryPage() {
 
                   {/* Additional Inclusion Section */}
                   <div className="p-6 bg-white rounded-lg shadow-lg">
-                    <h4 className="text-2xl font-semibold text-yellow-600 mb-3">
+                    <h4 className="md:text-2xl text-xl font-semibold text-yellow-600 mb-3">
                       ➕ Additional Inclusion
                     </h4>
                     <p className="text-gray-700 leading-relaxed">
@@ -621,7 +655,7 @@ export default function ItineraryPage() {
               {/* Exclusion Section */}
               <section id="exclusion" className=" flex flex-col  px-4 py-10 ">
                 <div className=" p-6 bg-white rounded-lg shadow-lg">
-                  <h4 className="text-2xl font-semibold text-red-600 mb-3">
+                  <h4 className="md:text-2xl text-xl font-semibold text-red-600 mb-3">
                     ❌ Exclusion
                   </h4>
                   <p className="text-gray-700 leading-relaxed">
@@ -645,7 +679,7 @@ export default function ItineraryPage() {
                 className=" flex flex-col px-4 py-10 "
               >
                 <div className=" p-6 bg-white rounded-lg shadow-lg border-l-4 border-indigo-500">
-                  <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+                  <h3 className="md:text-2xl text-xl font-bold text-gray-900 mb-6 text-center">
                     🏨 Accommodation Information
                   </h3>
 
@@ -669,7 +703,7 @@ export default function ItineraryPage() {
                   </div>
 
                   <div className="p-6 bg-gray-100 rounded-lg shadow-md">
-                    <h4 className="text-2xl font-semibold text-red-600 mb-3">
+                    <h4 className="md:text-2xl text-xl font-semibold text-red-600 mb-3">
                       🚩 Status Flag
                     </h4>
                     <p className="text-gray-700 leading-relaxed">
@@ -692,12 +726,12 @@ export default function ItineraryPage() {
               {/* Payment Section */}
               <section id="payment" className=" flex flex-col  px-4 py-10 ">
                 <div className=" p-6 bg-white rounded-lg shadow-lg border-l-4 border-red-500">
-                  <h3 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+                  <h3 className="md:text-2xl text-xl font-bold text-gray-900 mb-6 text-center">
                     💳 Payment Information
                   </h3>
 
                   <div className="p-6 bg-gray-100 rounded-lg shadow-md">
-                    <h4 className="text-2xl font-semibold text-red-600 mb-3">
+                    <h4 className="md:text-2xl text-xl font-semibold text-red-600 mb-3">
                       💰 Payment Mode
                     </h4>
                     <p className="text-gray-700 leading-relaxed">
@@ -723,13 +757,13 @@ export default function ItineraryPage() {
                   {/* Cancellation Policy Heading */}
                   <div className="flex items-center mb-3">
                     <span className="text-red-600 text-2xl">❌</span>
-                    <h4 className="text-2xl font-bold text-red-700 ml-2">
+                    <h2 className="md:text-2xl text-xl font-bold text-red-700 ml-2">
                       Cancellation Policy
-                    </h4>
+                    </h2>
                   </div>
 
                   {/* Policy Description */}
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-gray-700 text-lg leading-relaxed">
                     {stateData.cancellation_policy ? (
                       <span
                         dangerouslySetInnerHTML={{
@@ -745,7 +779,7 @@ export default function ItineraryPage() {
                 </div>
               </section>
             </div>
-            
+
             <div className="mt-6">
               <Link
                 href={`/destination/${stateData.selected_destination || ""}`}
