@@ -1,20 +1,34 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { IoCallOutline } from "react-icons/io5";
-import { MdOutlineMessage } from "react-icons/md";
-import {
-  FaFacebook,
-  FaSquareXTwitter,
-  FaLinkedin,
-  FaSquareInstagram,
-  FaYoutube,
-  FaLocationDot,
-} from "react-icons/fa6";
+import { FaLocationDot } from "react-icons/fa6";
 import Link from "next/link";
+import axios from "axios";
+import conf from "../../conf/conf";
 
 const Footer = () => {
+  const [destinations, setDestinations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchDestinations() {
+      try {
+        const { data } = await axios.get(`${conf.laravelBaseUrl}/public-itineraries-trending`);
+        setDestinations(data);
+      } catch (err) {
+        setError("Failed to load destinations.");
+        console.error("API Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchDestinations();
+  }, []);
+
   return (
     <motion.footer
       initial={{ opacity: 0, y: 50 }}
@@ -23,10 +37,8 @@ const Footer = () => {
       viewport={{ once: true }}
       className="relative bg-black text-white py-10 px-5 md:px-20"
     >
-      {/* Background Effect */}
       <div className="absolute inset-0 bg-black/70 backdrop-blur-md -z-10"></div>
 
-      {/* First Row */}
       <div className="grid md:grid-cols-3 gap-10 border-b border-gray-700 pb-6">
         {/* Left Side: Logo & Description */}
         <div className="space-y-4">
@@ -65,25 +77,33 @@ const Footer = () => {
 
         {/* Right: Trending Destinations */}
         <div>
-          <h3 className="text-xl font-semibold text-yellow-400">
-            Trending Destinations
-          </h3>
-          <ul className="mt-3 space-y-2">
-            {["Dubai", "Bali", "Kerala", "Ladakh", "Thailand"].map((dest, i) => (
-              <li key={i}>
-                <Link
-                  href={`/packages/${dest.toLowerCase()}`}
-                  className="text-gray-400 hover:text-white transition-all duration-300"
-                >
-                  {dest}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <h3 className="text-xl font-semibold text-yellow-400">Trending Destinations</h3>
+          {loading ? (
+            <p className="text-gray-400">Loading...</p>
+          ) : error ? (
+            <p className="text-red-400">{error}</p>
+          ) : (
+            <ul className="mt-3 space-y-2">
+              {destinations.length > 0 ? (
+                destinations.map((dest, i) => (
+                  <li key={i}>
+                    <Link
+                      href={`/packages/${dest.selected_destination.toLowerCase()}`}
+                      className="text-gray-400 hover:text-white transition-all duration-300"
+                    >
+                      {dest.selected_destination}
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <p className="text-gray-400">No destinations available.</p>
+              )}
+            </ul>
+          )}
         </div>
       </div>
 
-      {/* Second Row: Contact Information */}
+      {/* Contact Information */}
       <div className="flex flex-col md:flex-row justify-between items-center border-b border-gray-700 py-6 text-gray-400 text-sm">
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex items-center gap-2">
@@ -94,33 +114,12 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-2">
             <FaLocationDot size={20} className="text-yellow-400" />
-            <span>
-              34, Sewak Park, Dwarka More Metro, Near Pillar No-772, New Delhi
-            </span>
+            <span>34, Sewak Park, Dwarka More Metro, Near Pillar No-772, New Delhi</span>
           </div>
-        </div>
-
-        {/* Social Media Icons */}
-        <div className="flex gap-4 mt-4 md:mt-0">
-          {[
-            { icon: FaFacebook, link: "https://m.facebook.com/p/Admire-Holidays-100090809996697/", color: "#1877F2" },
-            { icon: FaSquareXTwitter, link: "https://twitter.com/HolidaysAd53932", color: "#14171A" },
-            { icon: FaLinkedin, link: "https://www.linkedin.com/in/admire-holidays-272a06272/", color: "#0077b5" },
-            { icon: FaSquareInstagram, link: "https://www.instagram.com/admireholidays_official", color: "#C13584" },
-            { icon: FaYoutube, link: "https://www.youtube.com/@AdmireHolidays_official", color: "#FF0000" },
-          ].map(({ icon: Icon, link, color }, i) => (
-            <a key={i} href={link} target="_blank" rel="noopener noreferrer">
-              <Icon
-                size={25}
-                className="cursor-pointer transition-transform transform hover:scale-125"
-                style={{ color }}
-              />
-            </a>
-          ))}
         </div>
       </div>
 
-      {/* Third Row: Copyright & Privacy */}
+      {/* Footer Bottom */}
       <div className="flex flex-col md:flex-row justify-between items-center text-gray-500 pt-6 text-sm">
         <p className="text-center w-full md:w-auto">
           &copy; 2025 Admire Holidays. All rights reserved.
