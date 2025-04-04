@@ -19,13 +19,13 @@ const ImageGallery = () => {
     const fetchImages = async () => {
       try {
         const response = await fetch(
-          "https://admiredashboard.theholistay.in/public-gallery-images"
+          "https://admiredashboard.theholis9876tay.in/public-gallery-images"
         );
         const data = await response.json();
         if (data && Array.isArray(data.images)) {
           setImages(
             data.images.map(
-              (img) => `https://admiredashboard.theholistay.in/${img}`
+              (img) => `https://admiredashboard.theholis78tay.in/${img}`
             )
           );
         }
@@ -93,41 +93,28 @@ const ImageGallery = () => {
             <h2 className="text-white text-2xl mb-4">
               {titles[selectedImageIndex]}
             </h2>
-            <div className="flex items-center justify-center gap-4 p-4">
-              <button className="text-white text-3xl" onClick={handlePrev}>
-                ⬅
-              </button>
-              <Image
-                src={images[selectedImageIndex]}
-                alt="Selected Image"
-                width={400}
-                height={400}
-                className="rounded-lg shadow-lg"
-              />
-              <button className="text-white text-3xl" onClick={handleNext}>
-                ➡
-              </button>
-            </div>
+
             {/* Thumbnail images below large image */}
             <div className="hidden sm:flex gap-2 mt-4 justify-center overflow-x-auto">
               {images.map((img, index) => (
-                <div
-                key={index}
-                className={`border-2 rounded-lg cursor-pointer flex justify-center items-center ${
-                  selectedImageIndex === index ? "border-blue-500" : "border-gray-300"
-                }`}
-                onClick={() => openPopup(index)}
-                style={{ width: "80px", height: "80px" }} // Fixed dimensions
-              >
-                <Image
-                  src={img}
-                  alt={`Thumbnail ${index + 1}`}
-                  width={80}
-                  height={80}
-                  className="object-contain rounded-lg"
-                />
-              </div>
-              
+               <div
+               key={index}
+               className={`relative border-2 rounded-lg cursor-pointer flex justify-center items-center ${
+                 selectedImageIndex === index ? "border-blue-500" : "border-gray-300"
+               }`}
+               onClick={() => openPopup(index)}
+               style={{ width: "80px", height: "80px" }} // Fixed dimensions
+             >
+               <Image
+                 src={img}
+                 alt={`Thumbnail ${index + 1}`}
+                 layout="intrinsic" // Image will auto-scale based on its dimensions
+                 width={80} // Fixed width
+                 height={80} // Fixed height
+                 className="rounded-lg object-contain"
+               />
+             </div>
+             
               ))}
             </div>
           </div>

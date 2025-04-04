@@ -20,10 +20,6 @@ export default function Itinerary() {
    setDestination(slug);
   }, [slug]);
 
-
-
-
-
   useEffect(() => {
     if (!destination) return;
 
@@ -119,18 +115,18 @@ export default function Itinerary() {
 
                 <h3 className="text-2xl font-semibold mt-4">{item.title}</h3>
 
-                <p className="text-gray-600 mt-1">
+                {/* <p className="text-gray-600 mt-1">
                   <strong>Type:</strong>{" "}
                   {item.domestic_or_international === "domestic" ? "Domestic" : "International"}
-                </p>
+                </p> */}
 
                 <p className="text-gray-600">
                   <strong>Duration:</strong> {item.duration}
                 </p>
 
-                <p className="text-gray-600">
+                {/* <p className="text-gray-600">
                   <strong>Pricing:</strong> {item.pricing}
-                </p>
+                </p> */}
 
                 <p className="text-gray-600">
                   <strong>Destination:</strong> {item.selected_destination}
@@ -151,7 +147,7 @@ export default function Itinerary() {
 
                 <div className="mt-4 text-center">
                   <Link href={`/destination/${item.slug}`}>
-                    <button className="px-4 py-2 bg-blue-600 w-full text-white rounded-lg hover:bg-blue-700">
+                    <button className="px-4 py-2 bg-red-600 w-full text-white rounded-lg hover:bg-yellow-700">
                       Explore Destination
                     </button>
                   </Link>

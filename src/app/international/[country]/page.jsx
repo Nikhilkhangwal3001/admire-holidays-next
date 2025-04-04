@@ -125,14 +125,14 @@ export default function CountryPage() {
                 <p className="text-gray-600">
                   <strong>Duration:</strong> {item.duration || "N/A"}
                 </p>
-                <p className="text-gray-600">
+                {/* <p className="text-gray-600">
                   <strong>Pricing:</strong> {item.pricing || "N/A"}
-                </p>
-                <p className="text-gray-600">
+                </p> */}
+                {/* <p className="text-gray-600">
                   <strong>Type:</strong>{" "}
                   {item.domestic_or_international || "N/A"}
-                </p>
-                <p className="text-gray-600">
+                </p> */}
+                {/* <p className="text-gray-600">
                   <strong>Description:</strong>{" "}
                   {item.destination_detail ? (
                     <span
@@ -143,8 +143,8 @@ export default function CountryPage() {
                   ) : (
                     "No description available"
                   )}
-                </p>
-                <p className="text-gray-600">
+                </p> */}
+                {/* <p className="text-gray-600">
                   <strong>Inclusion:</strong>{" "}
                   {item.inclusion ? (
                     <span
@@ -153,8 +153,8 @@ export default function CountryPage() {
                   ) : (
                     "No description available"
                   )}
-                </p>
-                <p className="text-gray-600">
+                </p> */}
+                {/* <p className="text-gray-600">
                   <strong>Additional Inclusion:</strong>{" "}
                   {item.additional_inclusion ? (
                     <span
@@ -165,8 +165,8 @@ export default function CountryPage() {
                   ) : (
                     "No description available"
                   )}
-                </p>
-                <p className="text-gray-600">
+                </p> */}
+                {/* <p className="text-gray-600">
                   <strong>Exclusion</strong>{" "}
                   {item.exclusion ? (
                     <span
@@ -175,8 +175,8 @@ export default function CountryPage() {
                   ) : (
                     "No description available"
                   )}
-                </p>
-                <p className="text-gray-600">
+                </p> */}
+                {/* <p className="text-gray-600">
                   <strong>Terms and Conditions</strong>{" "}
                   {item.terms_and_conditions ? (
                     <span
@@ -187,8 +187,8 @@ export default function CountryPage() {
                   ) : (
                     "No description available"
                   )}
-                </p>
-                <p className="text-gray-600">
+                </p> */}
+                {/* <p className="text-gray-600">
                   <strong>Special Note</strong>{" "}
                   {item.special_note ? (
                     <span
@@ -197,8 +197,8 @@ export default function CountryPage() {
                   ) : (
                     "No description available"
                   )}
-                </p>
-                <p className="text-gray-600">
+                </p> */}
+                {/* <p className="text-gray-600">
                   <strong>Cancellation Policy</strong>{" "}
                   {item.cancellation_policy ? (
                     <span
@@ -209,8 +209,8 @@ export default function CountryPage() {
                   ) : (
                     "No description available"
                   )}
-                </p>
-                <p className="text-gray-600">
+                </p> */}
+                {/* <p className="text-gray-600">
                   <strong>Payment Mode</strong>{" "}
                   {item.payment_mode ? (
                     <span
@@ -219,8 +219,8 @@ export default function CountryPage() {
                   ) : (
                     "No description available"
                   )}
-                </p>
-                <p className="text-gray-600">
+                </p> */}
+                {/* <p className="text-gray-600">
                   <strong>Hotel Details</strong>{" "}
                   {item.hotel_details ? (
                     <span
@@ -229,8 +229,8 @@ export default function CountryPage() {
                   ) : (
                     "No description available"
                   )}
-                </p>
-                <p className="text-gray-600">
+                </p> */}
+                {/* <p className="text-gray-600">
                   <strong>Status Flag</strong>{" "}
                   {item.status_flags ? (
                     <span
@@ -239,11 +239,11 @@ export default function CountryPage() {
                   ) : (
                     "No description available"
                   )}
-                </p>
+                </p> */}
 
                 <div className="mt-6">
                   <Link href={`/destination/${item.slug || ""}`}>
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <button className="px-4 py-2 w-full bg-red-600 text-white rounded-lg hover:bg-yellow-700">
                       Explore More
                     </button>
                   </Link>
