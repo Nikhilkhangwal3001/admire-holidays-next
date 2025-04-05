@@ -104,50 +104,54 @@ export default function Itinerary() {
         {stateData.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {stateData.map((item, index) => (
-              <div key={index} className="p-6 bg-white shadow-lg rounded-lg">
-                <Image
-                  src={`https://admiredashboard.theholistay.in/${item.destination_thumbnail}`}
-                  alt={item.title}
-                  width={400}
-                  height={250}
-                  className="rounded-lg"
-                />
+              <Link href={`/destination/${item.slug}`} key={index}>
+                <div className="p-6 bg-white shadow-lg rounded-lg h-[550px] flex flex-col justify-between hover:shadow-2xl transition-shadow duration-300 cursor-pointer">
+                  <div>
+                    <Image
+                      src={`https://admiredashboard.theholistay.in/${item.destination_thumbnail}`}
+                      alt={item.title}
+                      width={400}
+                      height={250}
+                      className="rounded-lg"
+                    />
 
-                <h3 className="text-2xl font-semibold mt-4">{item.title}</h3>
+                    <h3 className="text-2xl font-semibold mt-4 line-clamp-2">
+                      {item.title}
+                    </h3>
 
-                <p className="text-gray-600">
-                  <strong>Duration:</strong> {item.duration}
-                </p>
+                    <p className="text-gray-600">
+                      <strong>Duration:</strong> {item.duration}
+                    </p>
 
-                <p className="text-gray-600">
-                  <strong>Destination:</strong> {item.selected_destination}
-                </p>
+                    <p className="text-gray-600">
+                      <strong>Destination:</strong> {item.selected_destination}
+                    </p>
 
-                {/* Limited Image Gallery (Max 3 images) */}
-                <div className="mt-4 grid grid-cols-3 gap-2">
-                  {item.destination_images.slice(0, 3).map((img, imgIndex) => (
-                    <div
-                      key={imgIndex}
-                      className="relative w-full aspect-[4/3] overflow-hidden rounded-md"
-                    >
-                      <Image
-                        src={`https://admiredashboard.theholistay.in/${img}`}
-                        alt={`Additional Image ${imgIndex + 1}`}
-                        fill
-                        className="object-cover"
-                      />
+                    {/* Limited Image Gallery (Max 3 images) */}
+                    <div className="mt-4 grid grid-cols-3 gap-2">
+                      {item.destination_images.slice(0, 3).map((img, imgIndex) => (
+                        <div
+                          key={imgIndex}
+                          className="relative w-full aspect-[4/3] overflow-hidden rounded-md"
+                        >
+                          <Image
+                            src={`https://admiredashboard.theholistay.in/${img}`}
+                            alt={`Additional Image ${imgIndex + 1}`}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </div>
 
-                <div className="mt-4 text-center">
-                  <Link href={`/destination/${item.slug}`}>
+                  <div className="mt-4 text-center">
                     <button className="px-4 py-2 bg-red-600 w-full text-white rounded-lg hover:bg-yellow-700">
                       Explore Destination
                     </button>
-                  </Link>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

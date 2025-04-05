@@ -8,6 +8,7 @@ export default function BlogPage({ params }) {
   const { blog_slug } = params;
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
+  // const [sections, setSections] = useState([]);
 
   useEffect(() => {
     async function fetchBlog() {
@@ -69,18 +70,18 @@ export default function BlogPage({ params }) {
 
       {/* Blog Layout */}
       <div className="min-h-screen bg-gradient-to-br from-purple-100 to-blue-50 py-10 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="max-w-10xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Main Blog Content */}
-          <div className="md:col-span-2 bg-white rounded-3xl shadow-xl overflow-hidden">
-            <div className="w-full h-[300px] relative">
+          <div className="md:col-span-2 bg-white  shadow-xl overflow-hidden">
+            <div className="w-full h-[500px] relative rounded-lg overflow-hidden">
               <Image
                 src={`https://admiredashboard.theholistay.in/${blog.blog_image}`}
                 alt={blog.blog_image_alt_text || "Blog Image"}
                 layout="fill"
                 objectFit="cover"
-                className="rounded-t-3xl"
               />
             </div>
+
             {/* Blog Content Section */}
             <div className="bg-white rounded-2xl shadow-lg p-6 md:p-10 mt-8">
               <h1 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight mb-6">
@@ -91,22 +92,24 @@ export default function BlogPage({ params }) {
               <p className="text-lg text-gray-600 mb-8 italic">
                 {blog.blog_description}
               </p>
-
-              {/* Blog Content with Styled Images */}
               <div
-                className="prose prose-lg max-w-none text-gray-800 leading-relaxed mb-10 
-      prose-img:rounded-xl 
-      prose-img:shadow-md 
-      prose-img:w-[320px] 
-      prose-img:h-auto 
-      prose-img:block 
-      prose-img:mx-auto 
-      prose-img:my-4"
-                dangerouslySetInnerHTML={{ __html: blog.blog_content }}
-              />
+  className="
+    prose prose-lg max-w-none text-justify text-black leading-relaxed mb-10
+    prose-img:rounded-xl
+    prose-img:shadow-md
+    prose-img:w-[320px]
+    prose-img:h-[200px]
+    prose-img:object-cover
+    prose-img:block
+    prose-img:mx-auto
+    prose-img:my-4
+  "
+  dangerouslySetInnerHTML={{ __html: blog.blog_content }}
+/>
+
 
               {/* Meta Info Slabs */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-600 mb-10">
+              <div className="text-sm text-gray-600 mb-10">
                 <div className="bg-gray-100 p-4 rounded-xl shadow-sm">
                   <div
                     dangerouslySetInnerHTML={{ __html: blog.blog_meta_title }}
