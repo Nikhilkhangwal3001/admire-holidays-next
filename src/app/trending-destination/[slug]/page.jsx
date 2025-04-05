@@ -9,15 +9,15 @@ import axios from "axios";
 import Link from "next/link";
 
 export default function Itinerary() {
-  const {slug} = useParams();
+  const { slug } = useParams();
   const [destination, setDestination] = useState(null);
   const [loading, setLoading] = useState(false);
   const [stateData, setStateData] = useState([]);
   const [videoUrl, setVideoUrl] = useState(null);
   const [error, setError] = useState(null);
 
-  useEffect(()=>{
-   setDestination(slug);
+  useEffect(() => {
+    setDestination(slug);
   }, [slug]);
 
   useEffect(() => {
@@ -115,33 +115,28 @@ export default function Itinerary() {
 
                 <h3 className="text-2xl font-semibold mt-4">{item.title}</h3>
 
-                {/* <p className="text-gray-600 mt-1">
-                  <strong>Type:</strong>{" "}
-                  {item.domestic_or_international === "domestic" ? "Domestic" : "International"}
-                </p> */}
-
                 <p className="text-gray-600">
                   <strong>Duration:</strong> {item.duration}
                 </p>
-
-                {/* <p className="text-gray-600">
-                  <strong>Pricing:</strong> {item.pricing}
-                </p> */}
 
                 <p className="text-gray-600">
                   <strong>Destination:</strong> {item.selected_destination}
                 </p>
 
+                {/* Limited Image Gallery (Max 3 images) */}
                 <div className="mt-4 grid grid-cols-3 gap-2">
-                  {item.destination_images.map((img, imgIndex) => (
-                    <Image
+                  {item.destination_images.slice(0, 3).map((img, imgIndex) => (
+                    <div
                       key={imgIndex}
-                      src={`https://admiredashboard.theholistay.in/${img}`}
-                      alt={`Additional Image ${imgIndex + 1}`}
-                      width={120}
-                      height={80}
-                      className="rounded-md"
-                    />
+                      className="relative w-full aspect-[4/3] overflow-hidden rounded-md"
+                    >
+                      <Image
+                        src={`https://admiredashboard.theholistay.in/${img}`}
+                        alt={`Additional Image ${imgIndex + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                   ))}
                 </div>
 

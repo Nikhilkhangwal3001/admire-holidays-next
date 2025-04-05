@@ -41,7 +41,7 @@ export default function Testimonials() {
   const handleNext = () => {
     setSelectedIndex((prev) => (prev + 1) % galleryImages.length);
   };
-  
+
   const handlePrev = () => {
     setSelectedIndex(
       (prev) => (prev - 1 + galleryImages.length) % galleryImages.length
@@ -70,7 +70,7 @@ export default function Testimonials() {
                 src={image}
                 alt={`Gallery Image ${index + 1}`}
                 fill
-                className="object-cover transition-transform duration-300 ease-in-out transform hover:scale-110"
+                className="object-contain transition-transform duration-300 ease-in-out transform hover:scale-110"
               />
             </div>
           ))}
@@ -86,8 +86,8 @@ export default function Testimonials() {
         </div>
 
         {isModalOpen && selectedIndex !== null && (
-          <div className="fixed inset-0 bg-black  flex justify-center items-center z-50">
-            <div className="relative    flex flex-col items-center">
+          <div className="fixed inset-0 bg-black flex justify-center items-center z-50">
+            <div className="relative flex flex-col items-center">
               <button
                 className="absolute top-4 right-4 text-white text-3xl"
                 onClick={() => setIsModalOpen(false)}
@@ -99,7 +99,7 @@ export default function Testimonials() {
                 alt="Selected Image"
                 width={400}
                 height={400}
-                className="  rounded-lg"
+                className="object-contain rounded-lg"
               />
               <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
                 <button

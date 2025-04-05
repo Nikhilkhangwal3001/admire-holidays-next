@@ -84,44 +84,43 @@ const TrendingDestination = () => {
 
                 return (
                   <div className="keen-slider__slide" key={i}>
-                    <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px] relative">
-                      <div className="relative w-full h-64 rounded-lg overflow-hidden">
-                        <div className="absolute top-2 left-2 bg-yellow-400 text-black font-bold px-3 py-1 rounded-md text-sm z-10">
-                          {/* Discount: {item.discount} */}
+                    <Link href={`trending-destination/${item.selected_destination}` || "#"} className="block">
+                      <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px] relative hover:shadow-xl transition-shadow duration-300">
+                        <div className="relative w-full h-64 rounded-lg overflow-hidden">
+                          <div className="absolute top-2 left-2 bg-yellow-400 text-black font-bold px-3 py-1 rounded-md text-sm z-10">
+                            {/* Discount: {item.discount} */}
+                          </div>
+                          <Image
+                            src={imageUrl}
+                            alt={item.title || "Destination"}
+                            width={500}
+                            height={300}
+                            className="rounded-lg"
+                            onError={() => console.error("Image Load Error:", imageUrl)}
+                          />
                         </div>
-                        <Image
-                          src={imageUrl}
-                          alt={item.title || "Destination"}
-                          width={500}
-                          height={300}
-                          className="rounded-lg"
-                          onError={() => console.error("Image Load Error:", imageUrl)}
-                        />
-                      </div>
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="p-4 bg-white rounded-lg shadow-lg border-2"
-                      >
-                        <div className="relative z-10">
-                          <motion.h2
-                            initial={{ x: -20, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{ delay: 0.2, duration: 0.5 }}
-                            className="text-lg font-bold text-[#4D456B]"
-                          >
-                            {item.title || "Unknown Destination"}
-                          </motion.h2>
-                          <p className="text-[13px] font-semibold text-[#CF1E27]">
-                            {item.feedback || "No feedback available"}
-                          </p>
-                          <p>{item.days || "Duration not specified"}</p>
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5 }}
+                          className="p-4 bg-white rounded-lg shadow-lg border-2"
+                        >
+                          <div className="relative z-10">
+                            <motion.h2
+                              initial={{ x: -20, opacity: 0 }}
+                              animate={{ x: 0, opacity: 1 }}
+                              transition={{ delay: 0.2, duration: 0.5 }}
+                              className="text-lg font-bold text-[#4D456B]"
+                            >
+                              {item.title || "Unknown Destination"}
+                            </motion.h2>
+                            <p className="text-[13px] font-semibold text-[#CF1E27]">
+                              {item.feedback || "No feedback available"}
+                            </p>
+                            <p>{item.days || "Duration not specified"}</p>
 
-                          {/* Phone Icon and Know More Button */}
-                          <div className="flex gap-4 items-center mt-4">
-                            <span className="text-2xl">📞</span>
-                            <Link className="w-full" key={item.id} href={`trending-destination/${item.selected_destination}` || "#"}>
+                            <div className="flex gap-4 items-center mt-4">
+                              <span className="text-2xl">📞</span>
                               <motion.button
                                 onMouseEnter={() => setIsHovered(true)}
                                 onMouseLeave={() => setIsHovered(false)}
@@ -135,11 +134,11 @@ const TrendingDestination = () => {
                               >
                                 Know More
                               </motion.button>
-                            </Link>
+                            </div>
                           </div>
-                        </div>
-                      </motion.div>
-                    </div>
+                        </motion.div>
+                      </div>
+                    </Link>
                   </div>
                 );
               })}

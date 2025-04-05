@@ -36,7 +36,7 @@ const VideoTestimonials = () => {
                 loop
                 src={`https://admiredashboard.theholistay.in/${testimonial.video_url}`}
               ></video>
-              {/* <p className="text-red-700 font-semibold">Testimonial ID: {testimonial.id}</p> */}
+              <p className="text-red-700 font-semibold"> {testimonial.title}</p>
             </div>
           ))
         ) : (

@@ -8,7 +8,6 @@ import Image from "next/image";
 import axios from "axios";
 import conf from "../../../conf/conf";
 
-// Updated API URL
 const API_URL = "https://admiredashboard.theholistay.in/public-itineraries-weekend";
 
 const TrendingDestination = () => {
@@ -20,20 +19,16 @@ const TrendingDestination = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch Data from API
   useEffect(() => {
     async function fetchDestinations() {
       try {
         const { data } = await axios.get(API_URL);
-        console.log("Fetched Destinations:", data);
-
         if (data && Array.isArray(data) && data.length > 0) {
           setDestinations(data);
         } else {
           setError("No destinations found.");
         }
       } catch (err) {
-        console.error("Error fetching destinations:", err);
         setError("Failed to load destinations.");
       } finally {
         setLoading(false);
@@ -42,7 +37,6 @@ const TrendingDestination = () => {
     fetchDestinations();
   }, []);
 
-  // Initialize KeenSlider
   useEffect(() => {
     if (sliderContainer.current && !keenSlider.current && destinations.length > 0) {
       keenSlider.current = new KeenSlider(sliderContainer.current, {
@@ -82,42 +76,42 @@ const TrendingDestination = () => {
           <div ref={sliderContainer} className="keen-slider">
             {destinations.map((item, i) => {
               const imageUrl = `${conf.laravelBaseUrl}/${item.destination_thumbnail}`;
-              console.log("Image URL:", imageUrl);
+              const linkUrl = `/trending-destination/${item.selected_destination || ""}`;
 
               return (
                 <div className="keen-slider__slide" key={i}>
-                  <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px] relative">
-                    <div className="relative w-full h-64 rounded-lg overflow-hidden">
-                      <Image
-                        src={imageUrl}
-                        alt={item.title || "Destination"}
-                        width={500}
-                        height={300}
-                        className="rounded-lg"
-                      />
-                    </div>
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className="p-4 bg-white rounded-lg shadow-lg border-2"
-                    >
-                      <div className="relative z-10">
-                        <motion.h2
-                          initial={{ x: -20, opacity: 0 }}
-                          animate={{ x: 0, opacity: 1 }}
-                          transition={{ delay: 0.2, duration: 0.5 }}
-                          className="text-lg font-bold text-[#4D456B]"
-                        >
-                          {item.title || "Unknown Destination"}
-                        </motion.h2>
-                        <p className="text-[13px] font-semibold text-[#CF1E27]">
-                          {item.feedback || "No feedback available"}
-                        </p>
-                        <p>{item.days || "Duration not specified"}</p>
-                        <div className="flex gap-4 items-center mt-4">
-                          <a href="tel:1800-121-4252" className="text-xl">📞</a>
-                          <Link className="w-full" key={item.id} href={`trending-destination/${item.selected_destination}` || "#"}>
+                  <Link href={linkUrl}>
+                    <div className="cursor-pointer max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px] relative">
+                      <div className="relative w-full h-64 rounded-lg overflow-hidden">
+                        <Image
+                          src={imageUrl}
+                          alt={item.title || "Destination"}
+                          width={500}
+                          height={300}
+                          className="rounded-lg object-cover w-full h-full"
+                        />
+                      </div>
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="p-4 bg-white rounded-lg shadow-lg border-2"
+                      >
+                        <div className="relative z-10">
+                          <motion.h2
+                            initial={{ x: -20, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ delay: 0.2, duration: 0.5 }}
+                            className="text-lg font-bold text-[#4D456B]"
+                          >
+                            {item.title || "Unknown Destination"}
+                          </motion.h2>
+                          <p className="text-[13px] font-semibold text-[#CF1E27]">
+                            {item.feedback || "No feedback available"}
+                          </p>
+                          <p>{item.days || "Duration not specified"}</p>
+                          <div className="flex gap-4 items-center mt-4">
+                            <a href="tel:1800-121-4252" onClick={(e) => e.stopPropagation()} className="text-xl">📞</a>
                             <motion.button
                               onMouseEnter={() => setIsHovered(true)}
                               onMouseLeave={() => setIsHovered(false)}
@@ -131,11 +125,11 @@ const TrendingDestination = () => {
                             >
                               Know More
                             </motion.button>
-                          </Link>
+                          </div>
                         </div>
-                      </div>
-                    </motion.div>
-                  </div>
+                      </motion.div>
+                    </div>
+                  </Link>
                 </div>
               );
             })}

@@ -21,7 +21,9 @@ const TrendingDestination = () => {
   useEffect(() => {
     async function fetchDestinations() {
       try {
-        const { data } = await axios.get(`${conf.laravelBaseUrl}/public-itineraries-exclusive`);
+        const { data } = await axios.get(
+          `${conf.laravelBaseUrl}/public-itineraries-exclusive`
+        );
         setDestinations(data.slice(0, 5)); // Only take 5 destinations
       } catch (err) {
         setError("Failed to fetch data.");
@@ -62,7 +64,9 @@ const TrendingDestination = () => {
         </h2>
 
         {loading ? (
-          <p className="text-lg text-gray-600 text-center">Loading destinations...</p>
+          <p className="text-lg text-gray-600 text-center">
+            Loading destinations...
+          </p>
         ) : error ? (
           <p className="text-lg text-red-600 text-center">{error}</p>
         ) : (
@@ -71,21 +75,33 @@ const TrendingDestination = () => {
               {destinations.map((destination, i) => (
                 <div className="keen-slider__slide" key={destination.id || i}>
                   <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 min-h-[220px] relative">
-                    <div className="relative w-full h-64 rounded-lg overflow-hidden">
-                      <Image
-                        src={`${conf.laravelBaseUrl.replace(/\/$/, "")}/${destination.destination_thumbnail.replace(/^\//, "")}`}
-                        alt={destination.title || "Destination"}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
+                    <Link
+                      className="w-full"
+                      key={destination.id}
+                      href={`trending-destination/${destination.selected_destination}`}
+                    >
+                      <div className="relative w-full h-64 rounded-lg overflow-hidden">
+                        <Image
+                          src={`${conf.laravelBaseUrl.replace(
+                            /\/$/,
+                            ""
+                          )}/${destination.destination_thumbnail.replace(
+                            /^\//,
+                            ""
+                          )}`}
+                          alt={destination.title || "Destination"}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    </Link>
 
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
                       className="p-4 bg-white rounded-lg shadow-lg border-2"
-                    >
+                    >                  <Link className="w-full" key={destination.id} href={`trending-destination/${destination.selected_destination}`}>
                       <motion.h2
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
@@ -93,7 +109,8 @@ const TrendingDestination = () => {
                         className="text-lg font-bold text-[#4D456B]"
                       >
                         {destination.title}
-                      </motion.h2>
+                      </motion.h2></Link>
+
                       <p className="text-[13px] font-semibold text-[#CF1E27]">
                         {destination.feedback}
                       </p>
@@ -101,14 +118,20 @@ const TrendingDestination = () => {
 
                       <div className="flex items-center gap-3 mt-4">
                         <FaPhone className="text-[#E69233] text-lg" />
-                        <Link className="w-full" key={destination.id} href={`trending-destination/${destination.selected_destination}`}>
+                        <Link
+                          className="w-full"
+                          key={destination.id}
+                          href={`trending-destination/${destination.selected_destination}`}
+                        >
                           <motion.button
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
                             className="w-full md:px-8 py-2 text-white rounded-lg transition-all"
                             initial={{ scale: 1 }}
                             animate={{
-                              backgroundColor: isHovered ? "#CF1E27" : "#E69233",
+                              backgroundColor: isHovered
+                                ? "#CF1E27"
+                                : "#E69233",
                               scale: isHovered ? 1.05 : 1,
                             }}
                             transition={{ duration: 0.3 }}
