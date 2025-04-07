@@ -74,7 +74,7 @@ const TrendingDestination = () => {
             <div ref={sliderContainer} className="keen-slider">
               {destinations.map((destination, i) => (
                 <div className="keen-slider__slide" key={destination.id || i}>
-                  <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 min-h-[220px] relative">
+                  <div className="max-w-sm h-[450px] flex flex-col justify-between rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 relative">
                     <Link
                       className="w-full"
                       key={destination.id}
@@ -100,16 +100,22 @@ const TrendingDestination = () => {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
-                      className="p-4 bg-white rounded-lg shadow-lg border-2"
-                    >                  <Link className="w-full" key={destination.id} href={`trending-destination/${destination.selected_destination}`}>
-                      <motion.h2
-                        initial={{ x: -20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                        className="text-lg font-bold text-[#4D456B]"
+                      className="p-4 bg-white rounded-lg shadow-lg border-2 flex-grow flex flex-col justify-between"
+                    >
+                      <Link
+                        className="w-full"
+                        key={destination.id}
+                        href={`trending-destination/${destination.selected_destination}`}
                       >
-                        {destination.title}
-                      </motion.h2></Link>
+                        <motion.h2
+                          initial={{ x: -20, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ delay: 0.2, duration: 0.5 }}
+                          className="text-lg font-bold text-[#4D456B]"
+                        >
+                          {destination.title}
+                        </motion.h2>
+                      </Link>
 
                       <p className="text-[13px] font-semibold text-[#CF1E27]">
                         {destination.feedback}

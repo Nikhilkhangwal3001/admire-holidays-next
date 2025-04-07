@@ -78,63 +78,63 @@ const TrendingDestination = () => {
         <div className="relative lg:col-span-2 lg:mx-0">
           <div ref={sliderContainer} className="keen-slider">
             {destinations.length > 0 &&
-              destinations?.map((item, i) => {
+              destinations.map((item, i) => {
                 const imageUrl = `${conf.laravelBaseUrl}/${item.destination_thumbnail}`;
-                console.log("Image URL:", imageUrl); // Debugging
 
                 return (
-                  <div className="keen-slider__slide" key={i}>
-                    <Link href={`trending-destination/${item.selected_destination}` || "#"} className="block">
-                      <div className="max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px] relative hover:shadow-xl transition-shadow duration-300">
+                  <div className="keen-slider__slide h-full" key={i}>
+                    <Link href={`trending-destination/${item.selected_destination}` || "#"} className="block h-full">
+                      <div className="h-full flex flex-col justify-between max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 transition-shadow hover:shadow-xl duration-300">
                         <div className="relative w-full h-64 rounded-lg overflow-hidden">
                           <div className="absolute top-2 left-2 bg-yellow-400 text-black font-bold px-3 py-1 rounded-md text-sm z-10">
-                            {/* Discount: {item.discount} */}
+                            {/* Discount can be shown here */}
                           </div>
                           <Image
                             src={imageUrl}
                             alt={item.title || "Destination"}
                             width={500}
                             height={300}
-                            className="rounded-lg"
+                            className="object-cover w-full h-full rounded-lg"
                             onError={() => console.error("Image Load Error:", imageUrl)}
                           />
                         </div>
+
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5 }}
-                          className="p-4 bg-white rounded-lg shadow-lg border-2"
+                          className="p-4 bg-white rounded-lg shadow-lg border-2 mt-4 flex flex-col justify-between h-[220px]"
                         >
-                          <div className="relative z-10">
+                          <div className="flex-grow">
                             <motion.h2
                               initial={{ x: -20, opacity: 0 }}
                               animate={{ x: 0, opacity: 1 }}
                               transition={{ delay: 0.2, duration: 0.5 }}
-                              className="text-lg font-bold text-[#4D456B]"
+                              className="text-lg font-bold text-[#4D456B] mb-1"
                             >
                               {item.title || "Unknown Destination"}
                             </motion.h2>
-                            <p className="text-[13px] font-semibold text-[#CF1E27]">
+                            <p className="text-[13px] font-semibold text-[#CF1E27] mb-1">
                               {item.feedback || "No feedback available"}
                             </p>
-                            <p>{item.days || "Duration not specified"}</p>
+                            <p className="text-sm text-gray-700">{item.days || "Duration not specified"}</p>
+                          </div>
 
-                            <div className="flex gap-4 items-center mt-4">
-                              <span className="text-2xl">📞</span>
-                              <motion.button
-                                onMouseEnter={() => setIsHovered(true)}
-                                onMouseLeave={() => setIsHovered(false)}
-                                className="w-full md:px-8 py-2 bg-[#E69233] hover:bg-[#CF1E27] text-white text-center font-semibold rounded-lg transition-all"
-                                initial={{ scale: 1 }}
-                                animate={{
-                                  backgroundColor: isHovered ? "#CF1E27" : "#E69233",
-                                  scale: isHovered ? 1.05 : 1,
-                                }}
-                                transition={{ duration: 0.3 }}
-                              >
-                                Know More
-                              </motion.button>
-                            </div>
+                          <div className="flex gap-4 items-center mt-4">
+                            <span className="text-2xl">📞</span>
+                            <motion.button
+                              onMouseEnter={() => setIsHovered(true)}
+                              onMouseLeave={() => setIsHovered(false)}
+                              className="w-full md:px-8 py-2 bg-[#E69233] hover:bg-[#CF1E27] text-white text-center font-semibold rounded-lg transition-all"
+                              initial={{ scale: 1 }}
+                              animate={{
+                                backgroundColor: isHovered ? "#CF1E27" : "#E69233",
+                                scale: isHovered ? 1.05 : 1,
+                              }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              Know More
+                            </motion.button>
                           </div>
                         </motion.div>
                       </div>
