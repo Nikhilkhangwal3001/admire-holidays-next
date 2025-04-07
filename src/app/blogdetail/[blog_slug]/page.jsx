@@ -73,14 +73,7 @@ export default function BlogPage({ params }) {
         <div className="max-w-10xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Main Blog Content */}
           <div className="md:col-span-2 bg-white  shadow-xl overflow-hidden">
-            <div className="w-full h-[500px] relative rounded-lg overflow-hidden">
-              <Image
-                src={`https://admiredashboard.theholistay.in/${blog.blog_image}`}
-                alt={blog.blog_image_alt_text || "Blog Image"}
-                layout="fill"
-                objectFit="cover"
-              />
-            </div>
+            
 
             {/* Blog Content Section */}
             <div className="bg-white rounded-2xl shadow-lg p-6 md:p-10 mt-8">
@@ -88,12 +81,19 @@ export default function BlogPage({ params }) {
                 {blog.blog_title}
                 <hr className="border-2 border-red-500 w-32 mt-3" />
               </h1>
-
+              <div className="w-full h-[500px] relative rounded-lg overflow-hidden">
+              <Image
+                src={`https://admiredashboard.theholistay.in/${blog.blog_image}`}
+                alt={blog.blog_image_alt_text || "Blog Image"}
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
               <p className="text-lg text-gray-600 mb-8 italic">
                 {blog.blog_description}
               </p>
               <div
-  className="
+                className="
     prose prose-lg max-w-none text-justify text-black leading-relaxed mb-10
     prose-img:rounded-xl
     prose-img:shadow-md
@@ -104,9 +104,8 @@ export default function BlogPage({ params }) {
     prose-img:mx-auto
     prose-img:my-4
   "
-  dangerouslySetInnerHTML={{ __html: blog.blog_content }}
-/>
-
+                dangerouslySetInnerHTML={{ __html: blog.blog_content }}
+              />
 
               {/* Meta Info Slabs */}
               <div className="text-sm text-gray-600 mb-10">
