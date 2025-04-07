@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Videotest from '@/app/Videotestimonial/Videotest';
+import { X, ArrowLeft, ArrowRight } from "lucide-react";
+import Videotest from "@/app/Videotestimonial/Videotest";
 
 export default function Testimonials() {
   const [galleryImages, setGalleryImages] = useState([]);
@@ -14,17 +15,12 @@ export default function Testimonials() {
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
-          setGalleryImages(
-            data.map((img) =>
-              img.startsWith("http") ? img : `https://admiredashboard.theholistay.in/${img}`
+          const allImages = data.flatMap((item) =>
+            item.images.map(
+              (img) => `https://admiredashboard.theholistay.in/${img}`
             )
           );
-        } else if (data && Array.isArray(data.images)) {
-          setGalleryImages(
-            data.images.map((img) =>
-              img.startsWith("http") ? img : `https://admiredashboard.theholistay.in/${img}`
-            )
-          );
+          setGalleryImages(allImages);
         } else {
           console.error("Unexpected API response format:", data);
           setGalleryImages([]);
@@ -59,25 +55,25 @@ export default function Testimonials() {
           Explore Our Gallery
         </h3>
 
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {galleryImages.slice(0, 7).map((image, index) => (
             <div
               key={index}
-              className="relative w-full h-32 md:h-40 overflow-hidden rounded-lg cursor-pointer"
+              className="relative w-full h-32 md:h-44 overflow-hidden rounded-lg cursor-pointer"
               onClick={() => openModal(index)}
             >
               <Image
                 src={image}
                 alt={`Gallery Image ${index + 1}`}
                 fill
-                className="object-contain transition-transform duration-300 ease-in-out transform hover:scale-110"
+                className="object-contain transition-transform duration-300 ease-in-out hover:scale-105"
               />
             </div>
           ))}
 
           {galleryImages.length > 7 && (
             <div
-              className="relative w-full h-32 md:h-40 flex items-center justify-center bg-black bg-opacity-50 text-white font-bold text-lg rounded-lg cursor-pointer"
+              className="relative w-full h-32 md:h-40 flex items-center justify-center bg-[#CF1E27] text-white font-bold text-lg rounded-lg cursor-pointer"
               onClick={() => openModal(7)}
             >
               +{galleryImages.length - 7} More
@@ -86,41 +82,41 @@ export default function Testimonials() {
         </div>
 
         {isModalOpen && selectedIndex !== null && (
-          <div className="fixed inset-0 bg-black flex justify-center items-center z-50">
-            <div className="relative flex flex-col items-center">
+          <div className="fixed inset-0 bg-black bg-opacity-80 mt-20 flex justify-center items-center z-50 p-4">
+            <div className="relative max-w-3xl w-full">
               <button
-                className="absolute top-4 right-4 text-white text-3xl"
+                className="absolute top-4 right-4 text-white z-50"
                 onClick={() => setIsModalOpen(false)}
               >
-                ✖
+                <X size={32} />
               </button>
+
               <Image
                 src={galleryImages[selectedIndex]}
                 alt="Selected Image"
-                width={400}
-                height={400}
-                className="object-contain rounded-lg"
+                width={900}
+                height={600}
+                className="rounded-lg w-full max-h-[80vh] object-contain"
               />
-              <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
-                <button
-                  className="bg-white text-black px-3 py-2 rounded-full text-lg"
-                  onClick={handlePrev}
-                >
-                  ◀
-                </button>
-              </div>
-              <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
-                <button
-                  className="bg-white text-black px-3 py-2 rounded-full text-lg"
-                  onClick={handleNext}
-                >
-                  ▶
-                </button>
-              </div>
+
+              <button
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-black p-2 rounded-full shadow-md"
+                onClick={handlePrev}
+              >
+                <ArrowLeft size={24} />
+              </button>
+
+              <button
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-black p-2 rounded-full shadow-md"
+                onClick={handleNext}
+              >
+                <ArrowRight size={24} />
+              </button>
             </div>
           </div>
         )}
       </section>
+
       <Videotest />
     </section>
   );
