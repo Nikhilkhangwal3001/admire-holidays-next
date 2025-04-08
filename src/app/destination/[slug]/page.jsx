@@ -344,7 +344,7 @@ export default function ItineraryPage() {
                           </span>{" "}
                           : {day.title}
                         </h6>
-                        <span className="text-gray-600">
+                        <span className="text-gray-600 text-sm">
                           {openIndex === index ? "▲" : "▼"}
                         </span>
                       </button>

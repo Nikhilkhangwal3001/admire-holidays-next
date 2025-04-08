@@ -50,37 +50,47 @@ export default function Testimonials() {
         Your trusted partner in travel and tour experiences.
       </h2>
 
-      <section className="py-12 px-4 md:px-16 lg:px-32 bg-gray-100">
+      <section className="py-12 px-4 md:px-16 lg:px-32 ">
         <h3 className="text-2xl md:text-3xl font-semibold text-center text-[#CF1E27] mb-8">
           Explore Our Gallery
         </h3>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        {/* Updated Image Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-3">
           {galleryImages.slice(0, 7).map((image, index) => (
             <div
               key={index}
-              className="relative w-full h-32 md:h-44 overflow-hidden rounded-lg cursor-pointer"
+              className="relative w-full aspect-square overflow-hidden rounded-md cursor-pointer group"
               onClick={() => openModal(index)}
             >
               <Image
                 src={image}
                 alt={`Gallery Image ${index + 1}`}
                 fill
-                className="object-contain transition-transform duration-300 ease-in-out hover:scale-105"
+                className="object-cover transition-transform duration-300 group-hover:scale-110"
               />
             </div>
           ))}
 
           {galleryImages.length > 7 && (
             <div
-              className="relative w-full h-32 md:h-40 flex items-center justify-center bg-[#CF1E27] text-white font-bold text-lg rounded-lg cursor-pointer"
+              className="relative w-full aspect-square overflow-hidden rounded-md cursor-pointer group"
               onClick={() => openModal(7)}
             >
-              +{galleryImages.length - 7} More
+              <Image
+                src={galleryImages[7]}
+                alt="More Images"
+                fill
+                className="object-cover brightness-50 group-hover:scale-110 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 flex items-center justify-center text-white text-xl font-bold">
+                +{galleryImages.length - 7} More
+              </div>
             </div>
           )}
         </div>
 
+        {/* Modal for full image view */}
         {isModalOpen && selectedIndex !== null && (
           <div className="fixed inset-0 bg-black bg-opacity-80 mt-20 flex justify-center items-center z-50 p-4">
             <div className="relative max-w-3xl w-full">
