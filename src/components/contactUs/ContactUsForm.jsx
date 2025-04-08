@@ -41,7 +41,7 @@ const ContactUsForm = () => {
           Contact Us
         </h1>
         <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-          We're here to help. Reach out to us for any inquiries, assistance, or collaboration.
+          We are here to help. Reach out to us for any inquiries, assistance, or collaboration.
         </p>
 
         <div className="grid md:grid-cols-2 gap-12">
