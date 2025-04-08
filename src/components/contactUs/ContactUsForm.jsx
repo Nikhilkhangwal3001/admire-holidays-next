@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { IoLocationOutline } from "react-icons/io5";
-import { MdOutlineAddIcCall, MdOutlineMessage, MdChat } from "react-icons/md";
+import { MdOutlineAddIcCall, MdOutlineMessage } from "react-icons/md";
+import { FaClock } from "react-icons/fa";
 
 const ContactUsForm = () => {
   const [result, setResult] = useState("Submit");
@@ -10,9 +11,9 @@ const ContactUsForm = () => {
   const contactSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitting(true);
-    setResult("Sending....");
-    const formData = new FormData(event.target);
+    setResult("Sending...");
 
+    const formData = new FormData(event.target);
     formData.append("access_key", "c1e1dd01-589b-418d-b6bd-0ba7c09dfde5");
 
     const response = await fetch("https://api.web3forms.com/submit", {
@@ -23,119 +24,114 @@ const ContactUsForm = () => {
     const data = await response.json();
 
     if (data.success) {
-      setResult("Submitted");
+      setResult("Submitted ✅");
       event.target.reset();
     } else {
       console.log("Error", data);
-      setResult(data.message);
+      setResult("Error ❌");
     }
 
     setIsSubmitting(false);
   };
 
   return (
-    <div className="px-4">
-      <section className="max-w-7xl  border-[1px] border-gray-200 py-10 rounded-2xl my-20 mx-auto flex-col  flex gap-10 px-4 md:px-10">
-        <div className="flex flex-col justify-center items-center">
-          <h1 className="text-center md:text-5xl  text-3xl  font-bold">
-            Get in touch
-          </h1>
-        </div>
-        <div className="flex gap-10 md:flex-row flex-col  justify-between">
-          <div className="flex flex-col gap-5">
-            <div className="flex gap-5 items-center ">
-              <div className="flex justify-center bg-[#c2fff4] items-center sm:p-4 p-2  rounded-xl">
-                <IoLocationOutline color="#00BB98" size={50} />
-              </div>
-              <p className="text-base text-gray-500">
-                34,Sewak park(1st floor), Dwarka more metro,Near metro <br />{" "}
-                piller no-772 New Delhi-110059.
+    <div className=" text-gray-800">
+      <section className="max-w-7xl mx-auto px-4 py-16">
+        <h1 className="text-4xl md:text-5xl font-bold text-center text-red-600 mb-4">
+          Contact Us
+        </h1>
+        <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+          We're here to help. Reach out to us for any inquiries, assistance, or collaboration.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-12">
+          {/* Left Info Section */}
+          <div className="space-y-6">
+            <div className="flex items-start gap-4 bg-white shadow-md p-6 rounded-xl">
+              <IoLocationOutline size={32} className="text-red-500 mt-1" />
+              <p>
+                <strong>Address:</strong><br />
+                34, Sewak Park (1st floor), Dwarka More Metro,<br />
+                Near Metro Pillar No-772, New Delhi - 110059
               </p>
             </div>
-            <div className="flex gap-5 items-center ">
-              <div className="flex justify-center bg-[#c2fff4]  sm:p-4 p-2  items-center rounded-xl">
-                <MdOutlineAddIcCall color="#00BB98" size={50} />
-              </div>
-              <div className="flex flex-col gap-4 ">
-                <p className="text-base">Phone Number</p>
-                <p className="text-base text-gray-500">1800-121-4252</p>
-              </div>
-            </div>
-            <div className="flex gap-5 items-center ">
-              <div className="flex justify-center bg-[#c2fff4] sm:p-4 p-2  items-center  rounded-xl">
-                <MdOutlineMessage color="#00BB98" size={50} />
-              </div>
-              <div className="flex flex-col gap-4 ">
-                <p className="text-base">Email Us</p>
-                <p className="text-base text-gray-500">
-                  info@admireholidays.com
-                </p>
-              </div>
+
+            <div className="flex items-start gap-4 bg-white shadow-md p-6 rounded-xl">
+              <MdOutlineAddIcCall size={32} className="text-red-500 mt-1" />
+              <p>
+                <strong>Phone:</strong><br />
+                1800-121-4252
+              </p>
             </div>
 
-            {/* <div className="p-10 border-[1px] gap-8 flex flex-col border-gray-300 rounded-xl">
-              <div className="flex gap-5 items-center ">
-                <div className="flex justify-center items-center  rounded-xl">
-                  <img
-                    className="mx-auto h-16 w-16 rounded-full"
-                    src="userLady.avif"
-                    alt=""
-                  />
-                </div>
-                <div className="flex flex-col gap-4 ">
-                  <p className="text-base">Need help?</p>
-                  <p className="text-base text-gray-500">1800-121-4252</p>
-                </div>
-              </div>
-              <div className="w-[100%] mx-auto h-[1px] bg-gray-300"></div>
-              <button className="border-red-500 flex gap-2 mx-auto items-center justify-center rounded-lg text-red-500 border-[1px] w-[100%] h-14">
-                <MdChat /> Chat with us
-              </button>
-            </div> */}
+            <div className="flex items-start gap-4 bg-white shadow-md p-6 rounded-xl">
+              <MdOutlineMessage size={32} className="text-red-500 mt-1" />
+              <p>
+                <strong>Email:</strong><br />
+                info@admireholidays.com
+              </p>
+            </div>
+
+            <div className="flex items-start gap-4 bg-white shadow-md p-6 rounded-xl">
+              <FaClock size={28} className="text-red-500 mt-1" />
+              <p>
+                <strong>Working Hours:</strong><br />
+                Mon - Sat: 10 AM - 6 PM<br />
+                Sunday: Closed
+              </p>
+            </div>
           </div>
-          <div className="flex flex-col gap-5 items-center justify-start">
-            <h1 className="text-xl font-medium text-center">Leave a reply</h1>
-            <form
-              action=""
-              onSubmit={contactSubmit}
-              className=" flex flex-col gap-5  "
-            >
-              <div className="flex gap-5 justify-between">
-                <input
-                  type="text"
-                  placeholder="Name*"
-                  name="name"
-                  className="border-[1px] w-[50%] border-gray-300 rounded-lg py-3 px-4"
-                  required
-                />
-                <input
-                  type="email"
-                  placeholder="Email *"
-                  name="email"
-                  className="border-[1px] w-[50%] border-gray-300 rounded-lg py-3 px-4"
-                  required
-                />
-              </div>
+
+          {/* Right Form Section */}
+          <form
+            onSubmit={contactSubmit}
+            className="bg-white shadow-lg rounded-2xl p-8 space-y-6"
+          >
+            <h2 className="text-2xl font-semibold mb-2">Leave a Message</h2>
+            <div className="flex flex-col md:flex-row gap-4">
               <input
                 type="text"
-                placeholder="Subject *"
-                name="subject"
-                className="border-[1px]  border-gray-300 rounded-lg py-3 px-4"
+                name="name"
+                placeholder="Full Name*"
+                className="w-full border border-gray-300 rounded-md px-4 py-3"
                 required
               />
-              <textarea
-                name="text"
-                placeholder="Textarea *"
-                cols="30"
-                rows="10"
-                className="border-[1px]  border-gray-300 rounded-lg py-3 px-4"
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address*"
+                className="w-full border border-gray-300 rounded-md px-4 py-3"
                 required
-              ></textarea>
-              <button className=" text-white bg-red-500 rounded-lg w-1/2 px-5 h-10 flex justify-center items-center md:p-7 ">
-                {isSubmitting ? "Sending..." : result}
-              </button>
-            </form>
-          </div>
+              />
+            </div>
+            <input
+              type="text"
+              name="subject"
+              placeholder="Subject*"
+              className="w-full border border-gray-300 rounded-md px-4 py-3"
+              required
+            />
+            <textarea
+              name="message"
+              placeholder="Your Message*"
+              rows="5"
+              className="w-full border border-gray-300 rounded-md px-4 py-3"
+              required
+            ></textarea>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-md transition-all duration-300"
+            >
+              {result}
+            </button>
+          </form>
+        </div>
+
+        {/* Google Map */}
+        <div className="mt-20">
+          <h3 className="text-2xl font-bold text-center mb-6">Find Us On Map</h3>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d7004.845431704971!2d77.0258597434756!3d28.61709035269247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1s34%2C%20Sewak%20Park%20(1st%20floor)%2C%20Dwarka%20More%20Metro%2C%20Near%20Metro%20Pillar%20No-772%2C%20New%20Delhi%20-%20110059!5e0!3m2!1sen!2sin!4v1744116126291!5m2!1sen!2sin" className="w-full" height="450" ></iframe>
         </div>
       </section>
     </div>
