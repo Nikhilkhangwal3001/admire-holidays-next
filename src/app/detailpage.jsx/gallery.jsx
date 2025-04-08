@@ -14,6 +14,7 @@ const ImageGallery = () => {
   const [images, setImages] = useState([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState("All Images");
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -23,11 +24,12 @@ const ImageGallery = () => {
         );
         const data = await response.json();
         if (data && Array.isArray(data.images)) {
-          setImages(
-            data.images.map(
-              (img) => `https://admiredashboard.theholis78tay.in/${img}`
-            )
-          );
+          // Assign a fake category for demo. You may replace it with real data if available.
+          const imagesWithCategory = data.images.map((img, index) => ({
+            url: `https://admiredashboard.theholis78tay.in/${img}`,
+            category: titles[index % titles.length],
+          }));
+          setImages(imagesWithCategory);
         }
       } catch (error) {
         console.error("Error fetching images:", error);
@@ -35,6 +37,11 @@ const ImageGallery = () => {
     };
     fetchImages();
   }, []);
+
+  const filteredImages =
+    selectedFilter === "All Images"
+      ? images
+      : images.filter((img) => img.category === selectedFilter);
 
   const openPopup = (index) => {
     setSelectedImageIndex(index);
@@ -47,42 +54,57 @@ const ImageGallery = () => {
   };
 
   const handleNext = () => {
-    setSelectedImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    setSelectedImageIndex((prevIndex) => (prevIndex + 1) % filteredImages.length);
   };
 
   const handlePrev = () => {
     setSelectedImageIndex(
-      (prevIndex) => (prevIndex - 1 + images.length) % images.length
+      (prevIndex) => (prevIndex - 1 + filteredImages.length) % filteredImages.length
     );
   };
 
   return (
     <div className="p-6">
-      <div className="grid gap-4 w-full mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {images.slice(0, 6).map((img, index) => (
+      {/* Filter Buttons */}
+      <div className="flex flex-wrap gap-2 justify-center mb-6">
+        {titles.map((title, idx) => (
+          <button
+            key={idx}
+            className={`px-4 py-2 rounded-full border ${
+              selectedFilter === title ? "bg-blue-500 text-white" : "bg-white text-black"
+            }`}
+            onClick={() => setSelectedFilter(title)}
+          >
+            {title}
+          </button>
+        ))}
+      </div>
+
+      {/* Image Grid */}
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {filteredImages.map((img, index) => (
           <div
             key={index}
-            className={`relative bg-white p-4 rounded-xl shadow-xl cursor-pointer ${
-              index === 5 ? "block" : "hidden sm:block"
-            }`}
+            className="relative bg-white p-4 rounded-xl shadow-xl cursor-pointer"
             onClick={() => openPopup(index)}
           >
             <Image
-              src={img}
+              src={img.url}
               alt={`Image ${index + 1}`}
               width={300}
               height={200}
               className="w-full h-40 object-cover rounded-lg"
             />
             <div className="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded-lg text-sm">
-              {titles[index] || "Gallery"}
+              {img.category}
             </div>
           </div>
         ))}
       </div>
 
+      {/* Popup */}
       {showPopup && selectedImageIndex !== null && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex flex-col justify-center items-center z-50 ">
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex flex-col justify-center items-center z-50">
           <div className="relative bg-black rounded-lg w-full h-full mt-20 text-center p-4">
             <button
               className="absolute top-4 right-4 text-white text-3xl font-bold"
@@ -91,31 +113,34 @@ const ImageGallery = () => {
               ✖
             </button>
             <h2 className="text-white text-2xl mb-4">
-              {titles[selectedImageIndex]}
+              {filteredImages[selectedImageIndex]?.category}
             </h2>
 
-            {/* Thumbnail images below large image */}
             <div className="hidden sm:flex gap-2 mt-4 justify-center overflow-x-auto">
-              {images.map((img, index) => (
-               <div
-               key={index}
-               className={`relative border-2 rounded-lg cursor-pointer flex justify-center items-center ${
-                 selectedImageIndex === index ? "border-blue-500" : "border-gray-300"
-               }`}
-               onClick={() => openPopup(index)}
-               style={{ width: "80px", height: "80px" }} // Fixed dimensions
-             >
-               <Image
-                 src={img}
-                 alt={`Thumbnail ${index + 1}`}
-                 layout="intrinsic" // Image will auto-scale based on its dimensions
-                 width={80} // Fixed width
-                 height={80} // Fixed height
-                 className="rounded-lg object-contain"
-               />
-             </div>
-             
+              {filteredImages.map((img, index) => (
+                <div
+                  key={index}
+                  className={`border-2 rounded-lg cursor-pointer ${
+                    selectedImageIndex === index ? "border-blue-500" : "border-gray-300"
+                  }`}
+                  onClick={() => openPopup(index)}
+                  style={{ width: "80px", height: "80px" }}
+                >
+                  <Image
+                    src={img.url}
+                    alt={`Thumbnail ${index + 1}`}
+                    width={80}
+                    height={80}
+                    className="rounded-lg object-contain"
+                  />
+                </div>
               ))}
+            </div>
+
+            {/* Prev/Next buttons */}
+            <div className="mt-6 flex justify-center gap-4">
+              <button onClick={handlePrev} className="bg-white px-4 py-2 rounded text-black">Prev</button>
+              <button onClick={handleNext} className="bg-white px-4 py-2 rounded text-black">Next</button>
             </div>
           </div>
         </div>

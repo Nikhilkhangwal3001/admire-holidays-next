@@ -162,40 +162,42 @@ export default function ItineraryPage() {
 
         {stateData ? (
           <div className="">
-            <h2 className="md:text-2xl  text-xl font-bold text-gray-900 capitalize mb-6 tracking-wide relative before:absolute before:-left-4 before:top-1/2 before:w-2 before:h-10 before:bg-red-600 before:-translate-y-1/2">
+            <h2 className="md:text-3xl text-2xl font-semibold text-gray-900 capitalize  mb-8 tracking-wide relative before:absolute before:-left-4 before:top-1/2 before:w-2 before:h-10 before:bg-red-600 before:-translate-y-1/2">
               {stateData.title || "No Title Available"}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-4 text-gray-900">
+
+            <div className="flex gap-6 text-gray-800">
               {/* Duration */}
-              <div className="flex flex-col items-center p-6  rounded-2xl shadow-lg transition transform hover:scale-105">
-                <span className="text-red-600 md:text-xl text-md font-bold">
-                  ⏳ Duration
+              <div>
+                <span className="text-sm font-semibold text-gray-600 border-b-2 border-red-500 pb-1 inline-block">
+                  Duration
                 </span>
-                <span className="text-xl mt-3">
+                <div className="mt-2 text-lg font-medium">
                   {stateData.duration || "N/A"}
-                </span>
+                </div>
               </div>
 
               {/* Pricing */}
-              <div className="flex flex-col items-center p-6  rounded-2xl shadow-lg transition transform hover:scale-105">
-                <span className="text-yellow-600 text-md md:text-xl font-bold">
-                  💰 Pricing
+              <div>
+                <span className="text-sm font-semibold text-gray-600 border-b-2 border-yellow-500 pb-1 inline-block">
+                  Pricing
                 </span>
-                <span className="text-xl text-center mt-3">
+                <div className="mt-2 text-lg font-medium">
                   {stateData.pricing || "N/A"}
-                </span>
+                </div>
               </div>
 
-              {/* Type (Domestic/International) */}
-              <div className="flex flex-col items-center p-6  rounded-2xl shadow-lg transition transform hover:scale-105">
-                <span className="text-red-600 text-md md:text-xl font-bold">
-                🌍Type
+              {/* Type */}
+              <div>
+                <span className="text-sm font-semibold text-gray-600 border-b-2 border-blue-500 pb-1 inline-block">
+                  Type
                 </span>
-                <span className="text-xl mt-3">
+                <div className="mt-2 text-lg font-medium">
                   {stateData.domestic_or_international || "N/A"}
-                </span>
+                </div>
               </div>
-            </div><br /><br />
+            </div>
+
             <h2 className="md:text-2xl text-xl   font-extrabold text-gray-900 text-center capitalize mb-8 tracking-wide relative">
               <span className="text-red-600">
                 Explore the Beauty of Destination
@@ -251,7 +253,57 @@ export default function ItineraryPage() {
                 </p>
               )}
             </div>
-            <div className="container mx-auto p-4 grid grid-cols-1 md:grid-cols-2  max-w-9xl">
+            {/* Horizontal Filter */}
+            <div className="flex flex-wrap justify-between items-center p-4 ">
+              <div className="flex space-x-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
+                <button
+                  onClick={() => scrollToSection("itinerary")}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
+                >
+                  Itinerary Detail
+                </button>
+                <button
+                  onClick={() => scrollToSection("meals")}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
+                >
+                  Tour Details
+                </button>
+                <button
+                  onClick={() => scrollToSection("inclusion")}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
+                >
+                  Inclusion/Exclusion
+                </button>
+                {/* <button
+                  onClick={() => scrollToSection("exclusion")}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
+                >
+                  
+                </button> */}
+                <button
+                  onClick={() => scrollToSection("accommodation")}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
+                >
+                  Accommodation Info
+                </button>
+                <button
+                  onClick={() => scrollToSection("payment")}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
+                >
+                  Payment Mode
+                </button>
+                <button
+                  onClick={() => scrollToSection("cancellation")}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
+                >
+                  Cancellation Policy
+                </button>
+              </div>
+            </div>
+            <div
+              id="itinerary"
+              className="container mx-auto p-4 grid grid-cols-1 md:grid-cols-2  max-w-9xl"
+            >
               {/* Left Side - Trip Details */}
               <div className="w-full">
                 <div className="bg-white w-full border-l-4 mt-10 border-blue-500 shadow-lg p-5 rounded-lg">
@@ -286,7 +338,7 @@ export default function ItineraryPage() {
                         onClick={() => toggleFAQ(index)}
                         className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow-sm hover:bg-gray-200 focus:outline-none"
                       >
-                        <h6 className="text-[12px] md:text-xl  font-bold text-gray-900">
+                        <h6 className="text-[12px] md:text-xl   text-gray-900">
                           <span className="bg-red-600 p-2 rounded-lg text-white">
                             Day{day.day}
                           </span>{" "}
@@ -393,53 +445,6 @@ export default function ItineraryPage() {
               </div>
             </div>
             <div className="flex flex-col">
-              {/* Horizontal Filter */}
-              <div className="flex flex-wrap justify-between items-center p-4 ">
-                <div className="flex space-x-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
-                  <button
-                    onClick={() => scrollToSection("itinerary")}
-                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                  >
-                    Itinerary Detail
-                  </button>
-                  <button
-                    onClick={() => scrollToSection("meals")}
-                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                  >
-                    Meals
-                  </button>
-                  <button
-                    onClick={() => scrollToSection("inclusion")}
-                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                  >
-                    Inclusion
-                  </button>
-                  <button
-                    onClick={() => scrollToSection("exclusion")}
-                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                  >
-                    Exclusion
-                  </button>
-                  <button
-                    onClick={() => scrollToSection("accommodation")}
-                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                  >
-                    Accommodation Info
-                  </button>
-                  <button
-                    onClick={() => scrollToSection("payment")}
-                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                  >
-                    Payment Mode
-                  </button>
-                  <button
-                    onClick={() => scrollToSection("cancellation")}
-                    className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                  >
-                    Cancellation Policy
-                  </button>
-                </div>
-              </div>
               <div className="bg-gray-50 p-8 rounded-lg shadow-lg">
                 <h3 className="md:text-2xl text-xl font-bold text-gray-900 mb-6 text-center uppercase tracking-wide">
                   🌍 Explore the Destination
@@ -492,52 +497,50 @@ export default function ItineraryPage() {
 
               {/* Sections */}
               <section
-                id="itinerary"
-                className="flex justify-center items-center p-10 "
+                id="meals"
+                className="flex justify-center items-center px-4 py-16 bg-white"
               >
-                <div className="bg-white p-10 rounded-3xl shadow-2xl border-t-8 border-yellow-500 ">
-                  <h3 className="md:text-2xl text-xl font-extrabold text-gray-900 mb-8 flex items-center gap-4 border-b-4 pb-4 border-yellow-300">
-                    📌 <span>Tour Details</span>
+                <div className="w-full max-w-9xl border-l-4 border-yellow-500 pl-6">
+                  {/* Heading */}
+                  <h3 className="text-3xl font-bold text-gray-900 mb-12 border-b pb-4 border-gray-200">
+                    Tour Details
                   </h3>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-900">
+                  {/* Info Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-800 mb-12">
                     {/* Duration */}
-                    <div className="flex flex-col items-center p-6 bg-blue-50 rounded-2xl shadow-lg transition transform hover:scale-105">
-                      <span className="text-red-600 md:text-xl text-md font-bold">
-                        ⏳ Duration
-                      </span>
-                      <span className="text-xl mt-3">
-                        {stateData.duration || "N/A"}
-                      </span>
+                    <div>
+                      <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
+                        Duration
+                      </h4>
+                      <p className="text-base">{stateData.duration || "N/A"}</p>
                     </div>
 
                     {/* Pricing */}
-                    <div className="flex flex-col items-center p-6 bg-green-50 rounded-2xl shadow-lg transition transform hover:scale-105">
-                      <span className="text-yellow-600 text-md md:text-xl font-bold">
-                        💰 Pricing
-                      </span>
-                      <span className="text-xl text-center mt-3">
-                        {stateData.pricing || "N/A"}
-                      </span>
+                    <div>
+                      <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
+                        Pricing
+                      </h4>
+                      <p className="text-base">{stateData.pricing || "N/A"}</p>
                     </div>
 
-                    {/* Type (Domestic/International) */}
-                    <div className="flex flex-col items-center p-6 bg-purple-50 rounded-2xl shadow-lg transition transform hover:scale-105">
-                      <span className="text-red-600 text-md md:text-xl font-bold">
-                        🌍 Type
-                      </span>
-                      <span className="text-xl mt-3">
+                    {/* Type */}
+                    <div>
+                      <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
+                        Type
+                      </h4>
+                      <p className="text-base">
                         {stateData.domestic_or_international || "N/A"}
-                      </span>
+                      </p>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <div className="mt-8 p-8 bg-gray-50 rounded-2xl shadow-lg border-l-8 border-gray-400 transition transform hover:scale-105">
-                    <h4 className="text-xl md:text-2xl font-semibold text-gray-900 mb-5 flex items-center gap-3 border-b-2 pb-3 border-gray-300">
-                      📝 <span>Description</span>
+                  <div className="border-t border-gray-200 pt-8">
+                    <h4 className="text-2xl font-semibold text-gray-900 mb-4">
+                      Description
                     </h4>
-                    <p className="text-gray-800 leading-relaxed text-sm md:text-lg">
+                    <div className="text-gray-700 leading-relaxed text-base md:text-lg">
                       {stateData.destination_detail ? (
                         <span
                           dangerouslySetInnerHTML={{
@@ -549,23 +552,24 @@ export default function ItineraryPage() {
                           No description available
                         </span>
                       )}
-                    </p>
+                    </div>
                   </div>
                 </div>
               </section>
 
-              <section className=" flex flex-col   p-6 sm:p-10">
-                <div className="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl border-t-8 border-yellow-500 ">
-                  <h3 className="md:text-2xl text-xl font-extrabold text-gray-900 mb-6 sm:mb-8 flex items-center gap-4 border-b-4 pb-4 border-red-300">
-                    📜 <span>Important Information</span>
+              <section className="flex flex-col p-6 sm:p-10 bg-gray-100">
+                <div className="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl border-t-8 border-yellow-500">
+                  {/* Main Heading */}
+                  <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-8 border-b-4 pb-4 border-red-300">
+                    Important Information
                   </h3>
 
                   {/* Terms & Conditions */}
-                  <div className="p-6 sm:p-8  rounded-2xl shadow-lg border-l-8 border-red-400 transition transform hover:scale-105 mb-6">
-                    <h4 className="md:text-2xl text-xl font-semibold text-red-700 mb-4 flex items-center gap-3 border-b-2 pb-3 border-red-300">
-                      📑 <span>Terms & Conditions</span>
+                  <div className="p-6 sm:p-8 rounded-2xl shadow-lg border-l-8 border-red-400 transition-transform hover:scale-[1.02] mb-8 bg-white">
+                    <h4 className="text-xl md:text-2xl font-semibold text-red-700 mb-4 border-b-2 pb-3 border-red-300">
+                      Terms & Conditions
                     </h4>
-                    <p className="text-gray-800 leading-relaxed text-sm md:text-lg">
+                    <p className="text-gray-800 leading-relaxed text-sm md:text-base">
                       {stateData.terms_and_conditions ? (
                         <span
                           dangerouslySetInnerHTML={{
@@ -581,11 +585,11 @@ export default function ItineraryPage() {
                   </div>
 
                   {/* Special Note */}
-                  <div className="p-6 sm:p-8 bg-yellow-50 rounded-2xl shadow-lg border-l-8 border-yellow-400 transition transform hover:scale-105">
-                    <h4 className="md:text-2xl text-xl font-semibold text-yellow-700 mb-4 flex items-center gap-3 border-b-2 pb-3 border-yellow-300">
-                      📝 <span>Special Note</span>
+                  <div className="p-6 sm:p-8 bg-yellow-50 rounded-2xl shadow-lg border-l-8 border-yellow-400 transition-transform hover:scale-[1.02]">
+                    <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
+                      Special Note
                     </h4>
-                    <p className="text-gray-800 leading-relaxed text-base sm:text-lg">
+                    <p className="text-gray-800 leading-relaxed text-sm md:text-base">
                       {stateData.special_note ? (
                         <span
                           dangerouslySetInnerHTML={{
@@ -601,21 +605,20 @@ export default function ItineraryPage() {
                   </div>
                 </div>
               </section>
-              <section
-                id="inclusion"
-                className=" flex flex-col items-center px-4 py-10 bg-gray-50"
-              >
-                <h3 className="md:text-2xl text-xl font-bold text-gray-900 mb-6 text-center">
-                  📌 Tour Inclusions & Exclusions
-                </h3>
 
-                <div className="w-full  space-y-6">
-                  {/* Inclusion Section */}
-                  <div className="p-6 bg-white rounded-lg shadow-lg">
-                    <h4 className="text-2xl font-semibold text-red-600 mb-3">
-                      ✅ Inclusion
-                    </h4>
-                    <p className="text-gray-700 leading-relaxed">
+              <section id="tour-info" className="px-4 py-16 bg-gray-100">
+                <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
+                  Tour Inclusions & Exclusions
+                </h2>
+
+                {/* Inclusion and Exclusion Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                  {/* Inclusion */}
+                  <div className="bg-white rounded-xl shadow-md p-8 transition hover:shadow-lg">
+                    <h3 className="text-2xl font-semibold text-green-600 mb-4">
+                      Inclusion
+                    </h3>
+                    <div className="text-gray-700 leading-relaxed text-justify text-base">
                       {stateData.inclusion ? (
                         <span
                           dangerouslySetInnerHTML={{
@@ -627,19 +630,19 @@ export default function ItineraryPage() {
                           No description available
                         </span>
                       )}
-                    </p>
+                    </div>
                   </div>
 
-                  {/* Additional Inclusion Section */}
-                  <div className="p-6 bg-white rounded-lg shadow-lg">
-                    <h4 className="md:text-2xl text-xl font-semibold text-yellow-600 mb-3">
-                      ➕ Additional Inclusion
-                    </h4>
-                    <p className="text-gray-700 leading-relaxed">
-                      {stateData.additional_inclusion ? (
+                  {/* Exclusion */}
+                  <div className="bg-white rounded-xl shadow-md p-8 transition hover:shadow-lg">
+                    <h3 className="text-2xl font-semibold text-red-600 mb-4">
+                      Exclusion
+                    </h3>
+                    <div className="text-gray-700 leading-relaxed text-justify text-base">
+                      {stateData.exclusion ? (
                         <span
                           dangerouslySetInnerHTML={{
-                            __html: stateData.additional_inclusion,
+                            __html: stateData.exclusion,
                           }}
                         />
                       ) : (
@@ -647,13 +650,53 @@ export default function ItineraryPage() {
                           No description available
                         </span>
                       )}
-                    </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Additional Inclusion */}
+                <div className="bg-white rounded-xl shadow-md p-8 mb-8 transition hover:shadow-lg max-w-9xl mx-auto">
+                  <h3 className="text-2xl font-semibold text-yellow-600 mb-4">
+                    Additional Inclusion
+                  </h3>
+                  <div className="text-gray-700 leading-relaxed text-justify text-base">
+                    {stateData.additional_inclusion ? (
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: stateData.additional_inclusion,
+                        }}
+                      />
+                    ) : (
+                      <span className="text-gray-500 italic">
+                        No description available
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Additional Details */}
+                <div className="bg-white rounded-xl shadow-md p-8 transition hover:shadow-lg max-w-9xl mx-auto">
+                  <h3 className="text-2xl font-semibold text-blue-600 mb-4">
+                    Additional Details
+                  </h3>
+                  <div className="text-gray-700 leading-relaxed text-justify text-base">
+                    {stateData.additional_details ? (
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: stateData.additional_details,
+                        }}
+                      />
+                    ) : (
+                      <span className="text-gray-500 italic">
+                        No additional details provided
+                      </span>
+                    )}
                   </div>
                 </div>
               </section>
 
               {/* Exclusion Section */}
-              <section id="exclusion" className=" flex flex-col  px-4 py-10 ">
+              {/* <section id="exclusion" className=" flex flex-col  px-4 py-10 ">
                 <div className=" p-6 bg-white rounded-lg shadow-lg">
                   <h4 className="md:text-2xl text-xl font-semibold text-red-600 mb-3">
                     ❌ Exclusion
@@ -672,22 +715,24 @@ export default function ItineraryPage() {
                     )}
                   </p>
                 </div>
-              </section>
+              </section> */}
               {/* Accommodation Section */}
               <section
                 id="accommodation"
-                className=" flex flex-col px-4 py-10 "
+                className="flex flex-col px-4 py-10 bg-gray-50"
               >
-                <div className=" p-6 bg-white rounded-lg shadow-lg border-l-4 border-indigo-500">
-                  <h3 className="md:text-2xl text-xl font-bold text-gray-900 mb-6 text-center">
-                    🏨 Accommodation Information
+                <div className="p-6 sm:p-10 bg-white rounded-3xl shadow-2xl border-l-8 border-indigo-500">
+                  {/* Section Heading */}
+                  <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-8 text-center border-b-4 pb-4 border-indigo-300">
+                    Accommodation Information
                   </h3>
 
-                  <div className="p-6 bg-gray-100 rounded-lg shadow-md mb-6">
-                    <h4 className="text-2xl font-semibold text-yellow-600 mb-3">
-                      🏢 Hotel Details
+                  {/* Hotel Details */}
+                  <div className="p-6 sm:p-8 bg-gray-100 rounded-2xl shadow-lg mb-8 border-l-8 border-yellow-400 transition-transform hover:scale-[1.02]">
+                    <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
+                      Hotel Details
                     </h4>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-800 leading-relaxed text-sm md:text-base">
                       {stateData.hotel_details ? (
                         <span
                           dangerouslySetInnerHTML={{
@@ -702,11 +747,12 @@ export default function ItineraryPage() {
                     </p>
                   </div>
 
-                  <div className="p-6 bg-gray-100 rounded-lg shadow-md">
-                    <h4 className="md:text-2xl text-xl font-semibold text-red-600 mb-3">
-                      🚩 Status Flag
+                  {/* Status Flag */}
+                  <div className="p-6 sm:p-8 bg-gray-100 rounded-2xl shadow-lg border-l-8 border-red-400 transition-transform hover:scale-[1.02]">
+                    <h4 className="text-xl md:text-2xl font-semibold text-red-700 mb-4 border-b-2 pb-3 border-red-300">
+                      Status Flag
                     </h4>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-800 leading-relaxed text-sm md:text-base">
                       {stateData.status_flags ? (
                         <span
                           dangerouslySetInnerHTML={{
@@ -724,17 +770,22 @@ export default function ItineraryPage() {
               </section>
 
               {/* Payment Section */}
-              <section id="payment" className=" flex flex-col  px-4 py-10 ">
-                <div className=" p-6 bg-white rounded-lg shadow-lg border-l-4 border-red-500">
-                  <h3 className="md:text-2xl text-xl font-bold text-gray-900 mb-6 text-center">
-                    💳 Payment Information
+              <section
+                id="payment"
+                className="flex flex-col px-4 py-10 bg-gray-50"
+              >
+                <div className="p-6 sm:p-10 bg-white rounded-3xl shadow-2xl border-l-8 border-red-500">
+                  {/* Section Heading */}
+                  <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-8 text-center border-b-4 pb-4 border-red-300">
+                    Payment Information
                   </h3>
 
-                  <div className="p-6 bg-gray-100 rounded-lg shadow-md">
-                    <h4 className="md:text-2xl text-xl font-semibold text-red-600 mb-3">
-                      💰 Payment Mode
+                  {/* Payment Mode Block */}
+                  <div className="p-6 sm:p-8 bg-gray-100 rounded-2xl shadow-lg border-l-8 border-yellow-500 transition-transform hover:scale-[1.02]">
+                    <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
+                      Payment Mode
                     </h4>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-800 leading-relaxed text-sm md:text-base">
                       {stateData.payment_mode ? (
                         <span
                           dangerouslySetInnerHTML={{
@@ -751,19 +802,18 @@ export default function ItineraryPage() {
                 </div>
               </section>
 
-              <section id="cancellation" className=" flex">
-                {/* Cancellation Policy */}
-                <div className="p-6 bg-gradient-to-r from-red-100 to-red-50 rounded-lg shadow-lg border border-red-300">
-                  {/* Cancellation Policy Heading */}
-                  <div className="flex items-center mb-3">
-                    <span className="text-red-600 text-2xl">❌</span>
-                    <h2 className="md:text-2xl text-xl font-bold text-red-700 ml-2">
-                      Cancellation Policy
-                    </h2>
-                  </div>
+              <section
+                id="cancellation"
+                className="flex flex-col px-4 py-10 bg-gray-50"
+              >
+                <div className="p-6 sm:p-10 bg-gradient-to-br from-red-100 to-white rounded-3xl shadow-2xl border-l-8 border-red-500 w-full max-w-9xl mx-auto">
+                  {/* Heading */}
+                  <h2 className="text-xl md:text-2xl font-extrabold text-red-700 mb-6 border-b-4 border-red-300 pb-4 text-center">
+                    Cancellation Policy
+                  </h2>
 
                   {/* Policy Description */}
-                  <p className="text-gray-700 text-lg leading-relaxed">
+                  <p className="text-gray-800 text-base md:text-lg leading-relaxed">
                     {stateData.cancellation_policy ? (
                       <span
                         dangerouslySetInnerHTML={{
@@ -780,7 +830,7 @@ export default function ItineraryPage() {
               </section>
             </div>
 
-            <div className="mt-6">
+            {/* <div className="mt-6">
               <Link
                 href={`/destination/${stateData.selected_destination || ""}`}
               >
@@ -788,7 +838,7 @@ export default function ItineraryPage() {
                   Explore More
                 </button>
               </Link>
-            </div>
+            </div> */}
           </div>
         ) : (
           <p className="text-center text-gray-500">
