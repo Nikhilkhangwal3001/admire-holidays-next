@@ -1,56 +1,94 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import companyStatsData from "@/data/comapanyStatsData";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
+import {
+  FaBox,
+  FaMapMarkedAlt,
+  FaBusinessTime,
+  FaStar,
+} from "react-icons/fa";
 
 const CompanyStatsSection = () => {
+  const [stats, setStats] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const { ref, inView } = useInView({
-    /* Optional options */
-    threshold: 0.5, // Percentage of the element that needs to be visible for the animation to trigger
-    triggerOnce: true, // Trigger the animation only once
+    threshold: 0.3,
+    triggerOnce: true,
   });
 
   useEffect(() => {
     setIsVisible(inView);
   }, [inView]);
 
+  useEffect(() => {
+    fetch("https://admiredashboard.theholistay.in/public-get-counter")
+      .then((res) => res.json())
+      .then((data) => setStats(data))
+      .catch((err) => console.error("Error fetching data:", err));
+  }, []);
+
+  const items = stats
+    ? [
+        {
+          title: "Packages",
+          number: stats.packages,
+          icon: <FaBox className="text-5xl text-[#fffbeb]" />,
+        },
+        {
+          title: "Destinations Covered",
+          number: stats.destinations_covered,
+          icon: <FaMapMarkedAlt className="text-5xl text-[#fffbeb]" />,
+        },
+        {
+          title: "Years in Business",
+          number: stats.years_in_business,
+          icon: <FaBusinessTime className="text-5xl text-[#fffbeb]" />,
+        },
+        {
+          title: "Rating",
+          number: stats.rating,
+          icon: <FaStar className="text-5xl text-[#fffbeb]" />,
+        },
+      ]
+    : [];
+
   return (
     <section
-      className="bg-[#155146] bg-cover bg-center h-fit py-12"
-      // style={{
-      //   backgroundImage: "url('cmpnstats.jpg')",
-      // }}
-      ref={ref} // Attach the ref to the section
+      ref={ref}
+      className="relative bg-gradient-to-br from-[#155146] via-[#1e3a34] to-[#0a1e1c] py-20 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 items-center gap-10 px-5 ">
-        {companyStatsData.map((item, i) => (
-          <div
-            className="flex flex-col justify-center items-center gap-10 "
-            key={i}
-          >
+      <div className="absolute inset-0 opacity-10 bg-[url('/stars.svg')] bg-cover pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        {/* Beautiful Heading */}
+        <h2 className="text-4xl md:text-5xl font-extrabold text-center text-white mb-14 drop-shadow-lg">
+          Milestones That Speak for Themselves
+        </h2>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          {items.map((item, index) => (
             <div
-              className="px-8 py-6 flex justify-center items-center bg-gray-800 bg-opacity-20 transform hover:scale-110 transition-transform duration-300"
-              style={{
-                clipPath:
-                  "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
-              }}
+              key={index}
+              className={`bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-8 flex flex-col items-center justify-center text-white transition-all duration-700 transform ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              } hover:scale-105 hover:shadow-yellow-300/50`}
             >
-              {item.icon}
+              <div className="mb-4">{item.icon}</div>
+              <div className="text-5xl font-extrabold text-yellow-300">
+                <CountUp
+                  start={isVisible ? 0 : null}
+                  end={item.number}
+                  duration={2.5}
+                />
+              </div>
+              <p className="text-lg mt-3 font-medium text-gray-100 text-center">
+                {item.title}
+              </p>
             </div>
-            <div className="text-5xl text-white font-medium">
-              <CountUp
-                start={isVisible ? 0 : null}
-                end={item.numbers}
-                duration={2.5}
-              />
-            </div>
-            <div className="text-sm text-gray-200 -mt-8 font-medium">
-              {item.title}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -86,9 +86,7 @@ const Home = () => {
       <InViewComponent>
         <TravelGuideline />
       </InViewComponent>
-      {/* <InViewComponent>
-        <LatestUpdatesSection />
-      </InViewComponent> */}
+      
       <InViewComponent>
         <FeaturesSection />
       </InViewComponent>
