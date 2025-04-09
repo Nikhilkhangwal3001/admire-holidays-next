@@ -10,10 +10,10 @@ const HeroSection = () => {
     const fetchHeroVideo = async () => {
       try {
         const response = await axios.get(
-          "https://admiredashboard.theholistay.in/public-hero-section-videos"
+          "https://admiredashboard.theholistay.in/public-hero-section-videos/home"
         );
 
-        console.log("Hero Video API Response:", response.data);
+        console.log("Hero Video API Response:nikhil", response.data);
 
         if (response.data.length > 0 && response.data[0].video_url) {
           setVideoUrl(

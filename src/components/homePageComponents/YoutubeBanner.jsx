@@ -7,6 +7,7 @@ import Videotest from "@/app/Videotestimonial/Videotest";
 
 export default function Testimonials() {
   const [galleryImages, setGalleryImages] = useState([]);
+  const [shuffledImages, setShuffledImages] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,18 +30,33 @@ export default function Testimonials() {
       .catch((error) => console.error("Error fetching images:", error));
   }, []);
 
+  // Shuffle logic every 5 seconds
+  useEffect(() => {
+    if (galleryImages.length === 0) return;
+
+    const shuffle = () => {
+      const shuffled = [...galleryImages].sort(() => 0.5 - Math.random());
+      setShuffledImages(shuffled);
+    };
+
+    shuffle(); // initial shuffle
+    const interval = setInterval(shuffle, 5000); // every 5 seconds
+
+    return () => clearInterval(interval); // cleanup on unmount
+  }, [galleryImages]);
+
   const openModal = (index) => {
     setSelectedIndex(index);
     setIsModalOpen(true);
   };
 
   const handleNext = () => {
-    setSelectedIndex((prev) => (prev + 1) % galleryImages.length);
+    setSelectedIndex((prev) => (prev + 1) % shuffledImages.length);
   };
 
   const handlePrev = () => {
     setSelectedIndex(
-      (prev) => (prev - 1 + galleryImages.length) % galleryImages.length
+      (prev) => (prev - 1 + shuffledImages.length) % shuffledImages.length
     );
   };
 
@@ -50,14 +66,13 @@ export default function Testimonials() {
         Your trusted partner in travel and tour experiences.
       </h2>
 
-      <section className="py-12 px-4 md:px-16 lg:px-32 ">
+      <section className="py-12 px-4 md:px-16 lg:px-32">
         <h3 className="text-2xl md:text-3xl font-semibold text-center text-[#CF1E27] mb-8">
           Explore Our Gallery
         </h3>
 
-        {/* Updated Image Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-3">
-          {galleryImages.slice(0, 7).map((image, index) => (
+          {shuffledImages.slice(0, 7).map((image, index) => (
             <div
               key={index}
               className="relative w-full aspect-square overflow-hidden rounded-md cursor-pointer group"
@@ -72,25 +87,24 @@ export default function Testimonials() {
             </div>
           ))}
 
-          {galleryImages.length > 7 && (
+          {shuffledImages.length > 7 && (
             <div
               className="relative w-full aspect-square overflow-hidden rounded-md cursor-pointer group"
               onClick={() => openModal(7)}
             >
               <Image
-                src={galleryImages[7]}
+                src={shuffledImages[7]}
                 alt="More Images"
                 fill
                 className="object-cover brightness-50 group-hover:scale-110 transition-transform duration-300"
               />
               <div className="absolute inset-0 flex items-center justify-center text-white text-xl font-bold">
-                +{galleryImages.length - 7} More
+                +{shuffledImages.length - 7} More
               </div>
             </div>
           )}
         </div>
 
-        {/* Modal for full image view */}
         {isModalOpen && selectedIndex !== null && (
           <div className="fixed inset-0 bg-black bg-opacity-80 mt-20 flex justify-center items-center z-50 p-4">
             <div className="relative max-w-3xl w-full">
@@ -102,7 +116,7 @@ export default function Testimonials() {
               </button>
 
               <Image
-                src={galleryImages[selectedIndex]}
+                src={shuffledImages[selectedIndex]}
                 alt="Selected Image"
                 width={900}
                 height={600}

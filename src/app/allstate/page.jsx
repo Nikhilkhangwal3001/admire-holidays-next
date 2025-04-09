@@ -10,6 +10,7 @@ import Image from "next/image";
 export default function DomesticDestinations() {
   const [loading, setLoading] = useState(true);
   const [destinations, setDestinations] = useState([]);
+  const [videoUrl, setVideoUrl] = useState(null);
 
   useEffect(() => {
     const fetchDestinations = async () => {
@@ -34,7 +35,24 @@ export default function DomesticDestinations() {
       }
     };
 
+    const fetchBannerVideo = async () => {
+      try {
+        const response = await axios.get(
+          "https://admiredashboard.theholistay.in/public-hero-section-videos/domestic"
+        );
+
+        if (response.data.length > 0 && response.data[0].video_url) {
+          setVideoUrl(
+            `https://admiredashboard.theholistay.in/${response.data[0].video_url}`
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching banner video:", error);
+      }
+    };
+
     fetchDestinations();
+    fetchBannerVideo();
   }, []);
 
   if (loading) {
@@ -48,18 +66,26 @@ export default function DomesticDestinations() {
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
-      
+
       {/* Hero Section */}
       <div className="relative w-full h-[300px] sm:h-[400px] flex items-center justify-center">
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          src="/domesticvideo.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-50" />
+        {videoUrl ? (
+          <>
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              src={videoUrl}
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-50" />
+          </>
+        ) : (
+          <div className="absolute inset-0 bg-black flex items-center justify-center">
+            <p className="text-white text-xl">Video not available</p>
+          </div>
+        )}
         <h1 className="text-white text-4xl sm:text-5xl font-bold z-10">
           Discover Domestic Destinations
         </h1>

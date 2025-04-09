@@ -338,7 +338,7 @@ export default function ItineraryPage() {
                         onClick={() => toggleFAQ(index)}
                         className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow-sm hover:bg-gray-200 focus:outline-none"
                       >
-                        <h6 className="text-[12px] md:text-xl   text-gray-900">
+                        <h6 className="text-[12px] md:text-xl text-gray-900">
                           <span className="bg-red-600 p-2 rounded-lg text-white">
                             Day{day.day}
                           </span>{" "}
@@ -348,6 +348,63 @@ export default function ItineraryPage() {
                           {openIndex === index ? "▲" : "▼"}
                         </span>
                       </button>
+
+                      <div className="max-w-4xl p-8 rounded-lg shadow-lg">
+                        {(day.day === 2 || day.day === 4) && (
+                          <h3 className="md:text-2xl text-xl font-bold text-gray-900 mb-6 text-center uppercase tracking-wide">
+                            🌍 Explore the Destination
+                          </h3>
+                        )}
+
+                        {(day.day === 2 || day.day === 4) &&
+                        images.length > 0 ? (
+                          <Swiper
+                            modules={[Navigation, Autoplay]}
+                            navigation
+                            autoplay={{
+                              delay: 3000,
+                              disableOnInteraction: false,
+                            }}
+                            spaceBetween={20}
+                            slidesPerView={1}
+                            className="w-full"
+                          >
+                            {images.map((img, index) => (
+                              <SwiperSlide key={index}>
+                                <div
+                                  className="relative cursor-pointer group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
+                                  onClick={() =>
+                                    setSelectedImage(
+                                      `https://admiredashboard.theholistay.in/${img}`
+                                    )
+                                  }
+                                >
+                                  <Image
+                                    src={`https://admiredashboard.theholistay.in/${img}`}
+                                    alt={`Image ${index + 1}`}
+                                    width={300}
+                                    height={200}
+                                    loop
+                                    className="w-full h-64 object-cover transition-transform duration-300 transform group-hover:scale-110"
+                                  />
+                                  <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                                    <p className="text-white text-lg font-semibold">
+                                      🔍 View Image
+                                    </p>
+                                  </div>
+                                </div>
+                              </SwiperSlide>
+                            ))}
+                          </Swiper>
+                        ) : (
+                          (day.day === 2 || day.day === 4) && (
+                            <p className="text-gray-500 text-center mt-6 italic">
+                              No Additional Images Available
+                            </p>
+                          )
+                        )}
+                      </div>
+
                       {openIndex === index && (
                         <div className="p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow-md mt-2">
                           <p className="text-gray-700">
@@ -370,7 +427,7 @@ export default function ItineraryPage() {
               </div>
 
               {/* Right Side - Inquiry Form */}
-              <div className="bg-white shadow-lg mt-10 p-6 w-full md:w-96 mx-auto rounded-lg border border-gray-300">
+              <div className="bg-white shadow-md  mt-10 p-6 w-full md:w-96 mx-auto rounded-lg border border-gray-300">
                 <h2 className="md:text-2xl text-xl font-semibold text-gray-900 mb-4">
                   Inquiry Form
                 </h2>
@@ -445,56 +502,6 @@ export default function ItineraryPage() {
               </div>
             </div>
             <div className="flex flex-col">
-              <div className="bg-gray-50 p-8 rounded-lg shadow-lg">
-                <h3 className="md:text-2xl text-xl font-bold text-gray-900 mb-6 text-center uppercase tracking-wide">
-                  🌍 Explore the Destination
-                </h3>
-                {images.length > 0 ? (
-                  <Swiper
-                    modules={[Navigation, Autoplay]}
-                    navigation
-                    autoplay={{ delay: 3000, disableOnInteraction: false }}
-                    spaceBetween={20}
-                    slidesPerView={1}
-                    breakpoints={{
-                      640: { slidesPerView: 2 },
-                      1024: { slidesPerView: 3 },
-                    }}
-                    className="w-full"
-                  >
-                    {images.map((img, index) => (
-                      <SwiperSlide key={index}>
-                        <div
-                          className="relative cursor-pointer group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
-                          onClick={() =>
-                            setSelectedImage(
-                              `https://admiredashboard.theholistay.in/${img}`
-                            )
-                          }
-                        >
-                          <Image
-                            src={`https://admiredashboard.theholistay.in/${img}`}
-                            alt={`Image ${index + 1}`}
-                            width={300}
-                            height={200}
-                            className="w-full h-48 object-cover transition-transform duration-300 transform group-hover:scale-110"
-                          />
-                          <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-                            <p className="text-white text-lg font-semibold">
-                              🔍 View Image
-                            </p>
-                          </div>
-                        </div>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                ) : (
-                  <p className="text-gray-500 text-center mt-6 italic">
-                    No Additional Images Available
-                  </p>
-                )}
-              </div>
-
               {/* Sections */}
               <section
                 id="meals"

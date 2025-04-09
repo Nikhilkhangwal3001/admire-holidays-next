@@ -12,22 +12,38 @@ import conf from "../../../conf/conf";
 export default function InternationalDestinations() {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [countryImages, setCountryImages] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [bannerVideo, setBannerVideo] = useState(null);
   const videoRef = useRef(null);
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(
-          `https://admiredashboard.theholistay.in/public-international-destinations-images`
+          "https://admiredashboard.theholistay.in/public-international-destinations-images"
         );
-        console.log(`Response for page.jsx internationalpackage`, response.data);
+        console.log("Images:", response.data);
         setCountryImages(response.data);
       } catch (error) {
         console.error("Error fetching images:", error);
       }
     };
+
+    const fetchBannerVideo = async () => {
+      try {
+        const response = await axios.get(
+          "https://admiredashboard.theholistay.in/public-hero-section-videos/international"
+        );
+        console.log("Banner video:", response.data);
+        if (response.data.length > 0) {
+          setBannerVideo(`${conf.laravelBaseUrl}/${response.data[0].video_url}`);
+        }
+      } catch (error) {
+        console.error("Error fetching banner video:", error);
+      }
+    };
+
     fetchImages();
+    fetchBannerVideo();
   }, []);
 
   const handleCloseModal = (e) => {
@@ -39,23 +55,30 @@ export default function InternationalDestinations() {
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
+
+      {/* Video Banner */}
       <div className="relative w-full h-[300px] sm:h-[400px] flex items-center justify-center">
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          src="/Internationaladmireholidays.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          Your browser does not support the video tag.
-        </video>
+        {bannerVideo ? (
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            src={bannerVideo}
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        ) : (
+          <div className="absolute inset-0 w-full h-full bg-black flex items-center justify-center text-white text-xl">
+            Loading Banner...
+          </div>
+        )}
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <h1 className="text-white text-4xl sm:text-5xl font-bold z-10">
           Discover International Locations
         </h1>
       </div>
 
+      {/* Cards Section */}
       <div className="max-w-7xl mx-auto py-12 px-6">
         <h2 className="text-center text-3xl font-semibold text-gray-800 mb-8">
           Select a Country to Explore
@@ -63,25 +86,34 @@ export default function InternationalDestinations() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
           {countryImages.map((country) => (
             <Link
-              key={country?.destination}
-              href={`/international/${country?.destination.toLowerCase().replace(/ /g, "-")}`}
-              className="relative group cursor-pointer flex flex-col items-center p-4 bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all"
+              href={`/trending-destination/${country.destination
+                ?.toLowerCase()
+                .replace(/\s+/g, "-")}`}
+              key={country.id}
+              className="relative group cursor-pointer flex flex-col items-center p-4 bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all min-h-[220px] h-full"
             >
-              <Image
-                src={conf.laravelBaseUrl + "/" + country?.images[0]}
-                width={96}
-                height={96}
-                className="mb-3 transition-transform transform group-hover:scale-110 rounded-lg object-cover"
-                alt={country?.destination}
-              />
-              <p className="text-lg font-semibold text-gray-800 cursor-pointer">
-                {country?.destination}
+              <div className="w-24 h-24 mb-3 overflow-hidden rounded-lg flex items-center justify-center bg-gray-100">
+                {country?.images?.[0] ? (
+                  <Image
+                    src={`${conf.laravelBaseUrl}/${country.images[0]}`}
+                    width={96}
+                    height={96}
+                    className="transition-transform transform group-hover:scale-110 object-cover"
+                    alt={country.destination || "Country Image"}
+                  />
+                ) : (
+                  <span className="text-sm text-gray-500">No Image</span>
+                )}
+              </div>
+              <p className="text-lg font-semibold text-gray-800 text-center min-h-[48px] flex items-center justify-center">
+                {country.destination || "Unnamed"}
               </p>
             </Link>
           ))}
         </div>
       </div>
 
+      {/* Video Modal */}
       {selectedVideo && (
         <div
           className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
@@ -104,6 +136,7 @@ export default function InternationalDestinations() {
           </video>
         </div>
       )}
+
       <Footer />
     </div>
   );
