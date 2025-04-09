@@ -6,24 +6,28 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 
-const dummyData = [
-  { imageUrl: ["/dummy1.jpg"], title: "Resort 1", discount: "10%" },
-  { imageUrl: ["/dummy2.jpg"], title: "Resort 2", discount: "15%" },
-  { imageUrl: ["/dummy3.jpg"], title: "Resort 3", discount: "20%" },
-];
-
 const TrendingDestination = () => {
   const sliderContainer = useRef(null);
   const keenSlider = useRef(null);
   const autoSlideInterval = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [currentImageIndexes, setCurrentImageIndexes] = useState(
-    dummyData.map(() => 0)
-  );
+  const [resorts, setResorts] = useState([]);
 
   useEffect(() => {
-    console.log("Initializing KeenSlider...");
-    if (sliderContainer.current && !keenSlider.current) {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("https://admiredashboard.theholistay.in/public-resorts");
+        const data = await res.json();
+        setResorts(data);
+      } catch (error) {
+        console.error("Error fetching resort data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (sliderContainer.current && resorts.length > 0 && !keenSlider.current) {
       keenSlider.current = new KeenSlider(sliderContainer.current, {
         loop: true,
         slides: {
@@ -32,9 +36,6 @@ const TrendingDestination = () => {
           spacing: 8,
         },
         breakpoints: {
-          "(min-width: 288px)": {
-            slides: { origin: "auto", perView: 1, spacing: 8 },
-          },
           "(min-width: 768px)": {
             slides: { origin: "auto", perView: 2, spacing: 8 },
           },
@@ -45,55 +46,61 @@ const TrendingDestination = () => {
       });
 
       autoSlideInterval.current = setInterval(() => {
-        console.log("Auto sliding to next slide");
         keenSlider.current?.next();
       }, 10000);
     }
 
     return () => {
-      console.log("Destroying KeenSlider and clearing intervals...");
       keenSlider.current?.destroy();
       keenSlider.current = null;
       clearInterval(autoSlideInterval.current);
     };
-  }, []);
+  }, [resorts]);
 
   return (
     <section>
       <div className="mx-auto max-w-[1340px] mt-36 mb-36 px-4">
-        <h2 className="text-center text-3xl font-bold">Your Perfect Resort</h2>
+        <h2 className="text-center text-3xl font-bold">Explore Our Resorts</h2>
         <div className="relative lg:col-span-2 lg:mx-0">
           <div ref={sliderContainer} className="keen-slider mt-8">
-            {dummyData.map((item, i) => (
-              <div className="keen-slider__slide" key={i}>
-                <div className="max-w-sm rounded-lg shadow-lg p-2 relative">
-                  <div className="absolute top-2 left-2 bg-yellow-400 text-black font-bold px-3 py-1 rounded-md text-sm z-10">
-                    Discount:{item.discount}
-                  </div>
-                  <Image
-                    src={item.imageUrl[currentImageIndexes[i]]}
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                    width={500}
-                    height={300}
-                    onError={(e) => console.error("Image failed to load:", e)}
-                  />
-                  <motion.div className="p-4 bg-white rounded-lg shadow-lg">
-                    <h2 className="text-lg font-bold">{item.title}</h2>
-                    <p>Discount {item.discount}</p>
-                    <Link href="#">
+            {resorts.map((destination) => (
+              <div className="keen-slider__slide" key={destination.id}>
+                <Link
+                  className="w-full block h-full"
+                  href={`destination/${destination.selected_destination || destination.id}`}
+                >
+                  <div className="h-[420px] max-w-sm flex flex-col justify-between rounded-lg shadow-lg p-2 relative bg-white transition-transform duration-300 hover:scale-105">
+                    <div className="absolute top-2 left-2 bg-yellow-400 text-black font-bold px-3 py-1 rounded-md text-sm z-10">
+                      Discount: {destination.discount}%
+                    </div>
+                    <div className="h-[200px] w-full relative rounded-lg overflow-hidden">
+                      <Image
+                        src={`https://admiredashboard.theholistay.in/${destination.image}`}
+                        alt={destination.title}
+                        layout="fill"
+                        objectFit="cover"
+                      />
+                    </div>
+                    <motion.div className="p-4 flex flex-col justify-between flex-grow">
+                      <h2 className="text-lg font-bold">{destination.title}</h2>
+                      <p className="text-sm text-gray-600 mb-4">
+                        Discount: {destination.discount}%
+                      </p>
                       <motion.button
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
-                        className="w-full py-2 text-white rounded-lg"
-                        animate={{ backgroundColor: isHovered ? "#CF1E27" : "#E69233" }}
+                        className="w-full py-2 text-white rounded-lg mt-auto"
+                        animate={{
+                          backgroundColor: "#E69233",
+                        }}
+                        whileHover={{
+                          backgroundColor: "#CF1E27",
+                        }}
                         transition={{ duration: 0.3 }}
                       >
                         Know More
                       </motion.button>
-                    </Link>
-                  </motion.div>
-                </div>
+                    </motion.div>
+                  </div>
+                </Link>
               </div>
             ))}
           </div>
