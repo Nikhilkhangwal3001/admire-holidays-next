@@ -162,41 +162,37 @@ export default function ItineraryPage() {
 
         {stateData ? (
           <div className="">
-            <h2 className="md:text-3xl text-2xl font-semibold text-gray-900 capitalize  mb-8 tracking-wide relative before:absolute before:-left-4 before:top-1/2 before:w-2 before:h-10 before:bg-red-600 before:-translate-y-1/2">
-              {stateData.title || "No Title Available"}
-            </h2>
-
-            <div className="flex gap-6 text-gray-800">
-              {/* Duration */}
-              <div>
+            {/* <div className="flex gap-6 text-gray-800"> */}
+            {/* Duration */}
+            {/* <div>
                 <span className="text-sm font-semibold text-gray-600 border-b-2 border-red-500 pb-1 inline-block">
                   Duration
                 </span>
                 <div className="mt-2 text-lg font-medium">
                   {stateData.duration || "N/A"}
                 </div>
-              </div>
+              </div> */}
 
-              {/* Pricing */}
-              <div>
+            {/* Pricing */}
+            {/* <div>
                 <span className="text-sm font-semibold text-gray-600 border-b-2 border-yellow-500 pb-1 inline-block">
                   Pricing
                 </span>
                 <div className="mt-2 text-lg font-medium">
                   {stateData.pricing || "N/A"}
                 </div>
-              </div>
+              </div> */}
 
-              {/* Type */}
-              <div>
+            {/* Type */}
+            {/* <div>
                 <span className="text-sm font-semibold text-gray-600 border-b-2 border-blue-500 pb-1 inline-block">
                   Type
                 </span>
                 <div className="mt-2 text-lg font-medium">
                   {stateData.domestic_or_international || "N/A"}
                 </div>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> */}
 
             <h2 className="md:text-2xl text-xl   font-extrabold text-gray-900 text-center capitalize mb-8 tracking-wide relative">
               <span className="text-red-600">
@@ -252,9 +248,31 @@ export default function ItineraryPage() {
                   No Additional Images Available
                 </p>
               )}
+              <h2 className="md:text-3xl max-w-6xl m-5 text-2xl font-semibold mt-14 text-gray-900 capitalize  mb-8 tracking-wide relative before:absolute before:-left-4 before:top-1/2 before:w-2 before:h-10 before:bg-red-600 before:-translate-y-1/2">
+                {stateData.title || "No Title Available"}
+              </h2>
+              <div className="bg-white  border-l-4 mt-10 border-red-500 shadow-lg p-5 rounded-lg">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  🌍 Destination Overview
+                </h3>
+                <p className="md:text-lg text-sm text-gray-700 leading-relaxed">
+                  {stateData.destination_detail ? (
+                    <span
+                      className="text-gray-800"
+                      dangerouslySetInnerHTML={{
+                        __html: stateData.destination_detail,
+                      }}
+                    />
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
+              </div>
             </div>
             {/* Horizontal Filter */}
-            <div className="flex flex-wrap justify-between items-center p-4 ">
+            <div className="flex mt-14 flex-wrap justify-between items-center p-4 ">
               <div className="flex space-x-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
                 <button
                   onClick={() => scrollToSection("itinerary")}
@@ -302,45 +320,27 @@ export default function ItineraryPage() {
             </div>
             <div
               id="itinerary"
-              className="container mx-auto p-4 grid grid-cols-1 md:grid-cols-2  max-w-9xl"
+              className="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6"
             >
               {/* Left Side - Trip Details */}
-              <div className="w-full">
-                <div className="bg-white w-full border-l-4 mt-10 border-blue-500 shadow-lg p-5 rounded-lg">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    🌍 Destination Overview
-                  </h3>
-                  <p className="md:text-lg text-sm text-gray-700 leading-relaxed">
-                    {stateData.destination_detail ? (
-                      <span
-                        className="text-gray-800"
-                        dangerouslySetInnerHTML={{
-                          __html: stateData.destination_detail,
-                        }}
-                      />
-                    ) : (
-                      <span className="text-gray-500 italic">
-                        No description available
-                      </span>
-                    )}
-                  </p>
-                </div>
-                <br />
-                <br />
-                <h2 className="md:text-2xl text-xl font-semibold text-gray-800 capitalize mb-6">
+              <div className="md:col-span-2 w-full">
+                <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6">
                   Trip Itinerary
                 </h2>
-                {stateData.days_information &&
-                stateData.days_information.length > 0 ? (
+
+                {stateData.days_information?.length > 0 ? (
                   stateData.days_information.map((day, index) => (
-                    <div key={index} className="mb-4 border-b border-gray-300">
+                    <div
+                      key={index}
+                      className="mb-6 border-b border-gray-300 pb-4"
+                    >
                       <button
                         onClick={() => toggleFAQ(index)}
-                        className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow-sm hover:bg-gray-200 focus:outline-none"
+                        className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow hover:bg-gray-200"
                       >
-                        <h6 className="text-[12px] md:text-xl text-gray-900">
+                        <h6 className="text-sm md:text-xl text-gray-900 font-medium">
                           <span className="bg-red-600 p-2 rounded-lg text-white">
-                            Day{day.day}
+                            Day {day.day}
                           </span>{" "}
                           : {day.title}
                         </h6>
@@ -349,64 +349,62 @@ export default function ItineraryPage() {
                         </span>
                       </button>
 
-                      <div className="max-w-4xl p-8 rounded-lg shadow-lg">
+                      <div className="p-4 md:p-8 rounded-lg shadow-lg">
                         {(day.day === 2 || day.day === 4) && (
-                          <h3 className="md:text-2xl text-xl font-bold text-gray-900 mb-6 text-center uppercase tracking-wide">
-                            🌍 Explore the Destination
-                          </h3>
-                        )}
+                          <>
+                            <h3 className="text-lg md:text-2xl font-bold text-center text-gray-900 uppercase mb-6 tracking-wide">
+                              🌍 Explore the Destination
+                            </h3>
 
-                        {(day.day === 2 || day.day === 4) &&
-                        images.length > 0 ? (
-                          <Swiper
-                            modules={[Navigation, Autoplay]}
-                            navigation
-                            autoplay={{
-                              delay: 3000,
-                              disableOnInteraction: false,
-                            }}
-                            spaceBetween={20}
-                            slidesPerView={1}
-                            className="w-full"
-                          >
-                            {images.map((img, index) => (
-                              <SwiperSlide key={index}>
-                                <div
-                                  className="relative cursor-pointer group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
-                                  onClick={() =>
-                                    setSelectedImage(
-                                      `https://admiredashboard.theholistay.in/${img}`
-                                    )
-                                  }
-                                >
-                                  <Image
-                                    src={`https://admiredashboard.theholistay.in/${img}`}
-                                    alt={`Image ${index + 1}`}
-                                    width={300}
-                                    height={200}
-                                    loop
-                                    className="w-full h-64 object-cover transition-transform duration-300 transform group-hover:scale-110"
-                                  />
-                                  <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
-                                    <p className="text-white text-lg font-semibold">
-                                      🔍 View Image
-                                    </p>
-                                  </div>
-                                </div>
-                              </SwiperSlide>
-                            ))}
-                          </Swiper>
-                        ) : (
-                          (day.day === 2 || day.day === 4) && (
-                            <p className="text-gray-500 text-center mt-6 italic">
-                              No Additional Images Available
-                            </p>
-                          )
+                            {images.length > 0 ? (
+                              <Swiper
+                                modules={[Navigation, Autoplay]}
+                                navigation
+                                autoplay={{
+                                  delay: 3000,
+                                  disableOnInteraction: false,
+                                }}
+                                spaceBetween={20}
+                                slidesPerView={1}
+                                className="w-full"
+                              >
+                                {images.map((img, index) => (
+                                  <SwiperSlide key={index}>
+                                    <div
+                                      className="relative group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300"
+                                      onClick={() =>
+                                        setSelectedImage(
+                                          `https://admiredashboard.theholistay.in/${img}`
+                                        )
+                                      }
+                                    >
+                                      <Image
+                                        src={`https://admiredashboard.theholistay.in/${img}`}
+                                        alt={`Image ${index + 1}`}
+                                        width={300}
+                                        height={200}
+                                        className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                                      />
+                                      <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
+                                        <p className="text-white text-lg font-semibold">
+                                          🔍 View Image
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </SwiperSlide>
+                                ))}
+                              </Swiper>
+                            ) : (
+                              <p className="text-gray-500 text-center mt-6 italic">
+                                No Additional Images Available
+                              </p>
+                            )}
+                          </>
                         )}
                       </div>
 
                       {openIndex === index && (
-                        <div className="p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow-md mt-2">
+                        <div className="p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow mt-2">
                           <p className="text-gray-700">
                             <strong>Destination:</strong>{" "}
                             {day.detail ? (
@@ -426,81 +424,83 @@ export default function ItineraryPage() {
                 )}
               </div>
 
-              {/* Right Side - Inquiry Form */}
-              <div className="bg-white shadow-md  mt-10 p-6 w-full md:w-96 mx-auto rounded-lg border border-gray-300">
-                <h2 className="md:text-2xl text-xl font-semibold text-gray-900 mb-4">
-                  Inquiry Form
-                </h2>
-                <form className="space-y-4">
-                  <div>
-                    <label className="block text-gray-700 font-medium">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full p-2 border rounded-lg"
-                      placeholder="Enter your name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-medium">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      className="w-full p-2 border rounded-lg"
-                      placeholder="Enter your email"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-medium">
-                      Phone
-                    </label>
-                    <input
-                      type="tel"
-                      className="w-full p-2 border rounded-lg"
-                      placeholder="Enter your phone number"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 font-medium">
-                      Message
-                    </label>
-                    <textarea
-                      className="w-full p-2 border rounded-lg"
-                      rows="4"
-                      placeholder="Your message"
-                    ></textarea>
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full bg-yellow-600 text-white py-2 rounded-lg hover:bg-red-600"
-                  >
-                    Submit
-                  </button>
-                </form>
-                {/* Why Choose Us Section */}
-                <section
-                  id="why-choose-us"
-                  className="mt-10 flex flex-col items-center justify-center  p-6"
-                >
-                  <h2 className="md:text-2xl text-xl font-bold mb-6 text-center">
-                    Why Choose Us
+              {/* Right Side - Sticky Inquiry Form */}
+              <div className="md:sticky md:top-24 h-fit w-full">
+                <div className="bg-white shadow-lg p-6 rounded-lg border border-gray-300">
+                  <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">
+                    Inquiry Form
                   </h2>
-                  <ul className="max-w-2xl w-full bg-white shadow-lg p-6 rounded-lg">
-                    {whyChoosePoints.map((point, index) => (
-                      <li
-                        key={index}
-                        className="flex items-center space-x-3 text-lg text-gray-700 py-2 border-b last:border-b-0"
-                      >
-                        {/* <CheckCircleIcon className="w-6 h-6 text-green-500" /> */}
-                        {/* <span>{point}</span> */}
-                      </li>
-                    ))}
-                  </ul>
-                </section>
+                  <form className="space-y-4">
+                    <div>
+                      <label className="block text-gray-700 font-medium">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        placeholder="Enter your name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 font-medium">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        placeholder="Enter your email"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 font-medium">
+                        Phone
+                      </label>
+                      <input
+                        type="tel"
+                        className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        placeholder="Enter your phone number"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 font-medium">
+                        Message
+                      </label>
+                      <textarea
+                        className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        rows="4"
+                        placeholder="Your message"
+                      ></textarea>
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full bg-yellow-600 hover:bg-red-600 text-white py-2 rounded-lg transition"
+                    >
+                      Submit
+                    </button>
+                  </form>
+
+                  {/* Why Choose Us Section */}
+                  <section id="why-choose-us" className="mt-10">
+                    <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">
+                      Why Choose Us
+                    </h2>
+                    <ul className="space-y-3">
+                      {whyChoosePoints.map((point, index) => (
+                        <li
+                          key={index}
+                          className="text-gray-700 text-base flex items-start"
+                        >
+                          {/* Uncomment below if using icons */}
+                          {/* <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" /> */}
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                </div>
               </div>
             </div>
+
             <div className="flex flex-col">
               {/* Sections */}
               <section
