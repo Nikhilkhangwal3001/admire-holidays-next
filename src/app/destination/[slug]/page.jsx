@@ -36,6 +36,8 @@ export default function ItineraryPage() {
   const [cardHolder, setCardHolder] = useState("");
   const [openIndex, setOpenIndex] = useState(null);
   const [galleryImages, setGalleryImages] = useState([]);
+  const [show, setShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [activeImage, setActiveImage] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [charLimit] = useState(300); // Adjust limit as needed
@@ -285,7 +287,7 @@ export default function ItineraryPage() {
             <section className="py-10  bg-white">
               <div className=" mx-auto px-4 py-8">
                 <h2 className="text-3xl font-bold  text-blue-900-600 mb-6 border-b-4 border-blue-900 inline-block">
-                   Trip Highlights
+                  Trip Highlights
                 </h2>
 
                 <ul className="list-disc list-inside text-red-800 space-y-2 text-lg">
@@ -297,29 +299,29 @@ export default function ItineraryPage() {
                 </ul>
               </div>
 
-              <div className="flex gap-6 mt-10 text-gray-800">
-                {/* Duration */}
-                <div>
+              {/* <div className="flex gap-6 mt-10 text-gray-800"> */}
+              {/* Duration */}
+              {/* <div>
                   <span className="text-sm font-semibold text-gray-600 border-b-2 border-red-500 pb-1 inline-block">
                     Duration
                   </span>
                   <div className="mt-2 text-lg font-medium">
                     {stateData.duration || "N/A"}
                   </div>
-                </div>
+                </div> */}
 
-                {/* Pricing */}
-                <div>
+              {/* Pricing */}
+              {/* <div>
                   <span className="text-sm font-semibold text-gray-600 border-b-2 border-yellow-500 pb-1 inline-block">
                     Pricing
                   </span>
                   <div className="mt-2 text-lg font-medium">
                     {stateData.pricing || "N/A"}
                   </div>
-                </div>
+                </div> */}
 
-                {/* Type */}
-                <div>
+              {/* Type */}
+              {/* <div>
                   <span className="text-sm font-semibold text-gray-600 border-b-2 border-blue-500 pb-1 inline-block">
                     Type
                   </span>
@@ -327,7 +329,7 @@ export default function ItineraryPage() {
                     {stateData.domestic_or_international || "N/A"}
                   </div>
                 </div>
-              </div>
+              </div> */}
               {/* Modal */}
               {selected && (
                 <div
@@ -356,16 +358,16 @@ export default function ItineraryPage() {
             <div className="flex mt-14 flex-wrap justify-between items-center p-4 ">
               <div className="flex space-x-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
                 <button
+                  onClick={() => setShow(!show)}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
+                >
+                  {show ? "Hide" : "Tour"} Details
+                </button>
+                <button
                   onClick={() => scrollToSection("itinerary")}
                   className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
                 >
                   Itinerary Detail
-                </button>
-                <button
-                  onClick={() => scrollToSection("meals")}
-                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                >
-                  Tour Details
                 </button>
                 <button
                   onClick={() => scrollToSection("inclusion")}
@@ -397,193 +399,15 @@ export default function ItineraryPage() {
                 >
                   Cancellation Policy
                 </button>
+                <button
+                  onClick={() => scrollToSection("term")}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
+                >
+                  Term & Conditions
+                </button>
               </div>
             </div>
-            <div
-              id="itinerary"
-              className="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6"
-            >
-              {/* Left Side - Trip Details */}
-              <div className="md:col-span-2 w-full">
-                <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6">
-                  Trip Itinerary
-                </h2>
-
-                {stateData.days_information?.length > 0 ? (
-                  stateData.days_information.map((day, index) => (
-                    <div
-                      key={index}
-                      className="mb-6 border-b border-gray-300 pb-4"
-                    >
-                      <button
-                        onClick={() => toggleFAQ(index)}
-                        className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow hover:bg-gray-200"
-                      >
-                        <h6 className="text-sm md:text-xl text-gray-900 font-medium">
-                          <span className="bg-red-600 p-2 rounded-lg text-white">
-                            Day {day.day}
-                          </span>{" "}
-                          : {day.title}
-                        </h6>
-                        <span className="text-gray-600 text-sm">
-                          {openIndex === index ? "▲" : "▼"}
-                        </span>
-                      </button>
-
-                      <div className=" rounded-lg shadow-lg">
-                        {(day.day === 2 || day.day === 4) && (
-                          <>
-                            {/* <h3 className="text-lg md:text-2xl font-bold text-center text-gray-900 uppercase mb-6 tracking-wide">
-                              🌍 Explore the Destination
-                            </h3> */}
-
-                            {images.length > 0 ? (
-                              <Swiper
-                                modules={[Navigation, Autoplay]}
-                                navigation
-                                autoplay={{
-                                  delay: 3000,
-                                  disableOnInteraction: false,
-                                }}
-                                spaceBetween={20}
-                                slidesPerView={1}
-                                className="w-full"
-                              >
-                                {images.map((img, index) => (
-                                  <SwiperSlide key={index}>
-                                    <div
-                                      className="relative mt-4 group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300"
-                                      onClick={() =>
-                                        setSelectedImage(
-                                          `https://admiredashboard.theholistay.in/${img}`
-                                        )
-                                      }
-                                    >
-                                      <Image
-                                        src={`https://admiredashboard.theholistay.in/${img}`}
-                                        alt={`Image ${index + 1}`}
-                                        width={300}
-                                        height={200}
-                                        className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                                      />
-                                      <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-                                        <p className="text-white text-lg font-semibold">
-                                          🔍 View Image
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </SwiperSlide>
-                                ))}
-                              </Swiper>
-                            ) : (
-                              <p className="text-gray-500 text-center mt-6 italic">
-                                No Additional Images Available
-                              </p>
-                            )}
-                          </>
-                        )}
-                      </div>
-
-                      {openIndex === index && (
-                        <div className="p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow mt-2">
-                          <p className="text-gray-700">
-                            <strong>Destination:</strong>{" "}
-                            {day.detail ? (
-                              <span
-                                dangerouslySetInnerHTML={{ __html: day.detail }}
-                              />
-                            ) : (
-                              "No description available"
-                            )}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-gray-600">No itinerary available</p>
-                )}
-              </div>
-
-              {/* Right Side - Sticky Inquiry Form */}
-              <div className="md:sticky md:top-24 h-fit w-96">
-                <div className="bg-white shadow-lg p-6 rounded-lg border border-gray-300">
-                  <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">
-                    Inquiry Form
-                  </h2>
-                  <form className="space-y-4">
-                    <div>
-                      <label className="block text-gray-700 font-medium">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                        placeholder="Enter your name"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-700 font-medium">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                        placeholder="Enter your email"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-700 font-medium">
-                        Phone
-                      </label>
-                      <input
-                        type="tel"
-                        className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                        placeholder="Enter your phone number"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-700 font-medium">
-                        Message
-                      </label>
-                      <textarea
-                        className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                        rows="4"
-                        placeholder="Your message"
-                      ></textarea>
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full bg-yellow-600 hover:bg-red-600 text-white py-2 rounded-lg transition"
-                    >
-                      Submit
-                    </button>
-                  </form>
-
-                  {/* Why Choose Us Section */}
-                  <section id="why-choose-us" className="mt-10">
-                    <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">
-                      Why Choose Us
-                    </h2>
-                    <ul className="space-y-3">
-                      {whyChoosePoints.map((point, index) => (
-                        <li
-                          key={index}
-                          className="text-gray-700 text-base flex items-start"
-                        >
-                          {/* Uncomment below if using icons */}
-                          {/* <CheckCircleIcon className="w-5 h-5 text-green-500 mr-2" /> */}
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col">
-              {/* Sections */}
+            {show && (
               <section
                 id="meals"
                 className="flex justify-center items-center px-4 py-16 bg-white"
@@ -609,8 +433,63 @@ export default function ItineraryPage() {
                       <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
                         Pricing
                       </h4>
-                      <p className="text-base">{stateData.pricing || "N/A"}</p>
+                      <p
+                        onClick={() => setShowModal(true)}
+                        className="text-base border-2 border-red-600 text-center text-white cursor-pointer p-1 rounded-lg bg-yellow-600"
+                      >
+                        {stateData.pricing || "N/A"}
+                      </p>
                     </div>
+                    {/* Modal */}
+                    {showModal && (
+                      <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+                        <div className="bg-white w-full max-w-md mx-auto p-6 rounded-lg shadow-lg relative">
+                          {/* Close Button */}
+                          <button
+                            onClick={() => setShowModal(false)}
+                            className="absolute top-2 right-3 text-2xl text-gray-600 hover:text-red-500"
+                          >
+                            &times;
+                          </button>
+
+                          {/* Form Heading */}
+                          <h2 className="text-xl font-semibold mb-4 text-center">
+                            Enquiry Form
+                          </h2>
+
+                          {/* Form */}
+                          <form className="space-y-4">
+                            <input
+                              type="text"
+                              placeholder="Your Name"
+                              className="w-full border border-gray-300 rounded px-3 py-2"
+                            />
+                            <input
+                              type="email"
+                              placeholder="Your Email"
+                              className="w-full border border-gray-300 rounded px-3 py-2"
+                            />
+                            <input
+                              type="tel"
+                              placeholder="Phone Number"
+                              className="w-full border border-gray-300 rounded px-3 py-2"
+                            />
+                            <textarea
+                              placeholder="Your Message"
+                              className="w-full border border-gray-300 rounded px-3 py-2"
+                              rows="4"
+                            ></textarea>
+
+                            <button
+                              type="submit"
+                              className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300"
+                            >
+                              Submit
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    )}
 
                     {/* Type */}
                     <div>
@@ -624,123 +503,287 @@ export default function ItineraryPage() {
                   </div>
 
                   {/* Description */}
-                  <div className="border-t border-gray-200 pt-8">
-                    <h4 className="text-2xl font-semibold text-gray-900 mb-4">
-                      Description
-                    </h4>
-                    <div className="text-gray-700 leading-relaxed text-base md:text-lg">
-                      {stateData.destination_detail ? (
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: stateData.destination_detail,
-                          }}
-                        />
-                      ) : (
-                        <span className="text-gray-500 italic">
-                          No description available
-                        </span>
-                      )}
-                    </div>
+                  {/* <div className="border-t border-gray-200 pt-8">
+                  <h4 className="text-2xl font-semibold text-gray-900 mb-4">
+                    Description
+                  </h4>
+                  <div className="text-gray-700 leading-relaxed text-base md:text-lg">
+                    {stateData.destination_detail ? (
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: stateData.destination_detail,
+                        }}
+                      />
+                    ) : (
+                      <span className="text-gray-500 italic">
+                        No description available
+                      </span>
+                    )}
                   </div>
+                </div> */}
                 </div>
               </section>
-
-              <section className="flex flex-col p-6 sm:p-10 bg-gray-100">
-                <div className="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl border-t-8 border-yellow-500">
-                  {/* Main Heading */}
-                  <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-8 border-b-4 pb-4 border-red-300">
-                    Important Information
-                  </h3>
-
-                  {/* Terms & Conditions */}
-                  <div className="p-6 sm:p-8 rounded-2xl shadow-lg border-l-8 border-red-400 transition-transform hover:scale-[1.02] mb-8 bg-white">
-                    <h4 className="text-xl md:text-2xl font-semibold text-red-700 mb-4 border-b-2 pb-3 border-red-300">
-                      Terms & Conditions
-                    </h4>
-                    <p className="text-gray-800 leading-relaxed text-sm md:text-base">
-                      {stateData.terms_and_conditions ? (
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: stateData.terms_and_conditions,
-                          }}
-                        />
-                      ) : (
-                        <span className="text-gray-500 italic">
-                          No description available
-                        </span>
-                      )}
-                    </p>
-                  </div>
-
-                  {/* Special Note */}
-                  <div className="p-6 sm:p-8 bg-yellow-50 rounded-2xl shadow-lg border-l-8 border-yellow-400 transition-transform hover:scale-[1.02]">
-                    <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
-                      Special Note
-                    </h4>
-                    <p className="text-gray-800 leading-relaxed text-sm md:text-base">
-                      {stateData.special_note ? (
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: stateData.special_note,
-                          }}
-                        />
-                      ) : (
-                        <span className="text-gray-500 italic">
-                          No description available
-                        </span>
-                      )}
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              <section id="tour-info" className="px-4 py-16 bg-gray-100">
-                <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
-                  Tour Inclusions & Exclusions
+            )}
+            <div
+              id="itinerary"
+              className="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6"
+            >
+              {/* Left Side - Trip Details */}
+              <div className="md:col-span-2 w-full">
+                <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6">
+                  Trip Itinerary
                 </h2>
 
-                {/* Inclusion and Exclusion Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                  {/* Inclusion */}
-                  <div className="bg-white rounded-xl shadow-md p-8 transition hover:shadow-lg">
-                    <h3 className="text-2xl font-semibold text-green-600 mb-4">
-                      Inclusion
-                    </h3>
-                    <div className="text-gray-700 leading-relaxed text-justify text-base">
-                      {stateData.inclusion ? (
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: stateData.inclusion,
-                          }}
-                        />
-                      ) : (
-                        <span className="text-gray-500 italic">
-                          No description available
+                {stateData.days_information?.length > 0 ? (
+                  stateData.days_information.map((day, index) => (
+                    <div
+                      key={index}
+                      className="mb-6 border-b border-gray-300 pb-4"
+                    >
+                      {/* Accordion Button */}
+                      <button
+                        onClick={() => toggleFAQ(index)}
+                        className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow hover:bg-gray-200"
+                      >
+                        <h6 className="text-sm md:text-xl text-gray-900 font-medium">
+                          <span className="bg-red-600 p-2 rounded-lg text-white">
+                            Day {day.day}
+                          </span>{" "}
+                          : {day.title}
+                        </h6>
+                        <span className="text-gray-600 text-sm">
+                          {openIndex === index ? "▲" : "▼"}
                         </span>
-                      )}
-                    </div>
-                  </div>
+                      </button>
 
-                  {/* Exclusion */}
-                  <div className="bg-white rounded-xl shadow-md p-8 transition hover:shadow-lg">
-                    <h3 className="text-2xl font-semibold text-red-600 mb-4">
-                      Exclusion
-                    </h3>
-                    <div className="text-gray-700 leading-relaxed text-justify text-base">
-                      {stateData.exclusion ? (
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: stateData.exclusion,
-                          }}
-                        />
-                      ) : (
-                        <span className="text-gray-500 italic">
-                          No description available
-                        </span>
+                      {/* Show Detail + Images only when open */}
+                      {openIndex === index && (
+                        <>
+                          {/* Detail Text */}
+                          <div className="p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow mt-4">
+                            <p className="text-gray-700">
+                              <strong>Destination:</strong>{" "}
+                              {day.detail ? (
+                                <span
+                                  dangerouslySetInnerHTML={{
+                                    __html: day.detail,
+                                  }}
+                                />
+                              ) : (
+                                "No description available"
+                              )}
+                            </p>
+                          </div>
+
+                          {/* Image Slider */}
+                          <div className="rounded-lg shadow-lg mt-4">
+                            {images.length > 0 ? (
+                              <Swiper
+                                modules={[Navigation, Autoplay]}
+                                navigation
+                                autoplay={{
+                                  delay: 3000,
+                                  disableOnInteraction: false,
+                                }}
+                                spaceBetween={20}
+                                slidesPerView={1}
+                                className="w-full"
+                              >
+                                {images.map((img, imgIndex) => (
+                                  <SwiperSlide key={imgIndex}>
+                                    <div
+                                      className="relative group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300"
+                                      onClick={() =>
+                                        setSelectedImage(
+                                          `https://admiredashboard.theholistay.in/${img}`
+                                        )
+                                      }
+                                    >
+                                      <Image
+                                        src={`https://admiredashboard.theholistay.in/${img}`}
+                                        alt={`Image ${imgIndex + 1}`}
+                                        width={300}
+                                        height={200}
+                                        className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                                      />
+                                      <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
+                                        <p className="text-white text-lg font-semibold">
+                                          🔍 View Image
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </SwiperSlide>
+                                ))}
+                              </Swiper>
+                            ) : (
+                              <p className="text-gray-500 text-center mt-6 italic">
+                                No Additional Images Available
+                              </p>
+                            )}
+                          </div>
+                        </>
                       )}
                     </div>
-                  </div>
+                  ))
+                ) : (
+                  <p className="text-gray-600">No itinerary available</p>
+                )}
+              </div>
+
+              {/* Right Side - Sticky Inquiry Form */}
+              <div className="md:sticky md:top-24 h-fit w-full md:w-80 space-y-6">
+                {/* Inquiry Form Box */}
+                <div className="bg-white shadow p-4 rounded-lg border border-gray-300">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-3 text-center">
+                    Inquiry Form
+                  </h2>
+                  <form className="space-y-3">
+                    <div>
+                      <label className="block text-gray-700 text-sm font-medium">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        className="w-full p-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        placeholder="Your name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 text-sm font-medium">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        className="w-full p-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        placeholder="you@example.com"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 text-sm font-medium">
+                        Phone
+                      </label>
+                      <input
+                        type="tel"
+                        className="w-full p-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        placeholder="1234567890"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 text-sm font-medium">
+                        Message
+                      </label>
+                      <textarea
+                        rows="3"
+                        className="w-full p-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                        placeholder="Your message"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full bg-yellow-600 hover:bg-red-600 text-white py-1.5 rounded-md text-sm transition"
+                    >
+                      Submit
+                    </button>
+                  </form>
                 </div>
+
+                {/* Why Choose Us Box */}
+                <div className="bg-white shadow p-4 rounded-lg border border-gray-300">
+                  <h2 className="text-lg font-semibold text-gray-900 mb-3 text-center">
+                    Why Choose Us
+                  </h2>
+                  <ul className="space-y-2 list-disc pl-5 text-gray-700 text-sm">
+                    {whyChoosePoints.map((point, index) => (
+                      <li key={index}>{point}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col">
+              {/* Hotel Details */}
+              <div className="p-6 sm:p-8 bg-gray-100 rounded-2xl shadow-lg mb-8 border-l-8 border-yellow-400 transition-transform hover:scale-[1.02]">
+                <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
+                  Hotel Details
+                </h4>
+                <p className="text-gray-800 leading-relaxed text-sm md:text-base">
+                  {stateData.hotel_details ? (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: stateData.hotel_details,
+                      }}
+                    />
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
+              </div>
+              <section id="tour-info" className="px-4 py-16 bg-gray-100">
+                <section
+                  id="inclusion"
+                  className="px-4 py-16 bg-gradient-to-b from-gray-50 to-gray-100"
+                >
+                  <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-14">
+                    Tour Inclusions & Exclusions
+                  </h2>
+
+                  <div  className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    {/* Inclusion Card */}
+                    <div className="relative bg-white border-l-8 border-green-500 rounded-2xl shadow-md hover:shadow-xl transition p-6">
+                      <div className="absolute -top-5 left-5 bg-green-500 text-white px-3 py-1 rounded-md text-xs font-semibold shadow">
+                        Included
+                      </div>
+                      <div className="flex items-center mb-4">
+                        <span className="text-green-600 text-3xl mr-3">✅</span>
+                        <h3 className="text-xl font-semibold text-gray-800">
+                          What’s Included
+                        </h3>
+                      </div>
+                      <div className="text-gray-700 text-sm leading-relaxed text-justify">
+                        {stateData.inclusion ? (
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: stateData.inclusion,
+                            }}
+                          />
+                        ) : (
+                          <span className="text-gray-500 italic">
+                            No description available
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Exclusion Card */}
+                    <div className="relative bg-white border-l-8 border-red-500 rounded-2xl shadow-md hover:shadow-xl transition p-6">
+                      <div className="absolute -top-5 left-5 bg-red-500 text-white px-3 py-1 rounded-md text-xs font-semibold shadow">
+                        Exclusion
+                      </div>
+                      <div className="flex items-center mb-4">
+                        <span className="text-red-600 text-3xl mr-3">❌</span>
+                        <h3 className="text-xl font-semibold text-gray-800">
+                          What’s Exclusion
+                        </h3>
+                      </div>
+                      <div className="text-gray-700 text-sm leading-relaxed text-justify">
+                        {stateData.exclusion ? (
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: stateData.exclusion,
+                            }}
+                          />
+                        ) : (
+                          <span className="text-gray-500 italic">
+                            No description available
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </section>
 
                 {/* Additional Inclusion */}
                 <div className="bg-white rounded-xl shadow-md p-8 mb-8 transition hover:shadow-lg max-w-9xl mx-auto">
@@ -763,7 +806,7 @@ export default function ItineraryPage() {
                 </div>
 
                 {/* Additional Details */}
-                <div className="bg-white rounded-xl shadow-md p-8 transition hover:shadow-lg max-w-9xl mx-auto">
+                {/* <div className="bg-white rounded-xl shadow-md p-8 transition hover:shadow-lg max-w-9xl mx-auto">
                   <h3 className="text-2xl font-semibold text-blue-600 mb-4">
                     Additional Details
                   </h3>
@@ -780,7 +823,7 @@ export default function ItineraryPage() {
                       </span>
                     )}
                   </div>
-                </div>
+                </div> */}
               </section>
 
               <section
@@ -792,26 +835,6 @@ export default function ItineraryPage() {
                   <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-8 text-center border-b-4 pb-4 border-indigo-300">
                     Accommodation Information
                   </h3>
-
-                  {/* Hotel Details */}
-                  <div className="p-6 sm:p-8 bg-gray-100 rounded-2xl shadow-lg mb-8 border-l-8 border-yellow-400 transition-transform hover:scale-[1.02]">
-                    <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
-                      Hotel Details
-                    </h4>
-                    <p className="text-gray-800 leading-relaxed text-sm md:text-base">
-                      {stateData.hotel_details ? (
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: stateData.hotel_details,
-                          }}
-                        />
-                      ) : (
-                        <span className="text-gray-500 italic">
-                          No description available
-                        </span>
-                      )}
-                    </p>
-                  </div>
 
                   {/* Status Flag */}
                   <div className="p-6 sm:p-8 bg-gray-100 rounded-2xl shadow-lg border-l-8 border-red-400 transition-transform hover:scale-[1.02]">
@@ -894,17 +917,55 @@ export default function ItineraryPage() {
                   </p>
                 </div>
               </section>
-            </div>
+              <section id="term" className="flex flex-col p-6 sm:p-10 bg-gray-100">
+                <div className="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl border-t-8 border-yellow-500">
+                  {/* Main Heading */}
+                  <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-8 border-b-4 pb-4 border-red-300">
+                    Important Information
+                  </h3>
 
-            {/* <div className="mt-6">
-              <Link
-                href={`/destination/${stateData.selected_destination || ""}`}
-              >
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                  Explore More
-                </button>
-              </Link>
-            </div> */}
+                  {/* Terms & Conditions */}
+                  <div className="p-6 sm:p-8 rounded-2xl shadow-lg border-l-8 border-red-400 transition-transform hover:scale-[1.02] mb-8 bg-white">
+                    <h4 className="text-xl md:text-2xl font-semibold text-red-700 mb-4 border-b-2 pb-3 border-red-300">
+                      Terms & Conditions
+                    </h4>
+                    <p className="text-gray-800 leading-relaxed text-sm md:text-base">
+                      {stateData.terms_and_conditions ? (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: stateData.terms_and_conditions,
+                          }}
+                        />
+                      ) : (
+                        <span className="text-gray-500 italic">
+                          No description available
+                        </span>
+                      )}
+                    </p>
+                  </div>
+
+                  {/* Special Note */}
+                  <div className="p-6 sm:p-8 bg-yellow-50 rounded-2xl shadow-lg border-l-8 border-yellow-400 transition-transform hover:scale-[1.02]">
+                    <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
+                      Special Note
+                    </h4>
+                    <p className="text-gray-800 leading-relaxed text-sm md:text-base">
+                      {stateData.special_note ? (
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: stateData.special_note,
+                          }}
+                        />
+                      ) : (
+                        <span className="text-gray-500 italic">
+                          No description available
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </section>
+            </div>
           </div>
         ) : (
           <p className="text-center text-gray-500">
