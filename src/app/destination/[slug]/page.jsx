@@ -9,7 +9,7 @@ import Gallery from "@/app/detailpage.jsx/gallery";
 import axios from "axios";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import { CheckCircleIcon } from "@heroicons/react/solid";
+import triphighlight from "@/app/detailpage.jsx/triphighlight";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -22,6 +22,8 @@ import {
 
 export default function ItineraryPage() {
   const { slug } = useParams();
+  const [selected, setSelected] = useState(null);
+  const handleClose = () => setSelected(null);
   const [loading, setLoading] = useState(false);
   const [stateData, setStateData] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
@@ -35,6 +37,8 @@ export default function ItineraryPage() {
   const [openIndex, setOpenIndex] = useState(null);
   const [galleryImages, setGalleryImages] = useState([]);
   const [activeImage, setActiveImage] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [charLimit] = useState(300); // Adjust limit as needed
   const baseUrl = "https://admiredashboard.theholistay.in/";
 
   useEffect(() => {
@@ -83,7 +87,11 @@ export default function ItineraryPage() {
     }
     setLoading(false);
   };
+  const toggleExpand = () => setIsExpanded(!isExpanded);
 
+  // Fallback if stateData is null or undefined
+  const fullContent = stateData?.destination_detail || '';
+  const shortContent = fullContent.slice(0, charLimit);
   const fetchVideo = async (slug) => {
     try {
       const response = await axios.get(
@@ -147,6 +155,29 @@ export default function ItineraryPage() {
     "Trusted by Thousands of Happy Clients",
     "Fast and Secure Processing",
     "100% Transparency in Work",
+  ];
+
+  const highlights = [
+    {
+      title: "Mountains",
+      img: "/images/mountain.jpg",
+      desc: "Adventure in the snowy mountains.",
+    },
+    {
+      title: "Beach",
+      img: "/images/beach.jpg",
+      desc: "Relaxing vibes by the sea.",
+    },
+    {
+      title: "City",
+      img: "/images/city.jpg",
+      desc: "Nightlife and skyscrapers.",
+    },
+    {
+      title: "Forest",
+      img: "/images/forest.jpg",
+      desc: "Green peaceful escape.",
+    },
   ];
 
   return (
@@ -256,21 +287,79 @@ export default function ItineraryPage() {
                   🌍 Destination Overview
                 </h3>
                 <p className="md:text-lg text-sm text-gray-700 leading-relaxed">
-                  {stateData.destination_detail ? (
-                    <span
-                      className="text-gray-800"
-                      dangerouslySetInnerHTML={{
-                        __html: stateData.destination_detail,
-                      }}
-                    />
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
+        {fullContent ? (
+          <>
+            <span
+              className="text-gray-800"
+              dangerouslySetInnerHTML={{
+                __html: isExpanded ? fullContent : `${shortContent}...`,
+              }}
+            />
+            {fullContent.length > charLimit && (
+              <button
+                onClick={toggleExpand}
+                className="ml-2 text-blue-600 font-semibold hover:underline focus:outline-none"
+              >
+                {isExpanded ? 'Read Less' : 'Read More'}
+              </button>
+            )}
+          </>
+        ) : (
+          <span className="text-gray-500 italic">No description available</span>
+        )}
+      </p>
+                
               </div>
             </div>
+            <section className="py-10 text-center bg-white">
+              <div className="max-w-5xl mx-auto px-4">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                  Trip Highlights
+                </h2>
+                <div className="flex gap-6 justify-center overflow-x-auto no-scrollbar">
+                  {highlights.map((item, i) => (
+                    <div key={i} className="flex flex-col items-center">
+                      <div
+                        onClick={() => setSelected(item)}
+                        className="w-24 h-24 relative rounded-full border-4 border-pink-500 p-1 cursor-pointer hover:scale-105 transition-transform"
+                      >
+                        <Image
+                          src={item.img}
+                          alt={item.title}
+                          fill
+                          className="rounded-full object-cover"
+                        />
+                      </div>
+                      <p className="mt-2 text-sm text-gray-700">{item.title}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Modal */}
+              {selected && (
+                <div
+                  className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+                  onClick={handleClose}
+                >
+                  <div
+                    className="bg-white rounded-xl max-w-md p-6 text-center"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="w-full h-64 relative mb-4 rounded-xl overflow-hidden">
+                      <Image
+                        src={selected.img}
+                        alt={selected.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">{selected.title}</h3>
+                    <p className="text-gray-600">{selected.desc}</p>
+                  </div>
+                </div>
+              )}
+            </section>
             {/* Horizontal Filter */}
             <div className="flex mt-14 flex-wrap justify-between items-center p-4 ">
               <div className="flex space-x-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
@@ -425,7 +514,7 @@ export default function ItineraryPage() {
               </div>
 
               {/* Right Side - Sticky Inquiry Form */}
-              <div className="md:sticky md:top-24 h-fit w-full">
+              <div className="md:sticky md:top-24 h-fit w-96">
                 <div className="bg-white shadow-lg p-6 rounded-lg border border-gray-300">
                   <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">
                     Inquiry Form
@@ -702,28 +791,7 @@ export default function ItineraryPage() {
                 </div>
               </section>
 
-              {/* Exclusion Section */}
-              {/* <section id="exclusion" className=" flex flex-col  px-4 py-10 ">
-                <div className=" p-6 bg-white rounded-lg shadow-lg">
-                  <h4 className="md:text-2xl text-xl font-semibold text-red-600 mb-3">
-                    ❌ Exclusion
-                  </h4>
-                  <p className="text-gray-700 leading-relaxed">
-                    {stateData.exclusion ? (
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: stateData.exclusion,
-                        }}
-                      />
-                    ) : (
-                      <span className="text-gray-500 italic">
-                        No description available
-                      </span>
-                    )}
-                  </p>
-                </div>
-              </section> */}
-              {/* Accommodation Section */}
+
               <section
                 id="accommodation"
                 className="flex flex-col px-4 py-10 bg-gray-50"
