@@ -90,7 +90,7 @@ export default function ItineraryPage() {
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
   // Fallback if stateData is null or undefined
-  const fullContent = stateData?.destination_detail || '';
+  const fullContent = stateData?.destination_detail || "";
   const shortContent = fullContent.slice(0, charLimit);
   const fetchVideo = async (slug) => {
     try {
@@ -193,38 +193,6 @@ export default function ItineraryPage() {
 
         {stateData ? (
           <div className="">
-            {/* <div className="flex gap-6 text-gray-800"> */}
-            {/* Duration */}
-            {/* <div>
-                <span className="text-sm font-semibold text-gray-600 border-b-2 border-red-500 pb-1 inline-block">
-                  Duration
-                </span>
-                <div className="mt-2 text-lg font-medium">
-                  {stateData.duration || "N/A"}
-                </div>
-              </div> */}
-
-            {/* Pricing */}
-            {/* <div>
-                <span className="text-sm font-semibold text-gray-600 border-b-2 border-yellow-500 pb-1 inline-block">
-                  Pricing
-                </span>
-                <div className="mt-2 text-lg font-medium">
-                  {stateData.pricing || "N/A"}
-                </div>
-              </div> */}
-
-            {/* Type */}
-            {/* <div>
-                <span className="text-sm font-semibold text-gray-600 border-b-2 border-blue-500 pb-1 inline-block">
-                  Type
-                </span>
-                <div className="mt-2 text-lg font-medium">
-                  {stateData.domestic_or_international || "N/A"}
-                </div>
-              </div> */}
-            {/* </div> */}
-
             <h2 className="md:text-2xl text-xl   font-extrabold text-gray-900 text-center capitalize mb-8 tracking-wide relative">
               <span className="text-red-600">
                 Explore the Beauty of Destination
@@ -287,55 +255,79 @@ export default function ItineraryPage() {
                   🌍 Destination Overview
                 </h3>
                 <p className="md:text-lg text-sm text-gray-700 leading-relaxed">
-        {fullContent ? (
-          <>
-            <span
-              className="text-gray-800"
-              dangerouslySetInnerHTML={{
-                __html: isExpanded ? fullContent : `${shortContent}...`,
-              }}
-            />
-            {fullContent.length > charLimit && (
-              <button
-                onClick={toggleExpand}
-                className="ml-2 text-blue-600 font-semibold hover:underline focus:outline-none"
-              >
-                {isExpanded ? 'Read Less' : 'Read More'}
-              </button>
-            )}
-          </>
-        ) : (
-          <span className="text-gray-500 italic">No description available</span>
-        )}
-      </p>
-                
+                  {fullContent ? (
+                    <>
+                      <span
+                        className="text-gray-800"
+                        dangerouslySetInnerHTML={{
+                          __html: isExpanded
+                            ? fullContent
+                            : `${shortContent}...`,
+                        }}
+                      />
+                      {fullContent.length > charLimit && (
+                        <button
+                          onClick={toggleExpand}
+                          className="ml-2 text-red-600 border-2  border-gray-600 rounded-lg p-1 mt-2 font-semibold hover:underline focus:outline-none"
+                        >
+                          {isExpanded ? "Read Less" : "Read More"}
+                        </button>
+                      )}
+                    </>
+                  ) : (
+                    <span className="text-gray-500 italic">
+                      No description available
+                    </span>
+                  )}
+                </p>
               </div>
             </div>
-            <section className="py-10 text-center bg-white">
-              <div className="max-w-5xl mx-auto px-4">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                  Trip Highlights
+            <section className="py-10  bg-white">
+              <div className=" mx-auto px-4 py-8">
+                <h2 className="text-3xl font-bold  text-blue-900-600 mb-6 border-b-4 border-blue-900 inline-block">
+                   Trip Highlights
                 </h2>
-                <div className="flex gap-6 justify-center overflow-x-auto no-scrollbar">
-                  {highlights.map((item, i) => (
-                    <div key={i} className="flex flex-col items-center">
-                      <div
-                        onClick={() => setSelected(item)}
-                        className="w-24 h-24 relative rounded-full border-4 border-pink-500 p-1 cursor-pointer hover:scale-105 transition-transform"
-                      >
-                        <Image
-                          src={item.img}
-                          alt={item.title}
-                          fill
-                          className="rounded-full object-cover"
-                        />
-                      </div>
-                      <p className="mt-2 text-sm text-gray-700">{item.title}</p>
-                    </div>
-                  ))}
-                </div>
+
+                <ul className="list-disc list-inside text-red-800 space-y-2 text-lg">
+                  <li>Explore breathtaking landscapes and scenic routes</li>
+                  <li>Enjoy local cuisine and cultural experiences</li>
+                  <li>Stay in top-rated accommodations</li>
+                  <li>Guided tours by experienced professionals</li>
+                  <li>Memorable activities and fun-filled adventures</li>
+                </ul>
               </div>
 
+              <div className="flex gap-6 mt-10 text-gray-800">
+                {/* Duration */}
+                <div>
+                  <span className="text-sm font-semibold text-gray-600 border-b-2 border-red-500 pb-1 inline-block">
+                    Duration
+                  </span>
+                  <div className="mt-2 text-lg font-medium">
+                    {stateData.duration || "N/A"}
+                  </div>
+                </div>
+
+                {/* Pricing */}
+                <div>
+                  <span className="text-sm font-semibold text-gray-600 border-b-2 border-yellow-500 pb-1 inline-block">
+                    Pricing
+                  </span>
+                  <div className="mt-2 text-lg font-medium">
+                    {stateData.pricing || "N/A"}
+                  </div>
+                </div>
+
+                {/* Type */}
+                <div>
+                  <span className="text-sm font-semibold text-gray-600 border-b-2 border-blue-500 pb-1 inline-block">
+                    Type
+                  </span>
+                  <div className="mt-2 text-lg font-medium">
+                    {stateData.domestic_or_international || "N/A"}
+                  </div>
+                </div>
+              </div>
               {/* Modal */}
               {selected && (
                 <div
@@ -438,12 +430,12 @@ export default function ItineraryPage() {
                         </span>
                       </button>
 
-                      <div className="p-4 md:p-8 rounded-lg shadow-lg">
+                      <div className=" rounded-lg shadow-lg">
                         {(day.day === 2 || day.day === 4) && (
                           <>
-                            <h3 className="text-lg md:text-2xl font-bold text-center text-gray-900 uppercase mb-6 tracking-wide">
+                            {/* <h3 className="text-lg md:text-2xl font-bold text-center text-gray-900 uppercase mb-6 tracking-wide">
                               🌍 Explore the Destination
-                            </h3>
+                            </h3> */}
 
                             {images.length > 0 ? (
                               <Swiper
@@ -460,7 +452,7 @@ export default function ItineraryPage() {
                                 {images.map((img, index) => (
                                   <SwiperSlide key={index}>
                                     <div
-                                      className="relative group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300"
+                                      className="relative mt-4 group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300"
                                       onClick={() =>
                                         setSelectedImage(
                                           `https://admiredashboard.theholistay.in/${img}`
@@ -790,7 +782,6 @@ export default function ItineraryPage() {
                   </div>
                 </div>
               </section>
-
 
               <section
                 id="accommodation"
