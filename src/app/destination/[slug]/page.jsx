@@ -702,25 +702,6 @@ export default function ItineraryPage() {
             </div>
 
             <div className="flex flex-col">
-              {/* Hotel Details */}
-              <div className="p-6 sm:p-8 bg-gray-100 rounded-2xl shadow-lg mb-8 border-l-8 border-yellow-400 transition-transform hover:scale-[1.02]">
-                <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
-                  Hotel Details
-                </h4>
-                <p className="text-gray-800 leading-relaxed text-sm md:text-base">
-                  {stateData.hotel_details ? (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: stateData.hotel_details,
-                      }}
-                    />
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
-              </div>
               <section id="tour-info" className="px-4 py-16 bg-gray-100">
                 <section
                   id="inclusion"
@@ -730,7 +711,7 @@ export default function ItineraryPage() {
                     Tour Inclusions & Exclusions
                   </h2>
 
-                  <div  className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     {/* Inclusion Card */}
                     <div className="relative bg-white border-l-8 border-green-500 rounded-2xl shadow-md hover:shadow-xl transition p-6">
                       <div className="absolute -top-5 left-5 bg-green-500 text-white px-3 py-1 rounded-md text-xs font-semibold shadow">
@@ -836,16 +817,16 @@ export default function ItineraryPage() {
                     Accommodation Information
                   </h3>
 
-                  {/* Status Flag */}
-                  <div className="p-6 sm:p-8 bg-gray-100 rounded-2xl shadow-lg border-l-8 border-red-400 transition-transform hover:scale-[1.02]">
-                    <h4 className="text-xl md:text-2xl font-semibold text-red-700 mb-4 border-b-2 pb-3 border-red-300">
-                      Status Flag
+                  {/* Hotel Details */}
+                  <div className="p-6 sm:p-8 bg-gray-100 rounded-2xl shadow-lg mb-8 border-l-8 border-yellow-400 transition-transform hover:scale-[1.02]">
+                    <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
+                      Hotel Details
                     </h4>
                     <p className="text-gray-800 leading-relaxed text-sm md:text-base">
-                      {stateData.status_flags ? (
+                      {stateData.hotel_details ? (
                         <span
                           dangerouslySetInnerHTML={{
-                            __html: stateData.status_flags,
+                            __html: stateData.hotel_details,
                           }}
                         />
                       ) : (
@@ -917,7 +898,10 @@ export default function ItineraryPage() {
                   </p>
                 </div>
               </section>
-              <section id="term" className="flex flex-col p-6 sm:p-10 bg-gray-100">
+              <section
+                id="term"
+                className="flex flex-col p-6 sm:p-10 bg-gray-100"
+              >
                 <div className="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl border-t-8 border-yellow-500">
                   {/* Main Heading */}
                   <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-8 border-b-4 pb-4 border-red-300">
@@ -944,25 +928,20 @@ export default function ItineraryPage() {
                     </p>
                   </div>
 
-                  {/* Special Note */}
-                  <div className="p-6 sm:p-8 bg-yellow-50 rounded-2xl shadow-lg border-l-8 border-yellow-400 transition-transform hover:scale-[1.02]">
-                    <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
-                      Special Note
-                    </h4>
-                    <p className="text-gray-800 leading-relaxed text-sm md:text-base">
-                      {stateData.special_note ? (
+                  {stateData.special_note && (
+                    <div className="p-6 sm:p-8 bg-yellow-50 rounded-2xl shadow-lg border-l-8 border-yellow-400 transition-transform hover:scale-[1.02]">
+                      <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
+                        Special Note
+                      </h4>
+                      <p className="text-gray-800 leading-relaxed text-sm md:text-base">
                         <span
                           dangerouslySetInnerHTML={{
                             __html: stateData.special_note,
                           }}
                         />
-                      ) : (
-                        <span className="text-gray-500 italic">
-                          No description available
-                        </span>
-                      )}
-                    </p>
-                  </div>
+                      </p>
+                    </div>
+                  )}
                 </div>
               </section>
             </div>
