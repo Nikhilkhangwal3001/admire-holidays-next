@@ -27,7 +27,7 @@ export default function GalleryWithModal() {
   };
 
   return (
-    <section className="px-4 py-16 bg-gray-100">
+    <section className="px-4 py-16 mt-14 bg-gray-100">
       <div className="max-w-6xl mx-auto text-center mb-12">
         <h2 className="text-4xl font-bold text-gray-800 mb-4">Gallery</h2>
         <p className="text-gray-600 text-lg">Click on a topic to explore images</p>
