@@ -1,147 +1,147 @@
-"use client";
+'use client';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import { X, ArrowLeft, ArrowRight } from "lucide-react";
-import Videotest from "@/app/Videotestimonial/Videotest";
+const images = [
+  { src: '/1.png', title: 'Destination' },
+  { src: '/2.png', title: 'Hotels' },
+  { src: '/3.png', title: 'Transport' },
+  { src: '/4.png', title: 'Food' },
+  { src: '/5.png', title: 'Culture' },
+  { src: '/6.png', title: 'Adventure' },
+];
 
-export default function Testimonials() {
-  const [galleryImages, setGalleryImages] = useState([]);
+function shuffleArray(array) {
+  return [...array].sort(() => Math.random() - 0.5);
+}
+
+export default function GalleryWithModal() {
   const [shuffledImages, setShuffledImages] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
-    fetch("https://admiredashboard.theholistay.in/public-gallery-images")
-      .then((response) => response.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          const allImages = data.flatMap((item) =>
-            item.images.map(
-              (img) => `https://admiredashboard.theholistay.in/${img}`
-            )
-          );
-          setGalleryImages(allImages);
-        } else {
-          console.error("Unexpected API response format:", data);
-          setGalleryImages([]);
-        }
-      })
-      .catch((error) => console.error("Error fetching images:", error));
+    setShuffledImages(shuffleArray(images));
   }, []);
-
-  // Shuffle logic every 5 seconds
-  useEffect(() => {
-    if (galleryImages.length === 0) return;
-
-    const shuffle = () => {
-      const shuffled = [...galleryImages].sort(() => 0.5 - Math.random());
-      setShuffledImages(shuffled);
-    };
-
-    shuffle(); // initial shuffle
-    const interval = setInterval(shuffle, 5000); // every 5 seconds
-
-    return () => clearInterval(interval); // cleanup on unmount
-  }, [galleryImages]);
 
   const openModal = (index) => {
     setSelectedIndex(index);
-    setIsModalOpen(true);
+    setSelectedCategory(null); // Reset filter on open
   };
 
-  const handleNext = () => {
-    setSelectedIndex((prev) => (prev + 1) % shuffledImages.length);
+  const closeModal = () => {
+    setSelectedIndex(null);
+    setSelectedCategory(null);
   };
 
-  const handlePrev = () => {
-    setSelectedIndex(
-      (prev) => (prev - 1 + shuffledImages.length) % shuffledImages.length
-    );
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    const filtered = shuffledImages.filter((img) => img.title === category);
+    if (filtered.length > 0) {
+      const firstMatchIndex = shuffledImages.findIndex((img) => img.title === category);
+      setSelectedIndex(firstMatchIndex);
+    }
+  };
+
+  const filteredImages = selectedCategory
+    ? shuffledImages.filter((img) => img.title === selectedCategory)
+    : shuffledImages;
+
+  const showPrev = () => {
+    const current = filteredImages.findIndex((img) => img.src === shuffledImages[selectedIndex].src);
+    const prev = (current === 0 ? filteredImages.length - 1 : current - 1);
+    const actualIndex = shuffledImages.findIndex((img) => img.src === filteredImages[prev].src);
+    setSelectedIndex(actualIndex);
+  };
+
+  const showNext = () => {
+    const current = filteredImages.findIndex((img) => img.src === shuffledImages[selectedIndex].src);
+    const next = (current === filteredImages.length - 1 ? 0 : current + 1);
+    const actualIndex = shuffledImages.findIndex((img) => img.src === filteredImages[next].src);
+    setSelectedIndex(actualIndex);
   };
 
   return (
-    <section className="px-6 min-h-screen mt-20">
-      {/* <h2 className="text-4xl font-semibold text-[#CF1E27] text-center">
-        Your trusted partner in travel and tour experiences.
-      </h2> */}
+    <section className="px-4 py-16 bg-gray-100">
+      <div className="max-w-7xl mx-auto text-center mt-12 mb-12">
+        <h2 className="text-4xl font-bold text-gray-800 mb-4">Gallery</h2>
+        <p className="text-gray-600 text-lg">Click to view in full screen</p>
+      </div>
 
-      <section className="py-12 px-4 md:px-16 lg:px-32">
-        <h3 className="text-2xl md:text-3xl font-semibold text-center text-[#CF1E27] mb-8">
-          Explore Our Gallery
-        </h3>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-3">
-          {shuffledImages.slice(0, 7).map((image, index) => (
-            <div
-              key={index}
-              className="relative w-full aspect-square overflow-hidden rounded-md cursor-pointer group"
-              onClick={() => openModal(index)}
-            >
-              <Image
-                src={image}
-                alt={`Gallery Image ${index + 1}`}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-110"
-              />
-            </div>
-          ))}
-
-          {shuffledImages.length > 7 && (
-            <div
-              className="relative w-full aspect-square overflow-hidden rounded-md cursor-pointer group"
-              onClick={() => openModal(7)}
-            >
-              <Image
-                src={shuffledImages[7]}
-                alt="More Images"
-                fill
-                className="object-cover brightness-50 group-hover:scale-110 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 flex items-center justify-center text-white text-xl font-bold">
-                +{shuffledImages.length - 7} More
-              </div>
-            </div>
-          )}
-        </div>
-
-        {isModalOpen && selectedIndex !== null && (
-          <div className="fixed inset-0 bg-black bg-opacity-80 mt-20 flex justify-center items-center z-50 p-4">
-            <div className="relative max-w-3xl w-full">
-              <button
-                className="absolute top-4 right-4 text-white z-50"
-                onClick={() => setIsModalOpen(false)}
-              >
-                <X size={32} />
-              </button>
-
-              <Image
-                src={shuffledImages[selectedIndex]}
-                alt="Selected Image"
-                width={900}
-                height={600}
-                className="rounded-lg w-full max-h-[80vh] object-contain"
-              />
-
-              <button
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-black p-2 rounded-full shadow-md"
-                onClick={handlePrev}
-              >
-                <ArrowLeft size={24} />
-              </button>
-
-              <button
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-black p-2 rounded-full shadow-md"
-                onClick={handleNext}
-              >
-                <ArrowRight size={24} />
-              </button>
-            </div>
+      {/* Gallery Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {shuffledImages.map((item, index) => (
+          <div
+            key={index}
+            className="overflow-hidden rounded-2xl shadow-lg hover:shadow-xl cursor-pointer group"
+            onClick={() => openModal(index)}
+          >
+            <div className="bg-white text-center py-2 font-semibold text-gray-700">{item.title}</div>
+            <Image
+              src={item.src}
+              alt={`Gallery Image ${index + 1}`}
+              width={600}
+              height={400}
+              className="w-full h-52 object-cover transform group-hover:scale-105 transition-transform duration-300"
+            />
           </div>
-        )}
-      </section>
+        ))}
+      </div>
 
-      {/* <Videotest /> */}
+      {/* Modal */}
+      {selectedIndex !== null && (
+        <div className="fixed inset-0 mt-20 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center px-4">
+          {/* Close */}
+          <button
+            onClick={closeModal}
+            className="absolute top-6 right-6 text-white text-3xl font-bold hover:text-red-400"
+          >
+            &times;
+          </button>
+
+          {/* Filter Bar */}
+          <div className="flex flex-wrap gap-4 mb-6 justify-center">
+            {['Destination', 'Hotels', 'Transport', 'Food', 'Culture', 'Adventure'].map((cat) => (
+              <button
+                key={cat}
+                onClick={() => handleCategoryClick(cat)}
+                className={`px-4 py-2 rounded-full font-semibold transition ${
+                  selectedCategory === cat
+                    ? 'bg-white text-black shadow'
+                    : 'bg-gray-200 text-gray-700 hover:bg-white'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Navigation */}
+          <div className="relative max-w-4xl w-full">
+            <button
+              onClick={showPrev}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 text-white text-3xl font-bold hover:scale-110 z-10"
+            >
+              &#8592;
+            </button>
+
+            <Image
+              src={shuffledImages[selectedIndex].src}
+              alt="Full Image"
+              width={1000}
+              height={600}
+              className="w-full h-auto rounded-xl shadow-lg"
+            />
+
+            <button
+              onClick={showNext}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 text-white text-3xl font-bold hover:scale-110 z-10"
+            >
+              &#8594;
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

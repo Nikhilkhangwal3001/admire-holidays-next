@@ -30,7 +30,6 @@ export default function Testimonials() {
       .catch((error) => console.error("Error fetching images:", error));
   }, []);
 
-  // Shuffle logic every 5 seconds
   useEffect(() => {
     if (galleryImages.length === 0) return;
 
@@ -39,10 +38,10 @@ export default function Testimonials() {
       setShuffledImages(shuffled);
     };
 
-    shuffle(); // initial shuffle
-    const interval = setInterval(shuffle, 5000); // every 5 seconds
+    shuffle();
+    const interval = setInterval(shuffle, 5000);
 
-    return () => clearInterval(interval); // cleanup on unmount
+    return () => clearInterval(interval);
   }, [galleryImages]);
 
   const openModal = (index) => {
@@ -62,12 +61,12 @@ export default function Testimonials() {
 
   return (
     <section className="px-6 min-h-screen mt-32">
-      <h2 className="text-4xl font-semibold text-[#CF1E27] text-center">
+      <h2 className="md:text-2xl text-xl font-semibold text-[#CF1E27] text-center">
         Your trusted partner in travel and tour experiences.
       </h2>
 
       <section className="py-12 px-4 md:px-16 lg:px-32">
-        <h3 className="text-2xl md:text-3xl font-semibold text-center text-[#CF1E27] mb-8">
+        <h3 className="text-xl md:text-2xl font-semibold text-center text-[#CF1E27] mb-8">
           Explore Our Gallery
         </h3>
 
@@ -75,7 +74,7 @@ export default function Testimonials() {
           {shuffledImages.slice(0, 7).map((image, index) => (
             <div
               key={index}
-              className="relative w-full aspect-square overflow-hidden rounded-md cursor-pointer group"
+              className="relative w-[85%] mx-auto aspect-square overflow-hidden rounded-md cursor-pointer group"
               onClick={() => openModal(index)}
             >
               <Image
@@ -89,7 +88,7 @@ export default function Testimonials() {
 
           {shuffledImages.length > 7 && (
             <div
-              className="relative w-full aspect-square overflow-hidden rounded-md cursor-pointer group"
+              className="relative w-[85%] mx-auto aspect-square overflow-hidden rounded-md cursor-pointer group"
               onClick={() => openModal(7)}
             >
               <Image
