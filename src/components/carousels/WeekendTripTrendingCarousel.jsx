@@ -6,7 +6,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import axios from "axios";
 
-const API_URL = "https://admiredashboard.theholistay.in/public-weekend-trip-trending-destinations";
+const API_URL =
+  "https://admiredashboard.theholistay.in/public-weekend-trip-trending-destinations";
 
 const TrendingDestination = () => {
   const sliderContainer = useRef(null);
@@ -36,13 +37,17 @@ const TrendingDestination = () => {
   }, []);
 
   useEffect(() => {
-    if (sliderContainer.current && !keenSlider.current && destinations.length > 0) {
+    if (
+      sliderContainer.current &&
+      !keenSlider.current &&
+      destinations.length > 0
+    ) {
       keenSlider.current = new KeenSlider(sliderContainer.current, {
         loop: true,
-        slides: { perView: 1, spacing: 8 },
+        slides: { perView: 1, spacing: 16 },
         breakpoints: {
-          "(min-width: 768px)": { slides: { perView: 2 } },
-          "(min-width: 1024px)": { slides: { perView: 3 } },
+          "(min-width: 768px)": { slides: { perView: 2, spacing: 16 } },
+          "(min-width: 1024px)": { slides: { perView: 3, spacing: 24 } },
         },
       });
 
@@ -63,20 +68,22 @@ const TrendingDestination = () => {
 
   return (
     <section className="mt-28">
-      <div className="mx-auto relative max-w-[1340px] px-4 sm:px-6 lg:ps-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between mx-auto mb-4">
+      <div className="mx-auto relative max-w-[1340px] px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row items-center justify-between mx-auto mb-6">
           <h2 className="text-center text-[#261F43] md:text-5xl text-3xl font-bold sm:mb-0 flex-grow">
             Weekend Trip Trending Packages
           </h2>
         </div>
 
-        <div className="relative lg:col-span-2 lg:mx-0">
+        <div className="relative">
           <div ref={sliderContainer} className="keen-slider">
             {destinations.map((item) => (
-              <div className="keen-slider__slide" key={item.id}>
+              <div
+                className="keen-slider__slide p-2"
+                key={item.id}
+              >
                 <a
-                  className="w-full"
-                  key={item.id}
+                  className="block bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105"
                   href={`weekenddetail/${item.selected_destination}`}
                 >
                   <div className="relative w-full h-64">
@@ -87,7 +94,7 @@ const TrendingDestination = () => {
                       className="object-cover"
                     />
                   </div>
-                  <div className="bg-white py-4 text-center">
+                  <div className="p-4 text-center">
                     <h3 className="text-lg md:text-xl font-semibold text-[#261F43]">
                       {item.destination}
                     </h3>
