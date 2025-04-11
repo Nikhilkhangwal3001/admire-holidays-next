@@ -19,13 +19,18 @@ export default function DomesticDestinations() {
           "https://admiredashboard.theholistay.in/public-domestic-destinations-images"
         );
 
-        const formattedDestinations = response.data.map((destination) => ({
-          id: destination.id,
-          name: destination.destination,
-          image: destination.public_images.length
-            ? `https://admiredashboard.theholistay.in/${destination.public_images[0]}`
-            : null,
-        }));
+        const formattedDestinations = response.data.map((destination) => {
+          const lastImage =
+            destination.public_images?.[destination.public_images.length - 1] || null;
+
+          return {
+            id: destination.id,
+            name: destination.destination || "Unnamed",
+            image: lastImage
+              ? `https://admiredashboard.theholistay.in/${lastImage}`
+              : null,
+          };
+        });
 
         setDestinations(formattedDestinations);
       } catch (error) {
@@ -115,7 +120,9 @@ export default function DomesticDestinations() {
                     className="w-24 h-24 mb-3 transition-transform transform group-hover:scale-110 rounded-lg object-cover"
                   />
                 ) : (
-                  <p className="text-red-500">Image not available</p>
+                  <div className="w-24 h-24 mb-3 bg-gray-300 rounded-lg flex items-center justify-center text-sm text-red-600 text-center">
+                    Image not available
+                  </div>
                 )}
 
                 <p className="text-lg font-semibold text-gray-800 hover:underline text-center">
