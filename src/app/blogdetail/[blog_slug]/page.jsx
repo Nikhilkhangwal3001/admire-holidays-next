@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
+import "./page.css"
 export default function BlogPage({ params }) {
   const { blog_slug } = params;
   const [blog, setBlog] = useState(null);
@@ -29,6 +29,15 @@ export default function BlogPage({ params }) {
     fetchBlog();
   }, [blog_slug]);
 
+
+  useEffect(() => {
+    const images = document.querySelectorAll('.note-float-right img');
+    images.forEach((img, index) => {
+      img.style.float = index % 2 === 0 ? 'left' : 'right';
+      img.style.margin = index % 2 === 0 ? '0 16px 16px 0' : '0 0 16px 16px';
+    });
+  }, [BlogPage]);
+  
   if (loading)
     return (
       <div className="flex items-center justify-center h-screen text-gray-500 text-lg">

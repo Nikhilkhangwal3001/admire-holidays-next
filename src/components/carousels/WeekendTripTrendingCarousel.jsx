@@ -3,12 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import KeenSlider from "keen-slider";
 import "keen-slider/keen-slider.min.css";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
-import conf from "../../../conf/conf";
 
-const API_URL = "https://admiredashboard.theholistay.in/public-itineraries-weekend";
+const API_URL = "https://admiredashboard.theholistay.in/public-weekend-trip-trending-destinations";
 
 const TrendingDestination = () => {
   const sliderContainer = useRef(null);
@@ -74,65 +72,32 @@ const TrendingDestination = () => {
 
         <div className="relative lg:col-span-2 lg:mx-0">
           <div ref={sliderContainer} className="keen-slider">
-            {destinations.map((item, i) => {
-              const imageUrl = `${conf.laravelBaseUrl}/${item.destination_thumbnail}`;
-              const linkUrl = `/trending-destination/${item.selected_destination || ""}`;
-
-              return (
-                <div className="keen-slider__slide" key={i}>
-                  <Link href={linkUrl}>
-                    <div className="cursor-pointer max-w-sm rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 items-center min-h-[220px] relative">
-                      <div className="relative w-full h-64 rounded-lg overflow-hidden">
-                        <Image
-                          src={imageUrl}
-                          alt={item.title || "Destination"}
-                          width={500}
-                          height={300}
-                          className="rounded-lg object-cover w-full h-full"
-                        />
-                      </div>
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="p-4 bg-white rounded-lg shadow-lg border-2"
-                      >
-                        <div className="relative z-10">
-                          <motion.h2
-                            initial={{ x: -20, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{ delay: 0.2, duration: 0.5 }}
-                            className="text-lg font-bold text-[#4D456B]"
-                          >
-                            {item.title || "Unknown Destination"}
-                          </motion.h2>
-                          <p className="text-[13px] font-semibold text-[#CF1E27]">
-                            {item.feedback || "No feedback available"}
-                          </p>
-                          <p>{item.days || "Duration not specified"}</p>
-                          <div className="flex gap-4 items-center mt-4">
-                            <a href="tel:1800-121-4252" onClick={(e) => e.stopPropagation()} className="text-xl">📞</a>
-                            <motion.button
-                              onMouseEnter={() => setIsHovered(true)}
-                              onMouseLeave={() => setIsHovered(false)}
-                              className="w-full md:px-8 py-2 text-white rounded-lg transition-all"
-                              initial={{ scale: 1 }}
-                              animate={{
-                                backgroundColor: isHovered ? "#CF1E27" : "#E69233",
-                                scale: isHovered ? 1.05 : 1,
-                              }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              Know More
-                            </motion.button>
-                          </div>
-                        </div>
-                      </motion.div>
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
+            {destinations.map((item) => (
+              <div className="keen-slider__slide" key={item.id}>
+                <a
+                  className="w-full"
+                  key={item.id}
+                  href={`weekenddetail/${item.selected_destination}`}
+                >
+                  <div className="relative w-full h-64">
+                    <Image
+                      src={`https://admiredashboard.theholistay.in/${item.public_images[0]}`}
+                      alt={item.destination}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="bg-white py-4 text-center">
+                    <h3 className="text-lg md:text-xl font-semibold text-[#261F43]">
+                      {item.destination}
+                    </h3>
+                    <p className="text-sm text-gray-500 capitalize">
+                      {item.domestic_or_international}
+                    </p>
+                  </div>
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </div>
