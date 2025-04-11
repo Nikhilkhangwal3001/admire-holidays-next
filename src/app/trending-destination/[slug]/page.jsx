@@ -107,13 +107,15 @@ export default function Itinerary() {
               <Link href={`/destination/${item.slug}`} key={index}>
                 <div className="p-6 bg-white shadow-lg rounded-lg h-[550px] flex flex-col justify-between hover:shadow-2xl transition-shadow duration-300 cursor-pointer">
                   <div>
-                    <Image
-                      src={`https://admiredashboard.theholistay.in/${item.destination_thumbnail}`}
-                      alt={item.title}
-                      width={400}
-                      height={250}
-                      className="rounded-lg"
-                    />
+                    <div className="relative w-full h-[200px] rounded-lg overflow-hidden">
+                      <Image
+                        src={`https://admiredashboard.theholistay.in/${item.destination_thumbnail}`}
+                        alt={item.title}
+                        fill
+                        quality={100}
+                        className="object-cover"
+                      />
+                    </div>
 
                     <h3 className="text-2xl font-semibold mt-4 line-clamp-2">
                       {item.title}
@@ -138,6 +140,7 @@ export default function Itinerary() {
                             src={`https://admiredashboard.theholistay.in/${img}`}
                             alt={`Additional Image ${imgIndex + 1}`}
                             fill
+                            quality={100}
                             className="object-cover"
                           />
                         </div>
