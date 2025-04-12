@@ -908,7 +908,7 @@ export default function ItineraryPage() {
           </p>
         )}
       </div>
-      <div class="flex justify-center gap-4 mt-6">
+      <div class="flex justify-center gap-4 mt-2">
         <button class="px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300">
           Review
         </button>

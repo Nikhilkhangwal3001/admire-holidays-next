@@ -70,13 +70,13 @@ const TrendingDestination = () => {
     <section className="mt-28">
       <div className="mx-auto max-w-7xl px-4">
         <h2 className="text-4xl font-bold text-center mb-6 text-[#261F43]">
-          Weekend Trip Trending Packages
+          Weekend Gateway Packages
         </h2>
 
         <div ref={sliderContainer} className="keen-slider">
           {destinations.map((item, index) => (
             <div key={index} className="keen-slider__slide">
-              <Link href={`weekenddetail/${item.selected_destination}`}>
+              <Link href={`weekenddetail/${item.destination}`}>
                 <div className="bg-white rounded-xl shadow-md overflow-hidden p-4 h-[400px] flex flex-col justify-between hover:shadow-lg transition-all duration-300 cursor-pointer">
 
                   {/* Image */}
