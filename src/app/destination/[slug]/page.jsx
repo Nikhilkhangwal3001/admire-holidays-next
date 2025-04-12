@@ -31,6 +31,7 @@ export default function ItineraryPage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImages, setSelectedImages] = useState(null);
   const [cardNumber, setCardNumber] = useState("");
+  const [showAll, setShowAll] = useState(false);
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
   const [cardHolder, setCardHolder] = useState("");
@@ -249,459 +250,334 @@ export default function ItineraryPage() {
                   No Additional Images Available
                 </p>
               )}
-              <h2 className="md:text-3xl max-w-6xl m-5 text-2xl font-semibold mt-14 text-gray-900 capitalize  mb-8 tracking-wide relative before:absolute before:-left-4 before:top-1/2 before:w-2 before:h-10 before:bg-red-600 before:-translate-y-1/2">
-                {stateData.title || "No Title Available"}
-              </h2>
-              <div className="bg-white  border-l-4 mt-10 border-red-500 shadow-lg p-5 rounded-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  🌍 Destination Overview
-                </h3>
-                <p className="md:text-lg text-sm text-gray-700 leading-relaxed">
-                  {fullContent ? (
-                    <>
-                      <span
-                        className="text-gray-800"
-                        dangerouslySetInnerHTML={{
-                          __html: isExpanded
-                            ? fullContent
-                            : `${shortContent}...`,
-                        }}
-                      />
-                      {fullContent.length > charLimit && (
-                        <button
-                          onClick={toggleExpand}
-                          className="ml-2 text-red-600 border-2  border-gray-600 rounded-lg p-1 mt-2 font-semibold hover:underline focus:outline-none"
-                        >
-                          {isExpanded ? "Read Less" : "Read More"}
-                        </button>
-                      )}
-                    </>
-                  ) : (
-                    <span className="text-gray-500 italic">
-                      No description available
-                    </span>
-                  )}
-                </p>
-              </div>
-            </div>
-            <section className="py-10  bg-white">
-              <div className=" mx-auto px-4 py-8">
-                <h2 className="text-3xl font-bold  text-blue-900-600 mb-6 border-b-4 border-blue-900 inline-block">
-                  Trip Highlights
-                </h2>
+              <div className="flex flex-col md:flex-row">
+                {/* Left Side */}
+                <div className="flex-1 p-4">
+                  <h2 className="md:text-3xl text-2xl font-semibold mt-14 text-gray-900 capitalize mb-8 tracking-wide relative before:absolute before:-left-4 before:top-1/2 before:w-2 before:h-10 before:bg-red-600 before:-translate-y-1/2">
+                    {stateData.title || "No Title Available"}
+                  </h2>
 
-                <ul className="list-disc list-inside text-red-800 space-y-2 text-lg">
-                  <li>Explore breathtaking landscapes and scenic routes</li>
-                  <li>Enjoy local cuisine and cultural experiences</li>
-                  <li>Stay in top-rated accommodations</li>
-                  <li>Guided tours by experienced professionals</li>
-                  <li>Memorable activities and fun-filled adventures</li>
-                </ul>
-              </div>
-
-              {/* <div className="flex gap-6 mt-10 text-gray-800"> */}
-              {/* Duration */}
-              {/* <div>
-                  <span className="text-sm font-semibold text-gray-600 border-b-2 border-red-500 pb-1 inline-block">
-                    Duration
-                  </span>
-                  <div className="mt-2 text-lg font-medium">
-                    {stateData.duration || "N/A"}
-                  </div>
-                </div> */}
-
-              {/* Pricing */}
-              {/* <div>
-                  <span className="text-sm font-semibold text-gray-600 border-b-2 border-yellow-500 pb-1 inline-block">
-                    Pricing
-                  </span>
-                  <div className="mt-2 text-lg font-medium">
-                    {stateData.pricing || "N/A"}
-                  </div>
-                </div> */}
-
-              {/* Type */}
-              {/* <div>
-                  <span className="text-sm font-semibold text-gray-600 border-b-2 border-blue-500 pb-1 inline-block">
-                    Type
-                  </span>
-                  <div className="mt-2 text-lg font-medium">
-                    {stateData.domestic_or_international || "N/A"}
-                  </div>
-                </div>
-              </div> */}
-              {/* Modal */}
-              {selected && (
-                <div
-                  className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
-                  onClick={handleClose}
-                >
-                  <div
-                    className="bg-white rounded-xl max-w-md p-6 text-center"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="w-full h-64 relative mb-4 rounded-xl overflow-hidden">
-                      <Image
-                        src={selected.img}
-                        alt={selected.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">{selected.title}</h3>
-                    <p className="text-gray-600">{selected.desc}</p>
-                  </div>
-                </div>
-              )}
-            </section>
-            {/* Horizontal Filter */}
-            <div className="flex mt-14 flex-wrap justify-between items-center p-4 ">
-              <div className="flex space-x-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
-                <button
-                  onClick={() => setShow(!show)}
-                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                >
-                  {show ? "Hide" : "Tour"} Details
-                </button>
-                <button
-                  onClick={() => scrollToSection("itinerary")}
-                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                >
-                  Itinerary Detail
-                </button>
-                <button
-                  onClick={() => scrollToSection("inclusion")}
-                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                >
-                  Inclusion/Exclusion
-                </button>
-                {/* <button
-                  onClick={() => scrollToSection("exclusion")}
-                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                >
-                  
-                </button> */}
-                <button
-                  onClick={() => scrollToSection("accommodation")}
-                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                >
-                  Accommodation Info
-                </button>
-                <button
-                  onClick={() => scrollToSection("payment")}
-                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                >
-                  Payment Mode
-                </button>
-                <button
-                  onClick={() => scrollToSection("cancellation")}
-                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                >
-                  Cancellation Policy
-                </button>
-                <button
-                  onClick={() => scrollToSection("term")}
-                  className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-red-600 transition"
-                >
-                  Term & Conditions
-                </button>
-              </div>
-            </div>
-            {show && (
-              <section
-                id="meals"
-                className="flex justify-center items-center px-4 py-16 bg-white"
-              >
-                <div className="w-full max-w-9xl border-l-4 border-yellow-500 pl-6">
-                  {/* Heading */}
-                  <h3 className="text-3xl font-bold text-gray-900 mb-12 border-b pb-4 border-gray-200">
-                    Tour Details
-                  </h3>
-
-                  {/* Info Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-800 mb-12">
-                    {/* Duration */}
-                    <div>
-                      <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
-                        Duration
-                      </h4>
-                      <p className="text-base">{stateData.duration || "N/A"}</p>
-                    </div>
-
-                    {/* Pricing */}
-                    <div>
-                      <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
-                        Pricing
-                      </h4>
-                      <p
-                        onClick={() => setShowModal(true)}
-                        className="text-base border-2 border-red-600 text-center text-white cursor-pointer p-1 rounded-lg bg-yellow-600"
-                      >
-                        {stateData.pricing || "N/A"}
-                      </p>
-                    </div>
-                    {/* Modal */}
-                    {showModal && (
-                      <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-                        <div className="bg-white w-full max-w-md mx-auto p-6 rounded-lg shadow-lg relative">
-                          {/* Close Button */}
-                          <button
-                            onClick={() => setShowModal(false)}
-                            className="absolute top-2 right-3 text-2xl text-gray-600 hover:text-red-500"
-                          >
-                            &times;
-                          </button>
-
-                          {/* Form Heading */}
-                          <h2 className="text-xl font-semibold mb-4 text-center">
-                            Enquiry Form
-                          </h2>
-
-                          {/* Form */}
-                          <form className="space-y-4">
-                            <input
-                              type="text"
-                              placeholder="Your Name"
-                              className="w-full border border-gray-300 rounded px-3 py-2"
-                            />
-                            <input
-                              type="email"
-                              placeholder="Your Email"
-                              className="w-full border border-gray-300 rounded px-3 py-2"
-                            />
-                            <input
-                              type="tel"
-                              placeholder="Phone Number"
-                              className="w-full border border-gray-300 rounded px-3 py-2"
-                            />
-                            <textarea
-                              placeholder="Your Message"
-                              className="w-full border border-gray-300 rounded px-3 py-2"
-                              rows="4"
-                            ></textarea>
-
-                            <button
-                              type="submit"
-                              className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300"
-                            >
-                              Submit
-                            </button>
-                          </form>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Type */}
-                    <div>
-                      <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
-                        Type
-                      </h4>
-                      <p className="text-base">
-                        {stateData.domestic_or_international || "N/A"}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Description */}
-                  {/* <div className="border-t border-gray-200 pt-8">
-                  <h4 className="text-2xl font-semibold text-gray-900 mb-4">
-                    Description
-                  </h4>
-                  <div className="text-gray-700 leading-relaxed text-base md:text-lg">
-                    {stateData.destination_detail ? (
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: stateData.destination_detail,
-                        }}
-                      />
-                    ) : (
-                      <span className="text-gray-500 italic">
-                        No description available
-                      </span>
-                    )}
-                  </div>
-                </div> */}
-                </div>
-              </section>
-            )}
-            <div
-              id="itinerary"
-              className="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6"
-            >
-              {/* Left Side - Trip Details */}
-              <div className="md:col-span-2 w-full">
-                <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6">
-                  Trip Itinerary
-                </h2>
-
-                {stateData.days_information?.length > 0 ? (
-                  stateData.days_information.map((day, index) => (
-                    <div
-                      key={index}
-                      className="mb-6 border-b border-gray-300 pb-4"
-                    >
-                      {/* Accordion Button */}
-                      <button
-                        onClick={() => toggleFAQ(index)}
-                        className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow hover:bg-gray-200"
-                      >
-                        <h6 className="text-sm md:text-xl text-gray-900 font-medium">
-                          <span className="bg-red-600 p-2 rounded-lg text-white">
-                            Day {day.day}
-                          </span>{" "}
-                          : {day.title}
-                        </h6>
-                        <span className="text-gray-600 text-sm">
-                          {openIndex === index ? "▲" : "▼"}
-                        </span>
-                      </button>
-
-                      {/* Show Detail + Images only when open */}
-                      {openIndex === index && (
+                  <div className="bg-white border-l-4 mt-10 border-red-500 shadow-lg p-5 rounded-lg">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      🌍 Destination Overview
+                    </h3>
+                    <p className="text-sm md:text-lg text-gray-700 leading-relaxed">
+                      {fullContent ? (
                         <>
-                          {/* Detail Text */}
-                          <div className="p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow mt-4">
-                            <p className="text-gray-700">
-                              <strong>Destination:</strong>{" "}
-                              {day.detail ? (
-                                <span
-                                  dangerouslySetInnerHTML={{
-                                    __html: day.detail,
-                                  }}
-                                />
-                              ) : (
-                                "No description available"
-                              )}
+                          <span
+                            className="text-gray-800"
+                            dangerouslySetInnerHTML={{
+                              __html: isExpanded
+                                ? fullContent
+                                : `${shortContent}...`,
+                            }}
+                          />
+                          {fullContent.length > charLimit && (
+                            <button
+                              onClick={toggleExpand}
+                              className="ml-2 text-red-600 border-2 border-gray-600 rounded-lg p-1 mt-2 font-semibold hover:underline focus:outline-none"
+                            >
+                              {isExpanded ? "Read Less" : "Read More"}
+                            </button>
+                          )}
+                        </>
+                      ) : (
+                        <span className="text-gray-500 italic">
+                          No description available
+                        </span>
+                      )}
+                    </p>
+                  </div>
+
+                  <section className="bg-white">
+                    <div className="mx-auto px-4 py-8">
+                      <h2 className="text-3xl font-bold text-blue-900-600 mb-6 border-b-4 border-blue-900 inline-block">
+                        Trip Highlights
+                      </h2>
+
+                      {stateData.tour_highlight ? (
+                        <ul className="list-disc list-inside text-red-800 space-y-2 text-lg">
+                          <li>{stateData.tour_highlight}</li>
+                        </ul>
+                      ) : (
+                        <p className="text-red-800 text-lg">
+                          No highlights available
+                        </p>
+                      )}
+                    </div>
+                  </section>
+
+                  {/* Horizontal Filter */}
+                  <div className="flex flex-wrap justify-center items-center border border-gray-300">
+                    <div className="flex divide-x divide-gray-300 text-sm text-gray-800 text-center overflow-x-auto scrollbar-hide">
+                      <div
+                        onClick={() => setShow(!show)}
+                        className="cursor-pointer px-3 py-1 hover:bg-gray-100 whitespace-nowrap"
+                      >
+                        {show ? "Hide" : "Tour"} Details
+                      </div>
+
+                      <div
+                        onClick={() => scrollToSection("itinerary")}
+                        className="cursor-pointer px-3 py-1 hover:bg-yellow-600 hover:text-white whitespace-nowrap"
+                      >
+                        Itinerary Detail
+                      </div>
+
+                      <div
+                        onClick={() => scrollToSection("inclusion")}
+                        className="cursor-pointer px-3 py-1 hover:bg-yellow-600 hover:text-white whitespace-nowrap"
+                      >
+                        Inclusion/Exclusion
+                      </div>
+
+                      <div
+                        onClick={() => scrollToSection("accommodation")}
+                        className="cursor-pointer px-3 py-1 hover:bg-yellow-600 hover:text-white whitespace-nowrap"
+                      >
+                        Accommodation Info
+                      </div>
+
+                      <div
+                        onClick={() => scrollToSection("payment")}
+                        className="cursor-pointer px-3 py-1 hover:bg-yellow-600 hover:text-white whitespace-nowrap"
+                      >
+                        Payment Mode
+                      </div>
+
+                      <div
+                        onClick={() => scrollToSection("cancellation")}
+                        className="cursor-pointer px-3 py-1 hover:bg-yellow-600 hover:text-white whitespace-nowrap"
+                      >
+                        Cancellation Policy
+                      </div>
+
+                      <div
+                        onClick={() => scrollToSection("term")}
+                        className="cursor-pointer px-3 py-1 hover:bg-yellow-600 hover:text-white whitespace-nowrap"
+                      >
+                        Term & Conditions
+                      </div>
+                    </div>
+                  </div>
+                  {show && (
+                    <section
+                      id="meals"
+                      className="flex justify-center items-center px-4 py-16 bg-white"
+                    >
+                      <div className="w-full max-w-9xl border-l-4 border-yellow-500 pl-6">
+                        {/* Heading */}
+                        <h3 className="text-3xl font-bold text-gray-900 mb-12 border-b pb-4 border-gray-200">
+                          Tour Details
+                        </h3>
+
+                        {/* Info Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-800 mb-12">
+                          {/* Duration */}
+                          <div>
+                            <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
+                              Duration
+                            </h4>
+                            <p className="text-base">
+                              {stateData.duration || "N/A"}
                             </p>
                           </div>
 
-                          {/* Image Slider */}
-                          <div className="rounded-lg shadow-lg mt-4">
-                            {images.length > 0 ? (
-                              <Swiper
-                                modules={[Navigation, Autoplay]}
-                                navigation
-                                autoplay={{
-                                  delay: 3000,
-                                  disableOnInteraction: false,
-                                }}
-                                spaceBetween={20}
-                                slidesPerView={1}
-                                className="w-full"
-                              >
-                                {images.map((img, imgIndex) => (
-                                  <SwiperSlide key={imgIndex}>
-                                    <div
-                                      className="relative group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300"
-                                      onClick={() =>
-                                        setSelectedImage(
-                                          `https://admiredashboard.theholistay.in/${img}`
-                                        )
-                                      }
-                                    >
-                                      <Image
-                                        src={`https://admiredashboard.theholistay.in/${img}`}
-                                        alt={`Image ${imgIndex + 1}`}
-                                        width={300}
-                                        height={200}
-                                        className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                          {/* Pricing */}
+                          <div>
+                            <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
+                              Pricing
+                            </h4>
+                            <p
+                              onClick={() => setShowModal(true)}
+                              className="text-base border-2 border-red-600 text-center text-white cursor-pointer p-1 rounded-lg bg-yellow-600"
+                            >
+                              {stateData.pricing || "N/A"}
+                            </p>
+                          </div>
+                          {/* Modal */}
+                          {showModal && (
+                            <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+                              <div className="bg-white w-full max-w-md mx-auto p-6 rounded-lg shadow-lg relative">
+                                {/* Close Button */}
+                                <button
+                                  onClick={() => setShowModal(false)}
+                                  className="absolute top-2 right-3 text-2xl text-gray-600 hover:text-red-500"
+                                >
+                                  &times;
+                                </button>
+
+                                {/* Form Heading */}
+                                <h2 className="text-xl font-semibold mb-4 text-center">
+                                  Enquiry Form
+                                </h2>
+
+                                {/* Form */}
+                                <form className="space-y-4">
+                                  <input
+                                    type="text"
+                                    placeholder="Your Name"
+                                    className="w-full border border-gray-300 rounded px-3 py-2"
+                                  />
+                                  <input
+                                    type="email"
+                                    placeholder="Your Email"
+                                    className="w-full border border-gray-300 rounded px-3 py-2"
+                                  />
+                                  <input
+                                    type="tel"
+                                    placeholder="Phone Number"
+                                    className="w-full border border-gray-300 rounded px-3 py-2"
+                                  />
+                                  <textarea
+                                    placeholder="Your Message"
+                                    className="w-full border border-gray-300 rounded px-3 py-2"
+                                    rows="4"
+                                  ></textarea>
+
+                                  <button
+                                    type="submit"
+                                    className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300"
+                                  >
+                                    Submit
+                                  </button>
+                                </form>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Type */}
+                          <div>
+                            <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
+                              Type
+                            </h4>
+                            <p className="text-base">
+                              {stateData.domestic_or_international || "N/A"}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  )}
+                  <div
+                    id="itinerary"
+                    className="max-w-7xl  px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6"
+                  >
+                    {/* Left Side - Trip Details */}
+                    <div className="md:col-span-2 w-full">
+                      <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
+                          Trip Itinerary
+                        </h2>
+
+                        {/* Display "Expand On" button only if backend data exists */}
+                        {stateData.days_information?.length > 0 && (
+                          <button
+                            onClick={() => setShowAll(!showAll)}
+                            className="text-sm md:text-lg font-medium text-red-600 border-2 border-yellow-600 p-1 rounded-lg"
+                          >
+                            {showAll ? "Collapse All" : "Expand All"}
+                          </button>
+                        )}
+                      </div>
+
+                      {stateData.days_information?.length > 0 ? (
+                        stateData.days_information.map((day, index) => (
+                          <div
+                            key={index}
+                            className="mb-6 border-b border-gray-300 pb-4"
+                          >
+                            {/* Accordion Button */}
+                            <button
+                              onClick={() => toggleFAQ(index)}
+                              className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow hover:bg-gray-200"
+                            >
+                              <h6 className="text-sm md:text-xl text-gray-900 font-medium">
+                                <span className="bg-red-600 p-2 rounded-lg text-white">
+                                  Day {day.day}
+                                </span>{" "}
+                                : {day.title}
+                              </h6>
+                              <span className="text-gray-600 text-sm">
+                                {openIndex === index ? "▲" : "▼"}
+                              </span>
+                            </button>
+
+                            {/* Show Detail + Images only when open or if showAll is true */}
+                            {(openIndex === index || showAll) && (
+                              <>
+                                {/* Detail Text */}
+                                <div className="p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow mt-4">
+                                  <p className="text-gray-700">
+                                    <strong>Destination:</strong>{" "}
+                                    {day.detail ? (
+                                      <span
+                                        dangerouslySetInnerHTML={{
+                                          __html: day.detail,
+                                        }}
                                       />
-                                      <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-                                        <p className="text-white text-lg font-semibold">
-                                          🔍 View Image
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </SwiperSlide>
-                                ))}
-                              </Swiper>
-                            ) : (
-                              <p className="text-gray-500 text-center mt-6 italic">
-                                No Additional Images Available
-                              </p>
+                                    ) : (
+                                      "No description available"
+                                    )}
+                                  </p>
+                                </div>
+
+                                {/* Image Slider */}
+                                <div className="rounded-lg shadow-lg mt-4">
+                                  {images.length > 0 ? (
+                                    <Swiper
+                                      modules={[Navigation, Autoplay]}
+                                      navigation
+                                      autoplay={{
+                                        delay: 3000,
+                                        disableOnInteraction: false,
+                                      }}
+                                      spaceBetween={20}
+                                      slidesPerView={1}
+                                      className="w-full"
+                                    >
+                                      {images.map((img, imgIndex) => (
+                                        <SwiperSlide key={imgIndex}>
+                                          <div
+                                            className="relative group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300"
+                                            onClick={() =>
+                                              setSelectedImage(
+                                                `https://admiredashboard.theholistay.in/${img}`
+                                              )
+                                            }
+                                          >
+                                            <Image
+                                              src={`https://admiredashboard.theholistay.in/${img}`}
+                                              alt={`Image ${imgIndex + 1}`}
+                                              width={300}
+                                              height={200}
+                                              className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                                            />
+                                            <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
+                                              <p className="text-white text-lg font-semibold">
+                                                🔍 View Image
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </SwiperSlide>
+                                      ))}
+                                    </Swiper>
+                                  ) : (
+                                    <p className="text-gray-500 text-center mt-6 italic">
+                                      No Additional Images Available
+                                    </p>
+                                  )}
+                                </div>
+                              </>
                             )}
                           </div>
-                        </>
+                        ))
+                      ) : (
+                        <p className="text-gray-600">No itinerary available</p>
                       )}
                     </div>
-                  ))
-                ) : (
-                  <p className="text-gray-600">No itinerary available</p>
-                )}
-              </div>
-
-              {/* Right Side - Sticky Inquiry Form */}
-              <div className="md:sticky md:top-24 h-fit w-full md:w-80 space-y-6">
-                {/* Inquiry Form Box */}
-                <div className="bg-white shadow p-4 rounded-lg border border-gray-300">
-                  <h2 className="text-lg font-semibold text-gray-900 mb-3 text-center">
-                    Inquiry Form
-                  </h2>
-                  <form className="space-y-3">
-                    <div>
-                      <label className="block text-gray-700 text-sm font-medium">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        className="w-full p-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                        placeholder="Your name"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-700 text-sm font-medium">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        className="w-full p-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                        placeholder="you@example.com"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-700 text-sm font-medium">
-                        Phone
-                      </label>
-                      <input
-                        type="tel"
-                        className="w-full p-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                        placeholder="1234567890"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-gray-700 text-sm font-medium">
-                        Message
-                      </label>
-                      <textarea
-                        rows="3"
-                        className="w-full p-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                        placeholder="Your message"
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full bg-yellow-600 hover:bg-red-600 text-white py-1.5 rounded-md text-sm transition"
-                    >
-                      Submit
-                    </button>
-                  </form>
-                </div>
-
-                {/* Why Choose Us Box */}
-                <div className="bg-white shadow p-4 rounded-lg border border-gray-300">
-                  <h2 className="text-lg font-semibold text-gray-900 mb-3 text-center">
-                    Why Choose Us
-                  </h2>
-                  <ul className="space-y-2 list-disc pl-5 text-gray-700 text-sm">
-                    {whyChoosePoints.map((point, index) => (
-                      <li key={index}>{point}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col">
+                  </div>
+                  <div className="flex flex-col">
               <section id="tour-info" className="px-4 py-16 bg-gray-100">
                 <section
                   id="inclusion"
@@ -785,26 +661,6 @@ export default function ItineraryPage() {
                     )}
                   </div>
                 </div>
-
-                {/* Additional Details */}
-                {/* <div className="bg-white rounded-xl shadow-md p-8 transition hover:shadow-lg max-w-9xl mx-auto">
-                  <h3 className="text-2xl font-semibold text-blue-600 mb-4">
-                    Additional Details
-                  </h3>
-                  <div className="text-gray-700 leading-relaxed text-justify text-base">
-                    {stateData.additional_details ? (
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: stateData.additional_details,
-                        }}
-                      />
-                    ) : (
-                      <span className="text-gray-500 italic">
-                        No additional details provided
-                      </span>
-                    )}
-                  </div>
-                </div> */}
               </section>
 
               <section
@@ -945,6 +801,106 @@ export default function ItineraryPage() {
                 </div>
               </section>
             </div>
+                </div>
+
+                {/* Right Side - Sticky Inquiry Form */}
+                <div className="md:sticky md:top-24 h-fit w-full md:w-80 space-y-6">
+                  {/* Inquiry Form Box */}
+                  <div className="bg-white shadow p-4 rounded-lg border border-gray-300">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-3 text-center">
+                      Inquiry Form
+                    </h2>
+                    <form className="space-y-3">
+                      <div>
+                        <label className="block text-gray-700 text-sm font-medium">
+                          Name
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full p-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                          placeholder="Your name"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-700 text-sm font-medium">
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          className="w-full p-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                          placeholder="you@example.com"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-700 text-sm font-medium">
+                          Phone
+                        </label>
+                        <input
+                          type="tel"
+                          className="w-full p-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                          placeholder="1234567890"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-700 text-sm font-medium">
+                          Message
+                        </label>
+                        <textarea
+                          rows="3"
+                          className="w-full p-1.5 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                          placeholder="Your message"
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        className="w-full bg-yellow-600 hover:bg-red-600 text-white py-1.5 rounded-md text-sm transition"
+                      >
+                        Submit
+                      </button>
+                    </form>
+                  </div>
+
+                  {/* Why Choose Us Box */}
+                  <div className="bg-white shadow p-4 rounded-lg border border-gray-300">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-3 text-center">
+                      Why Choose Us
+                    </h2>
+                    <ul className="space-y-2 list-disc pl-5 text-gray-700 text-sm">
+                      {whyChoosePoints.map((point, index) => (
+                        <li key={index}>{point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <section className="py-10  bg-white">
+              {/* Modal */}
+              {selected && (
+                <div
+                  className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+                  onClick={handleClose}
+                >
+                  <div
+                    className="bg-white rounded-xl max-w-md p-6 text-center"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="w-full h-64 relative mb-4 rounded-xl overflow-hidden">
+                      <Image
+                        src={selected.img}
+                        alt={selected.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">{selected.title}</h3>
+                    <p className="text-gray-600">{selected.desc}</p>
+                  </div>
+                </div>
+              )}
+            </section>
+
+            
           </div>
         ) : (
           <p className="text-center text-gray-500">
@@ -952,6 +908,16 @@ export default function ItineraryPage() {
           </p>
         )}
       </div>
+      <div class="flex justify-center gap-4 mt-6">
+        <button class="px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300">
+          Review
+        </button>
+        <button class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-yellow-700 transition-all duration-300">
+          Share
+        </button>
+      </div>
+      <br />
+      <br />
       <Footer />
     </div>
   );

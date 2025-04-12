@@ -110,7 +110,7 @@ export default function InternationalDestinations() {
                 .replace(/\s+/g, "-")}`}
               key={destination.id}
             >
-              <div className="relative group flex flex-col items-center p-4 bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all cursor-pointer h-full">
+              <div className="relative group flex flex-col items-center p-4 rounded-xl transition-all cursor-pointer h-full">
                 {destination.image ? (
                   <Image
                     src={destination.image}

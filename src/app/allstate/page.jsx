@@ -62,14 +62,14 @@ export default function DomesticDestinations() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <p>Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen">
       <Navbar />
 
       {/* Hero Section */}
@@ -110,7 +110,7 @@ export default function DomesticDestinations() {
                 .replace(/\s+/g, "-")}`}
               key={destination.id}
             >
-              <div className="relative group flex flex-col items-center p-4 bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all cursor-pointer h-full">
+              <div className="relative group flex flex-col items-center p-4 rounded-xl transition-all cursor-pointer h-full">
                 {destination.image ? (
                   <Image
                     src={destination.image}
@@ -120,7 +120,7 @@ export default function DomesticDestinations() {
                     className="w-24 h-24 mb-3 transition-transform transform group-hover:scale-110 rounded-lg object-cover"
                   />
                 ) : (
-                  <div className="w-24 h-24 mb-3 bg-gray-300 rounded-lg flex items-center justify-center text-sm text-red-600 text-center">
+                  <div className="w-24 h-24 mb-3 rounded-lg flex items-center justify-center text-sm text-red-600 text-center">
                     Image not available
                   </div>
                 )}

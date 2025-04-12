@@ -2,9 +2,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import KeenSlider from "keen-slider";
 import "keen-slider/keen-slider.min.css";
-import { motion } from "framer-motion";
+import { FaPhoneAlt } from "react-icons/fa";
 import Image from "next/image";
 import axios from "axios";
+import Link from "next/link";
 
 const API_URL =
   "https://admiredashboard.theholistay.in/public-weekend-trip-trending-destinations";
@@ -13,7 +14,6 @@ const TrendingDestination = () => {
   const sliderContainer = useRef(null);
   const keenSlider = useRef(null);
   const autoSlideInterval = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
   const [destinations, setDestinations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -44,16 +44,16 @@ const TrendingDestination = () => {
     ) {
       keenSlider.current = new KeenSlider(sliderContainer.current, {
         loop: true,
-        slides: { perView: 1, spacing: 16 },
+        slides: { perView: 3, spacing: 16 },
         breakpoints: {
-          "(min-width: 768px)": { slides: { perView: 2, spacing: 16 } },
-          "(min-width: 1024px)": { slides: { perView: 3, spacing: 24 } },
+          "(max-width: 1024px)": { slides: { perView: 2, spacing: 12 } },
+          "(max-width: 768px)": { slides: { perView: 1, spacing: 10 } },
         },
       });
 
       autoSlideInterval.current = setInterval(() => {
         keenSlider.current?.next();
-      }, 10000);
+      }, 8000);
     }
 
     return () => {
@@ -68,25 +68,19 @@ const TrendingDestination = () => {
 
   return (
     <section className="mt-28">
-      <div className="mx-auto relative max-w-[1340px] px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between mx-auto mb-6">
-          <h2 className="text-center text-[#261F43] md:text-5xl text-3xl font-bold sm:mb-0 flex-grow">
-            Weekend Trip Trending Packages
-          </h2>
-        </div>
+      <div className="mx-auto max-w-7xl px-4">
+        <h2 className="text-4xl font-bold text-center mb-6 text-[#261F43]">
+          Weekend Trip Trending Packages
+        </h2>
 
-        <div className="relative">
-          <div ref={sliderContainer} className="keen-slider">
-            {destinations.map((item) => (
-              <div
-                className="keen-slider__slide p-2"
-                key={item.id}
-              >
-                <a
-                  className="block bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105"
-                  href={`weekenddetail/${item.destination}`}
-                >
-                  <div className="relative w-full h-64">
+        <div ref={sliderContainer} className="keen-slider">
+          {destinations.map((item, index) => (
+            <div key={index} className="keen-slider__slide">
+              <Link href={`weekenddetail/${item.selected_destination}`}>
+                <div className="bg-white rounded-xl shadow-md overflow-hidden p-4 h-[400px] flex flex-col justify-between hover:shadow-lg transition-all duration-300 cursor-pointer">
+
+                  {/* Image */}
+                  <div className="relative w-full h-48 rounded-md overflow-hidden">
                     <Image
                       src={`https://admiredashboard.theholistay.in/${item.public_images[0]}`}
                       alt={item.destination}
@@ -94,18 +88,28 @@ const TrendingDestination = () => {
                       className="object-cover"
                     />
                   </div>
-                  <div className="p-4 text-center">
-                    <h3 className="text-lg md:text-xl font-semibold text-[#261F43]">
-                      {item.destination}
-                    </h3>
-                    <p className="text-sm text-gray-500 capitalize">
-                      {item.domestic_or_international}
-                    </p>
+
+                  {/* Details */}
+                  <div className="mt-4 space-y-1">
+                    <h3 className="font-bold text-lg text-[#261F43] truncate">{item.destination}</h3>
+                    <p className="text-sm text-gray-700 capitalize">Type: {item.domestic_or_international}</p>
+                    {item.duration && <p className="text-sm text-gray-700">Duration: {item.duration}</p>}
+                    {item.pricing && <p className="text-sm text-red-600 font-semibold">{item.pricing}</p>}
                   </div>
-                </a>
-              </div>
-            ))}
-          </div>
+
+                  {/* Action Row */}
+                  <div className="mt-4 flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-red-600 font-semibold text-2xl">
+                      <FaPhoneAlt />
+                    </div>
+                    <button className="bg-red-600 w-full text-white ml-3 px-4 py-2 text-sm rounded-md">
+                      Know More
+                    </button>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </section>
