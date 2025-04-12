@@ -84,7 +84,7 @@ const TrendingDestination = () => {
               >
                 <a
                   className="block bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105"
-                  href={`weekenddetail/${item.selected_destination}`}
+                  href={`weekenddetail/${item.destination}`}
                 >
                   <div className="relative w-full h-64">
                     <Image
