@@ -117,7 +117,7 @@ export default function BlogPage({ params }) {
               />
 
               {/* Meta Info Slabs */}
-              <div className="text-sm text-gray-600 mb-10">
+              {/* <div className="text-sm text-gray-600 mb-10">
                 <div className="bg-gray-100 p-4 rounded-xl shadow-sm">
                   <div
                     dangerouslySetInnerHTML={{ __html: blog.blog_meta_title }}
@@ -137,7 +137,7 @@ export default function BlogPage({ params }) {
                     }}
                   />
                 </div>
-              </div>
+              </div> */}
 
               {/* Author & Category */}
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center text-sm text-gray-500 border-t pt-5 gap-3">

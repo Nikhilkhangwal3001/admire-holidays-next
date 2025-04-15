@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Itinary from "@/app/itinary";
 import Image from "next/image";
 import Gallery from "@/app/detailpage.jsx/gallery";
 import axios from "axios";
@@ -912,6 +913,7 @@ export default function ItineraryPage() {
           </p>
         )}
       </div>
+            {/* <Itinary/> */}
       <div class="flex justify-center gap-4 mt-2">
         <button class="px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300">
           Review
