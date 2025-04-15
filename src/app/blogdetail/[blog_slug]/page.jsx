@@ -36,7 +36,7 @@ export default function BlogPage({ params }) {
       img.style.float = index % 2 === 0 ? 'left' : 'right';
       img.style.margin = index % 2 === 0 ? '0 16px 16px 0' : '0 0 16px 16px';
     });
-  }, [BlogPage]);
+  }, []);
   
   if (loading)
     return (
