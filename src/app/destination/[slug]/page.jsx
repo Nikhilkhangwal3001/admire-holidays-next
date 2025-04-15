@@ -462,10 +462,10 @@ export default function ItineraryPage() {
                   {/* <section className="max-w-9xl"> */}
                   <div
                     id="itinerary"
-                    className="w-[90%] mx-auto  px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6"
+                    className="  px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6"
                   >
                     {/* Left Side - Trip Details */}
-                    <div className="md:col-span-2 ">
+                    <div className="md:col-span-2 w-[1000px]">
                       <div className="flex justify-between items-center mb-6">
                         <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
                           Trip Itinerary
