@@ -1,4 +1,4 @@
-"use client";
+"use client";  // 📌 Mark the component as a Client Component
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -6,11 +6,13 @@ import axios from "axios";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { useRouter } from "next/router"; // 📌 Import router
+import { useRouter } from "next/navigation"; // 📌 Import router
 
 export default function ItineraryPage() {
   const router = useRouter();
-  const { destination } = router.query; // 📌 Get dynamic param from URL
+  
+  // Destructure 'destination' safely, providing a fallback value if undefined
+  const { destination } = router.query || {}; // Fallback to an empty object if router.query is undefined
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -19,6 +21,7 @@ export default function ItineraryPage() {
   const BASE_IMAGE_URL = "https://admiredashboard.theholistay.in/";
 
   useEffect(() => {
+    // Early return if destination is not available yet
     if (!destination) return;
 
     const fetchData = async () => {
@@ -37,6 +40,17 @@ export default function ItineraryPage() {
 
     fetchData();
   }, [destination]);
+
+  // If destination is undefined, show a loading message
+  if (!destination) {
+    return (
+      <div className="bg-gray-100">
+        <Navbar />
+        <p className="text-center text-lg font-semibold">Destination is loading...</p>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-100">
