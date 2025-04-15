@@ -36,7 +36,7 @@ export default function ItineraryPage() {
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
   const [cardHolder, setCardHolder] = useState("");
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState([]);
   const [galleryImages, setGalleryImages] = useState([]);
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -145,7 +145,18 @@ export default function ItineraryPage() {
     }, []);
   };
   const toggleFAQ = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
+    if(openIndex.includes(index)){
+      let newArr = [...openIndex];
+      let indexToRemove = newArr.indexOf(index);
+      
+      newArr.splice(indexToRemove, 1);
+
+      setOpenIndex(newArr);
+    }
+    else{
+      setOpenIndex([...openIndex, index]);
+    }
+    
   };
   const scrollToSection = (id) => {
     document.getElementById(id).scrollIntoView({ behavior: "smooth" });
@@ -469,13 +480,23 @@ export default function ItineraryPage() {
                     <div className="md:col-span-2 w-[1000px]">
                       <div className="flex justify-between items-center mb-6">
                         <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
-                          Trip Itinerary
+                          Trip Itinerary rapido
                         </h2>
 
                         {/* Display "Expand On" button only if backend data exists */}
                         {stateData.days_information?.length > 0 && (
                           <button
-                            onClick={() => setShowAll(!showAll)}
+                            onClick={() =>{
+                              if(showAll){
+                                setOpenIndex([]);
+                                setShowAll(false)
+                              }
+                              else{
+                                setShowAll(true);
+                              }
+                              
+
+                            } }
                             className="text-sm md:text-lg font-medium text-red-600 border-2 border-yellow-600 p-1 rounded-lg"
                           >
                             {showAll ? "Collapse All" : "Expand All"}
@@ -506,7 +527,7 @@ export default function ItineraryPage() {
                             </button>
 
                             {/* Show Detail + Images only when open or if showAll is true */}
-                            {(openIndex === index || showAll) && (
+                            {(openIndex?.includes(index) || showAll) && (
                               <>
                                 {/* Detail Text */}
                                 <div className="p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow mt-4">
