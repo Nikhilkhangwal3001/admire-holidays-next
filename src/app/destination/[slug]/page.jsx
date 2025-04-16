@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Itinary from "@/app/itinary";
+// import Itinary from "@/app/itinerary";
 import Image from "next/image";
 import Gallery from "@/app/detailpage.jsx/gallery";
 import axios from "axios";
