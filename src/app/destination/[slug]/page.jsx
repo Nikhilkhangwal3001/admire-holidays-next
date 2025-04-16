@@ -30,6 +30,7 @@ export default function ItineraryPage() {
   const [videoUrl, setVideoUrl] = useState(null);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+   const [destination, setDestination] = useState('Delhi');
   const [selectedImages, setSelectedImages] = useState(null);
   const [cardNumber, setCardNumber] = useState("");
   const [showAll, setShowAll] = useState(false);
@@ -144,6 +145,8 @@ export default function ItineraryPage() {
       fetchVideoUrl();
     }, []);
   };
+
+
   const toggleFAQ = (index) => {
     if(openIndex.includes(index)){
       let newArr = [...openIndex];
@@ -195,10 +198,12 @@ export default function ItineraryPage() {
     },
   ];
 
+  
+
   return (
     <div className="min-h-screen ">
       <Navbar />
-      <Gallery />
+      <Gallery  destination={stateData?.selected_destination || "no data"}/>
 
       <div className="max-w-8xl mx-auto py-12 px-6">
         {loading && (
@@ -477,10 +482,10 @@ export default function ItineraryPage() {
                     className="  px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6"
                   >
                     {/* Left Side - Trip Details */}
-                    <div className="md:col-span-2 w-[1000px]">
+                    <div className="md:col-span-2 md:w-[1000px]">
                       <div className="flex justify-between items-center mb-6">
                         <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
-                          Trip Itinerary rapido
+                          Trip Itinerary
                         </h2>
 
                         {/* Display "Expand On" button only if backend data exists */}

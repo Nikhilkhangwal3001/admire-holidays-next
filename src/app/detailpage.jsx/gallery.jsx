@@ -1,20 +1,37 @@
 'use client';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const imageData = {
-  Destination: ['/1.png', '/2.png'],
-  Resort: ['/3.png', '/4.png'],
-  Adventure: ['/5.png', '/6.png'],
-  Culture: ['/7.png'],
-  Activity: ['/8.png', '/9.png'],
+  Destination: [],
+  Resort: [],
+  Adventure: [],
+  Culture: [],
+  Activity: [],
 };
 
 const topics = Object.keys(imageData);
 
-export default function GalleryWithModal() {
+export default function GalleryWithModal({ destination }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTopic, setSelectedTopic] = useState(null);
+  const [selectedTopic, setSelectedTopic] = useState('All Images');
+  const [galleryData, setGalleryData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://admiredashboard.theholistay.in/public-destination-galleries/${destination}`
+        );
+        const data = await response.json();
+        setGalleryData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    if (destination) fetchData();
+  }, [destination]);
 
   const openModal = (topic) => {
     setSelectedTopic(topic === 'All Images' ? topics[0] : topic);
@@ -23,8 +40,13 @@ export default function GalleryWithModal() {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedTopic(null);
+    setSelectedTopic('All Images');
   };
+
+  const filteredData =
+    selectedTopic && galleryData.length > 0
+      ? galleryData.filter((item) => item.gallery_type === selectedTopic.toLowerCase())
+      : galleryData;
 
   return (
     <section className="px-4 py-16 mt-14 bg-gray-100">
@@ -34,7 +56,7 @@ export default function GalleryWithModal() {
       </div>
 
       {/* Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {[...topics, 'All Images'].map((topic, index) => (
           <div
             key={index}
@@ -42,7 +64,7 @@ export default function GalleryWithModal() {
             className="relative h-52 bg-gray-300 rounded-2xl overflow-hidden shadow-md hover:shadow-xl cursor-pointer flex items-center justify-center group"
           >
             <Image
-              src="/default.jpg" // common image for all (you can use separate if needed)
+              src="/default.jpg"
               alt={topic}
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -56,16 +78,16 @@ export default function GalleryWithModal() {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed mt-20 inset-0 z-50 bg-black bg-opacity-80 flex flex-col px-4 py-8">
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-80 flex flex-col px-4 py-8 overflow-y-auto">
           <button
             onClick={closeModal}
-            className="text-white text-3xl absolute top-6 right-6 font-bold hover:text-red-400"
+            className="text-white text-4xl mt-28 absolute top-6 right-6 font-bold z-50 hover:text-red-400"
           >
             &times;
           </button>
 
-          {/* Horizontal Filter */}
-          <div className="flex flex-wrap gap-3 justify-center mb-8 mt-10">
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap gap-3 justify-center mb-8 mt-20">
             {topics.map((topic) => (
               <button
                 key={topic}
@@ -81,19 +103,24 @@ export default function GalleryWithModal() {
             ))}
           </div>
 
-          {/* Images Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {imageData[selectedTopic]?.map((src, idx) => (
-              <div key={idx} className="rounded-xl overflow-hidden">
-                <Image
-                  src={src}
-                  alt={`${selectedTopic} Image ${idx + 1}`}
-                  width={600}
-                  height={400}
-                  className="w-full h-52 object-cover"
-                />
-              </div>
-            ))}
+          {/* Grid Images in Modal */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:max-w-6xl mx-auto">
+            {filteredData.map((item, idx) =>
+              item.public_images.map((img, imgIdx) => (
+                <div
+                  key={`${idx}-${imgIdx}`}
+                  className="rounded-lg overflow-hidden shadow-sm bg-white"
+                >
+                  <Image
+                    src={`https://admiredashboard.theholistay.in/${img}`}
+                    alt={`Image ${imgIdx + 1}`}
+                    width={400}
+                    height={250}
+                    className="w-full h-40 object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+                  />
+                </div>
+              ))
+            )}
           </div>
         </div>
       )}
