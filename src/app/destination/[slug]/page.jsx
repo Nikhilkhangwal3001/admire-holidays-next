@@ -837,7 +837,7 @@ export default function ItineraryPage() {
                 </div>
 
                 {/* Right Side - Sticky Inquiry Form */}
-                <div className="md:sticky md:top-24 h-fit w-full md:w-80 space-y-6">
+                <div className="md:sticky  md:top-24 h-fit w-full md:w-80 space-y-6">
                   {/* Inquiry Form Box */}
                   <div className="bg-white shadow p-4 rounded-lg border border-gray-300">
                     <h2 className="text-lg font-semibold text-gray-900 mb-3 text-center">

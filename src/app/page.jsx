@@ -75,10 +75,10 @@ const Home = () => {
         <DomesticDestinationCarousel/>
       </InViewComponent>
       <InViewComponent>
-        <WeekendTripStateCarousel/>
+        <WeekendTripTrendingcarousel/>
       </InViewComponent>
       <InViewComponent>
-        <WeekendTripTrendingcarousel/>
+        <WeekendTripStateCarousel/>
       </InViewComponent>
       <InViewComponent>
         <Resort/>
