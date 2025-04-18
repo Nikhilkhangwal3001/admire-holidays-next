@@ -24,7 +24,7 @@ const TrendingDestination = () => {
         const { data } = await axios.get(
           `${conf.laravelBaseUrl}/public-itineraries-exclusive`
         );
-        setDestinations(data.slice(0, 5)); // Only take 5 destinations
+        setDestinations(data);
       } catch (err) {
         setError("Failed to fetch data.");
       } finally {
@@ -73,25 +73,23 @@ const TrendingDestination = () => {
           <div className="relative lg:col-span-2 lg:mx-0">
             <div ref={sliderContainer} className="keen-slider">
               {destinations.map((destination, i) => (
-                <div className="keen-slider__slide" key={destination.id || i}>
-                  <div className="max-w-sm h-[450px] flex flex-col justify-between rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 relative">
+                <div className="keen-slider__slide" key={destination.slug || i}>
+                  <div className="max-w-sm h-[500px] flex flex-col justify-between rounded-lg shadow-lg border border-gray-200 bg-gray-50 p-2 relative">
                     <Link
                       className="w-full"
-                      key={destination.id}
-                      href={`trending-destination/${destination.selected_destination}`}
+                      key={destination.slug}
+                      href={`trending-destination/${destination.slug}`}
                     >
                       <div className="relative w-full h-64 rounded-lg overflow-hidden">
                         <Image
                           src={`${conf.laravelBaseUrl.replace(
                             /\/$/,
                             ""
-                          )}/${destination.destination_thumbnail.replace(
-                            /^\//,
-                            ""
-                          )}`}
+                          )}/${destination.destination_thumbnail.replace(/^\//, "")}`}
                           alt={destination.title || "Destination"}
-                          fill
-                          className="object-cover"
+                          layout="fill"
+                          objectFit="cover"
+                          className="rounded-lg"
                         />
                       </div>
                     </Link>
@@ -104,8 +102,8 @@ const TrendingDestination = () => {
                     >
                       <Link
                         className="w-full"
-                        key={destination.id}
-                        href={`trending-destination/${destination.selected_destination}`}
+                        key={destination.slug}
+                        href={`trending-destination/${destination.slug}`}
                       >
                         <motion.h2
                           initial={{ x: -20, opacity: 0 }}
@@ -120,14 +118,14 @@ const TrendingDestination = () => {
                       <p className="text-[13px] font-semibold text-[#CF1E27]">
                         {destination.feedback}
                       </p>
-                      <p>{destination.days}</p>
+                      <p>{destination.duration}</p>
 
                       <div className="flex items-center gap-3 mt-4">
                         <FaPhone className="text-[#E69233] text-lg" />
                         <Link
                           className="w-full"
-                          key={destination.id}
-                          href={`trending-destination/${destination.selected_destination}`}
+                          key={destination.slug}
+                          href={`trending-destination/${destination.slug}`}
                         >
                           <motion.button
                             onMouseEnter={() => setIsHovered(true)}
