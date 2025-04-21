@@ -10,6 +10,7 @@ export default function Testimonials() {
   const [shuffledImages, setShuffledImages] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showAllImagesModal, setShowAllImagesModal] = useState(false);
 
   useEffect(() => {
     fetch("https://admiredashboard.theholistay.in/public-gallery-images")
@@ -47,6 +48,12 @@ export default function Testimonials() {
   const openModal = (index) => {
     setSelectedIndex(index);
     setIsModalOpen(true);
+    setShowAllImagesModal(false); // Close "All Images" modal if individual image is clicked
+  };
+
+  const openAllImagesModal = () => {
+    setShowAllImagesModal(true);
+    setIsModalOpen(false); // Close individual image modal if "All Images" is clicked
   };
 
   const handleNext = () => {
@@ -89,7 +96,7 @@ export default function Testimonials() {
           {shuffledImages.length > 7 && (
             <div
               className="relative w-[85%] mx-auto aspect-square overflow-hidden rounded-md cursor-pointer group"
-              onClick={() => openModal(7)}
+              onClick={openAllImagesModal} // This opens all images in a modal
             >
               <Image
                 src={shuffledImages[7]}
@@ -104,7 +111,8 @@ export default function Testimonials() {
           )}
         </div>
 
-        {isModalOpen && selectedIndex !== null && (
+        {/* Modal for displaying a single image */}
+        {isModalOpen && selectedIndex !== null && !showAllImagesModal && (
           <div className="fixed inset-0 bg-black bg-opacity-80 mt-20 flex justify-center items-center z-50 p-4">
             <div className="relative max-w-3xl w-full">
               <button
@@ -135,6 +143,34 @@ export default function Testimonials() {
               >
                 <ArrowRight size={24} />
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* Modal for displaying all images */}
+        {showAllImagesModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-80 mt-20 flex justify-center items-center z-50 p-4">
+            <div className="relative max-w-3xl w-full">
+              <button
+                className="absolute top-4 right-4 text-white z-50"
+                onClick={() => setShowAllImagesModal(false)}
+              >
+                <X size={32} />
+              </button>
+
+              <div className="flex flex-wrap justify-center space-x-4 space-y-4 overflow-y-auto max-h-[80vh]">
+                {shuffledImages.map((image, index) => (
+                  <div key={index} className="w-[300px]">
+                    <Image
+                      src={image}
+                      alt={`Gallery Image ${index + 1}`}
+                      width={900}
+                      height={600}
+                      className="rounded-lg w-full max-h-[80vh] object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
