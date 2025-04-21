@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/autoplay";
 import { Autoplay } from "swiper/modules";
+import Link from "next/link";
 import axios from "axios";
 
 const IMAGE_BASE_URL = "https://admiredashboard.theholistay.in/";
@@ -60,30 +60,35 @@ export default function TrendingDestinations() {
               whileHover={{ scale: 1.05 }}
               className="relative group overflow-hidden rounded-md shadow-md cursor-pointer"
             >
-              <div className="w-full h-44 md:h-48 lg:h-52 relative rounded-md overflow-hidden">
-                <Swiper
-                  modules={[Autoplay]}
-                  autoplay={{ delay: 3000 }}
-                  loop={true}
-                  className="w-full h-full"
-                >
-                  {destination.images?.slice(0, 3).map((imgPath, i) => (
-                    <SwiperSlide key={i}>
-                      <Image
-                        src={`${IMAGE_BASE_URL}${imgPath}`}
-                        alt={destination.destination}
-                        layout="fill"
-                        objectFit="cover"
-                        className="transition-transform duration-700 ease-in-out"
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+              <Link
+                href={`/trending-destination/${destination.destination}`}
+                className="w-full"
+              >
+                <div className="w-full h-44 md:h-48 lg:h-52 relative rounded-md overflow-hidden">
+                  <Swiper
+                    modules={[Autoplay]}
+                    autoplay={{ delay: 3000 }}
+                    loop={true}
+                    className="w-full h-full"
+                  >
+                    {destination.images?.slice(0, 3).map((imgPath, i) => (
+                      <SwiperSlide key={i}>
+                        <Image
+                          src={`${IMAGE_BASE_URL}${imgPath}`}
+                          alt={destination.destination}
+                          layout="fill"
+                          objectFit="cover"
+                          className="transition-transform duration-700 ease-in-out"
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
 
-                <p className="absolute bottom-0 w-full bg-black bg-opacity-50 text-white text-center py-1 text-sm font-semibold z-10">
-                  {destination.destination}
-                </p>
-              </div>
+                  <p className="absolute bottom-0 w-full bg-black bg-opacity-50 text-white text-center py-1 text-sm font-semibold z-10">
+                    {destination.destination}
+                  </p>
+                </div>
+              </Link>
             </motion.div>
           ))}
         </div>

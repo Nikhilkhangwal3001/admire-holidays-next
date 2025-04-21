@@ -48,7 +48,7 @@ const TrendingDestination = () => {
           {destinations.map((item, index) => (
             <div key={index} className="keen-slider__slide">
               <Link
-                href={`trending-destination/${item.selected_destination}`}
+                href={`trending-destination/${item.destination}`}
               >
               <div className="bg-white rounded-xl shadow-md overflow-hidden p-4 h-[400px] flex flex-col justify-between hover:shadow-lg transition-all duration-300 cursor-pointer">
                 {/* Thumbnail (first image from public_images) */}
