@@ -22,7 +22,9 @@ export default function TrendingDestinations() {
         const { data } = await axios.get(
           "https://admiredashboard.theholistay.in/public-trending-destinations-images"
         );
-        setDestinations(data);
+        // Show latest first and limit to 8
+        const sortedAndLimited = [...data].reverse().slice(0, 8);
+        setDestinations(sortedAndLimited);
       } catch (err) {
         setError("Failed to fetch destinations.");
         console.error("API Error:", err);
