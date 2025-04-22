@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import axios from "axios";
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/css'; // Correct Swiper CSS import for Swiper v9+
 
 export default function InternationalDestinations() {
   const [loading, setLoading] = useState(true);
@@ -26,9 +28,7 @@ export default function InternationalDestinations() {
           return {
             id: destination.id,
             name: destination.destination || "Unnamed",
-            image: lastImage
-              ? `https://admiredashboard.theholistay.in/${lastImage}`
-              : null,
+            images: destination.public_images || [],
           };
         });
 
@@ -102,7 +102,7 @@ export default function InternationalDestinations() {
           Select a Destination
         </h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {destinations.map((destination) => (
             <Link
               href={`/trending-destination/${destination.name
@@ -110,22 +110,40 @@ export default function InternationalDestinations() {
                 .replace(/\s+/g, "-")}`}
               key={destination.id}
             >
-              <div className="relative group flex flex-col items-center p-4 rounded-xl transition-all cursor-pointer h-full">
-                {destination.image ? (
-                  <Image
-                    src={destination.image}
-                    alt={destination.name}
-                    width={100}
-                    height={100}
-                    className="w-24 h-24 mb-3 transition-transform transform group-hover:scale-110 rounded-lg object-cover"
-                  />
+              <div className="relative group flex flex-col items-center p-4 rounded-xl transition-all cursor-pointer shadow-lg hover:shadow-xl">
+                {destination.images.length > 0 ? (
+                  <div className="w-full h-64">
+                    {/* Swiper Image Slider */}
+                    <Swiper
+                      spaceBetween={10}
+                      slidesPerView={1}
+                      loop={true}
+                      autoplay={{
+                        delay: 3000, // 3 seconds delay between images
+                        disableOnInteraction: false,
+                      }}
+                      className="rounded-lg"
+                    >
+                      {destination.images.map((image, index) => (
+                        <SwiperSlide key={index}>
+                          <Image
+                            src={`https://admiredashboard.theholistay.in/${image}`}
+                            alt={destination.name}
+                            width={400}
+                            height={400}
+                            className="w-full h-64 object-cover rounded-lg"
+                          />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </div>
                 ) : (
                   <div className="w-24 h-24 mb-3 bg-gray-300 rounded-lg flex items-center justify-center text-sm text-red-600 text-center">
                     Image not available
                   </div>
                 )}
 
-                <p className="text-lg font-semibold text-gray-800 hover:underline text-center">
+                <p className="text-lg font-semibold text-gray-800 hover:underline text-center mt-3">
                   {destination.name}
                 </p>
               </div>

@@ -9,7 +9,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 
 const TrendingDestination = () => {
   const [destinations, setDestinations] = useState([]);
-  
+
   // Initialize Keen Slider
   const [sliderRef] = useKeenSlider({
     loop: true,
@@ -50,9 +50,7 @@ const TrendingDestination = () => {
         <div ref={sliderRef} className="keen-slider">
           {destinations.map((item, index) => (
             <div key={item.slug || index} className="keen-slider__slide">
-              <Link
-                href={`trending-destination/${item.selected_destination}`}
-              >
+              <Link href={`destination/${item.selected_destination}`}>
                 <div className="bg-white rounded-xl shadow-md overflow-hidden p-4 h-[400px] flex flex-col justify-between hover:shadow-lg transition-all duration-300 cursor-pointer">
                   {/* Thumbnail */}
                   <div className="relative w-full h-48 rounded-md overflow-hidden">
@@ -70,7 +68,8 @@ const TrendingDestination = () => {
                       {item.title}
                     </h3>
                     <p className="text-sm text-gray-700">
-                      {item.domestic_or_international.charAt(0).toUpperCase() + item.domestic_or_international.slice(1)}
+                      {item.domestic_or_international.charAt(0).toUpperCase() +
+                        item.domestic_or_international.slice(1)}
                     </p>
                     <p className="text-sm text-gray-700">
                       Duration: {item.duration}
@@ -81,16 +80,15 @@ const TrendingDestination = () => {
                   </div>
 
                   {/* Know More Button */}
-                   {/* Phone icon + Know More */}
-                                    <div className="mt-4 flex items-center justify-between">
-                                      <div className="flex  items-center gap-2 text-red-600 font-semibold text-2xl">
-                                        <FaPhoneAlt />
-                                        
-                                      </div>
-                                      <button className="bg-red-600 w-full text-white ml-3 px-4 py-2 text-sm rounded-md">
-                                        Know More
-                                      </button>
-                                    </div>
+                  {/* Phone icon + Know More */}
+                  <div className="mt-4 flex items-center justify-between">
+                    <div className="flex  items-center gap-2 text-red-600 font-semibold text-2xl">
+                      <FaPhoneAlt />
+                    </div>
+                    <button className="bg-red-600 w-full text-white ml-3 px-4 py-2 text-sm rounded-md">
+                      Know More
+                    </button>
+                  </div>
                 </div>
               </Link>
             </div>
