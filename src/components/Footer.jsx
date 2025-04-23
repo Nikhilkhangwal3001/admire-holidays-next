@@ -6,7 +6,6 @@ import { IoCallOutline } from "react-icons/io5";
 import { FaLocationDot } from "react-icons/fa6";
 import Link from "next/link";
 import axios from "axios";
-import conf from "../../conf/conf";
 
 const Footer = () => {
   const [destinations, setDestinations] = useState([]);
@@ -16,7 +15,9 @@ const Footer = () => {
   useEffect(() => {
     async function fetchDestinations() {
       try {
-        const { data } = await axios.get(`${conf.laravelBaseUrl}/public-itineraries-trending`);
+        const { data } = await axios.get(
+          "https://admiredashboard.theholistay.in/public-trending-destinations-images"
+        );
         setDestinations(data);
       } catch (err) {
         setError("Failed to load destinations.");
@@ -87,12 +88,9 @@ const Footer = () => {
               {destinations.length > 0 ? (
                 destinations.map((dest, i) => (
                   <li key={i}>
-                    <Link
-                      href={`/packages/${dest.selected_destination.toLowerCase()}`}
-                      className="text-gray-400 hover:text-white transition-all duration-300"
-                    >
-                      {dest.selected_destination}
-                    </Link>
+                     <span className="text-gray-400 hover:text-white transition-all duration-300 cursor-default">
+                      {dest.destination}
+                     </span>
                   </li>
                 ))
               ) : (
@@ -114,7 +112,9 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-2">
             <FaLocationDot size={20} className="text-yellow-400" />
-            <span>34, Sewak Park, Dwarka More Metro, Near Pillar No-772, New Delhi</span>
+            <span>
+              34, Sewak Park, Dwarka More Metro, Near Pillar No-772, New Delhi
+            </span>
           </div>
         </div>
       </div>
