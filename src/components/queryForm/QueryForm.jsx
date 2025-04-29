@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import Image from 'next/image'
+import Image from "next/image";
+import Andaman from "../../../public/Andaman12.jpg";
+
 const QueryForm = () => {
   const [isQuery, setIsQuery] = useState(true);
   const [result, setResult] = useState("Submit");
@@ -8,10 +10,6 @@ const QueryForm = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
-
-  const handleToggle = () => {
-    setIsQuery(!isQuery);
-  };
 
   const validateForm = () => {
     const errors = {};
@@ -42,11 +40,9 @@ const QueryForm = () => {
           setMessage("");
           setErrors({});
         } else {
-          console.log("Error", data);
           setResult("Error");
         }
       } catch (error) {
-        console.error("Error:", error);
         setResult("Error");
       }
     } else {
@@ -55,121 +51,127 @@ const QueryForm = () => {
   };
 
   return (
-    <div className="flex md:flex-row flex-col mt-32 max-w-7xl px-3 mx-auto overflow-hidden">
-      <div className="md:w-1/2 h-fit w-full ">
-        <Image
-          src="https://images.unsplash.com/photo-1560264418-c4445382edbc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGN1c3RvbWVyJTIwc3VwcG9ydHxlbnwwfHwwfHx8MA%3D%3D"
-          alt=""
-          className="w-full h-full "
-        />
-      </div>
-      <div className="md:w-1/2 flex flex-col w-full">
-        <div className="flex ">
-          <div
-            className={`w-1/2 py-2 text-center sm:text-base text-sm flex justify-center items-center cursor-pointer ${
-              isQuery ? "bg-red-500 text-white" : "bg-gray-200 text-gray-700"
-            }`}
-            onClick={handleToggle}
-          >
-            Suggestions or Complaints
-          </div>
-          <div
-            className={`w-1/2 py-4 text-center cursor-pointer sm:text-base text-sm ${
-              isQuery ? "bg-gray-200 text-gray-700 " : "bg-red-500 text-white"
-            }`}
-            onClick={handleToggle}
-          >
-            Not getting response
-          </div>
+    <section className="bg-gray-100 py-16 px-4 min-h-screen flex items-center justify-center">
+      <div className="max-w-4xl w-full bg-white shadow-2xl rounded-xl overflow-hidden grid md:grid-cols-2">
+        {/* Image Section */}
+        <div className="relative w-full h-[300px] md:h-auto">
+          <Image
+            src={Andaman}
+            alt="Support"
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
-        <div className="p-6">
+
+        {/* Form Section */}
+        <div className="p-8 flex flex-col justify-center">
+          {/* Toggle Buttons */}
+          <div className="flex bg-gray-200 rounded-full p-1 mb-6">
+            <button
+              onClick={() => setIsQuery(true)}
+              className={`flex-1 py-2 text-sm rounded-full transition ${
+                isQuery
+                  ? "bg-red-500 text-white"
+                  : "text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              Suggestions or Complaints
+            </button>
+            <button
+              onClick={() => setIsQuery(false)}
+              className={`flex-1 py-2 text-sm rounded-full transition ${
+                !isQuery
+                  ? "bg-red-500 text-white"
+                  : "text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              Not Getting Response
+            </button>
+          </div>
+
+          {/* Form */}
           {isQuery ? (
-            <form onSubmit={handleSubmit}>
-              <div className="mb-2">
-                <label htmlFor="name" className="block text-gray-700 mb-2">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label htmlFor="name" className="text-sm font-medium text-gray-700">
                   Name
                 </label>
                 <input
-                  type="text"
                   id="name"
                   name="name"
+                  type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                  className={`mt-1 w-full px-4 py-2 text-sm rounded-md border focus:ring-2 focus:ring-red-400 focus:outline-none ${
                     errors.name ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Enter your name"
-                  required
+                  placeholder="Your Name"
                 />
-                {errors.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-                )}
+                {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
               </div>
-              <div className="mb-2">
-                <label htmlFor="email" className="block text-gray-700 mb-2">
+
+              <div>
+                <label htmlFor="email" className="text-sm font-medium text-gray-700">
                   Email Address
                 </label>
                 <input
-                  type="email"
                   id="email"
                   name="email"
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                  className={`mt-1 w-full px-4 py-2 text-sm rounded-md border focus:ring-2 focus:ring-red-400 focus:outline-none ${
                     errors.email ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Enter your email"
-                  required
+                  placeholder="you@example.com"
                 />
-                {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                )}
+                {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
               </div>
-              <div className="mb-2">
-                <label htmlFor="message" className="block text-gray-700 mb-2">
+
+              <div>
+                <label htmlFor="message" className="text-sm font-medium text-gray-700">
                   Message
                 </label>
                 <textarea
                   id="message"
                   name="message"
+                  rows="4"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 ${
+                  className={`mt-1 w-full px-4 py-2 text-sm rounded-md border focus:ring-2 focus:ring-red-400 focus:outline-none ${
                     errors.message ? "border-red-500" : "border-gray-300"
                   }`}
-                  rows="1"
-                  placeholder="Enter your message"
-                  required
-                ></textarea>
+                  placeholder="Your message..."
+                />
                 {errors.message && (
-                  <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+                  <p className="text-sm text-red-500">{errors.message}</p>
                 )}
               </div>
-              <div className="mb-4">
-                <button
-                  type="submit"
-                  className="w-full py-2 px-4 bg-red-500 text-white font-bold rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
-                >
-                  {result}
-                </button>
-              </div>
+
+              <button
+                type="submit"
+                className="w-full py-2 text-sm bg-red-500 text-white font-medium rounded-md hover:bg-red-600 transition"
+              >
+                {result}
+              </button>
             </form>
           ) : (
-            <div className="text-center">
-              <p className="text-gray-700  mb-4">
-                If you are not getting any response, please mail us at
+            <div className="text-center px-4">
+              <p className="text-gray-600 text-sm mb-2">
+                If you're not getting a response, please email us at:
               </p>
               <a
                 href="mailto:info@admireholidays.com"
-                className=" text-black underline"
+                className="text-red-500 underline font-medium"
               >
-                mailto:info@admireholidays.com
+                info@admireholidays.com
               </a>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
