@@ -159,7 +159,7 @@ const QueryForm = () => {
           ) : (
             <div className="text-center px-4">
               <p className="text-gray-600 text-sm mb-2">
-                If you're not getting a response, please email us at:
+                If you are not getting a response, please email us at:
               </p>
               <a
                 href="mailto:info@admireholidays.com"

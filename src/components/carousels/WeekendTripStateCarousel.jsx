@@ -38,7 +38,7 @@ const TrendingDestination = () => {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 mt-12">
+    <div className="max-w-7xl mx-auto px-4 mt-32">
       <h2 className="text-4xl font-bold text-center mb-6 text-[#261F43]">
         Weekend Gateway Destinations
       </h2>
