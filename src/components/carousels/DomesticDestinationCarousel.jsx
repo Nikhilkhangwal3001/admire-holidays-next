@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { KeenSliderInstance, KeenSliderPlugin } from "keen-slider";
+import { KeenSliderInstance } from "keen-slider";
 import "keen-slider/keen-slider.min.css";
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -17,6 +17,7 @@ const TrendingDestination = () => {
   const autoSlideInterval = useRef(null);
   const [destinations, setDestinations] = useState([]);
 
+  // Fetch data from API
   useEffect(() => {
     async function fetchData() {
       try {
@@ -29,6 +30,7 @@ const TrendingDestination = () => {
     fetchData();
   }, []);
 
+  // Main carousel
   useEffect(() => {
     if (sliderRef.current && destinations.length > 0 && !keenRef.current) {
       const KeenSlider = require("keen-slider").default;
@@ -37,15 +39,9 @@ const TrendingDestination = () => {
         loop: true,
         slides: { perView: 1, spacing: 15 },
         breakpoints: {
-          "(min-width: 640px)": {
-            slides: { perView: 1.5, spacing: 20 },
-          },
-          "(min-width: 768px)": {
-            slides: { perView: 2, spacing: 20 },
-          },
-          "(min-width: 1024px)": {
-            slides: { perView: 3, spacing: 30 },
-          },
+          "(min-width: 640px)": { slides: { perView: 1.5, spacing: 20 } },
+          "(min-width: 768px)": { slides: { perView: 2, spacing: 20 } },
+          "(min-width: 1024px)": { slides: { perView: 3, spacing: 30 } },
         },
       });
 
@@ -74,18 +70,13 @@ const TrendingDestination = () => {
             <div className="keen-slider__slide" key={index}>
               <Link href={`trending-destination/${item.destination}`} className="block h-full">
                 <div className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition duration-300 h-full flex flex-col">
-                  <div className="w-full h-64 overflow-hidden">
-                    {item.public_images?.[0] && (
-                      <Image
-                        src={`${BASE_URL}${item.public_images[0]}`}
-                        alt={item.destination || "Destination Image"}
-                        width={400}
-                        height={300}
-                        className="object-cover w-full h-full"
-                      />
-                    )}
+                  
+                  {/* Rotating Image Carousel */}
+                  <div className="w-full h-64 overflow-hidden relative">
+                    <AutoImageSlider images={item.public_images} />
                   </div>
 
+                  {/* Info section */}
                   <div className="p-4 flex-1 flex flex-col justify-between">
                     <div>
                       <h3 className="text-lg font-bold text-[#4D456B]">{item.destination}</h3>
@@ -124,3 +115,28 @@ const TrendingDestination = () => {
 };
 
 export default TrendingDestination;
+
+// ✅ Autoplay image rotator for top section
+const AutoImageSlider = ({ images }) => {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!images || images.length === 0) return;
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 3000); // 3 seconds
+
+    return () => clearInterval(interval);
+  }, [images]);
+
+  if (!images || images.length === 0) return null;
+
+  return (
+    <Image
+      src={`https://admiredashboard.theholistay.in/${images[current]}`}
+      alt="Rotating Destination"
+      fill
+      className="object-cover w-full h-full transition-all duration-1000"
+    />
+  );
+};

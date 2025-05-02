@@ -110,7 +110,6 @@ export default function DomesticDestinations() {
               key={destination.id}
             >
               <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transform transition hover:-translate-y-1 overflow-hidden group cursor-pointer">
-
                 <div className="w-full h-48 relative">
                   <Swiper
                     modules={[Autoplay, Pagination]}
@@ -122,11 +121,14 @@ export default function DomesticDestinations() {
                     {destination.public_images.length > 0 ? (
                       destination.public_images.map((img, index) => (
                         <SwiperSlide key={index}>
-                          <Image
-                            src={`https://admiredashboard.theholistay.in/${img}`}
-                            alt={destination.name}
-                            className="w-full h-48 object-cover"
-                          />
+                          <div className="relative w-full h-48">
+                            <Image
+                              src={`https://admiredashboard.theholistay.in/${img}`}
+                              alt={destination.name}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
                         </SwiperSlide>
                       ))
                     ) : (
