@@ -35,8 +35,7 @@ const BlogList = () => {
 
   if (loading)
     return <p className="text-center text-xl font-semibold">Loading...</p>;
-  if (error)
-    return <p className="text-center text-red-500 text-xl">{error}</p>;
+  if (error) return <p className="text-center text-red-500 text-xl">{error}</p>;
 
   return (
     <section>
@@ -61,65 +60,64 @@ const BlogList = () => {
         </div>
       </section>
 
-    <div className="max-w-6xl mx-auto ">
-      
-      <h2 className="md:text-3xl text-2xl mt-20 font-bold text-center text-red-600 mb-8 border-b-4 border-yellow-500 pb-2">
-        📢 Latest Blog
-      </h2>
+      <div className="max-w-6xl mx-auto ">
+        <h2 className="md:text-3xl text-2xl mt-20 font-bold text-center text-red-600 mb-8 border-b-4 border-yellow-500 pb-2">
+          📢 Latest Blog
+        </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {blogs.map((blog) => (
-          <Link href={`/blogdetail/${blog.blog_slug}`} key={blog.id}>
-            <p className="block bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 h-[500px] flex flex-col justify-between">
-              {blog.blog_image ? (
-                <div className="relative w-full h-48">
-                  <Image
-                    src={`https://admiredashboard.theholistay.in/${blog.blog_image}`}
-                    alt={blog.blog_title}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-t-lg"
-                  />
-                </div>
-              ) : (
-                <div className="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
-                  No Image Available
-                </div>
-              )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {blogs.map((blog) => (
+            <Link href={`/blogdetail/${blog.blog_slug}`} key={blog.id}>
+              <p className="block bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 h-[400px] flex flex-col justify-between">
+                {blog.blog_image ? (
+                  <div className="relative w-full h-48">
+                    <Image
+                      src={`https://admiredashboard.theholistay.in/${blog.blog_image}`}
+                      alt={blog.blog_title}
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-t-lg"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+                    No Image Available
+                  </div>
+                )}
 
-              <div className="p-5 flex flex-col justify-between h-full">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800">
-                    {blog.blog_title}
-                  </h3>
-                  <p className="text-gray-600 mt-2 h-[72px] overflow-hidden line-clamp-3">
-                    {blog.blog_description}
-                  </p>
-                  <p className="text-sm text-gray-500 mt-2">
-                    <strong>Author:</strong> {blog.blog_author_name}
-                  </p>
-                </div>
+                <div className="p-5 flex flex-col justify-between h-full">
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-800">
+                      {blog.blog_title}
+                    </h3>
+                    <p className="text-gray-600 mt-2 h-[72px] overflow-hidden line-clamp-3">
+                      {blog.blog_description}
+                    </p>
+                    <p className="text-sm text-gray-500 mt-2">
+                      <strong>Author:</strong> {blog.blog_author_name}
+                    </p>
+                  </div>
 
-                <div className="mt-4 flex justify-between items-center">
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleShare(blog.id);
-                    }}
-                    className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-red-600 transition"
-                  >
-                    Share
-                  </button>
-                  <span className="bg-red-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">
-                    Read More
-                  </span>
+                  <div className="mt-4 flex justify-between items-center">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleShare(blog.id);
+                      }}
+                      className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+                    >
+                      Share
+                    </button>
+                    <span className="bg-red-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">
+                      Read More
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </p>
-          </Link>
-        ))}
+              </p>
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
     </section>
   );
 };

@@ -314,7 +314,7 @@ export default function ItineraryPage() {
 
                       {stateData.tour_highlight ? (
                         <ul className="list-disc list-inside text-red-800 space-y-2 text-lg">
-                          <li>{stateData.tour_highlight}</li>
+                          <li>{stateData.tour_highlight.replace(/<[^>]*>/g, '')}</li>
                         </ul>
                       ) : (
                         <p className="text-red-800 text-lg">
@@ -609,71 +609,58 @@ export default function ItineraryPage() {
                   <div className="flex flex-col">
                     <section id="tour-info" className="px-4 py-16 bg-gray-100">
                       <section
-                        id="inclusion"
-                        className="px-4 py-16 bg-gradient-to-b from-gray-50 to-gray-100"
-                      >
-                        <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-14">
-                          Tour Inclusions & Exclusions
-                        </h2>
+  id="inclusion"
+  className="py-24 px-4 md:px-12 bg-gradient-to-br from-gray-50 via-white to-gray-100"
+>
+  <div className="max-w-6xl mx-auto">
+    <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-20 tracking-tight">
+      Tour Inclusions & Exclusions
+    </h2>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                          {/* Inclusion Card */}
-                          <div className="relative bg-white border-l-8 border-green-500 rounded-2xl shadow-md hover:shadow-xl transition p-6">
-                            <div className="absolute -top-5 left-5 bg-green-500 text-white px-3 py-1 rounded-md text-xs font-semibold shadow">
-                              Included
-                            </div>
-                            <div className="flex items-center mb-4">
-                              <span className="text-green-600 text-3xl mr-3">
-                                ✅
-                              </span>
-                              <h3 className="text-xl font-semibold text-gray-800">
-                                What’s Included
-                              </h3>
-                            </div>
-                            <div className="text-gray-700 text-sm leading-relaxed text-justify">
-                              {stateData.inclusion ? (
-                                <span
-                                  dangerouslySetInnerHTML={{
-                                    __html: stateData.inclusion,
-                                  }}
-                                />
-                              ) : (
-                                <span className="text-gray-500 italic">
-                                  No description available
-                                </span>
-                              )}
-                            </div>
-                          </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 md:gap-x-20">
+      {/* Inclusions Section */}
+      <div className="relative pl-10">
+        <div className="absolute left-0 top-2 w-1 h-full bg-gradient-to-b from-green-400 to-green-600 rounded-full"></div>
+        <div className="flex items-center mb-6">
+          <span className="text-green-500 text-3xl mr-4">✅</span>
+          <h3 className="text-2xl font-semibold text-gray-800">What’s Included</h3>
+        </div>
+        <div className="text-gray-700 text-lg leading-relaxed space-y-2 text-justify">
+          {stateData.inclusion ? (
+            <span
+              dangerouslySetInnerHTML={{
+                __html: stateData.inclusion,
+              }}
+            />
+          ) : (
+            <span className="text-gray-500 italic">No description available</span>
+          )}
+        </div>
+      </div>
 
-                          {/* Exclusion Card */}
-                          <div className="relative bg-white border-l-8 border-red-500 rounded-2xl shadow-md hover:shadow-xl transition p-6">
-                            <div className="absolute -top-5 left-5 bg-red-500 text-white px-3 py-1 rounded-md text-xs font-semibold shadow">
-                              Exclusion
-                            </div>
-                            <div className="flex items-center mb-4">
-                              <span className="text-red-600 text-3xl mr-3">
-                                ❌
-                              </span>
-                              <h3 className="text-xl font-semibold text-gray-800">
-                                What’s Exclusion
-                              </h3>
-                            </div>
-                            <div className="text-gray-700 text-sm leading-relaxed text-justify">
-                              {stateData.exclusion ? (
-                                <span
-                                  dangerouslySetInnerHTML={{
-                                    __html: stateData.exclusion,
-                                  }}
-                                />
-                              ) : (
-                                <span className="text-gray-500 italic">
-                                  No description available
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </section>
+      {/* Exclusions Section */}
+      <div className="relative pl-10">
+        <div className="absolute left-0 top-2 w-1 h-full bg-gradient-to-b from-red-400 to-red-600 rounded-full"></div>
+        <div className="flex items-center mb-6">
+          <span className="text-red-500 text-3xl mr-4">❌</span>
+          <h3 className="text-2xl font-semibold text-gray-800">What’s Excluded</h3>
+        </div>
+        <div className="text-gray-700 text-lg leading-relaxed space-y-2 text-justify">
+          {stateData.exclusion ? (
+            <span
+              dangerouslySetInnerHTML={{
+                __html: stateData.exclusion,
+              }}
+            />
+          ) : (
+            <span className="text-gray-500 italic">No description available</span>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
                       {/* Additional Inclusion */}
                       <div className="bg-white rounded-xl shadow-md p-8 mb-8 transition hover:shadow-lg max-w-9xl mx-auto">

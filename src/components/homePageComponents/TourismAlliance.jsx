@@ -54,29 +54,31 @@ const TourismAlliance = () => {
   });
 
   return (
-    <section className="py-16">
-      <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
-        <div className="max-w-7xl flex items-center justify-between">
-          <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Hotel Alliances
+    <section className="py-20 bg-gradient-to-br from-blue-50 to-white">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 text-center">
+          <h2 className="text-4xl font-extrabold text-gray-800 sm:text-5xl">
+             Hotel Alliances
           </h2>
+          <p className="mt-4 text-lg text-gray-600">
+            Trusted partners offering unique and comfortable stays.
+          </p>
         </div>
 
-        {/* Hotel Slider */}
-        <div className="sm:mt-16 mt-6 lg:col-span-2 px-2 lg:mx-0">
+        <div className="px-2">
           <div ref={sliderRef} className="keen-slider">
             {hotelsData.map((item) => (
               <div
                 className="keen-slider__slide flex items-center justify-center"
                 key={item.id}
               >
-                <div className="relative w-32 h-32 md:w-48 md:h-48">
+                <div className="relative w-28 h-28 md:w-40 md:h-40 lg:w-44 lg:h-44 rounded-xl overflow-hidden shadow-md bg-white p-3 hover:shadow-xl hover:scale-105 transition-all duration-300 ease-in-out">
                   <Image
                     src={item.imageUrl}
                     alt="Hotel Logo"
-                    width={192} // Set width
-                    height={192} // Set height
-                    className="object-contain"
+                    width={192}
+                    height={192}
+                    className="object-contain w-full h-full"
                   />
                 </div>
               </div>

@@ -8,6 +8,8 @@ import DomesticDestinationCarousel from "@/components/carousels/DomesticDestinat
 import WeekendTripStateCarousel from '@/components/carousels/WeekendTripStateCarousel'
 import WeekendTripTrendingcarousel from '@/components/carousels/WeekendTripTrendingCarousel'
 import Resort from '@/components/carousels/ResortTripDestination'
+import BannerCarousel from "./crousalbanner/banners";
+import Secondbanner from "./crousalbanner/secondbanner";
 // Lazy Loaded Components
 // const QuestioningCardsLayout = lazy(() =>
 //   import("@/components/homePageComponents/QuestioningCardsLayout")
@@ -69,10 +71,16 @@ const Home = () => {
         <PopularDestinationCarousel />
       </InViewComponent>
       <InViewComponent>
+        <BannerCarousel/>
+      </InViewComponent>
+      <InViewComponent>
         <InternationalDestinationCarousel />
       </InViewComponent>
       <InViewComponent>
         <DomesticDestinationCarousel/>
+      </InViewComponent>
+      <InViewComponent>
+        <Secondbanner/>
       </InViewComponent>
       <InViewComponent>
         <WeekendTripTrendingcarousel/>
@@ -90,9 +98,7 @@ const Home = () => {
       <InViewComponent>
         <FeaturesSection />
       </InViewComponent>
-      <InViewComponent>
-        <CompanyStatsSection />
-      </InViewComponent>
+      
       <InViewComponent>
         <Testimonial />
       </InViewComponent>
@@ -101,6 +107,9 @@ const Home = () => {
       </InViewComponent>
       <InViewComponent>
         <YoutubeBanner />
+      </InViewComponent>
+      <InViewComponent>
+        <CompanyStatsSection />
       </InViewComponent>
       <InViewComponent>
         <TourismAlliance />

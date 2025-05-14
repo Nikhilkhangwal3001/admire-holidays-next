@@ -72,8 +72,8 @@ export default function Testimonials() {
         Your trusted partner in travel and tour experiences.
       </h2>
 
-      <section className="py-12 px-4 md:px-16 lg:px-32">
-        <h3 className="text-xl md:text-2xl font-semibold text-center text-[#CF1E27] mb-8">
+      <section className="py-2 px-4 md:px-16 lg:px-32">
+        <h3 className="text-xl md:text-2xl font-semibold text-center text-yellow-600 mb-8">
           Explore Our Gallery
         </h3>
 

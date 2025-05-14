@@ -8,3 +8,31 @@
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind's shadow-lg */
     transition: transform 0.5s ease-in-out; /* Tailwind's transition-transform duration-500 ease-in-out */
 }
+
+
+.MsoNormal img {
+    /* width: 50%; */
+    object-fit: cover;
+    /* height: 300px; */
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    /* margin-top: 10px; */
+    /* transition: transform 0.5s ease-in-out; */
+}
+
+.MsoNormal img:hover{
+    /* transform: scale(1.015); */
+}
+
+
+p.MsoNormal:has(img){
+margin-bottom: 50px;
+}
+
+h2:has(img){
+margin-bottom: 50px;
+margin-top: 20px;
+margin-right: 20px;
+/* background-color: brown; */
+}

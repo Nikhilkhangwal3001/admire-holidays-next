@@ -7,7 +7,9 @@ import Link from "next/link";
 import axios from "axios";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import 'swiper/css'; // Correct Swiper CSS import for Swiper v9+
+import 'swiper/css';
+import YoutubeBanner from '@/components/homePageComponents/YoutubeBanner'
+import SubscribeLetter from "@/components/homePageComponents/SubscribeLetter";
 
 export default function InternationalDestinations() {
   const [loading, setLoading] = useState(true);
@@ -151,7 +153,8 @@ export default function InternationalDestinations() {
           ))}
         </div>
       </div>
-
+ <YoutubeBanner/>
+      <SubscribeLetter/>
       <Footer />
     </div>
   );

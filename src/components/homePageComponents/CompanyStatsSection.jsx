@@ -56,7 +56,7 @@ const CompanyStatsSection = () => {
   return (
     <section
       ref={ref}
-      className="relative bg-gradient-to-br from-[#155146] via-[#1e3a34] to-[#0a1e1c] py-20 overflow-hidden"
+      className="relative bg-gradient-to-br from-[#155146] via-[#1e3a34] to-[#0a1e1c] mt-28 py-20 mb-28 overflow-hidden"
     >
       <div className="absolute inset-0 opacity-10 bg-[url('/stars.svg')] bg-cover pointer-events-none" />
 

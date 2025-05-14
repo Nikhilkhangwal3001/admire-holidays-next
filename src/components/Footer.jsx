@@ -88,9 +88,11 @@ const Footer = () => {
               {destinations.length > 0 ? (
                 destinations.map((dest, i) => (
                   <li key={i}>
-                     <span className="text-gray-400 hover:text-white transition-all duration-300 cursor-default">
-                      {dest.destination}
-                     </span>
+                    <Link href="">
+                      <span className="text-gray-400 hover:text-white transition-all duration-300 cursor-default">
+                        {dest.destination}
+                      </span>
+                    </Link>
                   </li>
                 ))
               ) : (

@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
+import YoutubeBanner from '@/components/homePageComponents/YoutubeBanner'
+import SubscribeLetter from "@/components/homePageComponents/SubscribeLetter";
 
 // Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -150,7 +152,8 @@ export default function DomesticDestinations() {
           ))}
         </div>
       </div>
-
+      <YoutubeBanner/>
+      <SubscribeLetter/>
       <Footer />
     </div>
   );

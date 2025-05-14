@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import { Mail, User, Phone } from "lucide-react"; // Optional icons
+import { Mail, User, Phone } from "lucide-react";
 
 const SubscribeLetter = () => {
   const [result, setResult] = useState("Subscribe");
@@ -37,84 +37,78 @@ const SubscribeLetter = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
-    <section className="px-5 md:px-10 my-20">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center bg-gray-100 rounded-2xl shadow-lg overflow-hidden">
-        {/* Image Section */}
-        <div className="lg:w-1/2 lg:flex justify-center items-center  rounded-md">
-          <Image
-            src="/Andaman11.jpg" 
-            alt="Newsletter"
-            width={300}
-            height={300}
-            className="object-contain"
-          />
-        </div>
+    <section className="relative w-full min-h-screen bg-gradient-to-br from-[#FFDEE9] to-[#B5FFFC] flex items-center justify-center px-4 py-20">
+      <div className="absolute inset-0">
+        <Image
+          src="/Andaman11.jpg"
+          alt="Newsletter Background"
+          layout="fill"
+          objectFit="cover"
+          className="opacity-20"
+        />
+      </div>
 
-        {/* Form Section */}
-        <div className="w-full lg:w-1/2 p-8 md:p-12">
-          <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 text-center lg:text-left mb-6">
-            Subscribe for Updates
-          </h2>
+      <div className="z-10 w-full max-w-3xl bg-white/70 backdrop-blur-xl p-10 rounded-2xl shadow-2xl">
+        <h2 className="text-4xl font-bold text-center text-gray-800 mb-4">Stay in the Loop</h2>
+        <p className="text-center text-gray-600 mb-8">
+          Subscribe to receive updates, offers, and more!
+        </p>
 
-          <form onSubmit={submitForm} className="flex flex-col gap-4">
-            {/* Name */}
-            <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 bg-white">
-              <User className="w-5 h-5 text-gray-500 mr-2" />
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                placeholder="Your Name"
-                className="w-full outline-none text-sm"
-              />
-            </div>
+        <form onSubmit={submitForm} className="space-y-6">
+          {/* Name */}
+          <div className="flex items-center border border-gray-300 rounded-full px-5 py-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-400">
+            <User className="text-gray-400 mr-3" />
+            <input
+              type="text"
+              name="name"
+              required
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name"
+              className="w-full outline-none bg-transparent text-gray-700"
+            />
+          </div>
 
-            {/* Phone */}
-            <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 bg-white">
-              <Phone className="w-5 h-5 text-gray-500 mr-2" />
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-                placeholder="Phone Number"
-                className="w-full outline-none text-sm"
-              />
-            </div>
+          {/* Phone */}
+          <div className="flex items-center border border-gray-300 rounded-full px-5 py-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-400">
+            <Phone className="text-gray-400 mr-3" />
+            <input
+              type="tel"
+              name="phone"
+              required
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Phone Number"
+              className="w-full outline-none bg-transparent text-gray-700"
+            />
+          </div>
 
-            {/* Email */}
-            <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 bg-white">
-              <Mail className="w-5 h-5 text-gray-500 mr-2" />
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                placeholder="Email Address"
-                className="w-full outline-none text-sm"
-              />
-            </div>
+          {/* Email */}
+          <div className="flex items-center border border-gray-300 rounded-full px-5 py-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-400">
+            <Mail className="text-gray-400 mr-3" />
+            <input
+              type="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email Address"
+              className="w-full outline-none bg-transparent text-gray-700"
+            />
+          </div>
 
-            {/* Button */}
-            <button
-              type="submit"
-              className="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 w-full"
-            >
-              {result}
-            </button>
-          </form>
-        </div>
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full py-3 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold text-lg transition duration-300 shadow-md"
+          >
+            {result}
+          </button>
+        </form>
       </div>
     </section>
   );
