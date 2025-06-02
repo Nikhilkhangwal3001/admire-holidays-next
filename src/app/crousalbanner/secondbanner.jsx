@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 const images = [
-  '/Allahabad3.jpg',
-  '/bali13.jpg',
-  '/Andaman41.jpg'
+  '/banner4.png',
+  '/banner5.png',
+  '/Banner1.png'
 ]
 
 export default function BannerCarousel() {
@@ -19,7 +19,7 @@ export default function BannerCarousel() {
   }, [])
 
   return (
-    <div className="w-full max-w-7xl h-[311px] mx-auto overflow-hidden relative mt-4 rounded-lg">
+    <div className="w-full mt-24 max-w-7xl h-[311px] mx-auto overflow-hidden relative  rounded-lg">
       {images.map((src, index) => (
         <motion.img
           key={index}

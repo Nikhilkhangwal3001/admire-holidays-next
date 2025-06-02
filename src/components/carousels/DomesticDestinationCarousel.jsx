@@ -136,7 +136,7 @@ const AutoImageSlider = ({ images }) => {
       src={`https://admiredashboard.theholistay.in/${images[current]}`}
       alt="Rotating Destination"
       fill
-      className="object-cover w-full h-full transition-all duration-1000"
+      className="object-cover  w-full h-full transition-all duration-1000"
     />
   );
 };

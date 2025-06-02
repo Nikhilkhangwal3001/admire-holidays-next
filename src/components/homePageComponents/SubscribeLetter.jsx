@@ -41,26 +41,30 @@ const SubscribeLetter = () => {
   };
 
   return (
-    <section className="relative w-full min-h-screen bg-gradient-to-br from-[#FFDEE9] to-[#B5FFFC] flex items-center justify-center px-4 py-20">
-      <div className="absolute inset-0">
+    <section className="relative w-full min-h-screen  flex items-center justify-center px-4 py-16 sm:py-20">
+      {/* Background image container with responsive layout */}
+      <div className="absolute inset-0 -z-10">
         <Image
-          src="/Andaman11.jpg"
+          src="/formbackground.png"
           alt="Newsletter Background"
           layout="fill"
           objectFit="cover"
-          className="opacity-20"
+          objectPosition="center"
+          className="opacity-80"
+          priority
+          sizes="(max-width: 640px) 100vw, 100vw"
         />
       </div>
 
-      <div className="z-10 w-full max-w-3xl bg-white/70 backdrop-blur-xl p-10 rounded-2xl shadow-2xl">
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-4">Stay in the Loop</h2>
-        <p className="text-center text-gray-600 mb-8">
+      <div className="z-10 w-full max-w-lg sm:max-w-3xl bg-white/30 backdrop-blur-xl p-6 sm:p-10 rounded-2xl shadow-2xl">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center text-white mb-4">Stay in the Loop</h2>
+        <p className="text-center text-gray-700 mb-8 px-2 sm:px-0">
           Subscribe to receive updates, offers, and more!
         </p>
 
-        <form onSubmit={submitForm} className="space-y-6">
+        <form onSubmit={submitForm} className="space-y-5 sm:space-y-6">
           {/* Name */}
-          <div className="flex items-center border border-gray-300 rounded-full px-5 py-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-400">
+          <div className="flex items-center border border-gray-300 rounded-full px-4 py-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-400">
             <User className="text-gray-400 mr-3" />
             <input
               type="text"
@@ -69,12 +73,12 @@ const SubscribeLetter = () => {
               value={formData.name}
               onChange={handleChange}
               placeholder="Your Name"
-              className="w-full outline-none bg-transparent text-gray-700"
+              className="w-full outline-none bg-transparent text-gray-700 text-sm sm:text-base"
             />
           </div>
 
           {/* Phone */}
-          <div className="flex items-center border border-gray-300 rounded-full px-5 py-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-400">
+          <div className="flex items-center border border-gray-300 rounded-full px-4 py-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-400">
             <Phone className="text-gray-400 mr-3" />
             <input
               type="tel"
@@ -83,12 +87,12 @@ const SubscribeLetter = () => {
               value={formData.phone}
               onChange={handleChange}
               placeholder="Phone Number"
-              className="w-full outline-none bg-transparent text-gray-700"
+              className="w-full outline-none bg-transparent text-gray-700 text-sm sm:text-base"
             />
           </div>
 
           {/* Email */}
-          <div className="flex items-center border border-gray-300 rounded-full px-5 py-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-400">
+          <div className="flex items-center border border-gray-300 rounded-full px-4 py-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-400">
             <Mail className="text-gray-400 mr-3" />
             <input
               type="email"
@@ -97,14 +101,14 @@ const SubscribeLetter = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="Email Address"
-              className="w-full outline-none bg-transparent text-gray-700"
+              className="w-full outline-none bg-transparent text-gray-700 text-sm sm:text-base"
             />
           </div>
 
           {/* Submit */}
           <button
             type="submit"
-            className="w-full py-3 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold text-lg transition duration-300 shadow-md"
+            className="w-full py-3 rounded-full bg-yellow-500 hover:bg-red-600 text-white font-semibold text-lg transition duration-300 shadow-md"
           >
             {result}
           </button>

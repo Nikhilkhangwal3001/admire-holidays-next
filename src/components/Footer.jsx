@@ -30,6 +30,15 @@ const Footer = () => {
     fetchDestinations();
   }, []);
 
+  const links = [
+    { name: "Home", href: "/" },
+    { name: "Domestic", href: "/allstate" },
+    { name: "International", href: "/internationalpackages" },
+    { name: "About", href: "/about" },
+    { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/contact" },
+  ];
+
   return (
     <motion.footer
       initial={{ opacity: 0, y: 50 }}
@@ -63,13 +72,13 @@ const Footer = () => {
         <div>
           <h3 className="text-xl font-semibold text-yellow-400">Quick Links</h3>
           <ul className="mt-3 space-y-2">
-            {["Home", "About", "Blog", "Contact"].map((link, i) => (
+            {links.map((link, i) => (
               <li key={i}>
                 <Link
-                  href={`/${link.toLowerCase()}`}
+                  href={link.href}
                   className="text-gray-400 hover:text-white transition-all duration-300"
                 >
-                  {link}
+                  {link.name}
                 </Link>
               </li>
             ))}
@@ -132,7 +141,7 @@ const Footer = () => {
           </Link>
           <span>|</span>
           <Link href="/credit" className="hover:text-white">
-            Credits
+            Term & Conditions
           </Link>
         </div>
       </div>

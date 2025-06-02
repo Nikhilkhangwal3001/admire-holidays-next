@@ -1,67 +1,140 @@
-import React from "react";
+'use client';
+
+import { motion } from 'framer-motion';
 
 const PrivacyPolicy = () => {
+  const sections = [
+    {
+      title: 'Privacy Policy',
+      content: [
+        `At AdmireHolidays, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, disclose, and protect the information you provide to us through our website and services.`,
+        `• We may collect personal information such as your name, contact details, email address, and travel preferences when you make inquiries, bookings, or sign up for our services.`,
+        `• We use this information to personalize your experience, provide the services you request, communicate with you, and improve our offerings.`,
+        `• Your payment information is securely processed through trusted third-party payment processors, and we do not store your payment details.`
+      ]
+    },
+    {
+      title: 'Information Sharing',
+      content: [
+        `• We do not sell, trade, or rent your personal information to third parties.`,
+        `• We may share your information with trusted service providers who assist us in operating our website, conducting our business, or servicing you, as long as they agree to keep this information confidential.`,
+        `• We may also share your information when required by law or to protect our rights, property, or safety, or that of others.`
+      ]
+    },
+    {
+      title: 'Data Security',
+      content: [
+        `• We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.`,
+        `• However, no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee absolute security.`
+      ]
+    },
+    {
+      title: 'Cookies',
+      content: [
+        `• We use cookies and similar tracking technologies to enhance your browsing experience and analyze website traffic.`,
+        `• You can choose to disable cookies through your browser settings, but this may affect the functionality of our website.`
+      ]
+    },
+    {
+      title: 'Third-Party Links',
+      content: [
+        `Our website may contain links to third-party websites, which have their own privacy policies. We are not responsible for the privacy practices or content of these websites.`
+      ]
+    },
+    {
+      title: 'Updates to Privacy Policy',
+      content: [
+        `We may update this Privacy Policy from time to time, and any changes will be reflected on this page. We encourage you to review this Policy periodically.`,
+        `By using our website and services, you consent to the collection and use of your information as described in this Privacy Policy.`
+      ]
+    },
+    {
+      title: 'Terms and Conditions',
+      content: [
+        `Please read these Terms and Conditions carefully before using our website or booking our services.`
+      ]
+    },
+    {
+      title: '1. Agreement',
+      content: [
+        `By accessing or using our website, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these Terms, you may not use our website or services.`
+      ]
+    },
+    {
+      title: '2. Booking and Payments',
+      content: [
+        `• All bookings are subject to availability and confirmation.`,
+        `• Prices listed on our website are in the currency specified and are subject to change without notice.`,
+        `• Payments must be made in full at the time of booking unless otherwise specified.`
+      ]
+    },
+    {
+      title: '3. Cancellations and Refunds',
+      content: [
+        `• Cancellation policies vary depending on the service booked. Please refer to the specific terms provided at the time of booking.`,
+        `• Refunds, if applicable, will be processed in accordance with our cancellation policy.`
+      ]
+    },
+    {
+      title: '4. Intellectual Property',
+      content: [
+        `All content on our website, including text, graphics, logos, images, and software, is the property of TripToHoneymoon and is protected by copyright and other intellectual property laws.`
+      ]
+    },
+    {
+      title: '5. Limitation of Liability',
+      content: [
+        `We are not liable for any direct, indirect, incidental, special, or consequential damages arising from your use of our website or services.`
+      ]
+    },
+    {
+      title: '6. Governing Law',
+      content: [
+        `These Terms and Conditions shall be governed by and construed in accordance with the laws of India.`
+      ]
+    },
+    {
+      title: 'Contact Us',
+      content: [
+        `• Address: 34, Sewak Park (1st floor), Dwarka more metro, Near metro pillar no772, New Delhi 110059.`,
+        `• Phone: 011-40612834`,
+        `• Email: info@admireholidays.com`,
+        `• Website: https://admireholidays.com`,
+        `• Business Hours: 10:00 AM to 06:00 PM`,
+        `Thank you for choosing TripToHoneymoon. We look forward to making your honeymoon unforgettable!`
+      ]
+    }
+  ];
+
   return (
-    <section className="max-w-7xl my-20 px-5 mx-auto flex gap-20 flex-col">
-      <div className="flex flex-col gap-5">
-        <h1 className="md:text-3xl md:font-bold text-2xl font-semibold">
-          Privacy Policy
-        </h1>
-        <p>
-          At Admire Holidays, we are committed to safeguarding your privacy
-          while providing you with the best travel and tourism services. With
-          over 7 years of experience, we pride ourselves on offering seamless
-          and stress-free travel experiences for our valued customers. As you
-          explore the beautiful destinations we cover, both domestically and
-          internationally, rest assured that your privacy is of utmost
-          importance to us.
-        </p>
-        <p>
-          We collect personal information from you solely for the purpose of
-          delivering our travel services efficiently and effectively. This may
-          include details such as your name, contact information, travel
-          preferences, and payment details. We assure you that this information
-          is securely stored and only used for the purpose of fulfilling your
-          travel requirements.
-        </p>
-        <p>
-          Your personal information will not be shared, sold, or rented to any
-          third parties for marketing purposes without your explicit consent.
-          However, we may need to disclose your information to our trusted
-          partners and service providers who assist us in delivering our travel
-          services, such as airlines, hotels, tour operators, and transportation
-          providers. Rest assured, these third parties are bound by strict
-          confidentiality agreements and are only permitted to use your
-          information to fulfill the services you have requested.
-        </p>
-        <p>
-          We may also use your personal information to communicate with you
-          about your travel bookings, provide updates on our services, and
-          inform you about special offers or promotions that may be of interest
-          to you. You have the right to opt out of receiving such communications
-          at any time.
-        </p>
-        <p>
-          Furthermore, we employ industry-standard security measures to protect
-          your personal information from unauthorized access, disclosure,
-          alteration, or destruction. However, please be aware that no method of
-          transmission over the internet or electronic storage is 100% secure,
-          and we cannot guarantee absolute security.
-        </p>
-        <p>
-          By using our website and availing of our services, you consent to the
-          collection and use of your personal information as outlined in this
-          Privacy Policy. We reserve the right to update or modify this Privacy
-          Policy at any time, and any changes will be effective immediately upon
-          posting on our website.If you have any questions or concerns regarding
-          our Privacy Policy or the handling of your personal information,
-          please feel free to contact us. Your privacy and satisfaction are
-          paramount to us, and we are here to address any inquiries or feedback
-          you may have. Thank you for choosing Admire Holidays for your travel
-          needs.
-        </p>
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-5xl mx-auto px-6 py-16"
+    >
+      <div className="space-y-16">
+        {sections.map((section, index) => (
+          <motion.div
+            key={index}
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            className="bg-white shadow-md rounded-lg p-6 border border-gray-200"
+          >
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4 border-b border-blue-500 pb-2">
+              {section.title}
+            </h2>
+            <div className="space-y-3 text-gray-700">
+              {section.content.map((para, i) => (
+                <p key={i} className="leading-relaxed">{para}</p>
+              ))}
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -45,7 +45,7 @@ const SectionsWithVideoPlay = () => {
     <div className="w-full bg-gradient-to-b from-white via-[#fdf9f9] to-white">
       <div className="max-w-7xl mx-auto px-6 py-24">
         <div className="text-center mb-20">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-500 to-red-600 drop-shadow-xl">
+          <h1 className="md:text-5xl text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-rose-500 to-red-600 drop-shadow-xl">
             Ready to Be Guided to Your Next Adventure?
           </h1>
           <p className="text-xl text-[#B91C1C] mt-6 max-w-2xl mx-auto">

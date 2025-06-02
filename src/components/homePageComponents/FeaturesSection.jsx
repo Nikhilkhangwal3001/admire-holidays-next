@@ -2,123 +2,77 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  FaMountain,
-  FaPlaceOfWorship,
-  FaRegSmileBeam,
-} from "react-icons/fa";
-import { GrUserExpert } from "react-icons/gr";
-import { MdModeOfTravel, MdSentimentVerySatisfied } from "react-icons/md";
+import { FaCheck, FaPhoneAlt, FaPlane, FaInfoCircle } from "react-icons/fa";
 
-const features = [
-  {
-    icon: <GrUserExpert size={24} />,
-    title: "Unparalleled Experience",
-    desc: "Over 8 years of crafting unforgettable vacations.",
-    color: "bg-yellow-400",
-  },
-  {
-    icon: <FaPlaceOfWorship size={24} />,
-    title: "Wide Range of Destinations",
-    desc: "1000+ domestic & international locations.",
-    color: "bg-green-400",
-  },
-  {
-    icon: <MdSentimentVerySatisfied size={24} />,
-    title: "Customer Satisfaction",
-    desc: "Rated 4.9 stars by our travelers.",
-    color: "bg-blue-400",
-  },
-  {
-    icon: <MdModeOfTravel size={24} />,
-    title: "Seamless Travel",
-    desc: "Stress-free & smooth experiences guaranteed.",
-    color: "bg-red-400",
-  },
-  {
-    icon: <FaMountain size={24} />,
-    title: "Serenity in Nature",
-    desc: "Experience the beauty of Horsley Hills.",
-    color: "bg-purple-500",
-  },
-  {
-    icon: <FaRegSmileBeam size={24} />,
-    title: "Unforgettable Memories",
-    desc: "Exclusive packages for unique experiences.",
-    color: "bg-pink-500",
-  },
+const points = [
+  { icon: <FaCheck />, text: "Wide range of exclusive deals with resorts." },
+  { icon: <FaPhoneAlt />, text: "24*7 helpline support." },
+  { icon: <FaCheck />, text: "Detailed and clear package info." },
+  { icon: <FaCheck />, text: "Local support for hassle-free travel." },
+  { icon: <FaPlane />, text: "Deals on flight bookings." },
+  { icon: <FaCheck />, text: "Quick & easy booking process." },
 ];
 
-const FeaturesSection = () => {
+const CreativeWhyBook = () => {
   return (
-    <section className="relative w-full min-h-screen px-6 py-24 bg-gradient-to-b from-black to-gray-900 text-white overflow-hidden">
-      {/* Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        className="absolute inset-0 w-full h-full object-cover opacity-20 -z-10"
+    <section className="min-h-screen flex flex-col md:flex-row items-center justify-center px-6 md:px-20 py-16 gap-12 text-gray-900">
+      
+      {/* Left Side - Big Bold Message */}
+      <motion.div
+        initial={{ x: -100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="flex-1 max-w-lg"
       >
-        <source src="your-video.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+        <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+          Why <span className="underline decoration-yellow-600 decoration-4">Book</span> <br /> 
+          <span className="text-yellow-600">Admire Holidays?</span> <br /> <span className="text-4xl"></span>
+        </h1>
+        <p className="text-lg md:text-xl font-semibold max-w-md">
+          Your perfect travel starts here — exclusive deals, nonstop support, and seamless booking.
+        </p>
+      </motion.div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm -z-10" />
-
-      <div className="max-w-5xl mx-auto">
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-center text-4xl md:text-5xl font-extrabold mb-20"
-        >
-          Why Choose <span className="text-yellow-400">Admire Holidays?</span>
-        </motion.h1>
-
-        <div className="relative">
-          {/* Vertical timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-yellow-500 to-pink-500 animate-pulse rounded-full z-0" />
-
-          {features.map((feature, index) => (
+      {/* Right Side - Feature Points */}
+      <motion.div
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="flex-1 max-w-md"
+      >
+        <div className="space-y-6">
+          {points.map(({ icon, text }, idx) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.15, duration: 0.5 }}
               viewport={{ once: true }}
-              className={`relative mb-16 w-full flex flex-col md:flex-row items-center ${
-                index % 2 === 0 ? "md:justify-start" : "md:justify-end"
-              }`}
+              className="flex items-center gap-4 p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+              style={{ minHeight: "72px" }}
             >
-              {/* Content */}
-              <div
-                className={`w-full md:w-1/2 ${
-                  index % 2 === 0 ? "md:pl-16 md:pr-8" : "md:pl-8 md:pr-16"
-                }`}
-              >
-                <div className="bg-white/10 backdrop-blur-xl p-6 rounded-xl shadow-lg border border-white/10">
-                  <h3 className="text-xl font-bold mb-2 text-yellow-300">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm text-gray-200">{feature.desc}</p>
-                </div>
+              <div className="text-yellow-600 flex-shrink-0 text-2xl">
+                {icon}
               </div>
-
-              {/* Icon */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 bg-white bg-opacity-10 rounded-full shadow-lg p-3 backdrop-blur-xl z-10">
-                <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center text-white shadow-xl ring-4 ring-white/20 animate-glow-slow ${feature.color}`}
-                >
-                  {feature.icon}
-                </div>
-              </div>
+              <p className="text-lg font-medium">{text}</p>
             </motion.div>
           ))}
         </div>
-      </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: points.length * 0.15 + 0.5, duration: 0.7 }}
+          viewport={{ once: true }}
+          className="mt-8 flex items-center gap-3 border-l-4 border-yellow-600 pl-4 text-yellow-700 font-semibold"
+          style={{ minHeight: "48px" }}
+        >
+          <FaInfoCircle size={20} />
+          <span>Note: Air ticketing extra.</span>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };
 
-export default FeaturesSection;
+export default CreativeWhyBook;
