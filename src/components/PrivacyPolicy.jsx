@@ -101,7 +101,7 @@ const PrivacyPolicy = () => {
         `• Email: info@admireholidays.com`,
         `• Website: https://admireholidays.com`,
         `• Business Hours: 10:00 AM to 06:00 PM`,
-        `Thank you for choosing TripToHoneymoon. We look forward to making your honeymoon unforgettable!`
+        `Thank you for choosing Admire Holidays. We look forward to making your honeymoon unforgettable!`
       ]
     }
   ];

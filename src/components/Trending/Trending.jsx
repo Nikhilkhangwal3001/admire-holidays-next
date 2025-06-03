@@ -87,7 +87,7 @@ export default function TrendingDestinations() {
                   </Swiper>
 
                   <p className="absolute bottom-0 w-full bg-black bg-opacity-50 text-white text-center py-1 text-sm font-semibold z-10">
-                    {destination.destination}
+                    {destination.destination.split('')[0].toUpperCase()+destination.destination.split('').splice(1).map(str => str.toLowerCase()).join('')}
                   </p>
                 </div>
               </Link>

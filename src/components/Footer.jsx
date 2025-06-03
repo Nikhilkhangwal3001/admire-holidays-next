@@ -89,7 +89,7 @@ const Footer = () => {
         <div>
           <h3 className="text-xl font-semibold text-yellow-400">Trending Destinations</h3>
           {loading ? (
-            <p className="text-gray-400">Loading...</p>
+            <p className="text-gray-400 ">Loading...</p>
           ) : error ? (
             <p className="text-red-400">{error}</p>
           ) : (
@@ -98,8 +98,8 @@ const Footer = () => {
                 destinations.map((dest, i) => (
                   <li key={i}>
                     <Link href="">
-                      <span className="text-gray-400 hover:text-white transition-all duration-300 cursor-default">
-                        {dest.destination}
+                      <span className="text-gray-400  capitalize hover:text-white transition-all duration-300 cursor-default">
+                        {dest.destination.split('')[0].toUpperCase()+dest.destination.split('').splice(1).map(str => str.toLowerCase()).join('')}
                       </span>
                     </Link>
                   </li>

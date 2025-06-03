@@ -13,7 +13,6 @@ const HeroSection = () => {
         const response = await axios.get(
           "https://admiredashboard.theholistay.in/public-hero-section-videos/home"
         );
-
         if (response.data.length > 0 && response.data[0].video_url) {
           setVideoUrl(
             `https://admiredashboard.theholistay.in/${response.data[0].video_url}`
@@ -28,11 +27,14 @@ const HeroSection = () => {
 
     fetchHeroVideo();
 
-    // Open the enquiry modal on page load
-    setIsModalOpen(true);
+    // Show modal after 10 seconds
+    const timer = setTimeout(() => {
+      setIsModalOpen(true);
+    }, 10000);
+
+    return () => clearTimeout(timer); // Cleanup
   }, []);
 
-  // Close modal handler
   const closeModal = () => setIsModalOpen(false);
 
   return (
@@ -71,50 +73,53 @@ const HeroSection = () => {
       {/* Enquiry Modal */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 "
+          className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50"
           onClick={closeModal}
         >
           <div
-            className="bg-white rounded-lg p-8 w-full max-w-md relative"
-            onClick={(e) => e.stopPropagation()} // Prevent modal close on content click
+            className="bg-white rounded-xl shadow-lg p-8 w-full max-w-lg relative border border-blue-200"
+            onClick={(e) => e.stopPropagation()}
           >
             <button
-              className="absolute top-3 right-3 text-gray-700 hover:text-gray-900 font-bold text-xl"
+              className="absolute top-3 right-4 text-gray-700 hover:text-red-500 text-2xl"
               onClick={closeModal}
               aria-label="Close modal"
             >
               &times;
             </button>
-            <h2 className="text-2xl font-bold mb-6 text-center">Enquiry Form</h2>
+            <h2 className="text-3xl font-bold mb-4 text-center text-blue-700">Plan Your Journey</h2>
+            <p className="text-sm text-center mb-6 text-gray-600">
+              Get in touch with us to explore the best travel experiences!
+            </p>
             <form className="flex flex-col gap-4">
               <input
                 type="text"
                 placeholder="Your Name"
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 required
               />
               <input
                 type="email"
                 placeholder="Your Email"
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 required
               />
               <input
                 type="tel"
                 placeholder="Phone Number"
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 required
               />
               <textarea
-                placeholder="Your Message"
+                placeholder="Tell us your dream destination..."
                 rows={4}
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
               <button
                 type="submit"
-                className="bg-blue-600 text-white rounded py-2 font-semibold hover:bg-blue-700 transition"
+                className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-md py-2 font-semibold hover:from-blue-700 hover:to-cyan-600 transition"
               >
-                Submit
+                Submit Enquiry
               </button>
             </form>
           </div>
