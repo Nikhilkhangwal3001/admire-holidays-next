@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-// import Itinary from "@/app/itinerary";
+
 import Image from "next/image";
 import Gallery from "@/app/detailpage.jsx/gallery";
 import axios from "axios";
@@ -82,7 +82,7 @@ export default function ItineraryPage() {
     setError(null);
     try {
       const response = await axios.get(
-        `https://admiredashboard.theholistay.in/public-itinerary/${slug}`
+        `https://admiredashboard.theholistay.in/api/public-itinerary/${slug}`
       );
       console.log("API Response:", response.data);
       setStateData(response.data);

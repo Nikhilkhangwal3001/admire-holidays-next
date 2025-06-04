@@ -38,7 +38,7 @@ const TrendingDestination = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("https://admiredashboard.theholistay.in/public-resorts");
+        const res = await fetch("https://admiredashboard.theholistay.in/api/public-resorts");
         const data = await res.json();
         setResorts(data);
       } catch (error) {
@@ -81,7 +81,8 @@ const TrendingDestination = () => {
               <div className="keen-slider__slide" key={destination.id}>
                 <Link
                   className="w-full block h-full"
-                  href={`destination/${destination.selected_destination || destination.id}`}
+                  href={`resort-detail/${ destination.id}`}
+                  // href="/src/app/resort-detail/page.jsx"
                 >
                   <div className="h-[420px] max-w-sm flex flex-col justify-between rounded-lg shadow-lg p-2 relative bg-white transition-transform duration-300 hover:scale-105">
                     <div className="absolute top-2 left-2 bg-yellow-400 text-black font-bold px-3 py-1 rounded-md text-sm z-10">
