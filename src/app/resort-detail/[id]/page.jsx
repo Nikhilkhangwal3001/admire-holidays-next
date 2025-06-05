@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Image from 'next/image'
 
 export default function ResortDetail({ params }) {
   const [resort, setResort] = useState(null);
@@ -49,7 +50,7 @@ export default function ResortDetail({ params }) {
       {/* Image Gallery */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-8">
         <div className="lg:col-span-3">
-          <img
+          <Image
             src={`https://admiredashboard.theholistay.in/${resort.public_images[activeImageIndex]}`}
             alt={resort.title}
             className="w-full h-96 object-cover rounded-lg shadow-md"
@@ -57,7 +58,7 @@ export default function ResortDetail({ params }) {
         </div>
         <div className="grid grid-cols-3 lg:grid-cols-1 gap-4">
           {resort.public_images.map((img, index) => (
-            <img
+            <Image
               key={index}
               src={`https://admiredashboard.theholistay.in/${img}`}
               alt={`${resort.title} ${index + 1}`}
@@ -174,7 +175,7 @@ export default function ResortDetail({ params }) {
             </button>
 
             <div className="mt-4 text-center text-sm text-gray-500">
-              You won't be charged yet
+              You would not be charged yet
             </div>
 
             <div className="mt-6 pt-6 border-t border-gray-200">
