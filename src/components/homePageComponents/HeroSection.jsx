@@ -87,7 +87,7 @@ const HeroSection = () => {
             >
               &times;
             </button>
-            <h2 className="text-3xl font-bold mb-4 text-center text-blue-700">Plan Your Journey</h2>
+            <h2 className="text-3xl font-bold mb-4 text-center text-yellow-700">Plan Your Journey</h2>
             <p className="text-sm text-center mb-6 text-gray-600">
               Get in touch with us to explore the best travel experiences!
             </p>
@@ -117,7 +117,7 @@ const HeroSection = () => {
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-md py-2 font-semibold hover:from-blue-700 hover:to-cyan-600 transition"
+                className="bg-gradient-to-r from-yellow-600 to-red-500 text-white rounded-md py-2 font-semibold hover:from-yellow-700 hover:to-red-600 transition"
               >
                 Submit Enquiry
               </button>

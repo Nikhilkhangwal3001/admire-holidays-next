@@ -81,19 +81,20 @@ export default function Testimonials() {
     <section className="px-6 min-h-screen mt-32 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#CF1E27] mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#CF1E27] mb-1">
             Your trusted partner in travel and tour experiences.
           </h2>
-          <div className="w-24 h-1 bg-yellow-500 mx-auto mb-6"></div>
+          
           <p className="text-gray-600 max-w-2xl mx-auto">
             Discover the unforgettable moments we havve created for our travelers.
           </p>
+          <div className="w-24 h-1 bg-yellow-500 mx-auto mb-6"></div>
         </div>
 
         <section className="py-8 px-4">
-          <h3 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8">
+          {/* <h3 className="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-8">
             Explore Our Gallery
-          </h3>
+          </h3> */}
 
           {isLoading ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -146,7 +147,7 @@ export default function Testimonials() {
           <div className="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center z-50 p-4 backdrop-blur-sm">
             <div className="relative max-w-5xl w-full mx-4">
               <button
-                className="absolute -top-12 right-0 text-white hover:text-yellow-400 transition-colors duration-200 z-50"
+                className="absolute -top-12 right-0 mt-16 text-white hover:text-yellow-400 transition-colors duration-200 z-50"
                 onClick={closeModal}
               >
                 <X size={36} />

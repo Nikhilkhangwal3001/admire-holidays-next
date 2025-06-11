@@ -8,17 +8,24 @@ import Link from "next/link";
 import axios from "axios";
 
 const Footer = () => {
-  const [destinations, setDestinations] = useState([]);
+  const [trending, setTrending] = useState([]);
+  const [domestic, setDomestic] = useState([]);
+  const [international, setInternational] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchDestinations() {
+    async function fetchAllDestinations() {
       try {
-        const { data } = await axios.get(
-          "https://admiredashboard.theholistay.in/public-trending-destinations-images"
-        );
-        setDestinations(data);
+        const [trendingRes, domesticRes, internationalRes] = await Promise.all([
+          axios.get("https://admiredashboard.theholistay.in/public-trending-destinations-images"),
+          axios.get("https://admiredashboard.theholistay.in/public-domestic-destinations-images"),
+          axios.get("https://admiredashboard.theholistay.in/public-international-destinations-images"),
+        ]);
+
+        setTrending(trendingRes.data.slice(0, 8));
+        setDomestic(domesticRes.data.slice(0, 8));
+        setInternational(internationalRes.data.slice(0, 8));
       } catch (err) {
         setError("Failed to load destinations.");
         console.error("API Error:", err);
@@ -27,17 +34,40 @@ const Footer = () => {
       }
     }
 
-    fetchDestinations();
+    fetchAllDestinations();
   }, []);
 
   const links = [
     { name: "Home", href: "/" },
-    { name: "Domestic", href: "/allstate" },
-    { name: "International", href: "/internationalpackages" },
+    // { name: "Domestic", href: "/allstate" },
+    // { name: "International", href: "/internationalpackages" },
     { name: "About", href: "/about" },
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
   ];
+
+  const renderList = (items, type) => {
+    if (loading) return <p className="text-gray-400">Loading...</p>;
+    if (error) return <p className="text-red-400">{error}</p>;
+
+    return (
+      <ul className="mt-3 space-y-2">
+        {items.length > 0 ? (
+          items.map((dest, i) => (
+            <li key={i}>
+              <Link href={`/${type}/${dest.destination}`}>
+                <span className="text-gray-400 capitalize cursor-pointer hover:text-white transition-all duration-300">
+                  {dest.destination.charAt(0).toUpperCase() + dest.destination.slice(1).toLowerCase()}
+                </span>
+              </Link>
+            </li>
+          ))
+        ) : (
+          <p className="text-gray-400">No data available.</p>
+        )}
+      </ul>
+    );
+  };
 
   return (
     <motion.footer
@@ -49,8 +79,9 @@ const Footer = () => {
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-md -z-10"></div>
 
-      <div className="grid md:grid-cols-3 gap-10 border-b border-gray-700 pb-6">
-        {/* Left Side: Logo & Description */}
+      {/* 5 Columns */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 border-b border-gray-700 pb-6">
+        {/* Logo + About */}
         <div className="space-y-4">
           <Link href="/">
             <Image
@@ -68,7 +99,7 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Center: Quick Links */}
+        {/* Quick Links */}
         <div>
           <h3 className="text-xl font-semibold text-yellow-400">Quick Links</h3>
           <ul className="mt-3 space-y-2">
@@ -85,34 +116,26 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Right: Trending Destinations */}
+        {/* Trending */}
         <div>
-          <h3 className="text-xl font-semibold text-yellow-400">Trending Destinations</h3>
-          {loading ? (
-            <p className="text-gray-400 ">Loading...</p>
-          ) : error ? (
-            <p className="text-red-400">{error}</p>
-          ) : (
-            <ul className="mt-3 space-y-2">
-              {destinations.length > 0 ? (
-                destinations.map((dest, i) => (
-                  <li key={i}>
-                    <Link href="">
-                      <span className="text-gray-400  capitalize hover:text-white transition-all duration-300 cursor-default">
-                        {dest.destination.split('')[0].toUpperCase()+dest.destination.split('').splice(1).map(str => str.toLowerCase()).join('')}
-                      </span>
-                    </Link>
-                  </li>
-                ))
-              ) : (
-                <p className="text-gray-400">No destinations available.</p>
-              )}
-            </ul>
-          )}
+          <h3 className="text-xl font-semibold text-yellow-400">Trending</h3>
+          {renderList(trending, "trending-destination")}
+        </div>
+
+        {/* Domestic */}
+        <div>
+          <h3 className="text-xl font-semibold text-yellow-400">Domestic</h3>
+          {renderList(domestic, "trending-destination")}
+        </div>
+
+        {/* International */}
+        <div>
+          <h3 className="text-xl font-semibold text-yellow-400">International</h3>
+          {renderList(international, "trending-destination")}
         </div>
       </div>
 
-      {/* Contact Information */}
+      {/* Contact Info */}
       <div className="flex flex-col md:flex-row justify-between items-center border-b border-gray-700 py-6 text-gray-400 text-sm">
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex items-center gap-2">
