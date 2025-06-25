@@ -10,41 +10,74 @@ import Link from "next/link";
 const TrendingDestination = () => {
   const [destinations, setDestinations] = useState([]);
   const [currentImages, setCurrentImages] = useState({});
+  const [isHovered, setIsHovered] = useState(false);
+  const [itineraryCounts, setItineraryCounts] = useState({});
 
-  // Initialize Keen Slider with autoplay functionality
-  const [sliderRef] = useKeenSlider({
-    loop: true,
-    slides: {
-      perView: 3,
-      spacing: 16,
-    },
-    breakpoints: {
-      "(max-width: 1024px)": {
-        slides: { perView: 2, spacing: 12 },
+  // Keen Slider initialization
+  const [sliderRef] = useKeenSlider(
+    {
+      loop: true,
+      slides: {
+        origin: "center",
+        perView: 3,
+        spacing: 16,
       },
-      "(max-width: 768px)": {
-        slides: { perView: 1, spacing: 10 },
+      breakpoints: {
+        "(max-width: 1024px)": {
+          slides: { perView: 2, spacing: 12 },
+        },
+        "(max-width: 768px)": {
+          slides: { perView: 1, spacing: 10 },
+        },
       },
     },
-    // Autoplay configuration
-    autoplay: {
-      delay: 3000,  // Delay of 3 seconds between slides
-      pauseOnHover: true,  // Pause autoplay when hovered
-    },
-  });
+    [
+      (slider) => {
+        let timeout;
+        const autoplay = () => {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            slider.next();
+          }, 3000);
+        };
+        slider.on("created", autoplay);
+        slider.on("dragStarted", () => clearTimeout(timeout));
+        slider.on("animationEnded", autoplay);
+        slider.on("updated", autoplay);
+      },
+    ]
+  );
 
   useEffect(() => {
-    axios
-      .get(
-        "https://admiredashboard.theholistay.in/public-domestic-destinations-images"
-      )
-      .then((res) => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          "https://admiredashboard.theholistay.in/public-domestic-destinations-images"
+        );
         setDestinations(res.data);
-      })
-      .catch((err) => console.error("Error fetching destinations:", err));
+        
+        // Fetch counts for all destinations in parallel
+        const countPromises = res.data.map(item => 
+          axios.get(`https://admiredashboard.theholistay.in/public-itineraries/${item.destination}`)
+            .then(res => ({
+              [item.destination]: res.data.length
+            }))
+            .catch(() => ({
+              [item.destination]: item.itineraries_count // Fallback to original count
+            }))
+        );
+        
+        const counts = await Promise.all(countPromises);
+        setItineraryCounts(Object.assign({}, ...counts));
+        
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  // Auto-reflect images one at a time
   useEffect(() => {
     const intervals = destinations.map((item, index) => {
       let currentIndex = 0;
@@ -54,13 +87,11 @@ const TrendingDestination = () => {
           ...prev,
           [index]: currentIndex,
         }));
-      }, 2000); // Change image every 2 seconds
+      }, 2000);
       return interval;
     });
 
-    return () => {
-      intervals.forEach(clearInterval); // Cleanup intervals on unmount
-    };
+    return () => intervals.forEach(clearInterval);
   }, [destinations]);
 
   return (
@@ -74,31 +105,35 @@ const TrendingDestination = () => {
           {destinations.map((item, index) => (
             <div key={index} className="keen-slider__slide">
               <Link href={`trending-destination/${item.destination}`}>
-                <div className="bg-white rounded-xl shadow-md overflow-hidden p-4 h-[400px] flex flex-col justify-between hover:shadow-lg transition-all duration-300 cursor-pointer">
-                  
-                  {/* Auto-reflecting image (one at a time) */}
+                <div 
+                  className="bg-white rounded-xl shadow-md overflow-hidden p-4 h-[400px] flex flex-col justify-between hover:shadow-lg transition-all duration-300 cursor-pointer"
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  {/* Image with itinerary count in center */}
                   <div className="relative w-full h-48 rounded-md overflow-hidden">
                     {item.public_images.length > 0 && (
-                      <Image
-                        src={`https://admiredashboard.theholistay.in/${item.public_images[currentImages[index] || 0]}`}
-                        alt={item.destination}
-                        fill
-                        className="object-cover"
-                      />
+                      <>
+                        <Image
+                          src={`https://admiredashboard.theholistay.in/${item.public_images[currentImages[index] || 0]}`}
+                          alt={item.destination}
+                          fill
+                          className="object-cover"
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="bg-black bg-opacity-50 text-white text-lg font-bold px-3 py-1 rounded-full">
+                            {itineraryCounts[item.destination] ?? item.itineraries_count}
+                          </span>
+                        </div>
+                      </>
                     )}
                   </div>
 
-                  {/* Destination Info */}
-                  <div className="mt-4 space-y-1">
-                    <h3 className="font-bold text-lg text-[#261F43] truncate">
+                  {/* Centered title */}
+                  <div className="mt-4 text-center">
+                    <h3 className="font-bold text-lg text-[#261F43]">
                       {item.destination}
                     </h3>
-                    <p className="text-sm text-gray-700">
-                      Category: {item.domestic_or_international}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      Itineraries: {item.itineraries_count}
-                    </p>
                   </div>
 
                   {/* Call & Button */}
@@ -106,7 +141,11 @@ const TrendingDestination = () => {
                     <div className="flex items-center gap-2 text-red-600 font-semibold text-2xl">
                       <FaPhoneAlt />
                     </div>
-                    <button className="bg-red-600 w-full text-white ml-3 px-4 py-2 text-sm rounded-md">
+                    <button 
+                      className={`w-full text-white ml-3 px-4 py-2 text-sm rounded-md transition-colors ${
+                        isHovered ? 'bg-[#261F43]' : 'bg-red-600'
+                      }`}
+                    >
                       Know More
                     </button>
                   </div>

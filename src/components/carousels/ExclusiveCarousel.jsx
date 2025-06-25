@@ -15,15 +15,51 @@ const TrendingDestination = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Initialize the KeenSlider hook
-  const [sliderRef, instanceRef] = useKeenSlider({
-    loop: true,
-    slides: { perView: 1, spacing: 10 },
-    breakpoints: {
-      "(min-width: 768px)": { slides: { perView: 2, spacing: 10 } },
-      "(min-width: 1024px)": { slides: { perView: 3, spacing: 15 } },
+  // Updated KeenSlider initialization
+  const [sliderRef, instanceRef] = useKeenSlider(
+    {
+      loop: true,
+      mode: "snap",
+      slides: {
+        perView: 1,
+        spacing: 10,
+      },
+      breakpoints: {
+        "(min-width: 768px)": {
+          slides: {
+            perView: 2,
+            spacing: 10,
+          },
+        },
+        "(min-width: 1024px)": {
+          slides: {
+            perView: 3,
+            spacing: 15,
+          },
+        },
+      },
     },
-  });
+    [
+      (slider) => {
+        let timeout;
+        function clearNextTimeout() {
+          clearTimeout(timeout);
+        }
+        function nextTimeout() {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            slider.next();
+          }, 5000);
+        }
+        slider.on("created", () => {
+          nextTimeout();
+        });
+        slider.on("dragStarted", clearNextTimeout);
+        slider.on("animationEnded", nextTimeout);
+        slider.on("updated", nextTimeout);
+      },
+    ]
+  );
 
   useEffect(() => {
     async function fetchDestinations() {
@@ -40,16 +76,6 @@ const TrendingDestination = () => {
     }
     fetchDestinations();
   }, []);
-
-  useEffect(() => {
-    if (instanceRef.current) {
-      const autoSlideInterval = setInterval(() => {
-        instanceRef.current?.next();
-      }, 5000);
-      
-      return () => clearInterval(autoSlideInterval); // Clean up interval on unmount
-    }
-  }, [instanceRef]);
 
   return (
     <section className="mb-6 py-10">

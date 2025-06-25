@@ -1,5 +1,5 @@
 import { useItenaryContext } from "@/context/itenary-details/ItenaryDetailsContext";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import TripHiglightsRightSection from "./TripHiglightsRightSection";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -14,14 +14,43 @@ import {
 import Image from "next/image";
 
 function TripHiglightsLeftSection() {
-  const {itenaryDetails} = useItenaryContext();
+  const { itenaryDetails } = useItenaryContext();
   const [charLimit] = useState(300);
   const [isExpanded, setIsExpanded] = useState(false);
   const [show, setShow] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [openIndex, setOpenIndex] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  
+  // Get images from itenaryDetails or use empty array as fallback
+  const images = itenaryDetails?.images || [];
+
   const fullContent = itenaryDetails?.destination_detail || "";
   const shortContent = fullContent.slice(0, charLimit);
+
+  // Toggle read more/less
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  // Scroll to section smoothly
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  // Toggle FAQ accordion
+  const toggleFAQ = (index) => {
+    setOpenIndex(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index) 
+        : [...prev, index]
+    );
+  };
+
   return (
     <div className="flex-1 p-4">
       <h2 className="md:text-3xl text-2xl font-semibold mt-14 text-gray-900 capitalize mb-8 tracking-wide relative before:absolute before:-left-4 before:top-1/2 before:w-2 before:h-10 before:bg-red-600 before:-translate-y-1/2">
@@ -58,13 +87,12 @@ function TripHiglightsLeftSection() {
         </p>
       </div>
 
-
       {/* Horizontal Filter */}
       <div className="flex flex-wrap justify-center items-center border border-gray-300">
         <div className="flex divide-x divide-gray-300 text-sm text-gray-800 text-center overflow-x-auto scrollbar-hide">
           <div
             onClick={() => setShow(!show)}
-            className="cursor-pointer px-3 py-1 hover:bg-gray-100 whitespace-nowrap"
+            className={`cursor-pointer px-3 py-1 hover:bg-gray-100 whitespace-nowrap ${show ? "bg-gray-200" : ""}`}
           >
             {show ? "Hide" : "Tour"} Details
           </div>
@@ -112,20 +140,18 @@ function TripHiglightsLeftSection() {
           </div>
         </div>
       </div>
+
       {show && (
         <section
           id="meals"
           className="flex justify-center items-center px-4 py-16 bg-white"
         >
           <div className="w-full max-w-9xl border-l-4 border-yellow-500 pl-6">
-            {/* Heading */}
             <h3 className="text-3xl font-bold text-gray-900 mb-12 border-b pb-4 border-gray-200">
               Tour Details
             </h3>
 
-            {/* Info Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-800 mb-12">
-              {/* Duration */}
               <div>
                 <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
                   Duration
@@ -133,7 +159,6 @@ function TripHiglightsLeftSection() {
                 <p className="text-base">{itenaryDetails.duration || "N/A"}</p>
               </div>
 
-              {/* Pricing */}
               <div>
                 <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
                   Pricing
@@ -145,11 +170,10 @@ function TripHiglightsLeftSection() {
                   {itenaryDetails.pricing || "N/A"}
                 </p>
               </div>
-              {/* Modal */}
+
               {showModal && (
                 <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
                   <div className="bg-white w-full max-w-md mx-auto p-6 rounded-lg shadow-lg relative">
-                    {/* Close Button */}
                     <button
                       onClick={() => setShowModal(false)}
                       className="absolute top-2 right-3 text-2xl text-gray-600 hover:text-red-500"
@@ -157,12 +181,10 @@ function TripHiglightsLeftSection() {
                       &times;
                     </button>
 
-                    {/* Form Heading */}
                     <h2 className="text-xl font-semibold mb-4 text-center">
                       Enquiry Form
                     </h2>
 
-                    {/* Form */}
                     <form className="space-y-4">
                       <input
                         type="text"
@@ -196,7 +218,6 @@ function TripHiglightsLeftSection() {
                 </div>
               )}
 
-              {/* Type */}
               <div>
                 <h4 className="text-lg font-semibold border-b-2 border-yellow-400 mb-2 pb-1">
                   Type
@@ -209,19 +230,17 @@ function TripHiglightsLeftSection() {
           </div>
         </section>
       )}
-      {/* <section className="max-w-9xl"> */}
+
       <div
         id="itinerary"
-        className="  px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6"
+        className="px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-6"
       >
-        {/* Left Side - Trip Details */}
         <div className="md:col-span-2 md:w-[1000px]">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
               Trip Itinerary
             </h2>
 
-            {/* Display "Expand On" button only if backend data exists */}
             {itenaryDetails.days_information?.length > 0 && (
               <button
                 onClick={() => {
@@ -229,6 +248,7 @@ function TripHiglightsLeftSection() {
                     setOpenIndex([]);
                     setShowAll(false);
                   } else {
+                    setOpenIndex(itenaryDetails.days_information.map((_, index) => index));
                     setShowAll(true);
                   }
                 }}
@@ -242,7 +262,6 @@ function TripHiglightsLeftSection() {
           {itenaryDetails.days_information?.length > 0 ? (
             itenaryDetails.days_information.map((day, index) => (
               <div key={index} className="mb-6 border-b border-gray-300 pb-4">
-                {/* Accordion Button */}
                 <button
                   onClick={() => toggleFAQ(index)}
                   className="w-full text-left flex justify-between items-center py-3 px-4 bg-gray-100 rounded-md shadow hover:bg-gray-200"
@@ -254,14 +273,12 @@ function TripHiglightsLeftSection() {
                     : {day.title}
                   </h6>
                   <span className="text-gray-600 text-sm">
-                    {openIndex === index ? "▲" : "▼"}
+                    {openIndex.includes(index) ? "▲" : "▼"}
                   </span>
                 </button>
 
-                {/* Show Detail + Images only when open or if showAll is true */}
-                {(openIndex?.includes(index) || showAll) && (
+                {(openIndex.includes(index) || showAll) && (
                   <>
-                    {/* Detail Text */}
                     <div className="p-4 bg-gray-50 border-l-4 border-blue-500 rounded-lg shadow mt-4">
                       <p className="text-gray-700">
                         <strong>Destination:</strong>{" "}
@@ -277,7 +294,6 @@ function TripHiglightsLeftSection() {
                       </p>
                     </div>
 
-                    {/* Image Slider */}
                     <div className="rounded-lg shadow-lg mt-4">
                       {images.length > 0 ? (
                         <Swiper
@@ -332,7 +348,8 @@ function TripHiglightsLeftSection() {
           )}
         </div>
       </div>
-      {/* </section> */}
+
+      {/* Rest of the sections with full implementation */}
       <div className="flex flex-col">
         <section id="tour-info" className="px-4 py-16 bg-gray-100">
           <section
@@ -346,75 +363,62 @@ function TripHiglightsLeftSection() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 md:gap-x-20">
                 {/* Inclusions Section */}
-                {itenaryDetails.inclusion && <div className="relative pl-10">
-                  <div className="absolute left-0 top-2 w-1 h-full bg-gradient-to-b from-green-400 to-green-600 rounded-full"></div>
-                  <div className="flex items-center mb-6">
-                    <span className="text-green-500 text-3xl mr-4">✅</span>
-                    <h3 className="text-2xl font-semibold text-gray-800">
-                      What’s Included
-                    </h3>
-                  </div>
-                  <div className="text-gray-700 text-lg leading-relaxed space-y-2 text-justify">
-                    {itenaryDetails.inclusion ? (
+                {itenaryDetails.inclusion && (
+                  <div className="relative pl-10">
+                    <div className="absolute left-0 top-2 w-1 h-full bg-gradient-to-b from-green-400 to-green-600 rounded-full"></div>
+                    <div className="flex items-center mb-6">
+                      <span className="text-green-500 text-3xl mr-4">✅</span>
+                      <h3 className="text-2xl font-semibold text-gray-800">
+                        What{"'"}s Included
+                      </h3>
+                    </div>
+                    <div className="text-gray-700 text-lg leading-relaxed space-y-2 text-justify">
                       <span
                         dangerouslySetInnerHTML={{
                           __html: itenaryDetails.inclusion,
                         }}
                       />
-                    ) : (
-                      <span className="text-gray-500 italic">
-                        No description available
-                      </span>
-                    )}
+                    </div>
                   </div>
-                </div>}
+                )}
 
                 {/* Exclusions Section */}
-                {itenaryDetails.exclusion && <div className="relative pl-10">
-                  <div className="absolute left-0 top-2 w-1 h-full bg-gradient-to-b from-red-400 to-red-600 rounded-full"></div>
-                  <div className="flex items-center mb-6">
-                    <span className="text-red-500 text-3xl mr-4">❌</span>
-                    <h3 className="text-2xl font-semibold text-gray-800">
-                      What’s Excluded
-                    </h3>
-                  </div>
-                  <div className="text-gray-700 text-lg leading-relaxed space-y-2 text-justify">
-                    {itenaryDetails.exclusion ? (
+                {itenaryDetails.exclusion && (
+                  <div className="relative pl-10">
+                    <div className="absolute left-0 top-2 w-1 h-full bg-gradient-to-b from-red-400 to-red-600 rounded-full"></div>
+                    <div className="flex items-center mb-6">
+                      <span className="text-red-500 text-3xl mr-4">❌</span>
+                      <h3 className="text-2xl font-semibold text-gray-800">
+                        What{"'"}s Excluded
+                      </h3>
+                    </div>
+                    <div className="text-gray-700 text-lg leading-relaxed space-y-2 text-justify">
                       <span
                         dangerouslySetInnerHTML={{
                           __html: itenaryDetails.exclusion,
                         }}
                       />
-                    ) : (
-                      <span className="text-gray-500 italic">
-                        No description available
-                      </span>
-                    )}
+                    </div>
                   </div>
-                </div>}
+                )}
               </div>
             </div>
           </section>
 
-          {/* Additional Inclusion */}
-          {itenaryDetails.additional_inclusion && <div className="bg-white rounded-xl shadow-md p-8 mb-8 transition hover:shadow-lg max-w-9xl mx-auto">
-            <h3 className="text-2xl font-semibold text-yellow-600 mb-4">
-              Additional Inclusion
-            </h3>
-            <div className="text-gray-700 leading-relaxed text-justify text-base">
-              {itenaryDetails.additional_inclusion ? (
+          {itenaryDetails.additional_inclusion && (
+            <div className="bg-white rounded-xl shadow-md p-8 mb-8 transition hover:shadow-lg max-w-9xl mx-auto">
+              <h3 className="text-2xl font-semibold text-yellow-600 mb-4">
+                Additional Inclusion
+              </h3>
+              <div className="text-gray-700 leading-relaxed text-justify text-base">
                 <span
                   dangerouslySetInnerHTML={{
                     __html: itenaryDetails.additional_inclusion,
                   }}
                 />
-              ) : (
-                <span className="text-gray-500 italic">
-                  No description available
-                </span>
-              )}
+              </div>
             </div>
-          </div>}
+          )}
         </section>
 
         <section
@@ -422,12 +426,10 @@ function TripHiglightsLeftSection() {
           className="flex flex-col px-4 py-10 bg-gray-50"
         >
           <div className="p-6 sm:p-10 bg-white rounded-3xl shadow-2xl border-l-8 border-indigo-500">
-            {/* Section Heading */}
             <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-8 text-center border-b-4 pb-4 border-indigo-300">
               Accommodation Information
             </h3>
 
-            {/* Hotel Details */}
             <div className="p-6 sm:p-8 bg-gray-100 rounded-2xl shadow-lg mb-8 border-l-8 border-yellow-400 transition-transform hover:scale-[1.02]">
               <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
                 Hotel Details
@@ -449,15 +451,12 @@ function TripHiglightsLeftSection() {
           </div>
         </section>
 
-        {/* Payment Section */}
         <section id="payment" className="flex flex-col px-4 py-10 bg-gray-50">
           <div className="p-6 sm:p-10 bg-white rounded-3xl shadow-2xl border-l-8 border-red-500">
-            {/* Section Heading */}
             <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-8 text-center border-b-4 pb-4 border-red-300">
               Payment Information
             </h3>
 
-            {/* Payment Mode Block */}
             <div className="p-6 sm:p-8 bg-gray-100 rounded-2xl shadow-lg border-l-8 border-yellow-500 transition-transform hover:scale-[1.02]">
               <h4 className="text-xl md:text-2xl font-semibold text-yellow-700 mb-4 border-b-2 pb-3 border-yellow-300">
                 Payment Mode
@@ -484,12 +483,9 @@ function TripHiglightsLeftSection() {
           className="flex flex-col px-4 py-10 bg-gray-50"
         >
           <div className="p-6 sm:p-10 bg-gradient-to-br from-red-100 to-white rounded-3xl shadow-2xl border-l-8 border-red-500 w-full max-w-9xl mx-auto">
-            {/* Heading */}
             <h2 className="text-xl md:text-2xl font-extrabold text-red-700 mb-6 border-b-4 border-red-300 pb-4 text-center">
               Cancellation Policy
             </h2>
-
-            {/* Policy Description */}
             <p className="text-gray-800 text-base md:text-lg leading-relaxed">
               {itenaryDetails.cancellation_policy ? (
                 <span
@@ -505,14 +501,13 @@ function TripHiglightsLeftSection() {
             </p>
           </div>
         </section>
+
         <section id="term" className="flex flex-col p-6 sm:p-10 bg-gray-100">
           <div className="bg-white p-6 sm:p-10 rounded-3xl shadow-2xl border-t-8 border-yellow-500">
-            {/* Main Heading */}
             <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-8 border-b-4 pb-4 border-red-300">
               Important Information
             </h3>
 
-            {/* Terms & Conditions */}
             <div className="p-6 sm:p-8 rounded-2xl shadow-lg border-l-8 border-red-400 transition-transform hover:scale-[1.02] mb-8 bg-white">
               <h4 className="text-xl md:text-2xl font-semibold text-red-700 mb-4 border-b-2 pb-3 border-red-300">
                 Terms & Conditions
@@ -549,6 +544,7 @@ function TripHiglightsLeftSection() {
           </div>
         </section>
       </div>
+
     </div>
   );
 }
