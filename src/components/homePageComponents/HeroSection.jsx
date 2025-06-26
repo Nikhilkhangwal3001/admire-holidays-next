@@ -6,6 +6,7 @@ const HeroSection = () => {
   const [videoUrl, setVideoUrl] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formStatus, setFormStatus] = useState({ success: false, message: "" });
 
   useEffect(() => {
     const fetchHeroVideo = async () => {
@@ -35,7 +36,51 @@ const HeroSection = () => {
     return () => clearTimeout(timer); // Cleanup
   }, []);
 
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setFormStatus({ success: false, message: "" }); // Reset form status when closing
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const formValues = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch(
+        "https://admiredashboard.theholistay.in/api/submit-form",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formValues),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setFormStatus({
+          success: true,
+          message: "Thank you! Our team will contact you soon.",
+        });
+        // Reset form
+        e.target.reset();
+      } else {
+        setFormStatus({
+          success: false,
+          message: data.message || "Submission failed. Please try again.",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setFormStatus({
+        success: false,
+        message: "An error occurred. Please try again later.",
+      });
+    }
+  };
 
   return (
     <>
@@ -87,41 +132,66 @@ const HeroSection = () => {
             >
               &times;
             </button>
-            <h2 className="text-3xl font-bold mb-4 text-center text-yellow-700">Plan Your Journey</h2>
-            <p className="text-sm text-center mb-6 text-gray-600">
-              Get in touch with us to explore the best travel experiences!
-            </p>
-            <form className="flex flex-col gap-4">
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                required
-              />
-              <input
-                type="tel"
-                placeholder="Phone Number"
-                className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                required
-              />
-              <textarea
-                placeholder="Tell us your dream destination..."
-                rows={4}
-                className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-              <button
-                type="submit"
-                className="bg-gradient-to-r from-yellow-600 to-red-500 text-white rounded-md py-2 font-semibold hover:from-yellow-700 hover:to-red-600 transition"
-              >
-                Submit Enquiry
-              </button>
-            </form>
+
+            {formStatus.message ? (
+              <div className={`text-center py-4 ${formStatus.success ? "text-green-600" : "text-red-600"}`}>
+                <h2 className="text-2xl font-bold mb-2">
+                  {formStatus.success ? "Thank You!" : "Oops!"}
+                </h2>
+                <p>{formStatus.message}</p>
+                <button
+                  onClick={closeModal}
+                  className="mt-4 bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600 transition"
+                >
+                  Close
+                </button>
+              </div>
+            ) : (
+              <>
+                <h2 className="text-3xl font-bold mb-4 text-center text-yellow-700">Plan Your Journey</h2>
+                <p className="text-sm text-center mb-6 text-gray-600">
+                  Get in touch with us to explore the best travel experiences!
+                </p>
+                <form 
+                  className="flex flex-col gap-4" 
+                  onSubmit={handleSubmit}
+                >
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    required
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    required
+                  />
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    required
+                  />
+                  <textarea
+                    placeholder="Tell us your dream destination..."
+                    rows={4}
+                    name="destination"
+                    className="border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-gradient-to-r from-yellow-600 to-red-500 text-white rounded-md py-2 font-semibold hover:from-yellow-700 hover:to-red-600 transition"
+                  >
+                    Submit Enquiry
+                  </button>
+                </form>
+              </>
+            )}
           </div>
         </div>
       )}

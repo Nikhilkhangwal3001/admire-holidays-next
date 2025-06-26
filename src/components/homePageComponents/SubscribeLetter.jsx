@@ -10,6 +10,7 @@ const SubscribeLetter = () => {
     phone: "",
     email: "",
   });
+  const [showPopup, setShowPopup] = useState(false);
 
   const submitForm = async (event) => {
     event.preventDefault();
@@ -18,20 +19,27 @@ const SubscribeLetter = () => {
     const formDataObj = new FormData(event.target);
     formDataObj.append("access_key", "c1e1dd01-589b-418d-b6bd-0ba7c09dfde5");
 
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formDataObj,
-    });
+    try {
+      const response = await fetch("https://admiredashboard.theholistay.in/api/submit-form", {
+        method: "POST",
+        body: formDataObj,
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data.success) {
-      setResult("Subscribed ✅");
-      event.target.reset();
-      setFormData({ name: "", phone: "", email: "" });
-    } else {
-      console.error("Error:", data);
-      setResult(data.message || "Subscription Failed");
+      if (data.success) {
+        setResult("Subscribed ✅");
+        event.target.reset();
+        setFormData({ name: "", phone: "", email: "" });
+        setShowPopup(true);
+        setTimeout(() => setShowPopup(false), 3000); // Auto-close after 3 seconds
+      } else {
+        console.error("Error:", data);
+        setResult(data.message || "Subscription Failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setResult("Subscription Failed");
     }
   };
 
@@ -40,9 +48,13 @@ const SubscribeLetter = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
-    <section className="relative w-full min-h-screen  flex items-center justify-center px-4 py-16 sm:py-20">
-      {/* Background image container with responsive layout */}
+    <section className="relative w-full min-h-screen flex items-center justify-center px-4 py-16 sm:py-20">
+      {/* Background image */}
       <div className="absolute inset-0 -z-10">
         <Image
           src="/formbackground.png"
@@ -56,6 +68,7 @@ const SubscribeLetter = () => {
         />
       </div>
 
+      {/* Form container */}
       <div className="z-10 w-full max-w-lg sm:max-w-3xl bg-white/30 backdrop-blur-xl p-6 sm:p-10 rounded-2xl shadow-2xl">
         <h2 className="text-3xl sm:text-4xl font-bold text-center text-white mb-4">Stay in the Loop</h2>
         <p className="text-center text-gray-700 mb-8 px-2 sm:px-0">
@@ -63,7 +76,7 @@ const SubscribeLetter = () => {
         </p>
 
         <form onSubmit={submitForm} className="space-y-5 sm:space-y-6">
-          {/* Name */}
+          {/* Name field */}
           <div className="flex items-center border border-gray-300 rounded-full px-4 py-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-400">
             <User className="text-gray-400 mr-3" />
             <input
@@ -77,7 +90,7 @@ const SubscribeLetter = () => {
             />
           </div>
 
-          {/* Phone */}
+          {/* Phone field */}
           <div className="flex items-center border border-gray-300 rounded-full px-4 py-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-400">
             <Phone className="text-gray-400 mr-3" />
             <input
@@ -91,7 +104,7 @@ const SubscribeLetter = () => {
             />
           </div>
 
-          {/* Email */}
+          {/* Email field */}
           <div className="flex items-center border border-gray-300 rounded-full px-4 py-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-red-400">
             <Mail className="text-gray-400 mr-3" />
             <input
@@ -105,7 +118,7 @@ const SubscribeLetter = () => {
             />
           </div>
 
-          {/* Submit */}
+          {/* Submit button */}
           <button
             type="submit"
             className="w-full py-3 rounded-full bg-yellow-500 hover:bg-red-600 text-white font-semibold text-lg transition duration-300 shadow-md"
@@ -114,6 +127,51 @@ const SubscribeLetter = () => {
           </button>
         </form>
       </div>
+
+      {/* Success Popup */}
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 animate-fadeIn">
+          <div className="bg-white rounded-xl p-8 max-w-sm w-full mx-4 relative animate-scaleIn">
+            <button
+              onClick={closePopup}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition"
+              aria-label="Close popup"
+            >
+              ✕
+            </button>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  className="w-8 h-8 text-green-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">
+                Thank You!
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Our team will contact you soon.
+              </p>
+              <button
+                onClick={closePopup}
+                className="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-full transition"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
