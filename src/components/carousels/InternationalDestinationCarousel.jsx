@@ -17,7 +17,7 @@ const InternationalDestinationGrid = () => {
   const [error, setError] = useState(null);
   const [visibleDestinations, setVisibleDestinations] = useState(9); // Initial limit to 9
 
-  useEffect(() => {
+ useEffect(() => {
     AOS.init({ duration: 1000, once: true });
 
     const fetchDestinations = async () => {
@@ -27,7 +27,10 @@ const InternationalDestinationGrid = () => {
 
         // Ensure data.data exists and is an array before setting state
         if (Array.isArray(data)) {
-          setDestinations(data);
+          setDestinations(data.filter((destination) =>  {
+            if(destination.destination_type.includes('international')) return  true;
+            return  false;
+          }));
         } else {
           setError("Data is not in the expected format");
         }

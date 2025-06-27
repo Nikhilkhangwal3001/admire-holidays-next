@@ -22,14 +22,17 @@ const TrendingDestination = () => {
     async function fetchData() {
       try {
         const res = await axios.get(API_URL);
-        setDestinations(res.data);
+        setDestinations(res.data.filter((destination)  => {
+          if(destination.destination_type.includes('domestic'))return true;
+          return  false; 
+        }));
       } catch (error) {
         console.error("Error fetching destinations:", error);
       }
     }
     fetchData();
   }, []);
-
+  
   // Main carousel
   useEffect(() => {
     if (sliderRef.current && destinations.length > 0 && !keenRef.current) {
