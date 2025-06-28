@@ -8,29 +8,28 @@ import "aos/dist/aos.css";
 import Image from "next/image";
 import conf from "../../../conf/conf";
 
-// Updated API URL
 const API_URL = "https://admiredashboard.theholistay.in/public-international-destinations-images";
 
 const InternationalDestinationGrid = () => {
-  const [destinations, setDestinations] = useState([]); // Default to an empty array
+  const [allDestinations, setAllDestinations] = useState([]);
+  const [displayedDestinations, setDisplayedDestinations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [visibleDestinations, setVisibleDestinations] = useState(9); // Initial limit to 9
+  const [visibleDestinations, setVisibleDestinations] = useState(9);
 
- useEffect(() => {
+  useEffect(() => {
     AOS.init({ duration: 1000, once: true });
 
     const fetchDestinations = async () => {
       try {
         const { data } = await axios.get(API_URL);
-        console.log("Fetched Destinations:", data);
-
-        // Ensure data.data exists and is an array before setting state
+        
         if (Array.isArray(data)) {
-          setDestinations(data.filter((destination) =>  {
-            if(destination.destination_type.includes('international')) return  true;
-            return  false;
-          }));
+          const internationalDests = data.filter((destination) => 
+            destination.destination_type.includes('international')
+          );
+          setAllDestinations(internationalDests);
+          setDisplayedDestinations(internationalDests.slice(0, visibleDestinations));
         } else {
           setError("Data is not in the expected format");
         }
@@ -44,8 +43,24 @@ const InternationalDestinationGrid = () => {
     fetchDestinations();
   }, []);
 
+  useEffect(() => {
+    if (allDestinations.length === 0) return;
+
+    const interval = setInterval(() => {
+      setDisplayedDestinations(prev => {
+        // Create a new array with different destinations
+        const shuffled = [...allDestinations]
+          .sort(() => 0.5 - Math.random())
+          .slice(0, visibleDestinations);
+        return shuffled;
+      });
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [allDestinations, visibleDestinations]);
+
   const handleExploreMore = () => {
-    setVisibleDestinations((prevVisible) => prevVisible + 9); // Show 9 more cards
+    setVisibleDestinations((prevVisible) => prevVisible + 9);
   };
 
   return (
@@ -67,12 +82,12 @@ const InternationalDestinationGrid = () => {
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {destinations.slice(0, visibleDestinations).map((item, i) => (
-                <DestinationCard key={i} item={item} />
+              {displayedDestinations.map((item) => (
+                <DestinationCard key={item.id} item={item} />
               ))}
             </div>
 
-            {visibleDestinations < destinations.length && (
+            {visibleDestinations < allDestinations.length && (
               <div className="text-center mt-8">
                 <button
                   onClick={handleExploreMore}
@@ -96,15 +111,16 @@ const DestinationCard = ({ item }) => {
     if (!item.public_images || item.public_images.length === 0) return;
 
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % item.public_images.length);
-    }, 3000);
+      setCurrentImageIndex((prevIndex) => 
+        (prevIndex + 1) % item.public_images.length
+      );
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [item.public_images]);
 
   return (
     <Link
-      key={item.id}
       href={`trending-destination/${item.destination}` || "#"}
       className="group relative"
       data-aos="fade-up"
@@ -120,7 +136,7 @@ const DestinationCard = ({ item }) => {
             priority
           />
 
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center  transition-opacity duration-300">
+          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center transition-opacity duration-300">
             <h3 className="text-white text-lg font-bold tracking-wide">{item.destination}</h3>
           </div>
         </div>
